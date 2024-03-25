@@ -3,7 +3,7 @@ title: "Discovery of Network Rate-Limit Policies in Router Advertisements"
 abbrev: "Rate-Limit Policies in RAs"
 category: std
 
-docname: draft-xxx-ac-rate-policy-discovery-latest
+docname: draft-brw-ac-rate-policy-discovery-latest
 submissiontype: IETF
 number:
 date:
@@ -20,6 +20,17 @@ author:
     fullname: Mohamed Boucadair
     organization: Orange
     email: mohamed.boucadair@orange.com
+ -
+    fullname: Tirumaleswar Reddy
+    organization: Nokia
+    country: India
+    email: kondtir@gmail.com
+ -
+    fullname: Dan Wing
+    organization: Cloud Software Group Holdings, Inc.
+    abbrev: Cloud Software Group
+    country: United States of America
+    email: danwing@gmail.com
 
 normative:
 
