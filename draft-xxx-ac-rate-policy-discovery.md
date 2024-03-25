@@ -68,8 +68,10 @@ also advertize other information to connected hosts such as:
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
 : {{Section 2.10 of ?RFC7066}} indicates that a cellular host should honor the MTU option in the Router Advertisement ({{Section 4.6.4 of !RFC4861}}) given that the 3GPP system
 architecture uses extensive tunneling in its packet core network below the 3GPP link, and this may lead to packet fragmentation issues.
+
 * Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 servers (NAT64) {{?RFC8781}}:
 : This option is useful to enable local DNSSEC validation, support networks with no DNS64, support IPv4 address literals on an IPv6-only host, etc.
+
 * Encrypted DNS option {{?RFC9463}} to discover encrypted DNS resolvers of a local network.
 
 {{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document  specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. The motivation for the use of ND for such a discovery is listed in {{Section 3 of ?RFC8781}}:
