@@ -74,7 +74,9 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 
 * Encrypted DNS option {{?RFC9463}} to discover encrypted DNS resolvers of a local network.
 
-{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document  specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. The motivation for the use of ND for such a discovery is listed in {{Section 3 of ?RFC8781}}:
+{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document  specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. This option is called: Network Rate-Limit Policy (NRLP).
+
+The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
 
 * Fate sharing
 * Atomic configuration
@@ -95,10 +97,19 @@ Compared to proxy or encapsulation proposals, the solution defined in this docum
 
 This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.
 
-Likewise, the document does not make assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
+Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
 are bound to the same attachment circuit is deployment specific.
 
-This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples. Some deployment use cases for NRLP are provided below:
+
+* A network may advertize a NRP when it is overloaded, including when it is under attack. The rate limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events.
+
+* Discovery of rate (limit applied on attachment circuits (peering links, CE-PE links, etc.).
+
+* A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the RA NRLP to share these rate limit policies to each these connected hosts to adjust their forwarding behavior.
+
+This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
+
 
 # Conventions and Definitions
 
@@ -118,60 +129,78 @@ Intentional policy:
 :  Configured bandwidth, pps, or similar throughput
    constraints applied to a flow, application, host, or subscriber.
 
-# Generalized Use Case
-
-~~~~
-          +--rw service
-             +--rw mtu?                      uint32
-             +--rw svc-pe-to-ce-bandwidth {vpn-common:inbound-bw}?
-             |  +--rw bandwidth* [bw-type]
-             |     +--rw bw-type      identityref
-             |     +--rw (type)?
-             |        +--:(per-cos)
-             |        |  +--rw cos* [cos-id]
-             |        |     +--rw cos-id    uint8
-             |        |     +--rw cir?      uint64
-             |        |     +--rw cbs?      uint64
-             |        |     +--rw eir?      uint64
-             |        |     +--rw ebs?      uint64
-             |        |     +--rw pir?      uint64
-             |        |     +--rw pbs?      uint64
-             |        +--:(other)
-             |           +--rw cir?   uint64
-             |           +--rw cbs?   uint64
-             |           +--rw eir?   uint64
-             |           +--rw ebs?   uint64
-             |           +--rw pir?   uint64
-             |           +--rw pbs?   uint64
-             +--rw svc-ce-to-pe-bandwidth {vpn-common:outbound-bw}?
-             |  +--rw bandwidth* [bw-type]
-             |     +--rw bw-type      identityref
-             |     +--rw (type)?
-             |        +--:(per-cos)
-             |        |  +--rw cos* [cos-id]
-             |        |     +--rw cos-id    uint8
-             |        |     +--rw cir?      uint64
-             |        |     +--rw cbs?      uint64
-             |        |     +--rw eir?      uint64
-             |        |     +--rw ebs?      uint64
-             |        |     +--rw pir?      uint64
-             |        |     +--rw pbs?      uint64
-             |        +--:(other)
-             |           +--rw cir?   uint64
-             |           +--rw cbs?   uint64
-             |           +--rw eir?   uint64
-             |           +--rw ebs?   uint64
-             |           +--rw pir?   uint64
-             |           +--rw pbs?   uint64
-~~~~
-
-
-
-
-
 # IPv6 RA Encrypted DNS Option
 
 ## Option Format
+
+The format of the IPv6 RA NRLP option is illustrated in {{option-format}}.
+
+~~~~
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Type      |     Length    |D|   Scope     |      TC       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                         nominal bitrate                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           burst bitrate (optional)            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             duration   (optional)             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #option-format title="Option Format" artwork-align="center"}
+
+The fields of the option shown in {{option-format}} are as follows:
+
+Type:
+: 8-bit identifier of the NRLP option as assigned by IANA (TBD).
+
+Length:
+: 8-bit unsigned integer.  The length of the option (including
+  the Type and Length fields) is in units of 8 octets.
+: If the "Length" is set to "8", this indicates that only the
+nominal bitrate is provided.
+
+D:
+: 1-bit flag which indicates the direction on which to apply the enclosed polciy.
+: When set to "1", this flag indicates that this policy is for 
+  network-to-host direction.
+: When set to "0", this flag indicates that this policy is for 
+  host-to-network direction.
+
+Scope:
+: 7-bit field which specifies whether the policy is per host, per subscriber, etc.
+: The following values are supported:
+
+  + "0": subscriber
+  + "1": host
+  + "2": application group
+
+TC:
+: 8-bit field which specifies a traffic category to which this policy applies.
+: The following values are supported:
+
+  + "0": all traffic.
+  + "1":	Browsing
+  + "2": Streaming
+  + "3":	Realtime
+  + "4": Bulk 
+  + "5": background trafic
+
+nominal bitrate (Mbps):
+: Specifies the maximum number of bits that a network can receive or
+  send during one second over an attachment circuit for a
+  traffic category.
+: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+
+burst bitrate (Mbps):
+: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+
+burst duration:
+: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}. This field MUST be present
+only if a burst bitrate is present.
+
+> Consider using rfc4115 (CIR/EIR).
 
 ## IPv6 Host Behavior
 
@@ -179,16 +208,32 @@ The procedure for rate-limit configuration is the same as it is with any
 other Neighbor Discovery option {{!RFC4861}}.  In addition, the host
 XXXX.
 
-The host MUST be prepared to receive multiple xxx options
+The host MUST be prepared to receive multiple NRLP options
 in RAs; each with distinct scope and/or application group.
+
+If the receiving host is a CE (e.g., mobile CE or mobile handset with tethering), the following behavior applies: 
+
+* If an RA NRLP is advertised from the network, and absent local rate limit policies, the
+device should send RAs to the downstream attached LAN devices with the same NRLP values received from the network.
+
+* If local rate-limit policies are provided to the device, the device may change the scope or values received from the network
+to accommodate these policies. The device may decide to not relay received RAs to internal nodes if local policies were
+already advertized using RAs and those policies are consistent with the network policies.
+
+Application running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
 
 # Security Considerations
 
 As discussed in {{?RFC8781}}, because RAs are required in all IPv6 configuration scenarios, RAs must already be secured, e.g., by deploying an RA-Guard {{?RFC6105}}. Providing all configuration in RAs reduces the attack surface to be targeted by malicious attackers trying to provide hosts with invalid configuration, as compared to distributing the configuration through multiple different mechanisms that need to be secured independently.
 
-XXXX
+RAs are already used in mobile networks to advertize the link MTU. The same security considerartions for MTU discovery apply for the NRLP discover.
 
+An attacker who has access to the RAs exchange over an attachment circuit may:
 
+*	Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
+*	Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
+*	Drop the RA: This is similar to the current operations, where no NRLP RA is shared.
+*	Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
 # IANA Considerations
 
@@ -197,8 +242,8 @@ type in the "IPv6 Neighbor Discovery Option Formats" subregistry under the "Inte
 Parameters" registry maintained at {{IANA-ND}}.
 
 |Type|	Description|	Reference|
-|TBD|  XXX Option|This-Document|
-{: #iana-new-op title="Neighbor Discovery xxxx Option"}
+|TBD|  NRLP Option|This-Document|
+{: #iana-new-op title="Neighbor Discovery NRLP Option"}
 
 --- back
 
