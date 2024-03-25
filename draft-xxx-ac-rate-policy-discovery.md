@@ -163,9 +163,9 @@ nominal bitrate is provided.
 
 D:
 : 1-bit flag which indicates the direction on which to apply the enclosed polciy.
-: When set to "1", this flag indicates that this policy is for 
+: When set to "1", this flag indicates that this policy is for
   network-to-host direction.
-: When set to "0", this flag indicates that this policy is for 
+: When set to "0", this flag indicates that this policy is for
   host-to-network direction.
 
 Scope:
@@ -184,7 +184,7 @@ TC:
   + "1":	Browsing
   + "2": Streaming
   + "3":	Realtime
-  + "4": Bulk 
+  + "4": Bulk
   + "5": background trafic
 
 nominal bitrate (Mbps):
@@ -211,7 +211,7 @@ XXXX.
 The host MUST be prepared to receive multiple NRLP options
 in RAs; each with distinct scope and/or application group.
 
-If the receiving host is a CE (e.g., mobile CE or mobile handset with tethering), the following behavior applies: 
+If the receiving host is a CE (e.g., mobile CE or mobile handset with tethering), the following behavior applies:
 
 * If an RA NRLP is advertised from the network, and absent local rate limit policies, the
 device should send RAs to the downstream attached LAN devices with the same NRLP values received from the network.
