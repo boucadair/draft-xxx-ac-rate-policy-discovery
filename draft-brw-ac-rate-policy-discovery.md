@@ -98,7 +98,7 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 The solution defined in this document:
 
 * **Does not require any data plane change**.
-* **Supports cascaded environments** where multiple levels to enforced rate limiting polices is required (e.g., WAN and LAN).
+* **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
 
 Compared to proxy or encapsulation proposals, the solution defined in this document:
 
