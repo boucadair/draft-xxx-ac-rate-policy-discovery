@@ -13,7 +13,7 @@ area: AREA
 workgroup: WG Working Group
 keyword:
  - collaborative networking
- - adaptive application 
+ - adaptive application
 
 author:
  -
