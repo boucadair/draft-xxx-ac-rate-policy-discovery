@@ -86,7 +86,7 @@ Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 s
 Encrypted DNS option {{?RFC9463}}:
 : This option is used to discover encrypted DNS resolvers of a local network.
 
-{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document  specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. This option is called: Network Rate-Limit Policy (NRLP).
+{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. This option is called: Network Rate-Limit Policy (NRLP).
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
 
@@ -100,7 +100,7 @@ The solution defined in this document:
 * **Does not require any data plane change**.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
 
-Compared to proxy or encapsulation proposals, the solution defined in this document:
+Compared to proxy or encapsulation proposals (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
 
 * **Does not impact the MTU tweaking**.
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes.
@@ -114,14 +114,13 @@ are bound to the same attachment circuit is deployment specific.
 
 This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples. Some deployment use cases for NRLP are provided below:
 
-* A network may advertize a NRP when it is overloaded, including when it is under attack. The rate limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events.
+* A network may advertize a NRLP when it is overloaded, including when it is under attack. The rate limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events.
 
-* Discovery of rate (limit applied on attachment circuits (peering links, CE-PE links, etc.).
+* Discovery of rate limit applied on attachment circuits (peering links, CE-PE links, etc.).
 
 * A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the RA NRLP to share these rate limit policies to each these connected hosts to adjust their forwarding behavior.
 
 This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
-
 
 # Conventions and Definitions
 
