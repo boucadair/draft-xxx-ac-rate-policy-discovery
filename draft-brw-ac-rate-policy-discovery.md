@@ -191,7 +191,7 @@ TC:
 : 8-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
-  + "0": all traffic.
+  + "0": all traffic
   + "1":	Browsing
   + "2": Streaming
   + "3":	Realtime
@@ -205,13 +205,13 @@ nominal bitrate (Mbps):
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 
 burst bitrate (Mbps):
-: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}. This field is optional.
 
 burst duration:
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}. This field MUST be present
 only if a burst bitrate is present.
 
-> Consider using rfc4115 (CIR/EIR).
+> Consider using {{?RFC4115}} (CIR/EIR).
 
 ## IPv6 Host Behavior
 
@@ -243,7 +243,7 @@ An attacker who has access to the RAs exchange over an attachment circuit may:
 
 *	Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
 *	Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
-*	Drop the RA: This is similar to the current operations, where no NRLP RA is shared.
+*	Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
 *	Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
 # IANA Considerations
