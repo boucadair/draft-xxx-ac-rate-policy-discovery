@@ -129,11 +129,11 @@ Intentional policy:
 :  Configured bandwidth, pps, or similar throughput
    constraints applied to a flow, application, host, or subscriber.
 
-# IPv6 RA Encrypted DNS Option
+# IPv6 RA NRLP Option
 
 ## Option Format
 
-The format of the IPv6 RA NRLP option is illustrated in {{option-format}}.
+The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
 
 ~~~~
  0                   1                   2                   3
@@ -148,9 +148,9 @@ The format of the IPv6 RA NRLP option is illustrated in {{option-format}}.
 |                             duration   (optional)             |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{: #option-format title="Option Format" artwork-align="center"}
+{: #opt-format title="NRLP Option Format" artwork-align="center"}
 
-The fields of the option shown in {{option-format}} are as follows:
+The fields of the option shown in {{opt-format}} are as follows:
 
 Type:
 : 8-bit identifier of the NRLP option as assigned by IANA (TBD).
