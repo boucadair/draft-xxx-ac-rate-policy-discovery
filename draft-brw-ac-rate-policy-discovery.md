@@ -105,7 +105,7 @@ the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-att
 
 To optimally deliver connectivity services, networks also advertize a set of information to connected hosts such as:
 
-Link Maximum Transmission Unit (MTU) to avoid fragmentation:
+Link Maximum Transmission Unit (MTU):
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
 : {{Section 2.10 of ?RFC7066}} indicates that a cellular host should honor the MTU option in the Router Advertisement ({{Section 4.6.4 of !RFC4861}}) given that the 3GPP system
 architecture uses extensive tunneling in its packet core network below the 3GPP link, and this may lead to packet fragmentation issues.
@@ -144,9 +144,10 @@ The solution defined in this document:
 
 Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
 
-* **Does not impact the MTU tweaking**.
+* **Does not impact the MTU tweaking**: No packet overhead is required.
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes.
 * **Does not suffer from nested congestion control**.
+* **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
 * **Requires a minor change to the network**: upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}.
 
 ## What's Out?
