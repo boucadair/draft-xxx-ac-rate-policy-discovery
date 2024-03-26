@@ -226,21 +226,23 @@ Scope:
 
   + "0": Subscriber
   + "1": Host
+  + 2-15: Unassigned values.
 
 TC:
 : 8-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
-  + "0": All traffic
+  + "0": All traffic. This is the default value.
   + "1": Streaming
   + "2":	Realtime
   + "3": Bulk trafic
-  + "4": Background trafic
+  + 4-255: Unassigned values
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
   send during one second over an attachment circuit for a
   traffic category.
+: If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 : This parameter is mandatory.
 
@@ -258,9 +260,9 @@ Excess Information Rate (EIR) (Mbps):
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
-: MUST be present only if EIR is also present.
-: MUST be greated than zero.
+: MUST be greated than zero, if present.
 : Indicates that maximum excess burst size that is allowed while not complying with the CIR.
+: This parameter is optional.
 
 Peak Information Rate (PIR) (Mbps):
 : MUST be present only if P flag is set to '1'.
@@ -272,6 +274,12 @@ Peak Burst Size (PBS) (bytes):
 : MUST be present only if PIR is also present.
 : MUST be greater than zero.
 : Specifies the maximum burst size that can be transmitted at PIR.
+
+The reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
+of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Typically:
+
+* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
+* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
 
 # IPv6 RA NRLP Option
 
@@ -285,7 +293,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |     Type      |     Length    |D|E|P|U| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Committed Information Rate                   |
+|                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                  Committed Burst Size (CBS)                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -300,7 +308,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |     Type      |     Length    |D|E|P|U| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Committed Information Rate                   |
+|                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                  Committed Burst Size (CBS)                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
