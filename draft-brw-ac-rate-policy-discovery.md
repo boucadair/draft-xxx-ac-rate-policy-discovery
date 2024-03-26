@@ -76,10 +76,12 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
 
 Connectivity services are provided by networks to customers via
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE) (see {{ac}}).
-To facilitate data transfer via the provider network, it is assumed that the appropriate setup
+To facilitate data transfer via the provider network, it is assumed that appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-allowing successfully data exchanged over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
+allowing successfully data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
 while the underlying link is referred to as "bearers".
+
+The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link.
 
 ~~~~
      .-------.                .--------------------.         .-------.
@@ -97,9 +99,13 @@ while the underlying link is referred to as "bearers".
 ~~~~
 {: #ac title="Sample Attachment Circuits " artwork-align="center"}
 
-Customer terminating points are also provided with a set of information (e.g., IP address/prefix) to successfully be
+Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
 able to send and receive traffic over an attachment circuit. A comprehensive list of provisioning parameters that are available on
 the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+
+The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
+service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 or Layer 3 VPN services). This document
+**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**.
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
@@ -187,7 +193,7 @@ Intentional policy:
 :  Configured bandwidth, pps, or similar throughput
    constraints applied to a flow, application, host, or subscriber.
 
-## NRLP Blob {#sec-blob}
+# NRLP Blob {#sec-blob}
 
 This section defines the set of attributes that are included in an NRLP blob:
 
@@ -300,7 +306,7 @@ device should send RAs to the downstream attached LAN devices with the same NRLP
 to accommodate these policies. The device may decide to not relay received RAs to internal nodes if local policies were
 already advertized using RAs and those policies are consistent with the network policies.
 
-Application running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
+Applications running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
 
 # DHCP NRLP Option
 
@@ -384,6 +390,10 @@ OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism speci
 To discover a network rate-limit policy, the DHCP client includes OPTION_V4_NRLP in a Parameter Request List option {{!RFC2132}}.
 
 The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field entries in the OPTION_V4_NRLP option; each instance is to be treated as a separate network rate-limit policy.
+
+# Operational Considerations
+
+NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
 # Security Considerations
 
