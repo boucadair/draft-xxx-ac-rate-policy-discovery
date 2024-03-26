@@ -1,6 +1,6 @@
 ---
-title: "Discovery of Network Rate-Limit Policies in Router Advertisements"
-abbrev: "Rate-Limit Policies in RAs"
+title: "Discovery of Network Rate-Limit Policies in Router Advertisements and DHCP"
+abbrev: "Rate-Limit Policies Discovery"
 category: std
 
 docname: draft-brw-ac-rate-policy-discovery-latest
@@ -40,7 +40,15 @@ informative:
         author:
         -
           organization: "IANA"
-        target: https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml
+        target: https://www.iana.org/assignments/icmpv6-parameters/
+        date: false
+
+     IANA-BOOTP:
+        title: BOOTP Vendor Extensions and DHCP Options
+        author:
+        -
+          organization: "IANA"
+        target: https://www.iana.org/assignments/bootp-dhcp-parameters/
         date: false
 
      TS-23.501:
@@ -58,24 +66,46 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
-properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts.
+properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined.
 
 --- middle
 
 # Introduction
 
+## Context
+
 Connectivity services are provided by networks to customers via
-dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
+dedicated terminating points, such as customer edges (CEs) or User Equipment (UE) (see {{ac}}).
 To facilitate data transfer via the provider network, it is assumed that the appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
 allowing successfully data exchanged over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
 while the underlying link is referred to as "bearers".
 
-Customer terminating points are also provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over an attachment circuits. To optimally deliver connectivity services, networks
-also advertize other information to connected hosts such as:
+~~~~
+     .-------.                .--------------------.         .-------.
+     |       +------.         |                    +---AC----+       |
+     | UE#1  |      |         |                    +---AC----+ CE#2  |
+     '-------'      .---AC----+                    |         '-------'
+                              |     Network        |
+     .-------.      .---AC----+                    |
+     |       |      |         |                    |         .-------.
+     | CE#1  +------'         |                    +---AC----+ CE#3  |
+     '-------'                |                    |         '----+--'
+        /|\                   '-----------+--------'              |
+       o o o                              |                       |
+       Hosts                              '-----------AC----------'
+~~~~
+{: #ac title="Sample Attachment Circuits " artwork-align="center"}
 
-Link Maximum Transmission Unit (MTU) {{!RFC4861}} to avoid fragmentation:
+Customer terminating points are also provided with a set of information (e.g., IP address/prefix) to successfully be
+able to send and receive traffic over an attachment circuit. A comprehensive list of provisioning parameters that are available on
+the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+
+## Networks Are Already Sharing Network Properties with Hosts
+
+To optimally deliver connectivity services, networks also advertize a set of information to connected hosts such as:
+
+Link Maximum Transmission Unit (MTU) to avoid fragmentation:
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
 : {{Section 2.10 of ?RFC7066}} indicates that a cellular host should honor the MTU option in the Router Advertisement ({{Section 4.6.4 of !RFC4861}}) given that the 3GPP system
 architecture uses extensive tunneling in its packet core network below the 3GPP link, and this may lead to packet fragmentation issues.
@@ -86,7 +116,17 @@ Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 s
 Encrypted DNS option {{?RFC9463}}:
 : This option is used to discover encrypted DNS resolvers of a local network.
 
-{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies to hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. This option is called: Network Rate-Limit Policy (NRLP).
+## What's In?
+
+{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies with the hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
+
+These options are called: Network Rate-Limit Policy (NRLP).
+
+This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
+
+In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, a PCO NRLP IE can be defined in 3GPP.
+
+## Design Motivation
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
 
@@ -95,32 +135,38 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 * Updatability: change the policy at any time.
 * Deployability
 
+The solution specified in the document is designed to **ease integration with network managment tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+
 The solution defined in this document:
 
 * **Does not require any data plane change**.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
 
-Compared to proxy or encapsulation proposals (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
+Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
 
 * **Does not impact the MTU tweaking**.
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes.
 * **Does not suffer from nested congestion control**.
 * **Requires a minor change to the network**: upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}.
 
+## What's Out?
+
 This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.
 
 Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
 are bound to the same attachment circuit is deployment specific.
 
-This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples. Some deployment use cases for NRLP are provided below:
+This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+
+## Sample Deployment Cases
+
+Some deployment use cases for NRLP are provided below:
 
 * A network may advertize a NRLP when it is overloaded, including when it is under attack. The rate limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events.
 
-* Discovery of rate limit applied on attachment circuits (peering links, CE-PE links, etc.).
+* Discovery of rate limit policy applied on attachment circuits (peering links, CE-PE links, etc.).
 
-* A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the RA NRLP to share these rate limit policies to each these connected hosts to adjust their forwarding behavior.
-
-This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
+* A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate limit policies to connected hosts to adjust their forwarding behavior.
 
 # Conventions and Definitions
 
@@ -140,37 +186,9 @@ Intentional policy:
 :  Configured bandwidth, pps, or similar throughput
    constraints applied to a flow, application, host, or subscriber.
 
-# IPv6 RA NRLP Option
+## NRLP Blob {#sec-blob}
 
-## Option Format
-
-The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
-
-~~~~
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|   Scope     |      TC       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                         nominal bitrate                       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                           burst bitrate (optional)            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             duration   (optional)             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-~~~~
-{: #opt-format title="NRLP Option Format" artwork-align="center"}
-
-The fields of the option shown in {{opt-format}} are as follows:
-
-Type:
-: 8-bit identifier of the NRLP option as assigned by IANA (TBD).
-
-Length:
-: 8-bit unsigned integer.  The length of the option (including
-  the Type and Length fields) is in units of 8 octets.
-: If the "Length" is set to "8", this indicates that only the
-nominal bitrate is provided.
+This section defines the set of attributes that are included in an NRLP blob:
 
 D:
 : 1-bit flag which indicates the direction on which to apply the enclosed polciy.
@@ -213,6 +231,56 @@ only if a burst bitrate is present.
 
 > Consider using {{?RFC4115}} (CIR/EIR).
 
+# IPv6 RA NRLP Option
+
+## Option Format
+
+The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
+
+~~~~
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Type      |     Length    |D|   Scope     |      TC       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                         nominal bitrate                       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           burst bitrate (optional)            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             duration   (optional)             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #opt-format title="NRLP Option Format" artwork-align="center"}
+
+The fields of the option shown in {{opt-format}} are as follows:
+
+Type:
+: 8-bit identifier of the NRLP option as assigned by IANA (TBD1).
+
+Length:
+: 8-bit unsigned integer.  The length of the option (including
+  the Type and Length fields) is in units of 8 octets.
+: If the "Length" is set to "8", this indicates that only the
+nominal bitrate is provided.
+
+D:
+: See {{sec-blob}}.
+
+Scope:
+: See {{sec-blob}}.
+
+TC:
+: See {{sec-blob}}.
+
+nominal bitrate (Mbps):
+: See {{sec-blob}}.
+
+burst bitrate (Mbps):
+: See {{sec-blob}}.
+
+burst duration:
+: See {{sec-blob}}.
+
 ## IPv6 Host Behavior
 
 The procedure for rate-limit configuration is the same as it is with any
@@ -233,28 +301,137 @@ already advertized using RAs and those policies are consistent with the network 
 
 Application running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
 
+# DHCP NRLP Option
+
+## Option Format
+
+The format of the DHCP NRLP option is illustrated in {{dhc-format}}.
+
+~~~~
+ 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| OPTION_V4_NRLP|     Length    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~      NRLP Instance Data #1    ~
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   ---
+.              ...              .    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ optional
+~      NRLP Instance Data #n    ~    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   ---
+~~~~
+{: #dhc-format title="NRLP DHCP Option Format" artwork-align="center"}
+
+The fields of the option shown in  {{dhc-format}} are as follows:
+
+Code:
+: OPTION_V4_NRLP (TBD2).
+
+Length:
+: Indicates the length of the enclosed data in octets.
+
+NRLP Instance Data:
+: Includes the configuration data of an encrypted DNS resolver. The format of this field is shown in {{nrlp-format}}.
+: When several NRLPs are to be included, the "NRLP Instance Data" field is repeated.
+
+~~~~
+ 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   NRLP Instance Data Length   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|D|   Scope     |      TC       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|      nominal bitrate          |
+|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  burst bitrate (optional)     |
+|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  duration   (optional)        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #nrlp-format title="NRLP Instance Data Format" artwork-align="center"}
+
+The fields shown in {{nrlp-format}} are as follows:
+
+NRLP Instance Data Length:
+: Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for a NLRP instance.
+
+D:
+: See {{sec-blob}}.
+
+Scope:
+: See {{sec-blob}}.
+
+TC:
+: See {{sec-blob}}.
+
+nominal bitrate (Mbps):
+: See {{sec-blob}}.
+
+burst bitrate (Mbps):
+: See {{sec-blob}}.
+
+burst duration:
+: See {{sec-blob}}.
+
+OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism specified in {{!RFC3396}} MUST be used if OPTION_V4_NRLP exceeds the maximum DHCP option size of 255 octets.
+
+## DHCPv4 Client Behavior
+
+To discover a network rate-limit policy, the DHCP client includes OPTION_V4_NRLP in a Parameter Request List option {{!RFC2132}}.
+
+The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field entries in the OPTION_V4_NRLP option; each instance is to be treated as a separate network rate-limit policy.
+
 # Security Considerations
+
+## ND
 
 As discussed in {{?RFC8781}}, because RAs are required in all IPv6 configuration scenarios, RAs must already be secured, e.g., by deploying an RA-Guard {{?RFC6105}}. Providing all configuration in RAs reduces the attack surface to be targeted by malicious attackers trying to provide hosts with invalid configuration, as compared to distributing the configuration through multiple different mechanisms that need to be secured independently.
 
 RAs are already used in mobile networks to advertize the link MTU. The same security considerartions for MTU discovery apply for the NRLP discover.
 
-An attacker who has access to the RAs exchange over an attachment circuit may:
+An attacker who has access to the RAs exchanged over an attachment circuit may:
 
 *	Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
 *	Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
 *	Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
 *	Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
+## DHCP
+
+An attacker who has access to the DHCP exchanged over an attachment circuit may do a lot of harm (e.g., prevent access to the network).
+
+The following mechanisms may be considered to mitigate spoofed or modified DHCP responses:
+
+DHCPv6-Shield {{?RFC7610}}:
+: The network access node (e.g., a border router, a CPE, an Access Point (AP)) discards DHCP response messages received from any local endpoint.
+
+Source Address Validation Improvement (SAVI) solution for DHCP {{?RFC7513}}:
+: The network access node filters packets with forged source IP addresses.
+
+The above mechanisms would ensure that the endpoint receives the correct NRLP information, but these mechanisms cannot provide any information about the DHCP server or the entity hosting the DHCP server.
+
 # IANA Considerations
+
+## Neighbor Discovery Option
 
 This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
 type in the "IPv6 Neighbor Discovery Option Formats" subregistry under the "Internet Control Message Protocol version 6 (ICMPv6)
 Parameters" registry maintained at {{IANA-ND}}.
 
 |Type|	Description|	Reference|
-|TBD|  NRLP Option|This-Document|
+|TBD1|  NRLP Option|This-Document|
 {: #iana-new-op title="Neighbor Discovery NRLP Option"}
+
+## DHCP Option
+
+This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at {{IANA-BOOTP}}.
+
+|Tag|	Name|	Data Length|	Meaning|Reference|
+|TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
+{: #iana-new-dhcp title="DHCP NRLP Option"}
 
 --- back
 
