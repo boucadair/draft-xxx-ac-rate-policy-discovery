@@ -83,18 +83,18 @@ while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link.
 
-~~~~
+~~~~aasvg
      .-------.                .--------------------.         .-------.
-     |       +------.         |                    +---AC----+       |
+     |       +------+         |                    +---AC----+       |
      | UE#1  |      |         |                    +---AC----+ CE#2  |
-     '-------'      .---AC----+                    |         '-------'
+     '-------'      +---AC----+                    |         '-------'
                               |     Network        |
      .-------.      .---AC----+                    |
      |       |      |         |                    |         .-------.
      | CE#1  +------'         |                    +---AC----+ CE#3  |
      '-------'                |                    |         '----+--'
         /|\                   '-----------+--------'              |
-       o o o                              |                       |
+       O O O                              |                       |
        Hosts                              '-----------AC----------'
 ~~~~
 {: #ac title="Sample Attachment Circuits " artwork-align="center"}
@@ -234,7 +234,7 @@ TC:
 
   + "0": All traffic. This is the default value.
   + "1": Streaming
-  + "2":	Realtime
+  + "2":     Realtime
   + "3": Bulk trafic
   + 4-255: Unassigned values
 
@@ -542,10 +542,10 @@ RAs are already used in mobile networks to advertize the link MTU. The same secu
 
 An attacker who has access to the RAs exchanged over an attachment circuit may:
 
-*	Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
-*	Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
-*	Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
-*	Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
+*     Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
+*     Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
+*     Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
+*     Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
 ## DHCP
 
@@ -569,7 +569,7 @@ This document requests IANA to assign the following new IPv6 Neighbor Discovery 
 type in the "IPv6 Neighbor Discovery Option Formats" subregistry under the "Internet Control Message Protocol version 6 (ICMPv6)
 Parameters" registry maintained at {{IANA-ND}}.
 
-|Type|	Description|	Reference|
+|Type|     Description|     Reference|
 |TBD1|  NRLP Option|This-Document|
 {: #iana-new-op title="Neighbor Discovery NRLP Option"}
 
@@ -577,7 +577,7 @@ Parameters" registry maintained at {{IANA-ND}}.
 
 This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at {{IANA-BOOTP}}.
 
-|Tag|	Name|	Data Length|	Meaning|Reference|
+|Tag|     Name|     Data Length|     Meaning|Reference|
 |TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
 {: #iana-new-dhcp title="DHCP NRLP Option"}
 
