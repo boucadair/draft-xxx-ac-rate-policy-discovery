@@ -142,7 +142,7 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 
 * Fate sharing
 * Atomic configuration
-* Updatability: change the policy at any time.
+* Updatability: change the policy at any time
 * Deployability
 
 The solution specified in the document is designed to **ease integration with network managment tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
@@ -159,7 +159,7 @@ Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masqu
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes.
 * **Does not suffer from nested congestion control**.
 * **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
-* **Requires a minor change to the network**: upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}.
+* **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP server to include new DHCP option.
 
 ## What's Out?
 
@@ -391,6 +391,10 @@ already advertized using RAs and those policies are consistent with the network 
 Applications running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
 
 # DHCP NRLP Option
+
+> Note that DHCP can only signal a rate policy change when the
+  client first joins the network or renews its lease, whereas IPv6 ND
+  can update the rate policy at the network's discretion.
 
 ## Option Format
 
