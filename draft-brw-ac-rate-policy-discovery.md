@@ -286,13 +286,13 @@ The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                  Committed Burst Size (CBS)                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               Excess Information Rate (EIR) (optional)        |
+|               Excess Information Rate (EIR) (Optional)        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Excess Burst Size (CBS) (optional)           |
+|                  Excess Burst Size (EBS) (Optional)           |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               Peak Information Rate (PIR) (optional)          |
+|               Peak Information Rate (PIR) (Optional)          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Peak Burst Size (CBS) (optional)             |
+|                  Peak Burst Size (PBS) (Optional)             |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
 {: #opt-format title="NRLP Option Format" artwork-align="center"}
