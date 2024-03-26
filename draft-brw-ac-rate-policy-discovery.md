@@ -208,20 +208,19 @@ Scope:
 : 7-bit field which specifies whether the policy is per host, per subscriber, etc.
 : The following values are supported:
 
-  + "0": subscriber
-  + "1": host
-  + "2": application group
+  + "0": Subscriber
+  + "1": Host
 
 TC:
 : 8-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
-  + "0": all traffic
+  + "0": All traffic
   + "1":	Browsing
   + "2": Streaming
   + "3":	Realtime
   + "4": Bulk
-  + "5": background trafic
+  + "5": Background trafic
 
 nominal bitrate (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -250,11 +249,11 @@ The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |     Type      |     Length    |D|   Scope     |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                         nominal bitrate                       |
+|                       nominal bitrate                         |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                           burst bitrate (optional)            |
+|                   burst bitrate (optional)                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                             duration   (optional)             |
+|                      duration (optional)                      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
 {: #opt-format title="NRLP Option Format" artwork-align="center"}
@@ -394,6 +393,14 @@ The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field 
 # Operational Considerations
 
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+
+In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the attachment circuit may be redundant and should thus be disabled.
+
+In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the attachment circuit would allow control the load at the source.
+
+When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
+
+Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions.
 
 # Security Considerations
 
