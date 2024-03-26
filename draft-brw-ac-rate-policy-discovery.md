@@ -124,7 +124,7 @@ Encrypted DNS option {{?RFC9463}}:
 
 ## What's In?
 
-{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies with the hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
+{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies with the hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
 
 These options are called: Network Rate-Limit Policy (NRLP).
 
@@ -132,7 +132,11 @@ This document uses the host/network metadata specified in {{Section 5.1 of !I-D.
 
 In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, a PCO NRLP IE can be defined in 3GPP.
 
-## Design Motivation
+Whether host-to-network, network-to-host, or both policies are returning an NRLP is deployment specific. All these combinations are supported in this document.
+
+Also, the design supports returning one more NRLP instances for a given traffic direction.
+
+## Design Motivation & Rationale
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
 
@@ -147,6 +151,7 @@ The solution defined in this document:
 
 * **Does not require any data plane change**.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
+* **Supports signaling policies bound to one or both traffic directions**.
 
 Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
 
