@@ -260,8 +260,9 @@ Excess Information Rate (EIR) (Mbps):
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
-: MUST be greated than zero, if present.
+: MUST be present only if EIR is also present.
 : Indicates that maximum excess burst size that is allowed while not complying with the CIR.
+: MUST be greater than zero, if present.
 : This parameter is optional.
 
 Peak Information Rate (PIR) (Mbps):
@@ -272,8 +273,8 @@ Peak Information Rate (PIR) (Mbps):
 
 Peak Burst Size (PBS) (bytes):
 : MUST be present only if PIR is also present.
-: MUST be greater than zero.
 : Specifies the maximum burst size that can be transmitted at PIR.
+: MUST be greater than zero, if present.
 
 The reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
 of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Typically:
