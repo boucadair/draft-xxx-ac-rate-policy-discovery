@@ -232,21 +232,22 @@ TC:
 : The following values are supported:
 
   + "0": All traffic
-  + "1":	Browsing
-  + "2": Streaming
-  + "3":	Realtime
-  + "4": Bulk
-  + "5": Background trafic
+  + "1": Streaming
+  + "2":	Realtime
+  + "3": Bulk trafic
+  + "4": Background trafic
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
   send during one second over an attachment circuit for a
   traffic category.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+: This parameter is mandatory.
 
 Committed Burst Size (CBS) (bytes):
 : Specifies the maximum burst size that can be transmitted at CIR.
 : MUST be greated than zero.
+: This parameter is mandatory.
 
 Excess Information Rate (EIR) (Mbps):
 : MUST be present only if the E flag is set to '1'.
@@ -254,6 +255,7 @@ Excess Information Rate (EIR) (Mbps):
   send during one second over an attachment circuit for a
   traffic category that is out of profile.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+: This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
 : MUST be present only if EIR is also present.
@@ -264,6 +266,7 @@ Peak Information Rate (PIR) (Mbps):
 : MUST be present only if P flag is set to '1'.
 : Traffic that exceeds the CIR and the CBS is metered to the PIR.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
+: This parameter is optional.
 
 Peak Burst Size (PBS) (bytes):
 : MUST be present only if PIR is also present.
@@ -274,7 +277,22 @@ Peak Burst Size (PBS) (bytes):
 
 ## Option Format
 
-The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
+The format of the IPv6 RA NRLP option, with only mandatory fields included, is illustrated in {{opt-m-format}}.
+
+~~~~
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Type      |     Length    |D|E|P|U| Scope |      TC       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  Committed Information Rate                   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                  Committed Burst Size (CBS)                   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #opt-m-format title="NRLP Option Format with Mandatory Fields" artwork-align="center"}
+
+The format of the IPv6 RA NRLP option, with optional fields included, is illustrated in {{opt-m-format}}.
 
 ~~~~
  0                   1                   2                   3
@@ -295,7 +313,7 @@ The format of the IPv6 RA NRLP option is illustrated in {{opt-format}}.
 |                  Peak Burst Size (PBS) (Optional)             |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{: #opt-format title="NRLP Option Format" artwork-align="center"}
+{: #opt-format title="NRLP Option Format with Optional Fields" artwork-align="center"}
 
 The fields of the option shown in {{opt-format}} are as follows:
 
@@ -331,25 +349,26 @@ Committed Burst Size (CBS) (bytes):
 : See {{sec-blob}}.
 
 Excess Information Rate (EIR) (Mbps):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Excess Burst Size (EBS) (bytes):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Peak Information Rate (PIR) (Mbps):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Peak Burst Size (PBS) (bytes):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 ## IPv6 Host Behavior
 
 The procedure for rate-limit configuration is the same as it is with any
-other Neighbor Discovery option {{!RFC4861}}.  In addition, the host
-XXXX.
+other Neighbor Discovery option {{!RFC4861}}.
 
 The host MUST be prepared to receive multiple NRLP options
 in RAs; each with distinct scope and/or application group.
+
+If the host receives multiple NRLP options with overlapping scope/TC, the host MUST silently discard all these options.
 
 If the receiving host is a CE (e.g., mobile CE or mobile handset with tethering), the following behavior applies:
 
@@ -392,8 +411,27 @@ Length:
 : Indicates the length of the enclosed data in octets.
 
 NRLP Instance Data:
-: Includes the configuration data of an encrypted DNS resolver. The format of this field is shown in {{nrlp-format}}.
+: Includes a network rate-limit policy. The format of this field with only mandatory parameters is shown in {{nrlp-m-format}}.
 : When several NRLPs are to be included, the "NRLP Instance Data" field is repeated.
+
+~~~~
+ 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   NRLP Instance Data Length   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|D|E|P|U| Scope |      TC       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Committed Information Rate   |
+|              (CIR)            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Committed Burst Size (CBS)   |
+|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+{: #nrlp-m-format title="NRLP Instance Data Format with Mandatory Fields" artwork-align="center"}
+
+The format of this field, with optional parameters included, is shown in {{nrlp-m-format}}.
 
 ~~~~
  0                   1
@@ -422,12 +460,12 @@ NRLP Instance Data:
 |                               |  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
 ~~~~
-{: #nrlp-format title="NRLP Instance Data Format" artwork-align="center"}
+{: #nrlp-format title="NRLP Instance Data Format with Optional Fields Included" artwork-align="center"}
 
 The fields shown in {{nrlp-format}} are as follows:
 
 NRLP Instance Data Length:
-: Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for a NLRP instance.
+: Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
 
 D:
 : See {{sec-blob}}.
@@ -454,16 +492,16 @@ Committed Burst Size (CBS) (bytes):
 : See {{sec-blob}}.
 
 Excess Information Rate (EIR) (Mbps):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Excess Burst Size (EBS) (bytes):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Peak Information Rate (PIR) (Mbps):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 Peak Burst Size (PBS) (bytes):
-: See {{sec-blob}}.
+: See {{sec-blob}}. This is an optional field.
 
 OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism specified in {{!RFC3396}} MUST be used if OPTION_V4_NRLP exceeds the maximum DHCP option size of 255 octets.
 
