@@ -1,5 +1,5 @@
 ---
-title: "Discovery of Network Rate-Limit Policies in Router Advertisements and DHCP"
+title: "Discovery of Network Rate-Limit Policies Using Router Advertisements and DHCP"
 abbrev: "Rate-Limit Policies Discovery"
 category: std
 
