@@ -105,9 +105,9 @@ the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-att
 
 The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 or Layer 3 VPN services). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{5g-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
+**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
 
-~~~ aavg
+~~~~aavg
   .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
   |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
   '--+--'  '--+--'  '--+--'    '--+--'  '--+--'  '--+--'
@@ -125,8 +125,8 @@ User Plane          ╱     |           │         ╲
                 |UE ├──┤(R)AN├─────┤ UPF ├────┤ UPF ├────( DN  )
                 '---'  '-----'     '-----'    '-----'     `───'
                     |------AC------|
-~~~
-{: #5g-arch title="5GS Architecture" artwork-align="center"}
+~~~~
+{: #ex-arch title="5GS Architecture" artwork-align="center"}
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
