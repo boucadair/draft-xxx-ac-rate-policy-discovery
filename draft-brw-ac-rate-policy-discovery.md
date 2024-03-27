@@ -150,20 +150,19 @@ The solution specified in the document is designed to **ease integration with ne
 The solution defined in this document:
 
 * **Does not require any data plane change**.
+* **Applicable to any transport protocol**.
+* **Does not impact the connection setup delay**.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
 * **Supports signaling policies bound to one or both traffic directions**.
 
 Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
 
 * **Does not impact the MTU tweaking**: No packet overhead is required.
-
-<!--
-* **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes.
-* **Does not suffer from nested congestion control**.
--->
-
+* **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes. Such issues are encountered, e.g., with the tunneled mode or long header packets in the forwarded QUIC proxy mode {{?I-D.ietf-masque-quic-proxy}}.
+* **Does not suffer from nested congestion control** for tunneled proxy mode.
 * **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
-* **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP server to include new DHCP option.
+* **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
+* **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
 
 ## What's Out?
 
