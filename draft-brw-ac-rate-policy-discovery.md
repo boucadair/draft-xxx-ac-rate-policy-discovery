@@ -522,6 +522,8 @@ Peak Burst Size (PBS) (bytes):
 
 OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism specified in {{!RFC3396}} MUST be used if OPTION_V4_NRLP exceeds the maximum DHCP option size of 255 octets.
 
+OPTION_V4_NRLP is permitted to be included in the RADIUS DHCPv4-Options Attribute {{!RFC9445}}.
+
 ## DHCPv4 Client Behavior
 
 To discover a network rate-limit policy, the DHCP client includes OPTION_V4_NRLP in a Parameter Request List option {{!RFC2132}}.
@@ -588,6 +590,14 @@ This document requests IANA to assign the following new DHCP Option Code in the 
 |Tag|     Name|     Data Length|     Meaning|Reference|
 |TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
 {: #iana-new-dhcp title="DHCP NRLP Option"}
+
+## DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
+
+This document requests IANA to add the following DHCP Option Code to the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute" registry maintained at {{IANA-BOOTP}}.
+
+|Tag|     Name|    |Reference|
+|TBD2|OPTION_V4_NRLP|This-Document|
+{: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
 --- back
 
