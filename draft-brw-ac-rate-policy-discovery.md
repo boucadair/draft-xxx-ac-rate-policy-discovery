@@ -152,6 +152,7 @@ The solution defined in this document:
 * **Does not require any data plane change**.
 * **Applicable to any transport protocol**.
 * **Does not impact the connection setup delay**.
+* **Does not require to reveal the identity of the target server or the application itself** to consume the signal.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN).
 * **Supports signaling policies bound to one or both traffic directions**.
 
@@ -160,6 +161,7 @@ Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masqu
 * **Does not impact the MTU tweaking**: No packet overhead is required.
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes. Such issues are encountered, e.g., with the tunneled mode or long header packets in the forwarded QUIC proxy mode {{?I-D.ietf-masque-quic-proxy}}.
 * **Does not suffer from nested congestion control** for tunneled proxy mode.
+* **Does not impact the forwarding peformance of network nodes**. For example, the proxy forwarded mode {{?I-D.ietf-masque-quic-proxy}} requires rewritting connection identifiers; that is, the performance degradation will be at least equivalent to NAT.
 * **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
 * **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
 * **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
