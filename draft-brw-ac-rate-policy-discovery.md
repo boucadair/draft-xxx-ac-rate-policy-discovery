@@ -188,6 +188,8 @@ are bound to the same attachment circuit is deployment specific.
 
 Applications will have access to all these NRLPs and will thus adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
+This document does not assume nor preclude that other mechanims, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
+
 ## Design Motivation & Rationale
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
