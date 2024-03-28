@@ -150,7 +150,7 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 
 Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 servers (NAT64) {{?RFC8781}}:
 : This option is useful to enable local DNSSEC validation, support networks with no DNS64, support IPv4 address literals on an IPv6-only host, etc.
-: NAT is cited as an example of useful path properties  (see "Service Function" bullet in {{Section 4 of ?RFC9473}}).
+: NAT is cited as an example of path properties (see "Service Function" bullet in {{Section 4 of ?RFC9473}}).
 
 Encrypted DNS option {{?RFC9463}}:
 : This option is used to discover encrypted DNS resolvers of a local network.
@@ -168,6 +168,15 @@ In order to ensure consistent design for both IPv4 and IPv6 attachment circuits,
 Whether host-to-network, network-to-host, or both policies are returning an NRLP is deployment specific. All these combinations are supported in this document.
 
 Also, the design supports returning one more NRLP instances for a given traffic direction.
+
+## What's Out?
+
+This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.
+
+Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
+are bound to the same attachment circuit is deployment specific.
+
+This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
 ## Design Motivation & Rationale
 
@@ -199,15 +208,6 @@ Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masqu
 * **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
 * **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
 
-## What's Out?
-
-This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.
-
-Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
-are bound to the same attachment circuit is deployment specific.
-
-This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
-
 ## Sample Deployment Cases
 
 Some deployment use cases for NRLP are provided below:
@@ -218,18 +218,7 @@ Some deployment use cases for NRLP are provided below:
 
 * A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate limit policies to connected hosts to adjust their forwarding behavior.
 
-## Deployment Incentives
-
-Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
-how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
-depends upon:
-
-* The extra cost that is required to support both mechanisms at the application layer.
-* The complexity balance between performing the measurements vs. consuming the signal.
-* Whether the measurements reflect actual network conditions or severely diverge.
-* The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
-* The host support may be variable.
-
+Operational considerations are discussed in {{sec-ops}}, while deployment incentives are described in {{sec-inc}}.
 
 # Conventions and Definitions
 
@@ -577,7 +566,7 @@ To discover a network rate-limit policy, the DHCP client includes OPTION_V4_NRLP
 
 The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field entries in the OPTION_V4_NRLP option; each instance is to be treated as a separate network rate-limit policy.
 
-# Operational Considerations
+# Operational Considerations {#sec-ops}
 
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
@@ -588,6 +577,18 @@ In contexts where the (average) bitrate policies provided during the establishme
 When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
 
 Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions.
+
+## Deployment Incentives {#sec-inc}
+
+Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
+how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
+depends upon:
+
+* The extra cost that is required to support both mechanisms at the application layer.
+* The complexity balance between performing the measurements vs. consuming the signal.
+* Whether the measurements ("assessed property" per {{?RFC9473}}) reflect actual network conditions or severely diverge.
+* The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
+* The host support may be variable.
 
 # Security Considerations
 
