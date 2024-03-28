@@ -140,15 +140,17 @@ User Plane          ╱     |             │         ╲
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
-To optimally deliver connectivity services, networks also advertize a set of information to connected hosts such as:
+To optimally deliver connectivity services, networks also advertize a set of network properties to connected hosts such as:
 
 Link Maximum Transmission Unit (MTU):
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
 : {{Section 2.10 of ?RFC7066}} indicates that a cellular host should honor the MTU option in the Router Advertisement ({{Section 4.6.4 of !RFC4861}}) given that the 3GPP system
 architecture uses extensive tunneling in its packet core network below the 3GPP link, and this may lead to packet fragmentation issues.
+: MTU is cited as an example of path properties in {{Section 4 of ?RFC9473}}.
 
 Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 servers (NAT64) {{?RFC8781}}:
 : This option is useful to enable local DNSSEC validation, support networks with no DNS64, support IPv4 address literals on an IPv6-only host, etc.
+: NAT is cited as an example of useful path properties  (see "Service Function" bullet in {{Section 4 of ?RFC9473}}).
 
 Encrypted DNS option {{?RFC9463}}:
 : This option is used to discover encrypted DNS resolvers of a local network.
@@ -222,18 +224,18 @@ Some applications support some forms of bandwidth measurements (e.g., {{app-meas
 how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
 depends upon:
 
-* the extra cost that is required to support both mechanisms at the application layer.
-* the complexity balance between performing the measurements vs. consuming the signal.
-* whether the measurements reflect actual network conditions or severely diverge.
-* the availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
-* the host support may be variable.
+* The extra cost that is required to support both mechanisms at the application layer.
+* The complexity balance between performing the measurements vs. consuming the signal.
+* Whether the measurements reflect actual network conditions or severely diverge.
+* The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
+* The host support may be variable.
 
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-This document uses the terms defined in {{Section 2 of ?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+This document uses the terms defined in {{Section 2 of ?I-D.ietf-opsawg-ntw-attachment-circuit}} and {{?RFC9473}}.
 
 Also, this document makes use fo the following terms:
 
