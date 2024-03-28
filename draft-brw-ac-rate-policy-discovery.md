@@ -77,6 +77,14 @@ informative:
           org: 3GPP
         target: https://www.3gpp.org/DynaReport/24008.htm
 
+     BEREC:
+        title: "All you need to know about Net Neutrality rules in the EU"
+        date: false
+        author:
+        -
+          org: BEREC
+        target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
+
 --- abstract
 
 Traffic exchanged over an attachment circuit may be subject to rate limit policies.
@@ -602,7 +610,9 @@ In contexts where the (average) bitrate policies provided during the establishme
 
 When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
 
-Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions.
+Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, {{BEREC}} says the following:
+
+> ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.
 
 # Deployment Incentives {#sec-inc}
 
