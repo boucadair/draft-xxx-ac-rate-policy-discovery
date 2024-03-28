@@ -602,7 +602,7 @@ When both bearer-specific policies and NRLP signals are communicated to a host, 
 
 Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions.
 
-## Deployment Incentives {#sec-inc}
+# Deployment Incentives {#sec-inc}
 
 Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
 how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
