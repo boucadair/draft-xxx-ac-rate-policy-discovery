@@ -59,6 +59,16 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
 
+     app-measurement:
+        title: "Bandwidth measurement for QUIC"
+        date: 2024
+        author:
+        -
+          fullname: Zafer Gurel
+        -
+          fullname: Ali C. Begen
+        target: https://datatracker.ietf.org/doc/slides-119-moq-bandwidth-measurement-for-quic/
+
 --- abstract
 
 Traffic exchanged over an attachment circuit may be subject to rate limit policies.
@@ -205,6 +215,19 @@ Some deployment use cases for NRLP are provided below:
 * Discovery of rate limit policy applied on attachment circuits (peering links, CE-PE links, etc.).
 
 * A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate limit policies to connected hosts to adjust their forwarding behavior.
+
+## Deployment Incentives
+
+Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
+how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
+depends upon:
+
+* the extra cost that is required to support both mechanisms at the application layer.
+* the complexity balance between performing the measurements vs. consuming the signal.
+* whether the measurements reflect actual network conditions or severely diverge.
+* the availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
+* the host support may be variable.
+
 
 # Conventions and Definitions
 
