@@ -154,7 +154,7 @@ User Plane          ╱     |             │         ╲
 ~~~~
 {: #ex-arch title="5GS Architecture" artwork-align="center"}
 
-> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers convenience to position an attachment circuit.   
+> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers convenience to position an attachment circuit.
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
@@ -620,6 +620,21 @@ Rate-limit policies enforced at the network are assumed to be consistent with th
 
 # Deployment Incentives {#sec-inc}
 
+## Networks
+
+There are a set of tradeoffs for networks to deploy NRLP discovery:
+
+*	Cost vs. benefit
+*	Impact on operations vs incentive to deploy
+*	Enhanced experience vs. impacts on nominal mode
+
+The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
+of resources under non nominal conditions. The mechanism allows also to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
+
+Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
+
+## Applications
+
 Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
 how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
 depends upon:
@@ -629,6 +644,12 @@ depends upon:
 * Whether the measurements ("assessed property" per {{?RFC9473}}) reflect actual network conditions or severely diverge.
 * The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
 * The host support may be variable.
+
+Applications that don't support (embedded) bandwidth measurement schemes will be enriched with the NRLP signals as this will be exposed by an OS API.
+
+## Host OS
+
+TBC.
 
 # Security Considerations
 
