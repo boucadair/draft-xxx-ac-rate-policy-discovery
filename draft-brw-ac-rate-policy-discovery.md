@@ -62,7 +62,7 @@ informative:
 --- abstract
 
 Traffic exchanged over an attachment circuit may be subject to rate limit policies.
-These policies may be intentional policies (e.g., enforced as part of the activation of the attachment circuit)
+These policies may be intentional policies (e.g., enforced as part of the activation of the attachment circuit and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
@@ -105,7 +105,28 @@ the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-att
 
 The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 or Layer 3 VPN services). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**.
+**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
+
+~~~~aasvg
+  .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
+  |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
+  '--+--'  '--+--'  '--+--'    '--+--'  '--+--'  '--+--'
+Nnssf|    Nnef|    Nnrf|      Npcf|    Nudm|        |Naf
+  ---+--------+--+-----+--+-------+---+----+--------+---
+            Nausf|    Namf|       Nsmf|
+              .--+--.  .--+--.     .--+------.
+              │AUSR │  │ AMF │     │   SMF   │
+              '-----'  '--+--'     '----+----'
+                       ╱  |             |      ╲
+Control Plane      N1 ╱   |N2           |N4     ╲N4
+════════════════════════════════════════════════════════════
+User Plane          ╱     |             │         ╲
+                .---.  .-------.  N3 .--+--. N9 .--+--. N6   .--.
+                |UE +--+ (R)AN +-----+ UPF +----+ UPF +-----( DN )
+                '---'  '-------'     '-----'    '-----'      '--'
+                   |-------AC----------|
+~~~~
+{: #ex-arch title="5GS Architecture" artwork-align="center"}
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
