@@ -466,9 +466,11 @@ Applications running over a host can learn the bitrates associated with a networ
 
 # DHCP NRLP Option
 
-> Note that DHCP can only signal a rate policy change when the
+> Note that the base DHCP can only signal a rate policy change when the
   client first joins the network or renews its lease, whereas IPv6 ND
-  can update the rate policy at the network's discretion.
+  can update the rate policy at the network's discretion. {{?RFC6704}}
+  specifies an approach for forcing reconfiguration of individual hosts
+  without suffering from the limitations of the FORCERENEW design in {{?RFC3203}}.
 
 ## Option Format
 
