@@ -197,7 +197,7 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 * Updatability: change the policy at any time
 * Deployability
 
-The solution specified in the document is designed to **ease integration with network managment tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing (See Appendix B.5 of {{I-D.ietf-teas-ietf-network-slice-nbi-yang}}).
+The solution specified in the document is designed to **ease integration with network managment tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing {{?RFC9543}}; see the example depicted in Appendix B.5 of {{?I-D.ietf-teas-ietf-network-slice-nbi-yang}}.
 
 The solution defined in this document:
 
