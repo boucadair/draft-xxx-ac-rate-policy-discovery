@@ -154,7 +154,7 @@ User Plane          ╱     |             │         ╲
 ~~~~
 {: #ex-arch title="5GS Architecture" artwork-align="center"}
 
-> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers convenience to position an attachment circuit.
+> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers' convenience to position an attachment circuit.
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
@@ -183,7 +183,7 @@ This document uses the host/network metadata specified in {{Section 5.1 of !I-D.
 
 In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
-Whether host-to-network, network-to-host, or both policies are returning an NRLP is deployment specific. All these combinations are supported in this document.
+Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.
 
 Also, the design supports returning one more NRLP instances for a given traffic direction.
 
@@ -197,6 +197,9 @@ Likewise, the document does not make any assumption about the services or applic
 are bound to the same attachment circuit is deployment specific.
 
 Applications will have access to all these NRLPs and will thus adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+
+Networks that advertize NLRP are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices).
+Discussion about conditions under which such model can be relaxed is out of scope of this document.
 
 This document does not assume nor preclude that other mechanims, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
 
