@@ -154,6 +154,8 @@ User Plane          ╱     |             │         ╲
 ~~~~
 {: #ex-arch title="5GS Architecture" artwork-align="center"}
 
+> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers convenience to position an attachment circuit.   
+
 ## Networks Are Already Sharing Network Properties with Hosts
 
 To optimally deliver connectivity services, networks also advertize a set of network properties {{?RFC9473}} to connected hosts such as:
