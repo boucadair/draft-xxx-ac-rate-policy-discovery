@@ -221,6 +221,7 @@ The solution defined in this document:
 * **Does not require to reveal the identity of the target server or the application itself** to consume the signal.
 * **Supports cascaded environments** where multiple levels to enforce rate limiting polices is required (e.g., WAN and LAN shown in {{ac-casc}}). NRLP signals can be coupled or decoupled as a function of the local policy.
 * **Supports signaling policies bound to one or both traffic directions**.
+* Is able to **signal wether a policy applies to a specific host or all hosts of a given subscriber**.
 
 ~~~~aasvg
 .------.                      .--------------------.
@@ -457,7 +458,7 @@ in RAs; each with distinct scope and/or application group.
 
 If the host receives multiple NRLP options with overlapping scope/TC, the host MUST silently discard all these options.
 
-If the receiving host is a CE (e.g., mobile CE or mobile handset with tethering), the following behavior applies:
+If the receiving host has LAN capabilities (e.g., mobile CE or mobile handset with tethering), the following behavior applies:
 
 * If an RA NRLP is advertised from the network, and absent local rate limit policies, the
 device should send RAs to the downstream attached LAN devices with the same NRLP values received from the network.
@@ -720,7 +721,6 @@ request PvD Additional Information ({{Section 4.1 of ?RFC8801}}).
 {{pvd-ex}} provides an example of the returned "application/pvd+json" to indicate a network-to-host
 NRLP for all subscriber traffic. The NRLP list may include multiple instances if distinct policies
 are to be returned for distinct traffic categories.
-
 
 ~~~~~json
 {
