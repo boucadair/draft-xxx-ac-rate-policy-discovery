@@ -107,24 +107,24 @@ The required set of parameters is a function of the service offering. For exampl
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 or Layer 3 VPN services). This document
 **leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
 
-~~~~aavg
+~~~~aasvg
   .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
   |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
   '--+--'  '--+--'  '--+--'    '--+--'  '--+--'  '--+--'
 Nnssf|    Nnef|    Nnrf|      Npcf|    Nudm|        |Naf
-  ───┴────────┴──┬─────┴──┬───────┴───┬────┴────────┴────
+  ---+--------+--+-----+--+-------+---+----+--------+---
             Nausf|    Namf|       Nsmf|
               .--+--.  .--+--.     .--+------.
               │AUSR │  │ AMF │     │   SMF   │
-              '-----'  '--+--'     '--+------'
-                       ╱  |           |      ╲
-Control Plane      N1 ╱   |N2         |N4     ╲N4
+              '-----'  '--+--'     '----+----'
+                       ╱  |             |      ╲
+Control Plane      N1 ╱   |N2           |N4     ╲N4
 ════════════════════════════════════════════════════════════
-User Plane          ╱     |           │         ╲
-                .---.  .-----.  N3 .--+--. N9 .-----. N6  .───.
-                |UE ├──┤(R)AN├─────┤ UPF ├────┤ UPF ├────( DN  )
-                '---'  '-----'     '-----'    '-----'     `───'
-                    |------AC------|
+User Plane          ╱     |             │         ╲
+                .---.  .-------.  N3 .--+--. N9 .--+--. N6   .--.
+                |UE +--+ (R)AN +-----+ UPF +----+ UPF +-----( DN )
+                '---'  '-------'     '-----'    '-----'      '--'
+                   |-------AC----------|
 ~~~~
 {: #ex-arch title="5GS Architecture" artwork-align="center"}
 
