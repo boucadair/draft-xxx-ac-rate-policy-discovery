@@ -738,6 +738,40 @@ are to be returned for distinct traffic categories.
 ~~~~~
 {: #pvd-ex title="NRLP Example with PvD"}
 
+# Example of Authentication, Authorization, and Accounting (AAA)
+
+{{radius-ex}} provides an example of the exchanges that might occur between a DHCP server
+and an Authentication, Authorization, and Accounting (AAA) server to retrive the per-subscriber NRLPs.
+
+This example assumes that the Network Access Server (NAS) embeds both Remote Authentication Dial-In User Service
+(RADIUS) {{?RFC2865}} client and DHCP server capabilities.
+
+~~~~~
+   .-------------.           .-------------.             .-------.
+   |    Host     |           |     NAS     |             |  AAA  |
+   | DHCP Client |           | DHCP Server |             |Server |
+   |             |           |RADIUS Client|             |       |
+   '------+------'           '------+------'             '---+---'
+          |                         |                        |
+          o------DHCPDISCOVER------>|                        |
+          |                         o----Access-Request ---->|
+          |                         |                        |
+          |                         |<----Access-Accept------o
+          |                         |     DHCPv4-Options     |
+          |<-----DHCPOFFER----------o    (OPTION_V4_NRLP)    |
+          |     (OPTION_V4_NRLP)    |                        |
+          |                         |                        |
+          o-----DHCPREQUEST-------->|                        |
+          |     (OPTION_V4_NRLP)    |                        |
+          |                         |                        |
+          |<-------DHCPACK----------o                        |
+          |     (OPTION_V4_NRLP)    |                        |
+          |                         |                        |
+
+                     DHCP                    RADIUS
+~~~~~
+{: #radius-ex title="An Example of RADIUS NRLP Exchanges"}
+
 # Acknowledgments
 {:numbered="false"}
 
