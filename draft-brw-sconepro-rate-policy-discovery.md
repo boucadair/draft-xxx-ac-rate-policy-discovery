@@ -627,9 +627,9 @@ Rate-limit policies enforced at the network are assumed to be consistent with th
 
 There are a set of tradeoffs for networks to deploy NRLP discovery:
 
-*	Cost vs. benefit
-*	Impact on operations vs incentive to deploy
-*	Enhanced experience vs. impacts on nominal mode
+* Cost vs. benefit
+* Impact on operations vs incentive to deploy
+* Enhanced experience vs. impacts on nominal mode
 
 The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
 of resources under non nominal conditions. The mechanism allows also to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
