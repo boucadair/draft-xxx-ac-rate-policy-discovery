@@ -69,6 +69,14 @@ informative:
           fullname: Ali C. Begen
         target: https://datatracker.ietf.org/doc/slides-119-moq-bandwidth-measurement-for-quic/
 
+     TS-24.008:
+        title: "Technical Specification Group Core Network and Terminals; Mobile radio interface Layer 3 specification; Core network protocols; Stage 3 (Release 18)"
+        date: 2024
+        author:
+        -
+          org: 3GPP
+        target: https://www.3gpp.org/DynaReport/24008.htm
+
 --- abstract
 
 Traffic exchanged over an attachment circuit may be subject to rate limit policies.
@@ -163,7 +171,7 @@ These options are called: Network Rate-Limit Policy (NRLP).
 
 This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
 
-In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, a PCO NRLP IE can be defined in 3GPP.
+In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
 Whether host-to-network, network-to-host, or both policies are returning an NRLP is deployment specific. All these combinations are supported in this document.
 
@@ -178,7 +186,7 @@ This document does not make any assumption about the type of the network (fixed,
 Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
 are bound to the same attachment circuit is deployment specific.
 
-This document does not specify how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+Applications will have access to all these NRLPs and will thus adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
 ## Design Motivation & Rationale
 
@@ -661,7 +669,7 @@ NRLP for all subscriber traffic. The NRLP list may include multiple instances if
 are to be returned for distinct traffic categories.
 
 
-~~~~~
+~~~~~json
 {
    "nrlp":[
       {
@@ -675,7 +683,7 @@ are to be returned for distinct traffic categories.
    ]
 }
 ~~~~~
-{: #pvd-ex artwork-align="center" title="NRLP Example with PvD"}
+{: #pvd-ex title="NRLP Example with PvD"}
 
 # Acknowledgments
 {:numbered="false"}
