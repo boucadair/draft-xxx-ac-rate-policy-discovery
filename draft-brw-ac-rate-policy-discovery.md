@@ -140,7 +140,7 @@ User Plane          ╱     |             │         ╲
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
-To optimally deliver connectivity services, networks also advertize a set of network properties to connected hosts such as:
+To optimally deliver connectivity services, networks also advertize a set of network properties {{?RFC9473}} to connected hosts such as:
 
 Link Maximum Transmission Unit (MTU):
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
@@ -153,7 +153,7 @@ Prefixes of Network Address and Protocol Translation from IPv6 clients to IPv4 s
 : NAT is cited as an example of path properties (see "Service Function" bullet in {{Section 4 of ?RFC9473}}).
 
 Encrypted DNS option {{?RFC9463}}:
-: This option is used to discover encrypted DNS resolvers of a local network.
+: This option is used to discover encrypted DNS resolvers of a network.
 
 ## What's In?
 
@@ -168,6 +168,8 @@ In order to ensure consistent design for both IPv4 and IPv6 attachment circuits,
 Whether host-to-network, network-to-host, or both policies are returning an NRLP is deployment specific. All these combinations are supported in this document.
 
 Also, the design supports returning one more NRLP instances for a given traffic direction.
+
+> {{sec-pvd}} describes a candidate discovery approach using Provisioning Domains (PvDs) {{?RFC8801}}. That approach requires more discussion as PvD is not currently deployed in mobile networks.
 
 ## What's Out?
 
@@ -648,6 +650,32 @@ This document requests IANA to add the following DHCP Option Code to the "DHCP O
 {: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
 --- back
+
+# Provisioning Domains {#sec-pvd}
+
+PvD may also be considered as a mechanism to discover NRLP. Typically, the network will configured to set the H-flag so clients can
+request PvD Additional Information ({{Section 4.1 of ?RFC8801}}).
+
+{{pvd-ex}} provides an example of the returned "application/pvd+json" to indicate a network-to-host
+NRLP for all subscriber traffic. The NRLP list may include multiple instances if distinct policies
+are to be returned for distinct traffic categories.
+
+
+~~~~~
+{
+   "nrlp":[
+      {
+         "direction":1,
+         "scope":1,
+         "tc":0,
+         "cir":50,
+         "cbs":10000,
+         "ebs":20000
+      }
+   ]
+}
+~~~~~
+{: #pvd-ex artwork-align="center" title="NRLP Example with PvD"}
 
 # Acknowledgments
 {:numbered="false"}
