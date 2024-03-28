@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "Discovery of Network Rate-Limit Policies in Router Advertisements".
 
-* [Editor's Copy](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-ac-rate-policy-discovery.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-brw-ac-rate-policy-discovery)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-brw-ac-rate-policy-discovery)
-* [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-brw-ac-rate-policy-discovery/#go.draft-brw-ac-rate-policy-discovery.diff)
+* [Editor's Copy](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-brw-sconepro-rate-policy-discovery)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-brw-sconepro-rate-policy-discovery)
+* [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-brw-sconepro-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/boucadair/draft-brw-ac-rate-policy-discovery/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/boucadair/draft-brw-sconepro-rate-policy-discovery/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
