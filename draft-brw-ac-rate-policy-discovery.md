@@ -1,5 +1,5 @@
 ---
-title: "Discovery of Network Rate-Limit Policies Using Router Advertisements and DHCP"
+title: "Discovery of Network Rate-Limit Policies (NRLPs)"
 abbrev: "Rate-Limit Policies Discovery"
 category: std
 
@@ -10,7 +10,7 @@ date:
 consensus: true
 v: 3
 area: wit
-# workgroup: WG Working Group
+workgroup: sconepro
 keyword:
  - collaborative networking
  - adaptive application
@@ -21,16 +21,16 @@ author:
     organization: Orange
     email: mohamed.boucadair@orange.com
  -
-    fullname: Tirumaleswar Reddy
-    organization: Nokia
-    country: India
-    email: kondtir@gmail.com
- -
     fullname: Dan Wing
     organization: Cloud Software Group Holdings, Inc.
     abbrev: Cloud Software Group
     country: United States of America
     email: danwing@gmail.com
+ -
+    fullname: Tirumaleswar Reddy
+    organization: Nokia
+    country: India
+    email: kondtir@gmail.com
 
 normative:
 
