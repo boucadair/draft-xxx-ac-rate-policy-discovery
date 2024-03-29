@@ -133,6 +133,8 @@ The required set of parameters is a function of the service offering. For exampl
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}} or Layer 3 VPN {{?RFC9182}}). This document
 **leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
 
+{{sec-aaa}} provides another example of how existing tools can be leveraged for AAA purposes.
+
 ~~~~aasvg
   .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
   |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
@@ -198,7 +200,7 @@ are bound to the same attachment circuit is deployment specific.
 
 Applications will have access to all these NRLPs and will thus adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
-Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such model can be relaxed is out of scope of this document.
+Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
 This document does not assume nor preclude that other mechanims, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
 
@@ -738,7 +740,7 @@ are to be returned for distinct traffic categories.
 ~~~~~
 {: #pvd-ex title="NRLP Example with PvD"}
 
-# Example of Authentication, Authorization, and Accounting (AAA)
+# Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
 
 {{radius-ex}} provides an example of the exchanges that might occur between a DHCP server
 and an Authentication, Authorization, and Accounting (AAA) server to retrive the per-subscriber NRLPs.
