@@ -109,7 +109,7 @@ while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
 
-{{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
+{{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden to the network. The policies enforced at the network
 for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
 on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).
@@ -206,7 +206,7 @@ This document does not make any assumption about the type of the network (fixed,
 Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
 are bound to the same attachment circuit is deployment specific.
 
-Applications will have access to all these NRLPs and will thus adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
