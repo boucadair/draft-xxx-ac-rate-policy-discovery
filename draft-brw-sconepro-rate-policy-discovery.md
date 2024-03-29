@@ -279,6 +279,10 @@ Intentional policy:
 :  Configured bandwidth, pps, or similar throughput
    constraints applied to a flow, application, host, or subscriber.
 
+Rate-limit:
+: Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
+: It can be used with or without any traffic classification.
+
 # NRLP Blob {#sec-blob}
 
 This section defines the set of attributes that are included in an NRLP blob:
