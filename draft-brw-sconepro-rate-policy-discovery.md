@@ -668,7 +668,14 @@ Applications that don't support (embedded) bandwidth measurement schemes will be
 
 ## Host OS
 
-TBC.
+* Improved Network Performance: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
+* API to facilitate Application Development: OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
+* Prevent Abuse: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
+* Better Resource Management: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
+* Enhanced Security: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
+* Cost Efficiency: By managing network usage based on rate limits, the OS can help reduce network-related costs.
+* Improved User Experience: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
+* Improved Application Development Efficiency: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
