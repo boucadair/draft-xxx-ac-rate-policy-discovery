@@ -310,8 +310,10 @@ P:
 : When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
 : When set to "0", this flag indicates that PIR is not present.
 
-U:
-: Unassigned bit.
+R:
+: 1-bit flag which indicates the type of traffic on which to apply the enclosed policy.
+: When set to "1", this flag indicates that this policy is for reliable traffic.
+: When set to "0", this flag indicates that this policy is for unreliable traffic.
 
 Scope:
 : 4-bit field which specifies whether the policy is per host, per subscriber, etc.
@@ -327,7 +329,7 @@ TC:
 
   + "0": All traffic. This is the default value.
   + "1": Streaming
-  + "2": Realtime
+  + "2": Real-time
   + "3": Bulk traffic
   + 4-255: Unassigned values
 
@@ -385,7 +387,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|U| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -400,7 +402,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|U| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -435,8 +437,8 @@ E:
 P:
 : See {{sec-blob}}.
 
-U:
-: Unassigned bit.
+R:
+: See {{sec-blob}}.
 
 Scope:
 : See {{sec-blob}}.
@@ -528,7 +530,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|U| Scope |      TC       |
+|D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -547,7 +549,7 @@ The format of this field, with optional parameters included, is shown in {{nrlp-
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|U| Scope |      TC       |
+|D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -585,7 +587,7 @@ P:
 : See {{sec-blob}}.
 
 U:
-: Unassigned bit.
+: See {{sec-blob}}.
 
 Scope:
 : See {{sec-blob}}.
