@@ -31,6 +31,12 @@ author:
     organization: Nokia
     country: India
     email: kondtir@gmail.com
+ -
+    fullname: Sridharan Rajagopalan
+    organization: Cloud Software Group Holdings, Inc.
+    abbrev: Cloud Software Group
+    country: United States of America
+    email: "sridharan.girish@gmail.com"
 
 normative:
 
