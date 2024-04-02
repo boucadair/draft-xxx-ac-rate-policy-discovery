@@ -1,4 +1,4 @@
-# Discovery of Network Rate-Limit Policies in Router Advertisements
+# Discovery of Network Rate-Limit Policies
 
 This is the working area for the individual Internet-Draft, "Discovery of Network Rate-Limit Policies in Router Advertisements".
 
