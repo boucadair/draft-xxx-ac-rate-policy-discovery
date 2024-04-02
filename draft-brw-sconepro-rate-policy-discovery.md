@@ -104,13 +104,13 @@ Connectivity services are provided by networks to customers via
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
 To facilitate data transfer via the provider network, it is assumed that appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-allowing successfully data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
+successfully allowing data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
 while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
-other (internal) hosts. The identification of these hosts is hidden to the network. The policies enforced at the network
+other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
 on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).
 
@@ -210,7 +210,7 @@ Applications will have access to all these NRLPs and will, thus, adjust their be
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
-This document does not assume nor preclude that other mechanims, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
+This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
 
 ## Design Motivation & Rationale
 
@@ -221,7 +221,7 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 * Updatability: change the policy at any time
 * Deployability
 
-The solution specified in the document is designed to **ease integration with network managment tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing {{?RFC9543}}; see the example depicted in Appendix B.5 of {{?I-D.ietf-teas-ietf-network-slice-nbi-yang}}.
+The solution specified in the document is designed to **ease integration with network management tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing {{?RFC9543}}; see the example depicted in Appendix B.5 of {{?I-D.ietf-teas-ietf-network-slice-nbi-yang}}.
 
 The solution defined in this document:
 
@@ -231,7 +231,7 @@ The solution defined in this document:
 * **Does not require to reveal the identity of the target server or the application itself** to consume the signal.
 * **Supports cascaded environments** where multiple levels to enforce rate-limiting polices is required (e.g., WAN and LAN shown in {{ac-casc}}). NRLP signals can be coupled or decoupled as a function of the local policy.
 * **Supports signaling policies bound to one or both traffic directions**.
-* Is able to **signal wether a policy applies to a specific host or all hosts of a given subscriber**.
+* Is able to **signal whether a policy applies to a specific host or all hosts of a given subscriber**.
 
 ~~~~aasvg
 .------.                      .--------------------.
@@ -314,8 +314,10 @@ P:
 : When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
 : When set to "0", this flag indicates that PIR is not present.
 
-U:
-: Unassigned bit.
+R:
+: 1-bit flag which indicates the type of traffic on which to apply the enclosed policy.
+: When set to "1", this flag indicates that this policy is for reliable traffic.
+: When set to "0", this flag indicates that this policy is for unreliable traffic.
 
 Scope:
 : 4-bit field which specifies whether the policy is per host, per subscriber, etc.
@@ -331,8 +333,8 @@ TC:
 
   + "0": All traffic. This is the default value.
   + "1": Streaming
-  + "2":     Realtime
-  + "3": Bulk trafic
+  + "2": Real-time
+  + "3": Bulk traffic
   + 4-255: Unassigned values
 
 Committed Information Rate (CIR) (Mbps):
@@ -345,7 +347,7 @@ Committed Information Rate (CIR) (Mbps):
 
 Committed Burst Size (CBS) (bytes):
 : Specifies the maximum burst size that can be transmitted at CIR.
-: MUST be greated than zero.
+: MUST be greater than zero.
 : This parameter is mandatory.
 
 Excess Information Rate (EIR) (Mbps):
@@ -358,7 +360,7 @@ Excess Information Rate (EIR) (Mbps):
 
 Excess Burst Size (EBS) (bytes):
 : MUST be present only if EIR is also present.
-: Indicates that maximum excess burst size that is allowed while not complying with the CIR.
+: Indicates the maximum excess burst size that is allowed while not complying with the CIR.
 : MUST be greater than zero, if present.
 : This parameter is optional.
 
@@ -389,7 +391,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|U| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -404,7 +406,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|U| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -439,8 +441,8 @@ E:
 P:
 : See {{sec-blob}}.
 
-U:
-: Unassigned bit.
+R:
+: See {{sec-blob}}.
 
 Scope:
 : See {{sec-blob}}.
@@ -532,7 +534,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|U| Scope |      TC       |
+|D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -551,7 +553,7 @@ The format of this field, with optional parameters included, is shown in {{nrlp-
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|U| Scope |      TC       |
+|D|E|P|R| Scope |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -589,7 +591,7 @@ P:
 : See {{sec-blob}}.
 
 U:
-: Unassigned bit.
+: See {{sec-blob}}.
 
 Scope:
 : See {{sec-blob}}.
@@ -650,7 +652,7 @@ There are a set of tradeoffs for networks to deploy NRLP discovery:
 * Enhanced experience vs. impacts on nominal mode
 
 The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
-of resources under non nominal conditions. The mechanism allows also to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
+of resources under non nominal conditions. The mechanism also allows to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
 
 Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
 
@@ -670,7 +672,14 @@ Applications that don't support (embedded) bandwidth measurement schemes will be
 
 ## Host OS
 
-TBC.
+* Improved Network Performance: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
+* API to facilitate Application Development: OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
+* Prevent Abuse: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
+* Better Resource Management: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
+* Enhanced Security: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
+* Cost Efficiency: By managing network usage based on rate limits, the OS can help reduce network-related costs.
+* Improved User Experience: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
+* Improved Application Development Efficiency: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
@@ -678,7 +687,7 @@ TBC.
 
 As discussed in {{?RFC8781}}, because RAs are required in all IPv6 configuration scenarios, RAs must already be secured, e.g., by deploying an RA-Guard {{?RFC6105}}. Providing all configuration in RAs reduces the attack surface to be targeted by malicious attackers trying to provide hosts with invalid configuration, as compared to distributing the configuration through multiple different mechanisms that need to be secured independently.
 
-RAs are already used in mobile networks to advertize the link MTU. The same security considerartions for MTU discovery apply for the NRLP discover.
+RAs are already used in mobile networks to advertize the link MTU. The same security considerations for MTU discovery apply for the NRLP discover.
 
 An attacker who has access to the RAs exchanged over an attachment circuit may:
 
@@ -706,7 +715,7 @@ The above mechanisms would ensure that the endpoint receives the correct NRLP in
 ## Neighbor Discovery Option
 
 This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
-type in the "IPv6 Neighbor Discovery Option Formats" subregistry under the "Internet Control Message Protocol version 6 (ICMPv6)
+type in the "IPv6 Neighbor Discovery Option Formats" sub-registry under the "Internet Control Message Protocol version 6 (ICMPv6)
 Parameters" registry maintained at {{IANA-ND}}.
 
 |Type|     Description|     Reference|
@@ -759,7 +768,7 @@ are to be returned for distinct traffic categories.
 # Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
 
 {{radius-ex}} provides an example of the exchanges that might occur between a DHCP server
-and an Authentication, Authorization, and Accounting (AAA) server to retrive the per-subscriber NRLPs.
+and an Authentication, Authorization, and Accounting (AAA) server to retrieve the per-subscriber NRLPs.
 
 This example assumes that the Network Access Server (NAS) embeds both Remote Authentication Dial-In User Service
 (RADIUS) {{?RFC2865}} client and DHCP server capabilities.
