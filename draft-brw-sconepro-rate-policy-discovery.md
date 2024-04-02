@@ -334,14 +334,14 @@ Scope:
   + 2-15: Unassigned values.
 
 TC:
-: 8-bit field which specifies a traffic category to which this policy applies.
+: 6-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
   + "0": All traffic. This is the default value.
   + "1": Streaming
   + "2": Real-time
   + "3": Bulk traffic
-  + 4-255: Unassigned values
+  + 4-64: Unassigned values
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -397,7 +397,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -412,7 +412,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -449,6 +449,9 @@ P:
 
 R:
 : See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 Scope:
 : See {{sec-blob}}.
@@ -540,7 +543,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|R| Scope |      TC       |
+|D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -596,8 +599,11 @@ E:
 P:
 : See {{sec-blob}}.
 
-U:
+R:
 : See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 Scope:
 : See {{sec-blob}}.
@@ -714,10 +720,17 @@ RAs are already used in mobile networks to advertize the link MTU. The same secu
 
 An attacker who has access to the RAs exchanged over an attachment circuit may:
 
-*     Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
-*     Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
-*     Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
-*     Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
+Decrease the bitrate:
+: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
+
+Increase the bitrate value:
+: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
+
+Drop RAs:
+: This is similar to the current operations, where no NRLP RA is shared.
+
+Inject fake RAs:
+: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
 ## DHCP
 
