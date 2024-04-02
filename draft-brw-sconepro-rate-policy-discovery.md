@@ -252,10 +252,14 @@ Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masqu
 * **Does not impact the MTU tweaking**: No packet overhead is required.
 * **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes. Such issues are encountered, e.g., with the tunneled mode or long header packets in the forwarded QUIC proxy mode {{?I-D.ietf-masque-quic-proxy}}.
 * **Does not suffer from nested congestion control** for tunneled proxy mode.
+* **Does not incur multiple round-trips** in the forwarding mode for the client to start sending Short Header packets.
+* **Does not incur the overhead of unauthenticated re-encryption of QUIC packets** in the scramble transform of the forwarding mode.
 * **Does not impact the forwarding peformance of network nodes**. For example, the proxy forwarded mode {{?I-D.ietf-masque-quic-proxy}} requires rewriting connection identifiers; that is, the performance degradation will be at least equivalent to NAT.
 * **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
+* **Does not suffer from penalizing the proxy** which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).
 * **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
 * **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
+
 
 ## Sample Deployment Cases
 
