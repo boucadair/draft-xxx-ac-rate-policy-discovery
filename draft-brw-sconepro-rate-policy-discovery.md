@@ -670,7 +670,7 @@ Cost Efficiency:
 
 Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
 
-## Applications
+## Applications {#sec-app-inc}
 
 Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
 how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
@@ -687,7 +687,7 @@ Applications that don't support (embedded) bandwidth measurement schemes will be
 ## Host OS
 
 API to facilitate Application Development:
-: An OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
+: An OS can provide more accurate available bandwidth to applications through the API (as mentioned in {{sec-app-inc}}), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
 
 Prevent Abuse:
 : The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
@@ -702,7 +702,7 @@ Improved User Experience:
 : By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
 
 Improved Application Development Efficiency:
-: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
+: OS providing rate limits through an API (as mentioned in {{sec-app-inc}}) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
