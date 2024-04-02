@@ -660,6 +660,14 @@ There are a set of tradeoffs for networks to deploy NRLP discovery:
 The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
 of resources under non nominal conditions. The mechanism also allows to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
 
+With the OS support, the following benefits might be considered by networks:
+
+Improved Network Performance:
+: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
+
+Cost Efficiency:
+: By managing network usage based on known rate limits, the OS can help reduce network-related costs. However, this is difficult to assess.
+
 Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
 
 ## Applications
@@ -678,14 +686,23 @@ Applications that don't support (embedded) bandwidth measurement schemes will be
 
 ## Host OS
 
-* Improved Network Performance: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
-* API to facilitate Application Development: OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
-* Prevent Abuse: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
-* Better Resource Management: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
-* Enhanced Security: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
-* Cost Efficiency: By managing network usage based on rate limits, the OS can help reduce network-related costs.
-* Improved User Experience: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
-* Improved Application Development Efficiency: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
+API to facilitate Application Development:
+: An OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
+
+Prevent Abuse:
+: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
+
+Better Resource Management:
+: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
+
+Enhanced Security:
+: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
+
+Improved User Experience:
+: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
+
+Improved Application Development Efficiency:
+: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
