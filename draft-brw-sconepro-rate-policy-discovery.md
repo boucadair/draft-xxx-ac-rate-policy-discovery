@@ -334,14 +334,14 @@ Scope:
   + 2-15: Unassigned values.
 
 TC:
-: 8-bit field which specifies a traffic category to which this policy applies.
+: 6-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
   + "0": All traffic. This is the default value.
   + "1": Streaming
   + "2": Real-time
   + "3": Bulk traffic
-  + 4-255: Unassigned values
+  + 4-64: Unassigned values
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -397,7 +397,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -412,7 +412,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R| Scope |      TC       |
+|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -449,6 +449,9 @@ P:
 
 R:
 : See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 Scope:
 : See {{sec-blob}}.
@@ -540,7 +543,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|R| Scope |      TC       |
+|D|E|P|R|U|U| Scope |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -596,8 +599,11 @@ E:
 P:
 : See {{sec-blob}}.
 
-U:
+R:
 : See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 Scope:
 : See {{sec-blob}}.
@@ -635,6 +641,9 @@ The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field 
 
 # Operational Considerations {#sec-ops}
 
+Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
+its networks to adjust their behaviors.
+
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
 In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the attachment circuit may be redundant and should thus be disabled.
@@ -660,9 +669,17 @@ There are a set of tradeoffs for networks to deploy NRLP discovery:
 The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
 of resources under non nominal conditions. The mechanism also allows to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
 
+With the OS support, the following benefits might be considered by networks:
+
+Improved Network Performance:
+: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
+
+Cost Efficiency:
+: By managing network usage based on known rate limits, the OS can help reduce network-related costs. However, this is difficult to assess.
+
 Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
 
-## Applications
+## Applications {#sec-app-inc}
 
 Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
 how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
@@ -678,14 +695,23 @@ Applications that don't support (embedded) bandwidth measurement schemes will be
 
 ## Host OS
 
-* Improved Network Performance: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
-* API to facilitate Application Development: OS can provide more accurate available bandwidth to applications through the API (as mentioned above), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
-* Prevent Abuse: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
-* Better Resource Management: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
-* Enhanced Security: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
-* Cost Efficiency: By managing network usage based on rate limits, the OS can help reduce network-related costs.
-* Improved User Experience: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
-* Improved Application Development Efficiency: OS providing rate limits through an API (as mentioned above) can provide the above listed benefits at per application level.
+API to facilitate Application Development:
+: An OS can provide more accurate available bandwidth to applications through the API (as mentioned in {{sec-app-inc}}), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
+
+Prevent Abuse:
+: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
+
+Better Resource Management:
+: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
+
+Enhanced Security:
+: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
+
+Improved User Experience:
+: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
+
+Improved Application Development Efficiency:
+: OS providing rate limits through an API (as mentioned in {{sec-app-inc}}) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
@@ -697,10 +723,17 @@ RAs are already used in mobile networks to advertize the link MTU. The same secu
 
 An attacker who has access to the RAs exchanged over an attachment circuit may:
 
-*     Decrease the bitrate: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
-*     Increase the bitrate value: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
-*     Drop RAs: This is similar to the current operations, where no NRLP RA is shared.
-*     Inject fake RAs: The implications are similar to the impacts of tweaking the values of a legitimate RA.
+Decrease the bitrate:
+: This may lower the perceived QoS if the host aggressively lowers its transmission rate.
+
+Increase the bitrate value:
+: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
+
+Drop RAs:
+: This is similar to the current operations, where no NRLP RA is shared.
+
+Inject fake RAs:
+: The implications are similar to the impacts of tweaking the values of a legitimate RA.
 
 ## DHCP
 
