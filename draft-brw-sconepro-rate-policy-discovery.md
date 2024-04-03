@@ -110,10 +110,12 @@ Connectivity services are provided by networks to customers via
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
 To facilitate data transfer via the provider network, it is assumed that appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-successfully allowing data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
+successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
 while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
+
+> Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
@@ -137,15 +139,15 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
   O O O                                                  O O O
   Hosts                                                  Hosts
 ~~~~
-{: #ac title="Sample Attachment Circuits " artwork-align="center"}
+{: #ac title="Sample Network Attachments" artwork-align="center"}
 
 Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over an attachment circuit. A comprehensive list of provisioning parameters that are available on
-the PE-side of an attachment circuit is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+able to send and receive traffic over an AC. A comprehensive list of provisioning parameters that are available on
+the PE-side of an AC is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
 The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}} or Layer 3 VPN {{?RFC9182}}). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits**. An example of an attachment circuit provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
+**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs**. An example of an AC provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
 
 {{sec-aaa}} provides another example of how existing tools can be leveraged for AAA purposes.
 
@@ -197,7 +199,7 @@ These options are called: Network Rate-Limit Policy (NRLP).
 
 This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
 
-In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
+In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
 Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.
 
@@ -207,10 +209,10 @@ Also, the design supports returning one more NRLP instances for a given traffic 
 
 ## What's Out?
 
-This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.
+This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an AC.
 
-Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
-are bound to the same attachment circuit is deployment specific.
+Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
+are bound to the same AC is deployment specific.
 
 Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
 
@@ -273,7 +275,7 @@ Some deployment use cases for NRLP are provided below:
 
 * A network may advertize an NRLP when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
 
-* Discovery of intentional policy applied on attachment circuits (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.
+* Discovery of intentional policy applied on ACs (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.
 
 * A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
 
@@ -345,7 +347,7 @@ TC:
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
-  send during one second over an attachment circuit for a
+  send during one second over an AC for a
   traffic category.
 : If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
@@ -359,7 +361,7 @@ Committed Burst Size (CBS) (bytes):
 Excess Information Rate (EIR) (Mbps):
 : MUST be present only if the E flag is set to '1'.
 : Specifies the maximum number of bits that a network can receive or
-  send during one second over an attachment circuit for a
+  send during one second over an AC for a
   traffic category that is out of profile.
 : See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 : This parameter is optional.
@@ -646,9 +648,9 @@ its networks to adjust their behaviors.
 
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
-In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the attachment circuit may be redundant and should thus be disabled.
+In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.
 
-In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the attachment circuit would allow control the load at the source.
+In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the AC would allow control the load at the source.
 
 When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
 
@@ -721,13 +723,13 @@ As discussed in {{?RFC8781}}, because RAs are required in all IPv6 configuration
 
 RAs are already used in mobile networks to advertize the link MTU. The same security considerations for MTU discovery apply for the NRLP discover.
 
-An attacker who has access to the RAs exchanged over an attachment circuit may:
+An attacker who has access to the RAs exchanged over an AC may:
 
 Decrease the bitrate:
 : This may lower the perceived QoS if the host aggressively lowers its transmission rate.
 
 Increase the bitrate value:
-: The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.
+: The AC will be overloaded, but still the rate-limit at the network will discard excess traffic.
 
 Drop RAs:
 : This is similar to the current operations, where no NRLP RA is shared.
@@ -737,7 +739,7 @@ Inject fake RAs:
 
 ## DHCP
 
-An attacker who has access to the DHCP exchanged over an attachment circuit may do a lot of harm (e.g., prevent access to the network).
+An attacker who has access to the DHCP exchanged over an AC may do a lot of harm (e.g., prevent access to the network).
 
 The following mechanisms may be considered to mitigate spoofed or modified DHCP responses:
 
