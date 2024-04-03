@@ -335,10 +335,11 @@ Flow flags:
       host-to-network direction.
 
     R (Reliablity):
-    : 2-bit flag which indicates the type of traffic on which to apply the enclosed policy.
+    : 2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.
     : When set to "00b", this flag indicates that this policy is for unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for reliable traffic.
     : When set to "10b", this flag indicates that this policy is for both reliable and unreliable traffic.
+    : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver. 
 
     U:
     : Unassigned bits.
