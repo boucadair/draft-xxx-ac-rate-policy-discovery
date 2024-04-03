@@ -121,7 +121,7 @@ Table of Contents
    links that connect customer terminating points and a provider network
    (usually via a Provider Edge (PE)), successfully allowing data
    exchange over these links.  The required setup is referred to in this
-   document as Attachment Circuits (ACs), while the underlying link is
+   document as network attachments, while the underlying link is
    referred to as "bearers".
 
    The bearer can be a physical or logical link that connects a customer
@@ -130,13 +130,9 @@ Table of Contents
    establish the bearer (e.g., WLAN, cellular) to graft customer
    terminating points to a network.
 
-      Rather than defining another term to refer to the link between a
-      customer terminating point and a network, this document leverages
-      the "Attachment Circuit" concept which is an established concept
-      in the industry and also in the IETF ([RFC4026], [RFC4664],
-      [RFC4364], etc.).  The use of "circuit" may be misleading, but
-      that term is also used at the transport layer such as "Network
-      Transport Circuit Breaker" [RFC8084].
+      Network attachment is also knwon as "Attachment Circuit (AC)"
+      which is an established concept in the industry and also in the
+      IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
 
    Figure 1 shows an example of a network that connects CEs and hosts
    (UE, for example).These CEs are servicing other (internal) hosts.
@@ -1224,10 +1220,6 @@ Table of Contents
               Protecting against Rogue DHCPv6 Servers", BCP 199,
               RFC 7610, DOI 10.17487/RFC7610, August 2015,
               <https://www.rfc-editor.org/rfc/rfc7610>.
-
-   [RFC8084]  Fairhurst, G., "Network Transport Circuit Breakers",
-              BCP 208, RFC 8084, DOI 10.17487/RFC8084, March 2017,
-              <https://www.rfc-editor.org/rfc/rfc8084>.
 
    [RFC8781]  Colitti, L. and J. Linkova, "Discovering PREF64 in Router
               Advertisements", RFC 8781, DOI 10.17487/RFC8781, April
