@@ -339,7 +339,7 @@ Flow flags:
     : When set to "00b", this flag indicates that this policy is for unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for reliable traffic.
     : When set to "10b", this flag indicates that this policy is for both reliable and unreliable traffic.
-    : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver. 
+    : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
 
     U:
     : Unassigned bits.
