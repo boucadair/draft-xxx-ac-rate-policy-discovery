@@ -130,7 +130,7 @@ Table of Contents
    establish the bearer (e.g., WLAN, cellular) to graft customer
    terminating points to a network.
 
-      Network attachment is also knwon as "Attachment Circuit (AC)"
+      Network attachment is also known as "Attachment Circuit (AC)"
       which is an established concept in the industry and also in the
       IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
 
