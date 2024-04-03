@@ -110,12 +110,12 @@ Connectivity services are provided by networks to customers via
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
 To facilitate data transfer via the provider network, it is assumed that appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-successfully allowing data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
+successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
 while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
 
-> Rather than defining another term to refer to the link between a customer terminating point and a network, this document leverages the "Attachment Circuit" concept which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.). The use of "circuit" may be misleading, but that term is also used at the transport layer such as "Network Transport Circuit Breaker" {{?RFC8084}}.
+> Network attachment is also knwon as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
