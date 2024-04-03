@@ -1276,17 +1276,22 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
 To facilitate data transfer via the provider network, it is assumed that appropriate setup
 is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-successfully allowing data exchange over these links. The required setup is referred to in this document as Attachment Circuits (ACs),
+successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
 while the underlying link is referred to as "bearers".<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2">The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
-<p id="section-1.1-3"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.1-3.1">
+            <p id="section-1.1-3.1.1">Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF (<span>[<a href="#RFC4026" class="cite xref">RFC4026</a>]</span>, <span>[<a href="#RFC4664" class="cite xref">RFC4664</a>]</span>, <span>[<a href="#RFC4364" class="cite xref">RFC4364</a>]</span>, etc.).<a href="#section-1.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-1.1-4"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).<a href="#section-1.1-3" class="pilcrow">¶</a></p>
-<span id="name-sample-attachment-circuits"></span><div id="ac">
+on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).<a href="#section-1.1-4" class="pilcrow">¶</a></p>
+<span id="name-sample-network-attachments"></span><div id="ac">
 <figure id="figure-1">
-          <div id="section-1.1-4.1">
-            <div class="alignCenter art-svg artwork" id="section-1.1-4.1.1">
+          <div id="section-1.1-5.1">
+            <div class="alignCenter art-svg artwork" id="section-1.1-5.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="512" viewBox="0 0 512 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 8,80 L 8,128" fill="none" stroke="black"></path>
                 <path d="M 8,160 L 8,208" fill="none" stroke="black"></path>
@@ -1349,24 +1354,24 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
                   <text x="40" y="260">Hosts</text>
                   <text x="480" y="260">Hosts</text>
                 </g>
-              </svg><a href="#section-1.1-4.1.1" class="pilcrow">¶</a>
+              </svg><a href="#section-1.1-5.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-sample-attachment-circuits" class="selfRef">Sample Attachment Circuits</a>
+<a href="#name-sample-network-attachments" class="selfRef">Sample Network Attachments</a>
           </figcaption></figure>
 </div>
-<p id="section-1.1-5">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over an attachment circuit. A comprehensive list of provisioning parameters that are available on
-the PE-side of an attachment circuit is documented in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
-<p id="section-1.1-6">The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
+<p id="section-1.1-6">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
+able to send and receive traffic over an AC. A comprehensive list of provisioning parameters that are available on
+the PE-side of an AC is documented in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1.1-6" class="pilcrow">¶</a></p>
+<p id="section-1.1-7">The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span> or Layer 3 VPN <span>[<a href="#RFC9182" class="cite xref">RFC9182</a>]</span>). This document
-<strong>leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these attachment circuits</strong>. An example of an attachment circuit provided over a 3GPP network is depicted in <a href="#ex-arch" class="auto internal xref">Figure 2</a>. It is out of the scope of this document to describe all involved components. Readers may refer to <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span> for more details.<a href="#section-1.1-6" class="pilcrow">¶</a></p>
-<p id="section-1.1-7"><a href="#sec-aaa" class="auto internal xref">Appendix B</a> provides another example of how existing tools can be leveraged for AAA purposes.<a href="#section-1.1-7" class="pilcrow">¶</a></p>
+<strong>leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs</strong>. An example of an AC provided over a 3GPP network is depicted in <a href="#ex-arch" class="auto internal xref">Figure 2</a>. It is out of the scope of this document to describe all involved components. Readers may refer to <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span> for more details.<a href="#section-1.1-7" class="pilcrow">¶</a></p>
+<p id="section-1.1-8"><a href="#sec-aaa" class="auto internal xref">Appendix B</a> provides another example of how existing tools can be leveraged for AAA purposes.<a href="#section-1.1-8" class="pilcrow">¶</a></p>
 <span id="name-5gs-architecture"></span><div id="ex-arch">
 <figure id="figure-2">
-          <div id="section-1.1-8.1">
-            <div class="alignCenter art-svg artwork" id="section-1.1-8.1.1">
+          <div id="section-1.1-9.1">
+            <div class="alignCenter art-svg artwork" id="section-1.1-9.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="304" width="536" viewBox="0 0 536 304" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 24,32 L 24,64" fill="none" stroke="black"></path>
                 <path d="M 48,64 L 48,96" fill="none" stroke="black"></path>
@@ -1490,7 +1495,7 @@ service offering while a more elaborated set is required for Enterprise services
                   <text x="228" y="292">AC</text>
                   <text x="320" y="292">|</text>
                 </g>
-              </svg><a href="#section-1.1-8.1.1" class="pilcrow">¶</a>
+              </svg><a href="#section-1.1-9.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1498,8 +1503,8 @@ service offering while a more elaborated set is required for Enterprise services
           </figcaption></figure>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.1-9.1">
-            <p id="section-1.1-9.1.1">The "AC" mention in <a href="#ex-arch" class="auto internal xref">Figure 2</a> is not present in <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span>. It is added to the figure for the readers' convenience to position an attachment circuit.<a href="#section-1.1-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.1-10.1">
+            <p id="section-1.1-10.1.1">The "AC" mention in <a href="#ex-arch" class="auto internal xref">Figure 2</a> is not present in <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span>. It is added to the figure for the readers' convenience to position an attachment circuit.<a href="#section-1.1-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1553,7 +1558,7 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 <p id="section-1.3-1"><span>[<a href="#I-D.rwbr-tsvwg-signaling-use-cases" class="cite xref">I-D.rwbr-tsvwg-signaling-use-cases</a>]</span> discusses some use cases where it is beneficial to share policies with the hosts. <strong>Given that all IPv6 hosts and networks are required to support Neighbor Discovery <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span></strong>, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a DHCP option <span>[<a href="#RFC2132" class="cite xref">RFC2132</a>]</span> is also defined for IPv4.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
 <p id="section-1.3-2">These options are called: Network Rate-Limit Policy (NRLP).<a href="#section-1.3-2" class="pilcrow">¶</a></p>
 <p id="section-1.3-3">This document uses the host/network metadata specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-rwbr-sconepro-flow-metadata-00#section-5.1" class="relref">Section 5.1</a> of [<a href="#I-D.rwbr-sconepro-flow-metadata" class="cite xref">I-D.rwbr-sconepro-flow-metadata</a>]</span>.<a href="#section-1.3-3" class="pilcrow">¶</a></p>
-<p id="section-1.3-4">In order to ensure consistent design for both IPv4 and IPv6 attachment circuits, <a href="#sec-blob" class="auto internal xref">Section 3</a> groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, <strong><em>a Protocol Configuration Option (PCO) <span>[<a href="#TS-24.008" class="cite xref">TS-24.008</a>]</span> NRLP Information Element can be defined in 3GPP</em></strong>.<a href="#section-1.3-4" class="pilcrow">¶</a></p>
+<p id="section-1.3-4">In order to ensure consistent design for both IPv4 and IPv6 ACs, <a href="#sec-blob" class="auto internal xref">Section 3</a> groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, <strong><em>a Protocol Configuration Option (PCO) <span>[<a href="#TS-24.008" class="cite xref">TS-24.008</a>]</span> NRLP Information Element can be defined in 3GPP</em></strong>.<a href="#section-1.3-4" class="pilcrow">¶</a></p>
 <p id="section-1.3-5">Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.<a href="#section-1.3-5" class="pilcrow">¶</a></p>
 <p id="section-1.3-6">Also, the design supports returning one more NRLP instances for a given traffic direction.<a href="#section-1.3-6" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
@@ -1568,9 +1573,9 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
         <h3 id="name-whats-out">
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-whats-out" class="section-name selfRef">What's Out?</a>
         </h3>
-<p id="section-1.4-1">This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an attachment circuit.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">Likewise, the document does not make any assumption about the services or applications that are delivered over an attachment circuit. Whether one or multiple services
-are bound to the same attachment circuit is deployment specific.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-1">This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an AC.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
+are bound to the same AC is deployment specific.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
 <p id="section-1.4-3">Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to <span>[<a href="#I-D.rwbr-tsvwg-signaling-use-cases" class="cite xref">I-D.rwbr-tsvwg-signaling-use-cases</a>]</span> for some examples.<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <p id="section-1.4-4">Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., <span><a href="https://rfc-editor.org/rfc/rfc8803#section-9.3" class="relref">Section 9.3</a> of [<a href="#RFC8803" class="cite xref">RFC8803</a>]</span> or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-01#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-masque-quic-proxy" class="cite xref">I-D.ietf-masque-quic-proxy</a>]</span>). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
 <p id="section-1.4-5">This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span>, are enabled in a bottleneck link.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
@@ -1715,7 +1720,7 @@ are bound to the same attachment circuit is deployment specific.<a href="#sectio
             <p id="section-1.6-2.1.1">A network may advertize an NRLP when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source <span>[<a href="#RFC9066" class="cite xref">RFC9066</a>]</span>.<a href="#section-1.6-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.6-2.2">
-            <p id="section-1.6-2.2.1">Discovery of intentional policy applied on attachment circuits (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.<a href="#section-1.6-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-1.6-2.2.1">Discovery of intentional policy applied on ACs (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.<a href="#section-1.6-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.6-2.3">
             <p id="section-1.6-2.3.1">A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate-limit policies to connected hosts to adjust their forwarding behavior.<a href="#section-1.6-2.3.1" class="pilcrow">¶</a></p>
@@ -1875,7 +1880,7 @@ host-to-network direction.<a href="#section-3-2.6.1" class="pilcrow">¶</a></p>
 <dt id="section-3-2.29">Committed Information Rate (CIR) (Mbps):</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.30">
           <p id="section-3-2.30.1">Specifies the maximum number of bits that a network can receive or
-send during one second over an attachment circuit for a
+send during one second over an AC for a
 traffic category.<a href="#section-3-2.30.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
@@ -1917,7 +1922,7 @@ traffic category.<a href="#section-3-2.30.1" class="pilcrow">¶</a></p>
 <dt id="section-3-2.45"></dt>
         <dd style="margin-left: 1.5em" id="section-3-2.46">
           <p id="section-3-2.46.1">Specifies the maximum number of bits that a network can receive or
-send during one second over an attachment circuit for a
+send during one second over an AC for a
 traffic category that is out of profile.<a href="#section-3-2.46.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
@@ -2384,8 +2389,8 @@ already advertized using RAs and those policies are consistent with the network 
 <p id="section-6-1">Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
 its networks to adjust their behaviors.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the attachment circuit may be redundant and should thus be disabled.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the attachment circuit would allow control the load at the source.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-3">In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the AC would allow control the load at the source.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <p id="section-6-5">When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="section-6-6">Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, <span>[<a href="#BEREC" class="cite xref">BEREC</a>]</span> says the following:<a href="#section-6-6" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
@@ -2516,7 +2521,7 @@ depends upon:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-8.1-1">As discussed in <span>[<a href="#RFC8781" class="cite xref">RFC8781</a>]</span>, because RAs are required in all IPv6 configuration scenarios, RAs must already be secured, e.g., by deploying an RA-Guard <span>[<a href="#RFC6105" class="cite xref">RFC6105</a>]</span>. Providing all configuration in RAs reduces the attack surface to be targeted by malicious attackers trying to provide hosts with invalid configuration, as compared to distributing the configuration through multiple different mechanisms that need to be secured independently.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <p id="section-8.1-2">RAs are already used in mobile networks to advertize the link MTU. The same security considerations for MTU discovery apply for the NRLP discover.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
-<p id="section-8.1-3">An attacker who has access to the RAs exchanged over an attachment circuit may:<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.1-3">An attacker who has access to the RAs exchanged over an AC may:<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-8.1-4">
           <dt id="section-8.1-4.1">Decrease the bitrate:</dt>
           <dd style="margin-left: 1.5em" id="section-8.1-4.2">
@@ -2525,7 +2530,7 @@ depends upon:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
           <dd class="break"></dd>
 <dt id="section-8.1-4.3">Increase the bitrate value:</dt>
           <dd style="margin-left: 1.5em" id="section-8.1-4.4">
-            <p id="section-8.1-4.4.1">The attachment circuit will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-8.1-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-8.1-4.4.1">The AC will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-8.1-4.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-8.1-4.5">Drop RAs:</dt>
@@ -2546,7 +2551,7 @@ depends upon:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
         <h3 id="name-dhcp">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-dhcp" class="section-name selfRef">DHCP</a>
         </h3>
-<p id="section-8.2-1">An attacker who has access to the DHCP exchanged over an attachment circuit may do a lot of harm (e.g., prevent access to the network).<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">An attacker who has access to the DHCP exchanged over an AC may do a lot of harm (e.g., prevent access to the network).<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <p id="section-8.2-2">The following mechanisms may be considered to mitigate spoofed or modified DHCP responses:<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-8.2-3">
           <dt id="section-8.2-3.1">DHCPv6-Shield <span>[<a href="#RFC7610" class="cite xref">RFC7610</a>]</span>:</dt>
@@ -2769,9 +2774,21 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
         <dd>
 <span class="refAuthor">T'Joens, Y.</span>, <span class="refAuthor">Hublet, C.</span>, and <span class="refAuthor">P. De Schrijver</span>, <span class="refTitle">"DHCP reconfigure extension"</span>, <span class="seriesInfo">RFC 3203</span>, <span class="seriesInfo">DOI 10.17487/RFC3203</span>, <time datetime="2001-12" class="refDate">December 2001</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3203">https://www.rfc-editor.org/rfc/rfc3203</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4026">[RFC4026]</dt>
+        <dd>
+<span class="refAuthor">Andersson, L.</span> and <span class="refAuthor">T. Madsen</span>, <span class="refTitle">"Provider Provisioned Virtual Private Network (VPN) Terminology"</span>, <span class="seriesInfo">RFC 4026</span>, <span class="seriesInfo">DOI 10.17487/RFC4026</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4026">https://www.rfc-editor.org/rfc/rfc4026</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4115">[RFC4115]</dt>
         <dd>
 <span class="refAuthor">Aboul-Magd, O.</span> and <span class="refAuthor">S. Rabie</span>, <span class="refTitle">"A Differentiated Service Two-Rate, Three-Color Marker with Efficient Handling of in-Profile Traffic"</span>, <span class="seriesInfo">RFC 4115</span>, <span class="seriesInfo">DOI 10.17487/RFC4115</span>, <time datetime="2005-07" class="refDate">July 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4115">https://www.rfc-editor.org/rfc/rfc4115</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4364">[RFC4364]</dt>
+        <dd>
+<span class="refAuthor">Rosen, E.</span> and <span class="refAuthor">Y. Rekhter</span>, <span class="refTitle">"BGP/MPLS IP Virtual Private Networks (VPNs)"</span>, <span class="seriesInfo">RFC 4364</span>, <span class="seriesInfo">DOI 10.17487/RFC4364</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4364">https://www.rfc-editor.org/rfc/rfc4364</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4664">[RFC4664]</dt>
+        <dd>
+<span class="refAuthor">Andersson, L., Ed.</span> and <span class="refAuthor">E. Rosen, Ed.</span>, <span class="refTitle">"Framework for Layer 2 Virtual Private Networks (L2VPNs)"</span>, <span class="seriesInfo">RFC 4664</span>, <span class="seriesInfo">DOI 10.17487/RFC4664</span>, <time datetime="2006-09" class="refDate">September 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4664">https://www.rfc-editor.org/rfc/rfc4664</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6105">[RFC6105]</dt>
         <dd>

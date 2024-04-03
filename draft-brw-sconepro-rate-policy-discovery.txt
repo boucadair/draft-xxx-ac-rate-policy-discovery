@@ -121,7 +121,7 @@ Table of Contents
    links that connect customer terminating points and a provider network
    (usually via a Provider Edge (PE)), successfully allowing data
    exchange over these links.  The required setup is referred to in this
-   document as Attachment Circuits (ACs), while the underlying link is
+   document as network attachments, while the underlying link is
    referred to as "bearers".
 
    The bearer can be a physical or logical link that connects a customer
@@ -129,6 +129,10 @@ Table of Contents
    link.  The same or multiple bearer technologies can be used to
    establish the bearer (e.g., WLAN, cellular) to graft customer
    terminating points to a network.
+
+      Network attachment is also known as "Attachment Circuit (AC)"
+      which is an established concept in the industry and also in the
+      IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
 
    Figure 1 shows an example of a network that connects CEs and hosts
    (UE, for example).These CEs are servicing other (internal) hosts.
@@ -156,13 +160,12 @@ Table of Contents
         O O O                                                  O O O
         Hosts                                                  Hosts
 
-                    Figure 1: Sample Attachment Circuits
+                    Figure 1: Sample Network Attachments
 
    Customer terminating points are provided with a set of information
    (e.g., IP address/prefix) to successfully be able to send and receive
-   traffic over an attachment circuit.  A comprehensive list of
-   provisioning parameters that are available on the PE-side of an
-   attachment circuit is documented in
+   traffic over an AC.  A comprehensive list of provisioning parameters
+   that are available on the PE-side of an AC is documented in
    [I-D.ietf-opsawg-ntw-attachment-circuit].
 
    The required set of parameters is a function of the service offering.
@@ -171,11 +174,10 @@ Table of Contents
    Enterprise services (e.g., Layer 2 VPN [RFC9291] or Layer 3 VPN
    [RFC9182]).  This document *leverages access control, authorization,
    and authentication mechanisms that are already in place for the
-   delivery of services over these attachment circuits*. An example of
-   an attachment circuit provided over a 3GPP network is depicted in
-   Figure 2.  It is out of the scope of this document to describe all
-   involved components.  Readers may refer to [TS-23.501] for more
-   details.
+   delivery of services over these ACs*. An example of an AC provided
+   over a 3GPP network is depicted in Figure 2.  It is out of the scope
+   of this document to describe all involved components.  Readers may
+   refer to [TS-23.501] for more details.
 
    Appendix B provides another example of how existing tools can be
    leveraged for AAA purposes.
@@ -250,13 +252,13 @@ Table of Contents
    This document uses the host/network metadata specified in Section 5.1
    of [I-D.rwbr-sconepro-flow-metadata].
 
-   In order to ensure consistent design for both IPv4 and IPv6
-   attachment circuits, Section 3 groups the set of NRLP parameters that
-   are returned independent of the address family.  This blob can be
-   leveraged in networks where DHCP is not used and ease the mapping
-   with specific protocols used in these networks.  For example, *_a
-   Protocol Configuration Option (PCO) [TS-24.008] NRLP Information
-   Element can be defined in 3GPP_*.
+   In order to ensure consistent design for both IPv4 and IPv6 ACs,
+   Section 3 groups the set of NRLP parameters that are returned
+   independent of the address family.  This blob can be leveraged in
+   networks where DHCP is not used and ease the mapping with specific
+   protocols used in these networks.  For example, *_a Protocol
+   Configuration Option (PCO) [TS-24.008] NRLP Information Element can
+   be defined in 3GPP_*.
 
    Whether host-to-network, network-to-host, or both policies are
    returned in an NRLP is deployment specific.  All these combinations
@@ -273,13 +275,11 @@ Table of Contents
 1.4.  What's Out?
 
    This document does not make any assumption about the type of the
-   network (fixed, cellular, etc.) that terminates an attachment
-   circuit.
+   network (fixed, cellular, etc.) that terminates an AC.
 
    Likewise, the document does not make any assumption about the
-   services or applications that are delivered over an attachment
-   circuit.  Whether one or multiple services are bound to the same
-   attachment circuit is deployment specific.
+   services or applications that are delivered over an AC.  Whether one
+   or multiple services are bound to the same AC is deployment specific.
 
    Applications will have access to all these NRLPs and will, thus,
    adjust their behavior as a function of scope and traffic category
@@ -418,10 +418,9 @@ Table of Contents
       be used to enrich the tools that are already available to better
       handle attack traffic close to the source [RFC9066].
 
-   *  Discovery of intentional policy applied on attachment circuits
-      (peering links, CE-PE links, etc.) when such information is not
-      made available during the service activation or when network
-      upgrades are performed.
+   *  Discovery of intentional policy applied on ACs (peering links, CE-
+      PE links, etc.) when such information is not made available during
+      the service activation or when network upgrades are performed.
 
    *  A user may configure policies on the CPE such as securing some
       resources to a specific internal host used for gaming or video
@@ -519,7 +518,7 @@ Table of Contents
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
-      second over an attachment circuit for a traffic category.
+      second over an AC for a traffic category.
 
       If set to 0, this indicates to the host that an alternate path (if
       any) should be preferred over this one.
@@ -539,8 +538,8 @@ Table of Contents
       flag is set to '1'.
 
       Specifies the maximum number of bits that a network can receive or
-      send during one second over an attachment circuit for a traffic
-      category that is out of profile.
+      send during one second over an AC for a traffic category that is
+      out of profile.
 
       See Section 5.1 of [I-D.rwbr-sconepro-flow-metadata].
 
@@ -849,14 +848,14 @@ Table of Contents
 
    In contexts where the bitrate policies are known during the
    establishment of the underlying bearer (e.g., GBR PDU Sessions),
-   sending NRLP signals over the attachment circuit may be redundant and
-   should thus be disabled.
+   sending NRLP signals over the AC may be redundant and should thus be
+   disabled.
 
    In contexts where the (average) bitrate policies provided during the
    establishment of a bearer cannot be refreshed to echo network-
    specific conditions (e.g., overload) using bearer-specific
-   mechanisms, sending NRLP signals over the attachment circuit would
-   allow control the load at the source.
+   mechanisms, sending NRLP signals over the AC would allow control the
+   load at the source.
 
    When both bearer-specific policies and NRLP signals are communicated
    to a host, the NRLP signals takes precedence.
@@ -977,15 +976,13 @@ Table of Contents
    The same security considerations for MTU discovery apply for the NRLP
    discover.
 
-   An attacker who has access to the RAs exchanged over an attachment
-   circuit may:
+   An attacker who has access to the RAs exchanged over an AC may:
 
    Decrease the bitrate:  This may lower the perceived QoS if the host
       aggressively lowers its transmission rate.
 
-   Increase the bitrate value:  The attachment circuit will be
-      overloaded, but still the rate-limit at the network will discard
-      excess traffic.
+   Increase the bitrate value:  The AC will be overloaded, but still the
+      rate-limit at the network will discard excess traffic.
 
    Drop RAs:  This is similar to the current operations, where no NRLP
       RA is shared.
@@ -995,8 +992,8 @@ Table of Contents
 
 8.2.  DHCP
 
-   An attacker who has access to the DHCP exchanged over an attachment
-   circuit may do a lot of harm (e.g., prevent access to the network).
+   An attacker who has access to the DHCP exchanged over an AC may do a
+   lot of harm (e.g., prevent access to the network).
 
    The following mechanisms may be considered to mitigate spoofed or
    modified DHCP responses:
@@ -1175,10 +1172,24 @@ Table of Contents
               reconfigure extension", RFC 3203, DOI 10.17487/RFC3203,
               December 2001, <https://www.rfc-editor.org/rfc/rfc3203>.
 
+   [RFC4026]  Andersson, L. and T. Madsen, "Provider Provisioned Virtual
+              Private Network (VPN) Terminology", RFC 4026,
+              DOI 10.17487/RFC4026, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4026>.
+
    [RFC4115]  Aboul-Magd, O. and S. Rabie, "A Differentiated Service
               Two-Rate, Three-Color Marker with Efficient Handling of
               in-Profile Traffic", RFC 4115, DOI 10.17487/RFC4115, July
               2005, <https://www.rfc-editor.org/rfc/rfc4115>.
+
+   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
+              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
+              2006, <https://www.rfc-editor.org/rfc/rfc4364>.
+
+   [RFC4664]  Andersson, L., Ed. and E. Rosen, Ed., "Framework for Layer
+              2 Virtual Private Networks (L2VPNs)", RFC 4664,
+              DOI 10.17487/RFC4664, September 2006,
+              <https://www.rfc-editor.org/rfc/rfc4664>.
 
    [RFC6105]  Levy-Abegnoli, E., Van de Velde, G., Popoviciu, C., and J.
               Mohacsi, "IPv6 Router Advertisement Guard", RFC 6105,
