@@ -5,12 +5,12 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 4 October 2024                             Cloud Software Group
+Expires: 5 October 2024                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
-                                                            2 April 2024
+                                                            3 April 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 October 2024.
+   This Internet-Draft will expire on 5 October 2024.
 
 Copyright Notice
 
@@ -502,7 +502,7 @@ Table of Contents
 
       *  2-15: Unassigned values.
 
-   TC:  8-bit field which specifies a traffic category to which this
+   TC:  6-bit field which specifies a traffic category to which this
       policy applies.
 
       The following values are supported:
@@ -515,7 +515,7 @@ Table of Contents
 
       *  "3": Bulk traffic
 
-      *  4-255: Unassigned values
+      *  4-64: Unassigned values
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -592,7 +592,7 @@ Table of Contents
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |D|E|P|R| Scope |      TC       |
+     |     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                Committed Information Rate (CIR)               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -607,7 +607,7 @@ Table of Contents
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |D|E|P|R| Scope |      TC       |
+     |     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                Committed Information Rate (CIR)               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -639,6 +639,8 @@ Table of Contents
    P:  See Section 3.
 
    R:  See Section 3.
+
+   U:  Unassigned bits.
 
    Scope:  See Section 3.
 
@@ -736,7 +738,7 @@ Table of Contents
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |   NRLP Instance Data Length   |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                     |D|E|P|R| Scope |      TC       |
+                     |D|E|P|R|U|U| Scope |    TC     |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |  Committed Information Rate   |
                      |              (CIR)            |
@@ -790,7 +792,9 @@ Table of Contents
 
    P:  See Section 3.
 
-   U:  See Section 3.
+   R:  See Section 3.
+
+   U:  Unassigned bits.
 
    Scope:  See Section 3.
 
@@ -829,6 +833,14 @@ Table of Contents
    be treated as a separate network rate-limit policy.
 
 6.  Operational Considerations
+
+   Sharing NRLP signals are not intended to replace usual actions to
+   soften bottlenck issues (e.g., adequate network dimensioning and
+   upgrades).  However, given that such actions may not be always
+   immediately possible or economically justified, NRLP signals can be
+   considered as complementary mitigations to soften these issues by
+   introducing some collaboration between a host and its networks to
+   adjust their behaviors.
 
    NRLP senders should be configured with instructions about the type of
    network rate-limit policies to be shared with requesting hosts.
@@ -879,6 +891,17 @@ Table of Contents
    communicate local policies to hosts.  A minimal change is required to
    that aim.
 
+   With the OS support, the following benefits might be considered by
+   networks:
+
+   Improved Network Performance:  The OS can schedule network requests
+      more efficiently, preventing network congestion, and improving
+      overall stability and network performance with NRLP signals.
+
+   Cost Efficiency:  By managing network usage based on known rate
+      limits, the OS can help reduce network-related costs.  However,
+      this is difficult to assess.
+
    Networks that throttle bandwidth for reasons that are not compliant
    with local jurisdictions, not communicated to customers, etc. are
    unlikely to share NRLP signals.  If these signals are shared, it is
@@ -913,37 +936,30 @@ Table of Contents
 
 7.3.  Host OS
 
-   *  Improved Network Performance: The OS can schedule network requests
-      more efficiently, preventing network congestion, and improving
-      overall stability and network performance with NRLP signals.
-
-   *  API to facilitate Application Development: OS can provide more
+   API to facilitate Application Development:  An OS can provide more
       accurate available bandwidth to applications through the API (as
-      mentioned above), making implementation easier for applications
-      that don't requrie dedicated bandwidth measurement.
+      mentioned in Section 7.2), making implementation easier for
+      applications that don't requrie dedicated bandwidth measurement.
 
-   *  Prevent Abuse: The OS can allocate network resources more fairly
+   Prevent Abuse:  The OS can allocate network resources more fairly
       among different processes, with NRLP signals, ensuring that no
       single process monopolizes the network.
 
-   *  Better Resource Management: OS can also optimize resource
+   Better Resource Management:  OS can also optimize resource
       allocation, by deprioritizing background/inactive applications in
       the event of high network utilization.
 
-   *  Enhanced Security: Awareness of NRLPs can help the OS detect and
+   Enhanced Security:  Awareness of NRLPs can help the OS detect and
       mitigate network-related security threats, such as denial-of-
       service (DoS) attacks.
 
-   *  Cost Efficiency: By managing network usage based on rate limits,
-      the OS can help reduce network-related costs.
-
-   *  Improved User Experience: By avoiding network congestion and
+   Improved User Experience:  By avoiding network congestion and
       ensuring fair resource allocation, the OS can provide a smoother,
       more responsive user experience.
 
-   *  Improved Application Development Efficiency: OS providing rate
-      limits through an API (as mentioned above) can provide the above
-      listed benefits at per application level.
+   Improved Application Development Efficiency:  OS providing rate
+      limits through an API (as mentioned in Section 7.2) can provide
+      the above listed benefits at per application level.
 
 8.  Security Considerations
 
@@ -964,17 +980,17 @@ Table of Contents
    An attacker who has access to the RAs exchanged over an attachment
    circuit may:
 
-   *  Decrease the bitrate: This may lower the perceived QoS if the host
+   Decrease the bitrate:  This may lower the perceived QoS if the host
       aggressively lowers its transmission rate.
 
-   *  Increase the bitrate value: The attachment circuit will be
+   Increase the bitrate value:  The attachment circuit will be
       overloaded, but still the rate-limit at the network will discard
       excess traffic.
 
-   *  Drop RAs: This is similar to the current operations, where no NRLP
+   Drop RAs:  This is similar to the current operations, where no NRLP
       RA is shared.
 
-   *  Inject fake RAs: The implications are similar to the impacts of
+   Inject fake RAs:  The implications are similar to the impacts of
       tweaking the values of a legitimate RA.
 
 8.2.  DHCP
