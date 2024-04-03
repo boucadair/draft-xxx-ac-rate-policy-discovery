@@ -5,7 +5,7 @@ This is the working area for the individual Internet-Draft, "Discovery of Networ
 * [Editor's Copy](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-brw-sconepro-rate-policy-discovery)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-brw-sconepro-rate-policy-discovery)
-* [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-brw-sconepro-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.diff)
+* [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.diff)
 
 
 ## Contributing
