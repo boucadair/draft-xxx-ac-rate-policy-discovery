@@ -93,8 +93,8 @@ informative:
 
 --- abstract
 
-Traffic exchanged over an attachment circuit may be subject to rate-limit policies.
-These policies may be intentional policies (e.g., enforced as part of the activation of the attachment circuit and typically agreed upon service subscription)
+Traffic exchanged over a network attachment may be subject to rate-limit policies.
+These policies may be intentional policies (e.g., enforced as part of the activation of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
