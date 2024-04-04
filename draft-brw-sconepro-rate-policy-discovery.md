@@ -307,33 +307,42 @@ Rate-limit:
 
 This section defines the set of attributes that are included in an NRLP blob:
 
-D:
-: 1-bit flag which indicates the direction on which to apply the enclosed policy.
-: When set to "1", this flag indicates that this policy is for
-  network-to-host direction.
-: When set to "0", this flag indicates that this policy is for
-  host-to-network direction.
+Optional Parameter Flags:
+: These flags indicate the presence of some optional paramters. The following flags are defined:
 
-E:
-: When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
-: When set to "0", this flag indicates that EIR is not present.
+    E:
+    : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
+    : When set to "0", this flag indicates that EIR is not present.
 
-P:
-: When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
-: When set to "0", this flag indicates that PIR is not present.
+    P:
+    : When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
+    : When set to "0", this flag indicates that PIR is not present.
 
-R:
-: 1-bit flag which indicates the type of traffic on which to apply the enclosed policy.
-: When set to "1", this flag indicates that this policy is for reliable traffic.
-: When set to "0", this flag indicates that this policy is for unreliable traffic.
+    U:
+    : Unassigned bits.
 
-Scope:
-: 4-bit field which specifies whether the policy is per host, per subscriber, etc.
-: The following values are supported:
+Flow flags:
+: These flags are used to express some generic properties of the flow. The following flags are defined:
 
-  + "0": Subscriber
-  + "1": Host
-  + 2-15: Unassigned values.
+    S (Scope):
+    : 1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
+
+    D (Direction):
+    : 1-bit flag which indicates the direction on which to apply the enclosed policy.
+    : When set to "1", this flag indicates that this policy is for
+      network-to-host direction.
+    : When set to "0", this flag indicates that this policy is for
+      host-to-network direction.
+
+    R (Reliablity):
+    : 2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.
+    : When set to "00b", this flag indicates that this policy is for unreliable traffic.
+    : When set to "01b", this flag indicates that this policy is for reliable traffic.
+    : When set to "10b", this flag indicates that this policy is for both reliable and unreliable traffic.
+    : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
+
+    U:
+    : Unassigned bits.
 
 TC:
 : 6-bit field which specifies a traffic category to which this policy applies.
@@ -343,7 +352,7 @@ TC:
   + "1": Streaming
   + "2": Real-time
   + "3": Bulk traffic
-  + 4-64: Unassigned values
+  + 4-63: Unassigned values
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -399,7 +408,7 @@ The format of the IPv6 RA NRLP option, with only mandatory fields included, is i
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
+|     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -414,7 +423,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
+|     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -440,16 +449,10 @@ Length:
 : 8-bit unsigned integer.  The length of the option (including
   the Type and Length fields) is in units of 8 octets.
 
-D:
-: See {{sec-blob}}.
-
 E:
 : See {{sec-blob}}.
 
 P:
-: See {{sec-blob}}.
-
-R:
 : See {{sec-blob}}.
 
 U:
@@ -457,6 +460,15 @@ U:
 
 Scope:
 : See {{sec-blob}}.
+
+D:
+: See {{sec-blob}}.
+
+R:
+: See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 TC:
 : See {{sec-blob}}.
@@ -545,7 +557,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|R|U|U| Scope |    TC     |
+|E|P|U|U|S|D| R |U|U|    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -564,7 +576,7 @@ The format of this field, with optional parameters included, is shown in {{nrlp-
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|D|E|P|R| Scope |      TC       |
+|E|P|U|U|S|D| R |U|U|    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -592,16 +604,10 @@ The fields shown in {{nrlp-format}} are as follows:
 NRLP Instance Data Length:
 : Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
 
-D:
-: See {{sec-blob}}.
-
 E:
 : See {{sec-blob}}.
 
 P:
-: See {{sec-blob}}.
-
-R:
 : See {{sec-blob}}.
 
 U:
@@ -609,6 +615,15 @@ U:
 
 Scope:
 : See {{sec-blob}}.
+
+D:
+: See {{sec-blob}}.
+
+R:
+: See {{sec-blob}}.
+
+U:
+: Unassigned bits.
 
 TC:
 : See {{sec-blob}}.
