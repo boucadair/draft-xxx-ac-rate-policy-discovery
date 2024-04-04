@@ -307,7 +307,7 @@ Rate-limit:
 
 This section defines the set of attributes that are included in an NRLP blob:
 
-Presence flags:
+Optional Parameter Flags:
 : These flags indicate the presence of some optional paramters. The following flags are defined:
 
     E:
