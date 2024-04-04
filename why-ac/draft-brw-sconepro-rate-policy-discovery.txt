@@ -5,12 +5,12 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 5 October 2024                             Cloud Software Group
+Expires: 6 October 2024                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
-                                                            3 April 2024
+                                                            4 April 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2024.
+   This Internet-Draft will expire on 6 October 2024.
 
 Copyright Notice
 
@@ -462,44 +462,52 @@ Table of Contents
    This section defines the set of attributes that are included in an
    NRLP blob:
 
-   D:  1-bit flag which indicates the direction on which to apply the
-      enclosed policy.
+   Optional Parameter Flags:  These flags indicate the presence of some
+      optional paramters.  The following flags are defined:
 
-      When set to "1", this flag indicates that this policy is for
-      network-to-host direction.
+      E:  When set to "1", this flag indicates the presence of Excess
+         Information Rate (EIR).
 
-      When set to "0", this flag indicates that this policy is for host-
-      to-network direction.
+         When set to "0", this flag indicates that EIR is not present.
 
-   E:  When set to "1", this flag indicates the presence of Excess
-      Information Rate (EIR).
+      P:  When set to "1", this flag indicates the presence of Peak
+         Information Rate (PIR).
 
-      When set to "0", this flag indicates that EIR is not present.
+         When set to "0", this flag indicates that PIR is not present.
 
-   P:  When set to "1", this flag indicates the presence of Peak
-      Information Rate (PIR).
+      U:  Unassigned bits.
 
-      When set to "0", this flag indicates that PIR is not present.
+   Flow flags:  These flags are used to express some generic properties
+      of the flow.  The following flags are defined:
 
-   R:  1-bit flag which indicates the type of traffic on which to apply
-      the enclosed policy.
+      S (Scope):  1-bit field which specifies whether the policy is per
+         host (when set to "1") or per subscriber (when set to "0).
 
-      When set to "1", this flag indicates that this policy is for
-      reliable traffic.
+      D (Direction):  1-bit flag which indicates the direction on which
+         to apply the enclosed policy.
 
-      When set to "0", this flag indicates that this policy is for
-      unreliable traffic.
+         When set to "1", this flag indicates that this policy is for
+         network-to-host direction.
 
-   Scope:  4-bit field which specifies whether the policy is per host,
-      per subscriber, etc.
+         When set to "0", this flag indicates that this policy is for
+         host-to-network direction.
 
-      The following values are supported:
+      R (Reliablity):  2-bit flag which indicates the reliability type
+         of traffic on which to apply the enclosed policy.
 
-      *  "0": Subscriber
+         When set to "00b", this flag indicates that this policy is for
+         unreliable traffic.
 
-      *  "1": Host
+         When set to "01b", this flag indicates that this policy is for
+         reliable traffic.
 
-      *  2-15: Unassigned values.
+         When set to "10b", this flag indicates that this policy is for
+         both reliable and unreliable traffic.
+
+         No meaning is associated with setting the field to "11b".  Such
+         value MUST be silently ignored by the receiver.
+
+      U:  Unassigned bits.
 
    TC:  6-bit field which specifies a traffic category to which this
       policy applies.
@@ -514,7 +522,7 @@ Table of Contents
 
       *  "3": Bulk traffic
 
-      *  4-64: Unassigned values
+      *  4-63: Unassigned values
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -591,7 +599,7 @@ Table of Contents
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
+     |     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                Committed Information Rate (CIR)               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -606,7 +614,7 @@ Table of Contents
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |D|E|P|R|U|U| Scope |    TC     |
+     |     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                Committed Information Rate (CIR)               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -631,17 +639,19 @@ Table of Contents
    Length:  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) is in units of 8 octets.
 
-   D:  See Section 3.
-
    E:  See Section 3.
 
    P:  See Section 3.
 
-   R:  See Section 3.
-
    U:  Unassigned bits.
 
    Scope:  See Section 3.
+
+   D:  See Section 3.
+
+   R:  See Section 3.
+
+   U:  Unassigned bits.
 
    TC:  See Section 3.
 
@@ -737,7 +747,7 @@ Table of Contents
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |   NRLP Instance Data Length   |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                     |D|E|P|R|U|U| Scope |    TC     |
+                     |E|P|U|U|S|D| R |U|U|    TC     |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |  Committed Information Rate   |
                      |              (CIR)            |
@@ -756,7 +766,7 @@ Table of Contents
                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                    |   NRLP Instance Data Length   |
                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                   |D|E|P|R| Scope |      TC       |
+                   |E|P|U|U|S|D| R |U|U|    TC     |
                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                    |  Committed Information Rate   |
                    |              (CIR)            |
@@ -785,17 +795,19 @@ Table of Contents
       This field is set to '8' when only the nominal bitrate is provided
       for an NLRP instance.
 
-   D:  See Section 3.
-
    E:  See Section 3.
 
    P:  See Section 3.
 
-   R:  See Section 3.
-
    U:  Unassigned bits.
 
    Scope:  See Section 3.
+
+   D:  See Section 3.
+
+   R:  See Section 3.
+
+   U:  Unassigned bits.
 
    TC:  See Section 3.
 
@@ -1121,9 +1133,9 @@ Table of Contents
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-05, 9 February 2024,
+              opsawg-ntw-attachment-circuit-06, 4 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-05>.
+              ntw-attachment-circuit-06>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
