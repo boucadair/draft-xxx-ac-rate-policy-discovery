@@ -815,7 +815,7 @@ Parameters" registry maintained at {{IANA-ND}}.
 |TBD1|  NRLP Option|This-Document|
 {: #iana-new-op title="Neighbor Discovery NRLP Option"}
 
-> Note to the RFC Editor: Please replace all "TBD1" occurences with the assigned value.
+> Note to the RFC Editor: Please replace all "TBD1" occurrences with the assigned value.
 
 ## DHCP Option {#sec-iana-dhcp}
 
@@ -825,7 +825,7 @@ This document requests IANA to assign the following new DHCP Option Code in the 
 |TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
 {: #iana-new-dhcp title="DHCP NRLP Option"}
 
-> Note to the RFC Editor: Please replace all "TBD2" occurences with the assigned value.
+> Note to the RFC Editor: Please replace all "TBD2" occurrences with the assigned value.
 
 ## DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
 
