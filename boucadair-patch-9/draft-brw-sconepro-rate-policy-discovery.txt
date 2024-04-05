@@ -1105,7 +1105,7 @@ Table of Contents
                      Table 3: Neighbor Discovery NRLP
                                   Option
 
-      Note to the RFC Editor: Please replace all "TBD1" occurences with
+      Note to the RFC Editor: Please replace all "TBD1" occurrences with
       the assigned value.
 
 9.5.  DHCP Option
@@ -1123,7 +1123,7 @@ Table of Contents
 
                          Table 4: DHCP NRLP Option
 
-      Note to the RFC Editor: Please replace all "TBD2" occurences with
+      Note to the RFC Editor: Please replace all "TBD2" occurrences with
       the assigned value.
 
 9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
