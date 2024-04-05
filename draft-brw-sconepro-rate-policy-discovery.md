@@ -319,7 +319,7 @@ Optional Parameter Flags:
     : When set to "0", this flag indicates that PIR is not present.
 
     U:
-    : Unassigned bits. See {{#sec-iana-opf}}.
+    : Unassigned bits. See {{sec-iana-opf}}.
     : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 Flow flags:
@@ -343,7 +343,7 @@ Flow flags:
     : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
 
     U:
-    : Unassigned bits. See {{#sec-iana-ff}}.
+    : Unassigned bits. See {{sec-iana-ff}}.
     :  Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 TC:
