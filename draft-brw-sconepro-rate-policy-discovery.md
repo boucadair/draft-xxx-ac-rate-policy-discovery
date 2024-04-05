@@ -319,7 +319,8 @@ Optional Parameter Flags:
     : When set to "0", this flag indicates that PIR is not present.
 
     U:
-    : Unassigned bits.
+    : Unassigned bits. See {{#sec-iana-opf}}.
+    : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 Flow flags:
 : These flags are used to express some generic properties of the flow. The following flags are defined:
@@ -342,7 +343,8 @@ Flow flags:
     : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
 
     U:
-    : Unassigned bits.
+    : Unassigned bits. See {{#sec-iana-ff}}.
+    :  Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 TC:
 : 6-bit field which specifies a traffic category to which this policy applies.
@@ -443,7 +445,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
 The fields of the option shown in {{opt-format}} are as follows:
 
 Type:
-: 8-bit identifier of the NRLP option as assigned by IANA (TBD1).
+: 8-bit identifier of the NRLP option as assigned by IANA (TBD1) (see {{sec-iana-ra}}).
 
 Length:
 : 8-bit unsigned integer.  The length of the option (including
@@ -542,7 +544,7 @@ The format of the DHCP NRLP option is illustrated in {{dhc-format}}.
 The fields of the option shown in  {{dhc-format}} are as follows:
 
 Code:
-: OPTION_V4_NRLP (TBD2).
+: OPTION_V4_NRLP (TBD2).  (see {{sec-iana-dhcp}}).
 
 Length:
 : Indicates the length of the enclosed data in octets.
@@ -768,7 +770,42 @@ The above mechanisms would ensure that the endpoint receives the correct NRLP in
 
 # IANA Considerations
 
-## Neighbor Discovery Option
+## Optional Parameter Flags
+
+This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".
+
+## Optional Parameter Flags {#sec-iana-opf}
+
+This document requests IANA to create a registry "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group.
+
+The initial values of this registry is provided in {{iana-op-flags}}.
+
+|Bit Position|     Description|     Reference|
+|1| E-flag|This-Document|
+|2| P-flag|This-Document|
+|3| Unassigned| |
+|4| Unassigned| |
+{: #iana-op-flags title="Optional Parameter Flags"}
+
+The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
+
+## Flow flags {#sec-iana-ff}
+
+This document requests IANA to create a registry "Flow flags" under the "Rate-Limit Policy Objects" registry group.
+
+The initial values of this registry is provided in {{iana-flow-flags}}.
+
+|Bit Position|     Description|     Reference|
+|1| Scope Flag|This-Document|
+|2| Direction Flag|This-Document|
+|3-4| Reliability Flags|This-Document|
+|5| Unassigned| |
+|6| Unassigned| |
+{: #iana-flow-flags title="Flow flags"}
+
+The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
+
+## Neighbor Discovery Option {#sec-iana-ra}
 
 This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
 type in the "IPv6 Neighbor Discovery Option Formats" sub-registry under the "Internet Control Message Protocol version 6 (ICMPv6)
@@ -778,13 +815,17 @@ Parameters" registry maintained at {{IANA-ND}}.
 |TBD1|  NRLP Option|This-Document|
 {: #iana-new-op title="Neighbor Discovery NRLP Option"}
 
-## DHCP Option
+> Note to the RFC Editor: Please replace all "TBD1" occurences with the assigned value.
+
+## DHCP Option {#sec-iana-dhcp}
 
 This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at {{IANA-BOOTP}}.
 
 |Tag|     Name|     Data Length|     Meaning|Reference|
 |TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
 {: #iana-new-dhcp title="DHCP NRLP Option"}
+
+> Note to the RFC Editor: Please replace all "TBD2" occurences with the assigned value.
 
 ## DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
 
@@ -820,6 +861,8 @@ are to be returned for distinct traffic categories.
 }
 ~~~~~
 {: #pvd-ex title="NRLP Example with PvD"}
+
+PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locator(s) of a network entity to negotiate advanced features with the network, reachability information of a network API, a slice identifier {{TS-23.501}}{{?RFC9543}}, etc.).
 
 # Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
 
