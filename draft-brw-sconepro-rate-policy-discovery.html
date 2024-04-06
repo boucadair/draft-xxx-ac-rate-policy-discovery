@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Boucadair, et al.</td>
-<td class="center">Expires 6 October 2024</td>
+<td class="center">Expires 8 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-brw-sconepro-rate-policy-discovery-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-04-04" class="published">4 April 2024</time>
+<time datetime="2024-04-06" class="published">6 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-10-06">6 October 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-08">8 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1113,7 +1113,7 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1225,13 +1225,22 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-neighbor-discovery-option" class="internal xref">Neighbor Discovery Option</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-optional-parameter-flags" class="internal xref">Optional Parameter Flags</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-dhcp-option" class="internal xref">DHCP Option</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-optional-parameter-flags-2" class="internal xref">Optional Parameter Flags</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-dhcp-options-permitted-in-t" class="internal xref">DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute</a></p>
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-flow-flags" class="internal xref">Flow flags</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-neighbor-discovery-option" class="internal xref">Neighbor Discovery Option</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-dhcp-option" class="internal xref">DHCP Option</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-dhcp-options-permitted-in-t" class="internal xref">DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute</a></p>
 </li>
             </ul>
 </li>
@@ -1803,7 +1812,12 @@ constraints applied to a flow, application, host, or subscriber.<a href="#sectio
             <dd class="break"></dd>
 <dt id="section-3-2.2.2.9">U:</dt>
             <dd style="margin-left: 1.5em" id="section-3-2.2.2.10">
-              <p id="section-3-2.2.2.10.1">Unassigned bits.<a href="#section-3-2.2.2.10.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.2.2.10.1">Unassigned bits. See <a href="#sec-iana-opf" class="auto internal xref">Section 9.2</a>.<a href="#section-3-2.2.2.10.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3-2.2.2.11"></dt>
+            <dd style="margin-left: 1.5em" id="section-3-2.2.2.12">
+              <p id="section-3-2.2.2.12.1">Unassigned bits <span class="bcp14">MUST</span> be set to zero by senders and <span class="bcp14">MUST</span> be ignored by receivers.<a href="#section-3-2.2.2.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -1862,7 +1876,12 @@ host-to-network direction.<a href="#section-3-2.4.2.8.1" class="pilcrow">¶</a><
             <dd class="break"></dd>
 <dt id="section-3-2.4.2.19">U:</dt>
             <dd style="margin-left: 1.5em" id="section-3-2.4.2.20">
-              <p id="section-3-2.4.2.20.1">Unassigned bits.<a href="#section-3-2.4.2.20.1" class="pilcrow">¶</a></p>
+              <p id="section-3-2.4.2.20.1">Unassigned bits. See <a href="#sec-iana-ff" class="auto internal xref">Section 9.3</a>.<a href="#section-3-2.4.2.20.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3-2.4.2.21"></dt>
+            <dd style="margin-left: 1.5em" id="section-3-2.4.2.22">
+              <p id="section-3-2.4.2.22.1">Unassigned bits <span class="bcp14">MUST</span> be set to zero by senders and <span class="bcp14">MUST</span> be ignored by receivers.<a href="#section-3-2.4.2.22.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -2084,7 +2103,7 @@ of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Ty
 <span class="break"></span><dl class="dlParallel" id="section-4.1-6">
           <dt id="section-4.1-6.1">Type:</dt>
           <dd style="margin-left: 1.5em" id="section-4.1-6.2">
-            <p id="section-4.1-6.2.1">8-bit identifier of the NRLP option as assigned by IANA (TBD1).<a href="#section-4.1-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-4.1-6.2.1">8-bit identifier of the NRLP option as assigned by IANA (TBD1) (see <a href="#sec-iana-ra" class="auto internal xref">Section 9.4</a>).<a href="#section-4.1-6.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-6.3">Length:</dt>
@@ -2238,7 +2257,7 @@ already advertized using RAs and those policies are consistent with the network 
 <span class="break"></span><dl class="dlParallel" id="section-5.1-4">
           <dt id="section-5.1-4.1">Code:</dt>
           <dd style="margin-left: 1.5em" id="section-5.1-4.2">
-            <p id="section-5.1-4.2.1">OPTION_V4_NRLP (TBD2).<a href="#section-5.1-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-4.2.1">OPTION_V4_NRLP (TBD2).  (see <a href="#sec-iana-dhcp" class="auto internal xref">Section 9.5</a>).<a href="#section-5.1-4.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-4.3">Length:</dt>
@@ -2603,18 +2622,125 @@ depends upon:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
       <h2 id="name-iana-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<div id="neighbor-discovery-option">
+<div id="optional-parameter-flags">
 <section id="section-9.1">
-        <h3 id="name-neighbor-discovery-option">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-neighbor-discovery-option" class="section-name selfRef">Neighbor Discovery Option</a>
+        <h3 id="name-optional-parameter-flags">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-optional-parameter-flags" class="section-name selfRef">Optional Parameter Flags</a>
         </h3>
-<p id="section-9.1-1">This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
-type in the "IPv6 Neighbor Discovery Option Formats" sub-registry under the "Internet Control Message Protocol version 6 (ICMPv6)
-Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">IANA-ND</a>]</span>.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<span id="name-neighbor-discovery-nrlp-opt"></span><div id="iana-new-op">
+<p id="section-9.1-1">This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-opf">
+<section id="section-9.2">
+        <h3 id="name-optional-parameter-flags-2">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-optional-parameter-flags-2" class="section-name selfRef">Optional Parameter Flags</a>
+        </h3>
+<p id="section-9.2-1">This document requests IANA to create a registry "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">The initial values of this registry is provided in <a href="#iana-op-flags" class="auto internal xref">Table 1</a>.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<span id="name-optional-parameter-flags-3"></span><div id="iana-op-flags">
 <table class="center" id="table-1">
           <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-optional-parameter-flags-3" class="selfRef">Optional Parameter Flags</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Bit Position</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">1</td>
+              <td class="text-left" rowspan="1" colspan="1">E-flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">P-flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">4</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<p id="section-9.2-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-9.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-ff">
+<section id="section-9.3">
+        <h3 id="name-flow-flags">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-flow-flags" class="section-name selfRef">Flow flags</a>
+        </h3>
+<p id="section-9.3-1">This document requests IANA to create a registry "Flow flags" under the "Rate-Limit Policy Objects" registry group.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">The initial values of this registry is provided in <a href="#iana-flow-flags" class="auto internal xref">Table 2</a>.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<span id="name-flow-flags-2"></span><div id="iana-flow-flags">
+<table class="center" id="table-2">
+          <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-flow-flags-2" class="selfRef">Flow flags</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Bit Position</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">1</td>
+              <td class="text-left" rowspan="1" colspan="1">Scope Flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">Direction Flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3-4</td>
+              <td class="text-left" rowspan="1" colspan="1">Reliability Flags</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">5</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">6</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<p id="section-9.3-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-ra">
+<section id="section-9.4">
+        <h3 id="name-neighbor-discovery-option">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-neighbor-discovery-option" class="section-name selfRef">Neighbor Discovery Option</a>
+        </h3>
+<p id="section-9.4-1">This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
+type in the "IPv6 Neighbor Discovery Option Formats" sub-registry under the "Internet Control Message Protocol version 6 (ICMPv6)
+Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">IANA-ND</a>]</span>.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<span id="name-neighbor-discovery-nrlp-opt"></span><div id="iana-new-op">
+<table class="center" id="table-3">
+          <caption>
+<a href="#table-3" class="selfRef">Table 3</a>:
 <a href="#name-neighbor-discovery-nrlp-opt" class="selfRef">Neighbor Discovery NRLP Option</a>
           </caption>
 <thead>
@@ -2633,18 +2759,23 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
           </tbody>
         </table>
 </div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-9.4-3.1">
+            <p id="section-9.4-3.1.1">Note to the RFC Editor: Please replace all "TBD1" occurrences with the assigned value.<a href="#section-9.4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
-<div id="dhcp-option">
-<section id="section-9.2">
+<div id="sec-iana-dhcp">
+<section id="section-9.5">
         <h3 id="name-dhcp-option">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-dhcp-option" class="section-name selfRef">DHCP Option</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-dhcp-option" class="section-name selfRef">DHCP Option</a>
         </h3>
-<p id="section-9.2-1">This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at <span>[<a href="#IANA-BOOTP" class="cite xref">IANA-BOOTP</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-1">This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at <span>[<a href="#IANA-BOOTP" class="cite xref">IANA-BOOTP</a>]</span>.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
 <span id="name-dhcp-nrlp-option-2"></span><div id="iana-new-dhcp">
-<table class="center" id="table-2">
+<table class="center" id="table-4">
           <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#table-4" class="selfRef">Table 4</a>:
 <a href="#name-dhcp-nrlp-option-2" class="selfRef">DHCP NRLP Option</a>
           </caption>
 <thead>
@@ -2667,18 +2798,23 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
           </tbody>
         </table>
 </div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-9.5-3.1">
+            <p id="section-9.5-3.1.1">Note to the RFC Editor: Please replace all "TBD2" occurrences with the assigned value.<a href="#section-9.5-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="dhcp-options-permitted-in-the-radius-dhcpv4-options-attribute">
-<section id="section-9.3">
+<section id="section-9.6">
         <h3 id="name-dhcp-options-permitted-in-t">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-dhcp-options-permitted-in-t" class="section-name selfRef">DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute</a>
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-dhcp-options-permitted-in-t" class="section-name selfRef">DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute</a>
         </h3>
-<p id="section-9.3-1">This document requests IANA to add the following DHCP Option Code to the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute" registry maintained at <span>[<a href="#IANA-BOOTP" class="cite xref">IANA-BOOTP</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-1">This document requests IANA to add the following DHCP Option Code to the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute" registry maintained at <span>[<a href="#IANA-BOOTP" class="cite xref">IANA-BOOTP</a>]</span>.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
 <span id="name-new-dhcp-option-permitted-i"></span><div id="iana-radius-dhcp">
-<table class="center" id="table-3">
+<table class="center" id="table-5">
           <caption>
-<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#table-5" class="selfRef">Table 5</a>:
 <a href="#name-new-dhcp-option-permitted-i" class="selfRef">New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry</a>
           </caption>
 <thead>
@@ -2732,6 +2868,10 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
 <dt id="RFC4861">[RFC4861]</dt>
         <dd>
 <span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+        <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
@@ -2926,6 +3066,7 @@ are to be returned for distinct traffic categories.<a href="#appendix-A-2" class
 <a href="#name-nrlp-example-with-pvd" class="selfRef">NRLP Example with PvD</a>
         </figcaption></figure>
 </div>
+<p id="appendix-A-4">PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locator(s) of a network entity to negotiate advanced features with the network, reachability information of a network API, a slice identifier <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span><span>[<a href="#RFC9543" class="cite xref">RFC9543</a>]</span>, etc.).<a href="#appendix-A-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-aaa">
