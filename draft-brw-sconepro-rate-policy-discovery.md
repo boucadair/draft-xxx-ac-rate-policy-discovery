@@ -313,8 +313,8 @@ Rate-limit:
 
 This section defines the set of attributes that are included in an NRLP blob:
 
-Optional Parameter Flags:
-: These flags indicate the presence of some optional paramters. The following flags are defined:
+Optional Parameter Flags (OPF):
+: These flags indicate the presence of some optional paramters. The following flags are defined (from MSB to LSB):
 
     E:
     : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
@@ -328,8 +328,8 @@ Optional Parameter Flags:
     : Unassigned bits. See {{sec-iana-opf}}.
     : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
-Flow flags:
-: These flags are used to express some generic properties of the flow. The following flags are defined:
+Flow flags (FF):
+: These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
 
     S (Scope):
     : 1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
@@ -352,7 +352,7 @@ Flow flags:
     : Unassigned bits. See {{sec-iana-ff}}.
     :  Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
-TC:
+TC (Traffic Category):
 : 6-bit field which specifies a traffic category to which this policy applies.
 : The following values are supported:
 
@@ -413,10 +413,11 @@ of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Ty
 The format of the IPv6 RA NRLP option, with only mandatory fields included, is illustrated in {{opt-m-format}}.
 
 ~~~~
+MSB                                                          LSB
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
+|     Type      |     Length    |  OPF  |     FF    |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -431,7 +432,7 @@ The format of the IPv6 RA NRLP option, with optional fields included, is illustr
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |E|P|U|U|S|D| R |U|U|    TC     |
+|     Type      |     Length    |  OPF  |     FF    |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -457,26 +458,15 @@ Length:
 : 8-bit unsigned integer.  The length of the option (including
   the Type and Length fields) is in units of 8 octets.
 
-E:
-: See {{sec-blob}}.
+OPF (Optional Parameter Flags):
+: 4-bit flags which indicates the presence of some optional inforamtion in the option.
+: See {{sec-blob}} for the structure of this field.
+: See {{iana-op-flags}} for current assigned flags.
 
-P:
-: See {{sec-blob}}.
-
-U:
-: Unassigned bits.
-
-Scope:
-: See {{sec-blob}}.
-
-D:
-: See {{sec-blob}}.
-
-R:
-: See {{sec-blob}}.
-
-U:
-: Unassigned bits.
+FF (Flow flags):
+: 6-bit flags used to express some generic properties of the flow.
+: See {{sec-blob}} for the structure of this field.
+: See {{iana-flow-flags}} for current assigned flags.
 
 TC:
 : See {{sec-blob}}.
@@ -565,7 +555,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|E|P|U|U|S|D| R |U|U|    TC     |
+|  OPF  |     FF    |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -584,7 +574,7 @@ The format of this field, with optional parameters included, is shown in {{nrlp-
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|E|P|U|U|S|D| R |U|U|    TC     |
+|  OPF  |     FF    |    TC     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -612,26 +602,15 @@ The fields shown in {{nrlp-format}} are as follows:
 NRLP Instance Data Length:
 : Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
 
-E:
-: See {{sec-blob}}.
+OPF (Optional Parameter Flags):
+: 4-bit flags which indicates the presence of some optional inforamtion in the option.
+: See {{sec-blob}} for the structure of this field.
+: See {{iana-op-flags}} for current assigned flags.
 
-P:
-: See {{sec-blob}}.
-
-U:
-: Unassigned bits.
-
-Scope:
-: See {{sec-blob}}.
-
-D:
-: See {{sec-blob}}.
-
-R:
-: See {{sec-blob}}.
-
-U:
-: Unassigned bits.
+FF (Flow flags):
+: 6-bit flags used to express some generic properties of the flow.
+: See {{sec-blob}} for the structure of this field.
+: See {{iana-flow-flags}} for current assigned flags.
 
 TC:
 : See {{sec-blob}}.
