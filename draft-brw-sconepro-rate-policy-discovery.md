@@ -862,7 +862,7 @@ are to be returned for distinct traffic categories.
 ~~~~~
 {: #pvd-ex title="NRLP Example with PvD"}
 
-PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locator(s) of a network entity to negotiate advanced features with the network, reachability information of a network API, a slice identifier {{TS-23.501}}{{?RFC9543}}, etc.).
+PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locators of a network entity to negotiate advanced features with the network, reachability information of a network API to invoke differentiated forwarding behaviors, a slice identifier {{TS-23.501}}{{?RFC9543}}, etc.).
 
 # Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
 
