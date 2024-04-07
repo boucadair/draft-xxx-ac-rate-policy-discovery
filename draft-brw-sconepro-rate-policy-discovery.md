@@ -776,13 +776,13 @@ The above mechanisms would ensure that the endpoint receives the correct NRLP in
 
 # IANA Considerations
 
-## Optional Parameter Flags
+## Rate-Limit Policy Objects Registry Group {#sec-iana-rlp}
 
 This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".
 
-## Optional Parameter Flags {#sec-iana-opf}
+## Optional Parameter Flags Registry {#sec-iana-opf}
 
-This document requests IANA to create a registry "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group.
+This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-op-flags}}.
 
@@ -795,16 +795,16 @@ The initial values of this registry is provided in {{iana-op-flags}}.
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
-## Flow flags {#sec-iana-ff}
+## Flow flags Registry {#sec-iana-ff}
 
-This document requests IANA to create a registry "Flow flags" under the "Rate-Limit Policy Objects" registry group.
+This document requests IANA to create a new registry entitled "Flow flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-flow-flags}}.
 
 |Bit Position|     Description|     Reference|
-|1| Scope Flag|This-Document|
-|2| Direction Flag|This-Document|
-|3-4| Reliability Flags|This-Document|
+|1| Scope (S) Flag|This-Document|
+|2| Direction (D) Flag|This-Document|
+|3-4| Reliability (R) Flags|This-Document|
 |5| Unassigned| |
 |6| Unassigned| |
 {: #iana-flow-flags title="Flow flags"}
