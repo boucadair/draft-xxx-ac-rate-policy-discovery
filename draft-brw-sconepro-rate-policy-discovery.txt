@@ -5,12 +5,12 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 8 October 2024                             Cloud Software Group
+Expires: 9 October 2024                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
-                                                            6 April 2024
+                                                            7 April 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 October 2024.
+   This Internet-Draft will expire on 9 October 2024.
 
 Copyright Notice
 
@@ -1208,9 +1208,9 @@ Table of Contents
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-06, 4 April 2024,
+              opsawg-ntw-attachment-circuit-07, 6 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-06>.
+              ntw-attachment-circuit-07>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
@@ -1399,9 +1399,10 @@ Appendix A.  Provisioning Domains
                       Figure 9: NRLP Example with PvD
 
    PvD NRLP object can be extended by defining new attributes (e.g.,
-   supply an ADN and locator(s) of a network entity to negotiate
-   advanced features with the network, reachability information of a
-   network API, a slice identifier [TS-23.501][RFC9543], etc.).
+   supply an ADN and locators of a network entity to negotiate advanced
+   features with the network, reachability information of a network API
+   to invoke differentiated forwarding behaviors, a slice identifier
+   [TS-23.501][RFC9543], etc.).
 
 Appendix B.  Example of Authentication, Authorization, and Accounting
              (AAA)
