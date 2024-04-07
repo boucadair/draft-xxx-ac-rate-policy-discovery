@@ -314,7 +314,7 @@ Rate-limit:
 This section defines the set of attributes that are included in an NRLP blob:
 
 Optional Parameter Flags (OPF):
-: These flags indicate the presence of some optional paramters. The following flags are defined (from MSB to LSB):
+: These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):
 
     E:
     : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
