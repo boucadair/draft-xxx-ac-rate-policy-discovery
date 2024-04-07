@@ -8,7 +8,7 @@ Intended status: Standards Track                                 D. Wing
 Expires: 9 October 2024                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
-                                                          S. Rajagopalan
+                                                               G. Mishra
                                                     Cloud Software Group
                                                             7 April 2024
 
@@ -1463,7 +1463,7 @@ Authors' Addresses
    Email: kondtir@gmail.com
 
 
-   Sridharan Rajagopalan
-   Cloud Software Group Holdings, Inc.
+   Gyan Mishra
+   Verizon Inc
    United States of America
-   Email: sridharan.girish@gmail.com
+   Email: gyan.s.mishra@verizon.com
