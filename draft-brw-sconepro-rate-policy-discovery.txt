@@ -468,7 +468,7 @@ Table of Contents
    NRLP blob:
 
    Optional Parameter Flags (OPF):  These flags indicate the presence of
-      some optional paramters.  The following flags are defined (from
+      some optional parameters.  The following flags are defined (from
       MSB to LSB):
 
       E:  When set to "1", this flag indicates the presence of Excess
