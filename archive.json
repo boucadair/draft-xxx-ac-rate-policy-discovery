@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-04T00:56:28.314242+00:00",
+  "timestamp": "2024-04-07T01:00:36.440771+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -747,24 +747,26 @@
       "id": "PR_kwDOLlGZlc5rhr0d",
       "title": "flow vs attribute presence fields",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-04-03T07:50:48Z",
-      "updatedAt": "2024-04-03T20:10:30Z",
+      "updatedAt": "2024-04-04T08:36:08Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "why-ac",
       "baseRefOid": "b437af2693c7ceb0eff48ed28e37d0630b05d753",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "boucadair-patch-9",
-      "headRefOid": "44c69b3e06f09001e9fe6848ef938281eadc6bf8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "f04e93850608aa4a6e46224e4369212b72aa76bf",
+      "closedAt": "2024-04-04T08:36:07Z",
+      "mergedAt": "2024-04-04T08:36:07Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8ee76b2fb2490eb7f4f327a33a137edc8f6f3205"
+      },
       "comments": [],
       "reviews": [
         {
@@ -788,6 +790,62 @@
           ]
         }
       ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOLlGZlc5rrDnL",
+      "title": "Why ac",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/18",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-04T08:39:12Z",
+      "updatedAt": "2024-04-04T08:39:36Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "81f67d5c35f3439a5022e77b51ce70040c89c0c3",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "why-ac",
+      "headRefOid": "8ee76b2fb2490eb7f4f327a33a137edc8f6f3205",
+      "closedAt": "2024-04-04T08:39:35Z",
+      "mergedAt": "2024-04-04T08:39:35Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "dbe77ab4d140b637554ae778d0d0202eeb8318a2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOLlGZlc5rzOIH",
+      "title": "Update IANA sections + add a note about the extensibility of PvD",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/19",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-05T06:50:47Z",
+      "updatedAt": "2024-04-06T05:59:09Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "dbe77ab4d140b637554ae778d0d0202eeb8318a2",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "c53c321bc256428ea5cba082acabd748343ad394",
+      "closedAt": "2024-04-06T05:59:08Z",
+      "mergedAt": "2024-04-06T05:59:08Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "ccaa2fa7f919bb9bd1b4f3479962959810e3d697"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
