@@ -99,9 +99,9 @@ Table of Contents
      8.1.  ND
      8.2.  DHCP
    9.  IANA Considerations
-     9.1.  Optional Parameter Flags
-     9.2.  Optional Parameter Flags
-     9.3.  Flow flags
+     9.1.  Rate-Limit Policy Objects Registry Group
+     9.2.  Optional Parameter Flags Registry
+     9.3.  Flow flags Registry
      9.4.  Neighbor Discovery Option
      9.5.  DHCP Option
      9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
@@ -1036,15 +1036,16 @@ Table of Contents
 
 9.  IANA Considerations
 
-9.1.  Optional Parameter Flags
+9.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "Rate-Limit Policy Objects".
 
-9.2.  Optional Parameter Flags
+9.2.  Optional Parameter Flags Registry
 
-   This document requests IANA to create a registry "Optional Parameter
-   Flags" under the "Rate-Limit Policy Objects" registry group.
+   This document requests IANA to create a new registry entitled
+   "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
+   registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -1065,26 +1066,27 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.3.  Flow flags
+9.3.  Flow flags Registry
 
-   This document requests IANA to create a registry "Flow flags" under
-   the "Rate-Limit Policy Objects" registry group.
+   This document requests IANA to create a new registry entitled "Flow
+   flags" under the "Rate-Limit Policy Objects" registry group
+   (Section 9.1).
 
    The initial values of this registry is provided in Table 2.
 
-           +==============+===================+===============+
-           | Bit Position | Description       | Reference     |
-           +==============+===================+===============+
-           | 1            | Scope Flag        | This-Document |
-           +--------------+-------------------+---------------+
-           | 2            | Direction Flag    | This-Document |
-           +--------------+-------------------+---------------+
-           | 3-4          | Reliability Flags | This-Document |
-           +--------------+-------------------+---------------+
-           | 5            | Unassigned        |               |
-           +--------------+-------------------+---------------+
-           | 6            | Unassigned        |               |
-           +--------------+-------------------+---------------+
+         +==============+=======================+===============+
+         | Bit Position | Description           | Reference     |
+         +==============+=======================+===============+
+         | 1            | Scope (S) Flag        | This-Document |
+         +--------------+-----------------------+---------------+
+         | 2            | Direction (D) Flag    | This-Document |
+         +--------------+-----------------------+---------------+
+         | 3-4          | Reliability (R) Flags | This-Document |
+         +--------------+-----------------------+---------------+
+         | 5            | Unassigned            |               |
+         +--------------+-----------------------+---------------+
+         | 6            | Unassigned            |               |
+         +--------------+-----------------------+---------------+
 
                            Table 2: Flow flags
 
