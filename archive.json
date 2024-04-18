@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-16T00:55:41.692558+00:00",
+  "timestamp": "2024-04-18T00:55:24.371700+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -101,6 +101,102 @@
           "updatedAt": "2024-04-03T12:55:38Z"
         }
       ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOLlGZlc6F1yvF",
+      "title": "zoom more on existing tools (slicing/L4S)",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/20",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "markusa"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:38:31Z",
+      "updatedAt": "2024-04-16T11:13:25Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "markusa",
+          "authorAssociation": "COLLABORATOR",
+          "body": "First collection of tools. Feel free to add others that we can integrate and describe in the document.\r\n\r\n- L4S\r\n- Network-Slicing/URSP\r\n- NEF/Network-APIs",
+          "createdAt": "2024-04-16T11:13:23Z",
+          "updatedAt": "2024-04-16T11:13:23Z"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOLlGZlc6F10QD",
+      "title": "Add some more text about FCC/regulatory",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/21",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "luismcontreras"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:41:32Z",
+      "updatedAt": "2024-04-16T08:41:32Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOLlGZlc6F12qb",
+      "title": "Find app/os vendor",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/22",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:46:30Z",
+      "updatedAt": "2024-04-16T08:46:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOLlGZlc6F14Vb",
+      "title": "fairness to users",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/23",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "luismcontreras"
+      ],
+      "labels": [],
+      "body": "https://datatracker.ietf.org/doc/html/rfc8517#section-3.10\r\n\r\ncareful wording: wastage of data. Sending data that won't be consumed.",
+      "createdAt": "2024-04-16T08:49:55Z",
+      "updatedAt": "2024-04-16T08:52:58Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOLlGZlc6F19R9",
+      "title": "Review the draft (Chris Box)",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/24",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:59:12Z",
+      "updatedAt": "2024-04-16T08:59:12Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
