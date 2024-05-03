@@ -820,6 +820,20 @@ This document requests IANA to add the following DHCP Option Code to the "DHCP O
 |TBD2|OPTION_V4_NRLP|This-Document|
 {: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
+# Alternative mechanisms
+
+In the event of bottlenecks in transportation networks, there are alternative mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
+
+## L4S
+
+## Network Slicing
+
+## 3GPP UE Route Selection Policy
+
+## Network APIs
+
+NEF (TS29.522), Camara
+
 --- back
 
 # Provisioning Domains {#sec-pvd}
