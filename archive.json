@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-02T00:56:42.367907+00:00",
+  "timestamp": "2024-05-05T01:01:01.959810+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -940,6 +940,32 @@
       "mergeCommit": {
         "oid": "ccaa2fa7f919bb9bd1b4f3479962959810e3d697"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOLlGZlc5ucx-g",
+      "title": "Alternative mechanisms",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/25",
+      "state": "OPEN",
+      "author": "markusa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
+      "createdAt": "2024-05-03T08:53:14Z",
+      "updatedAt": "2024-05-03T08:54:00Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "markusa-patch-1",
+      "headRefOid": "f4e26186db670c0b262236667bbd7241419f99b5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
