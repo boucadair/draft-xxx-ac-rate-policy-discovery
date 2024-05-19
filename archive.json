@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-16T00:58:45.720867+00:00",
+  "timestamp": "2024-05-19T01:03:02.444850+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -955,7 +955,7 @@
       "labels": [],
       "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
       "createdAt": "2024-05-03T08:53:14Z",
-      "updatedAt": "2024-05-03T08:54:00Z",
+      "updatedAt": "2024-05-17T17:57:58Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
@@ -967,7 +967,34 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc57BzSC",
+          "commit": {
+            "abbreviatedOid": "f4e2618"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "The structure looks good thanks.\r\n\r\nHowever,  I still think there is complementarity.",
+          "createdAt": "2024-05-17T17:46:24Z",
+          "updatedAt": "2024-05-17T17:57:58Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n# Alternative/Complementary Mechanisms\r\n```",
+              "createdAt": "2024-05-17T17:46:24Z",
+              "updatedAt": "2024-05-17T17:57:58Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nIn the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.\r\n```",
+              "createdAt": "2024-05-17T17:56:37Z",
+              "updatedAt": "2024-05-17T17:57:58Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
