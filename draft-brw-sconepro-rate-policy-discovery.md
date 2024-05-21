@@ -97,6 +97,8 @@ informative:
           org: BEREC
         target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
 
+     RFC9330:
+
 --- abstract
 
 Traffic exchanged over a network attachment may be subject to rate-limit policies.
@@ -888,6 +890,10 @@ This example assumes that the Network Access Server (NAS) embeds both Remote Aut
 In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
 
 ## L4S
+
+Low Latency, Low Loss, and Scalable Throughput (L4S) is a function defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. Thus, it addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If the network and service support L4S, the use of Explicit Congestion Notification (ECN) is the measure used to inform the network protocol and/or service endpoint in use of impending congestion.
+
+As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, but also for external parties of the 5GS by exposure of congestion information.
 
 ## Network Slicing
 
