@@ -3135,7 +3135,9 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
 <section id="appendix-C.1">
         <h3 id="name-l4s">
 <a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-l4s" class="section-name selfRef">L4S</a>
-      </h3>
+        </h3>
+<p id="appendix-C.1-1">Low Latency, Low Loss, and Scalable Throughput (L4S) is a function defined in <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span> to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. Thus, it addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If the network and service support L4S, the use of Explicit Congestion Notification (ECN) is the measure used to inform the network protocol and/or service endpoint in use of impending congestion.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.1-2">As of 3GPP Rel. 18 (5G Advanced, <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span>), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, but also for external parties of the 5GS by exposure of congestion information.<a href="#appendix-C.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network-slicing">

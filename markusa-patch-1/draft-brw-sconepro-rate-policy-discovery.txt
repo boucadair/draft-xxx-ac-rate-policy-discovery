@@ -1462,6 +1462,21 @@ Appendix C.  Alternative/Complementary Mechanisms
 
 C.1.  L4S
 
+   Low Latency, Low Loss, and Scalable Throughput (L4S) is a function
+   defined in [RFC9330] to avoid queuing at bottlenecks by capacity-
+   seeking congestion controllers of senders.  Thus, it addresses the
+   investigated use case of this document, which considers rate
+   limiting, which typically involves queuing discipline at the rate
+   limiting bottleneck.  If the network and service support L4S, the use
+   of Explicit Congestion Notification (ECN) is the measure used to
+   inform the network protocol and/or service endpoint in use of
+   impending congestion.
+
+   As of 3GPP Rel. 18 (5G Advanced, [TS-23.501]), L4S is also defined
+   for the 5G system (5GS) and can be used by UE and its services, but
+   also for external parties of the 5GS by exposure of congestion
+   information.
+
 C.2.  Network Slicing
 
 C.3.  3GPP UE Route Selection Policy
