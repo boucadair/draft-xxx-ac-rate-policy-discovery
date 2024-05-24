@@ -104,7 +104,7 @@ informative:
         -
           org: BBF
         target: https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf
-        
+
      RFC9330:
      RFC9543:
 
