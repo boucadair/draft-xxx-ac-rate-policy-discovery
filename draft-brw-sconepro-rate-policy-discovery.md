@@ -97,7 +97,16 @@ informative:
           org: BEREC
         target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
 
+     TR-470:
+        title: "5G Wireless Wireline Convergence Architecture - Issue 2"
+        date: false
+        author:
+        -
+          org: BBF
+        target: https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf
+        
      RFC9330:
+     RFC9543:
 
 --- abstract
 
@@ -889,17 +898,23 @@ This example assumes that the Network Access Server (NAS) embeds both Remote Aut
 
 In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
 
-## L4S
+## L4S {#L4S}
 
 Low Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require some few RTTs, though to adjust to the network forwarding conditions.
 
 As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, but also for external parties of the 5GS by exposure of congestion information.
 
-## Network Slicing
+## Network Slicing {#ns}
 
-## 3GPP UE Route Selection Policy
+One measure for guaranteeing resources in networks is network slicing. This is usually achieved by configuring certain QoS values for communication streams, which are taken into account in packet schedulers along the transport path, e.g. the RAN air interface.
 
-## Network APIs
+Network slicing is being considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), IETF {{RFC9543}} for transport networks and BBF {{TR-470}} for wireline access.
+
+Network slicing technology can be combined with L4S {{L4S}} (L4S within network slice) and/or passed from an operator network to third parties via a network API {{network_api}} (e.g. 3GPP NEF) to retrieve or set network slice properties like throughput.
+
+## 3GPP UE Route Selection Policy {#ursp}
+
+## Network APIs {#network_api}
 
 NEF (TS29.522), Camara
 
