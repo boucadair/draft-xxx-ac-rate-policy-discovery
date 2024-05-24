@@ -1038,7 +1038,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Boucadair, et al.</td>
-<td class="center">Expires 22 November 2024</td>
+<td class="center">Expires 25 November 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-brw-sconepro-rate-policy-discovery-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-05-21" class="published">21 May 2024</time>
+<time datetime="2024-05-24" class="published">24 May 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-11-22">22 November 2024</time></dd>
+<dd class="expires"><time datetime="2024-11-25">25 November 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1118,7 +1118,7 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1608,7 +1608,7 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 <p id="section-1.4-2">Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
 are bound to the same AC is deployment specific.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
 <p id="section-1.4-3">Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to <span>[<a href="#I-D.rwbr-tsvwg-signaling-use-cases" class="cite xref">I-D.rwbr-tsvwg-signaling-use-cases</a>]</span> for some examples.<a href="#section-1.4-3" class="pilcrow">¶</a></p>
-<p id="section-1.4-4">Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., <span><a href="https://rfc-editor.org/rfc/rfc8803#section-9.3" class="relref">Section 9.3</a> of [<a href="#RFC8803" class="cite xref">RFC8803</a>]</span> or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-01#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-masque-quic-proxy" class="cite xref">I-D.ietf-masque-quic-proxy</a>]</span>). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
+<p id="section-1.4-4">Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., <span><a href="https://rfc-editor.org/rfc/rfc8803#section-9.3" class="relref">Section 9.3</a> of [<a href="#RFC8803" class="cite xref">RFC8803</a>]</span> or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-02#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-masque-quic-proxy" class="cite xref">I-D.ietf-masque-quic-proxy</a>]</span>). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
 <p id="section-1.4-5">This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span>, are enabled in a bottleneck link.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2913,7 +2913,7 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
 <dd class="break"></dd>
 <dt id="I-D.ietf-masque-quic-proxy">[I-D.ietf-masque-quic-proxy]</dt>
         <dd>
-<span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Rosenberg, E.</span>, and <span class="refAuthor">D. Schinazi</span>, <span class="refTitle">"QUIC-Aware Proxying Using HTTP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-masque-quic-proxy-01</span>, <time datetime="2024-02-12" class="refDate">12 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-01">https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Rosenberg, E.</span>, and <span class="refAuthor">D. Schinazi</span>, <span class="refTitle">"QUIC-Aware Proxying Using HTTP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-masque-quic-proxy-02</span>, <time datetime="2024-05-21" class="refDate">21 May 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-02">https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-opsawg-ntw-attachment-circuit">[I-D.ietf-opsawg-ntw-attachment-circuit]</dt>
         <dd>
@@ -3035,6 +3035,10 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
         <dd>
 <span class="refAuthor">Farrel, A., Ed.</span>, <span class="refAuthor">Drake, J., Ed.</span>, <span class="refAuthor">Rokui, R.</span>, <span class="refAuthor">Homma, S.</span>, <span class="refAuthor">Makhijani, K.</span>, <span class="refAuthor">Contreras, L.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"A Framework for Network Slices in Networks Built from IETF Technologies"</span>, <span class="seriesInfo">RFC 9543</span>, <span class="seriesInfo">DOI 10.17487/RFC9543</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9543">https://www.rfc-editor.org/rfc/rfc9543</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="TR-470">[TR-470]</dt>
+        <dd>
+<span class="refAuthor">BBF</span>, <span class="refTitle">"5G Wireless Wireline Convergence Architecture - Issue 2"</span>, <span>&lt;<a href="https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf">https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TS-23.501">[TS-23.501]</dt>
         <dd>
 <span class="refAuthor">3GPP</span>, <span class="refTitle">"TS 23.501: System architecture for the 5G System (5GS)"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144">https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144</a>&gt;</span>. </dd>
@@ -3131,7 +3135,7 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-alternative-complementary-m" class="section-name selfRef">Alternative/Complementary Mechanisms</a>
       </h2>
 <p id="appendix-C-1">In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<div id="l4s">
+<div id="L4S">
 <section id="appendix-C.1">
         <h3 id="name-l4s">
 <a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-l4s" class="section-name selfRef">L4S</a>
@@ -3140,21 +3144,24 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
 <p id="appendix-C.1-2">As of 3GPP Rel. 18 (5G Advanced, <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span>), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, but also for external parties of the 5GS by exposure of congestion information.<a href="#appendix-C.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="network-slicing">
+<div id="ns">
 <section id="appendix-C.2">
         <h3 id="name-network-slicing">
 <a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-network-slicing" class="section-name selfRef">Network Slicing</a>
-      </h3>
+        </h3>
+<p id="appendix-C.2-1">One measure for guaranteeing resources in networks is network slicing. This is usually achieved by configuring certain QoS values for communication streams, which are taken into account in packet schedulers along the transport path, e.g. the RAN air interface.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.2-2">Network slicing is being considered by 3GPP for 5G <span>[<a href="#TS-23.501" class="cite xref">TS-23.501</a>]</span> (an equivalent can be achieved in 4G by configuring QFI values), IETF <span>[<a href="#RFC9543" class="cite xref">RFC9543</a>]</span> for transport networks and BBF <span>[<a href="#TR-470" class="cite xref">TR-470</a>]</span> for wireline access.<a href="#appendix-C.2-2" class="pilcrow">¶</a></p>
+<p id="appendix-C.2-3">Network slicing technology can be combined with L4S <a href="#L4S" class="auto internal xref">Appendix C.1</a> (L4S within network slice) and/or passed from an operator network to third parties via a network API <a href="#network_api" class="auto internal xref">Appendix C.4</a> (e.g. 3GPP NEF) to retrieve or set network slice properties like throughput.<a href="#appendix-C.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="gpp-ue-route-selection-policy">
+<div id="ursp">
 <section id="appendix-C.3">
         <h3 id="name-3gpp-ue-route-selection-pol">
 <a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-3gpp-ue-route-selection-pol" class="section-name selfRef">3GPP UE Route Selection Policy</a>
       </h3>
 </section>
 </div>
-<div id="network-apis">
+<div id="network_api">
 <section id="appendix-C.4">
         <h3 id="name-network-apis">
 <a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-network-apis" class="section-name selfRef">Network APIs</a>

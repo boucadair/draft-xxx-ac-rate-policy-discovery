@@ -5,14 +5,14 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 22 November 2024                           Cloud Software Group
+Expires: 25 November 2024                           Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
                                                              Verizon Inc
-                                                             21 May 2024
+                                                             24 May 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 November 2024.
+   This Internet-Draft will expire on 25 November 2024.
 
 Copyright Notice
 
@@ -1212,9 +1212,9 @@ Table of Contents
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
               Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-01, 12 February 2024,
+              draft-ietf-masque-quic-proxy-02, 21 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-01>.
+              quic-proxy-02>.
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
@@ -1372,6 +1372,10 @@ Table of Contents
               Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
               <https://www.rfc-editor.org/rfc/rfc9543>.
 
+   [TR-470]   BBF, "5G Wireless Wireline Convergence Architecture -
+              Issue 2",
+              <https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf>.
+
    [TS-23.501]
               3GPP, "TS 23.501: System architecture for the 5G System
               (5GS)", 2024,
@@ -1480,6 +1484,21 @@ C.1.  L4S
    information.
 
 C.2.  Network Slicing
+
+   One measure for guaranteeing resources in networks is network
+   slicing.  This is usually achieved by configuring certain QoS values
+   for communication streams, which are taken into account in packet
+   schedulers along the transport path, e.g. the RAN air interface.
+
+   Network slicing is being considered by 3GPP for 5G [TS-23.501] (an
+   equivalent can be achieved in 4G by configuring QFI values), IETF
+   [RFC9543] for transport networks and BBF [TR-470] for wireline
+   access.
+
+   Network slicing technology can be combined with L4S Appendix C.1 (L4S
+   within network slice) and/or passed from an operator network to third
+   parties via a network API Appendix C.4 (e.g. 3GPP NEF) to retrieve or
+   set network slice properties like throughput.
 
 C.3.  3GPP UE Route Selection Policy
 
