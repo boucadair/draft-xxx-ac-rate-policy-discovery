@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-23T00:58:45.520963+00:00",
+  "timestamp": "2024-05-26T01:03:45.792408+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -989,13 +989,13 @@
       "labels": [],
       "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
       "createdAt": "2024-05-03T08:53:14Z",
-      "updatedAt": "2024-05-21T14:10:44Z",
+      "updatedAt": "2024-05-25T10:24:55Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "markusa-patch-1",
-      "headRefOid": "4f9449c9920a68bd4a48cf1531719bbf023f32da",
+      "headRefOid": "3397fa6a03771541440360cb147282a0eb28a292",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1045,6 +1045,58 @@
               "body": "```suggestion\r\nLow Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require some few RTTs, though to adjust to the network forwarding conditions.\r\n```",
               "createdAt": "2024-05-21T14:06:35Z",
               "updatedAt": "2024-05-21T14:06:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc57zhW_",
+          "commit": {
+            "abbreviatedOid": "891fea1"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks",
+          "createdAt": "2024-05-24T14:34:53Z",
+          "updatedAt": "2024-05-24T14:38:40Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\nOne measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources , including adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path, e.g., the RAN air interface.\r\n```",
+              "createdAt": "2024-05-24T14:34:54Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\nNetwork slicing is considered by the 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), the IETF {{RFC9543}} for transport networks, and BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.\r\n```",
+              "createdAt": "2024-05-24T14:36:17Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nL4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network by third parties via a network API {{network_api}} (e.g., 3GPP NEF).\r\n```",
+              "createdAt": "2024-05-24T14:38:28Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc576Ywg",
+          "commit": {
+            "abbreviatedOid": "3397fa6"
+          },
+          "author": "markusa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-25T10:24:54Z",
+          "updatedAt": "2024-05-25T10:24:55Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nL4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).\r\n```\r\nShouldn't we emphasize also the configuration of network slices, e.g. by VoD providers, to achieve smooth playback?",
+              "createdAt": "2024-05-25T10:24:54Z",
+              "updatedAt": "2024-05-25T10:24:55Z"
             }
           ]
         }
