@@ -77,7 +77,7 @@ informative:
         author:
         -
           org: 3GPP
-        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
+        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334
 
      app-measurement:
         title: "Bandwidth measurement for QUIC"
