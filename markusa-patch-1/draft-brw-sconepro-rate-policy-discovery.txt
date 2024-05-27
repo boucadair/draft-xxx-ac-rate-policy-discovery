@@ -1579,7 +1579,7 @@ C.4.  Network APIs
    with the introduction of 5G.  To this end, the new Network Exposure
    Function (NEF) is responsible for 5G, which is specified in
    [TS-29.522], which defines a huge list of network capabilites for
-   monitoring and configuration.
+   monitoring and configuration for external consumption.
 
    For integration into external services, initiatives such as the
    CAMARA Alliance and GSMA Open Gateway provide abstractions of these
@@ -1591,7 +1591,7 @@ C.4.  Network APIs
    necessary resources in the operator network.  In the background, 5G
    features such as network slicing Appendix C.2 , URSP Appendix C.3
    and, if necessary, L4S Appendix C.1 could then ensure implementation
-   in the operator network if triggered.
+   in the operator network.
 
 Acknowledgments
 
