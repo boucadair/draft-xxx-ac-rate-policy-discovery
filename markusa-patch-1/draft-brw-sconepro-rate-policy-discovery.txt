@@ -1394,7 +1394,7 @@ Table of Contents
               3GPP, "TS 23.503: Policy and charging control framework
               for the 5G System (5GS)", 2024,
               <https://portal.3gpp.org/desktopmodules/Specifications/
-              SpecificationDetails.aspx?specificationId=3144>.
+              SpecificationDetails.aspx?specificationId=3334>.
 
    [TS-24.008]
               3GPP, "Technical Specification Group Core Network and
