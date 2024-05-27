@@ -5,14 +5,14 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 26 November 2024                           Cloud Software Group
+Expires: 28 November 2024                           Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
                                                              Verizon Inc
-                                                             25 May 2024
+                                                             27 May 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 November 2024.
+   This Internet-Draft will expire on 28 November 2024.
 
 Copyright Notice
 
@@ -1390,6 +1390,12 @@ Table of Contents
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=3144>.
 
+   [TS-23.503]
+              3GPP, "TS 23.503: Policy and charging control framework
+              for the 5G System (5GS)", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3144>.
+
    [TS-24.008]
               3GPP, "Technical Specification Group Core Network and
               Terminals; Mobile radio interface Layer 3 specification;
@@ -1511,6 +1517,26 @@ C.2.  Network Slicing
    (e.g., 3GPP NEF).
 
 C.3.  3GPP UE Route Selection Policy
+
+   UE Route Selection Policy (URSP) is a feature specified in 3GPP for
+   5G which matches and routes traffic based on a selection descriptor
+   and a route descriptor and is further described in [TS-23.503].
+
+   Specified traffic descriptors * Application * IP * Domain * Non-IP *
+   DNN * Connection Capabilities * PIN ID * Connectivity Group ID
+
+   Specified route selection descriptors * SSC Mode * Network Slice *
+   DNN * PDU Session Type * Non-Seamless Offload indication * Access
+   Type preference * ...
+
+   URSP rules that contain both descriptors can be announced from the
+   carrier network to the UE or preconfigured in the UE, possibly
+   subscription-based.  In terms of this document, this can be used to
+   identify services in the UE and network that are suffering from
+   today's rate limiting policies, and to provide routes with clear
+   characteristics or no rate limiting.  URSP might also be triggered by
+   the usage of network APIs Appendix C.4 and combined with network
+   slicing Appendix C.2, for example.
 
 C.4.  Network APIs
 
