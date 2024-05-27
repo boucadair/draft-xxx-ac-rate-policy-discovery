@@ -1522,12 +1522,39 @@ C.3.  3GPP UE Route Selection Policy
    5G which matches and routes traffic based on a selection descriptor
    and a route descriptor and is further described in [TS-23.503].
 
-   Specified traffic descriptors * Application * IP * Domain * Non-IP *
-   DNN * Connection Capabilities * PIN ID * Connectivity Group ID
+   Specified traffic descriptors
 
-   Specified route selection descriptors * SSC Mode * Network Slice *
-   DNN * PDU Session Type * Non-Seamless Offload indication * Access
-   Type preference * ...
+   *  Application
+
+   *  IP
+
+   *  Domain
+
+   *  Non-IP
+
+   *  DNN
+
+   *  Connection Capabilities
+
+   *  PIN ID
+
+   *  Connectivity Group ID
+
+   Specified route selection descriptors
+
+   *  SSC Mode
+
+   *  Network Slice
+
+   *  DNN
+
+   *  PDU Session Type
+
+   *  Non-Seamless Offload indication
+
+   *  Access Type preference
+
+   *  ...
 
    URSP rules that contain both descriptors can be announced from the
    carrier network to the UE or preconfigured in the UE, possibly

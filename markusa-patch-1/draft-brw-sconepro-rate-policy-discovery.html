@@ -3168,24 +3168,58 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
 <a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-3gpp-ue-route-selection-pol" class="section-name selfRef">3GPP UE Route Selection Policy</a>
         </h3>
 <p id="appendix-C.3-1">UE Route Selection Policy (URSP) is a feature specified in 3GPP for 5G which matches and routes traffic based on a selection descriptor and a route descriptor and is further described in <span>[<a href="#TS-23.503" class="cite xref">TS-23.503</a>]</span>.<a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-C.3-2">Specified traffic descriptors
-* Application
-* IP
-* Domain
-* Non-IP
-* DNN
-* Connection Capabilities
-* PIN ID
-* Connectivity Group ID<a href="#appendix-C.3-2" class="pilcrow">¶</a></p>
-<p id="appendix-C.3-3">Specified route selection descriptors
-* SSC Mode
-* Network Slice
-* DNN
-* PDU Session Type
-* Non-Seamless Offload indication
-* Access Type preference
-* ...<a href="#appendix-C.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-C.3-4">URSP rules that contain both descriptors can be announced from the carrier network to the UE or preconfigured in the UE, possibly subscription-based. In terms of this document, this can be used to identify services in the UE and network that are suffering from today's rate limiting policies, and to provide routes with clear characteristics or no rate limiting. URSP might also be triggered by the usage of network APIs <a href="#network_api" class="auto internal xref">Appendix C.4</a> and combined with network slicing <a href="#ns" class="auto internal xref">Appendix C.2</a>, for example.<a href="#appendix-C.3-4" class="pilcrow">¶</a></p>
+<p id="appendix-C.3-2">Specified traffic descriptors<a href="#appendix-C.3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C.3-3.1">
+            <p id="appendix-C.3-3.1.1">Application<a href="#appendix-C.3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.2">
+            <p id="appendix-C.3-3.2.1">IP<a href="#appendix-C.3-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.3">
+            <p id="appendix-C.3-3.3.1">Domain<a href="#appendix-C.3-3.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.4">
+            <p id="appendix-C.3-3.4.1">Non-IP<a href="#appendix-C.3-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.5">
+            <p id="appendix-C.3-3.5.1">DNN<a href="#appendix-C.3-3.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.6">
+            <p id="appendix-C.3-3.6.1">Connection Capabilities<a href="#appendix-C.3-3.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.7">
+            <p id="appendix-C.3-3.7.1">PIN ID<a href="#appendix-C.3-3.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-3.8">
+            <p id="appendix-C.3-3.8.1">Connectivity Group ID<a href="#appendix-C.3-3.8.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="appendix-C.3-4">Specified route selection descriptors<a href="#appendix-C.3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C.3-5.1">
+            <p id="appendix-C.3-5.1.1">SSC Mode<a href="#appendix-C.3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.2">
+            <p id="appendix-C.3-5.2.1">Network Slice<a href="#appendix-C.3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.3">
+            <p id="appendix-C.3-5.3.1">DNN<a href="#appendix-C.3-5.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.4">
+            <p id="appendix-C.3-5.4.1">PDU Session Type<a href="#appendix-C.3-5.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.5">
+            <p id="appendix-C.3-5.5.1">Non-Seamless Offload indication<a href="#appendix-C.3-5.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.6">
+            <p id="appendix-C.3-5.6.1">Access Type preference<a href="#appendix-C.3-5.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.3-5.7">
+            <p id="appendix-C.3-5.7.1">...<a href="#appendix-C.3-5.7.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="appendix-C.3-6">URSP rules that contain both descriptors can be announced from the carrier network to the UE or preconfigured in the UE, possibly subscription-based. In terms of this document, this can be used to identify services in the UE and network that are suffering from today's rate limiting policies, and to provide routes with clear characteristics or no rate limiting. URSP might also be triggered by the usage of network APIs <a href="#network_api" class="auto internal xref">Appendix C.4</a> and combined with network slicing <a href="#ns" class="auto internal xref">Appendix C.2</a>, for example.<a href="#appendix-C.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network_api">
