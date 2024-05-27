@@ -71,6 +71,14 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
 
+     TS-23.503:
+        title: "TS 23.503: Policy and charging control framework for the 5G System (5GS)"
+        date: 2024
+        author:
+        -
+          org: 3GPP
+        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
+
      app-measurement:
         title: "Bandwidth measurement for QUIC"
         date: 2024
@@ -913,6 +921,30 @@ Network slicing is considered by the 3GPP for 5G {{TS-23.501}} (an equivalent ca
 L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
 
 ## 3GPP UE Route Selection Policy {#ursp}
+
+UE Route Selection Policy (URSP) is a feature specified in 3GPP for 5G which matches and routes traffic based on a selection descriptor and a route descriptor and is further described in {{TS-23.503}}.
+
+
+Specified traffic descriptors
+* Application
+* IP
+* Domain
+* Non-IP
+* DNN
+* Connection Capabilities
+* PIN ID
+* Connectivity Group ID
+
+Specified route selection descriptors
+* SSC Mode
+* Network Slice
+* DNN
+* PDU Session Type
+* Non-Seamless Offload indication
+* Access Type preference
+* ...
+
+URSP rules that contain both descriptors can be announced from the carrier network to the UE or preconfigured in the UE, possibly subscription-based. In terms of this document, this can be used to identify services in the UE and network that are suffering from today's rate limiting policies, and to provide routes with clear characteristics or no rate limiting. URSP might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.
 
 ## Network APIs {#network_api}
 
