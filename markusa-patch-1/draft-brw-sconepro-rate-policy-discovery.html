@@ -3052,8 +3052,12 @@ Parameters" registry maintained at <span>[<a href="#IANA-ND" class="cite xref">I
 <span class="refAuthor">3GPP</span>, <span class="refTitle">"TS 23.503: Policy and charging control framework for the 5G System (5GS)"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334">https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TS-24.008">[TS-24.008]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">3GPP</span>, <span class="refTitle">"Technical Specification Group Core Network and Terminals; Mobile radio interface Layer 3 specification; Core network protocols; Stage 3 (Release 18)"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://www.3gpp.org/DynaReport/24008.htm">https://www.3gpp.org/DynaReport/24008.htm</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TS-29.522">[TS-29.522]</dt>
+      <dd>
+<span class="refAuthor">3GPP</span>, <span class="refTitle">"TS 29.522: 5G System; Network Exposure Function Northbound APIs"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3437">https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3437</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3227,7 +3231,9 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
         <h3 id="name-network-apis">
 <a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-network-apis" class="section-name selfRef">Network APIs</a>
         </h3>
-<p id="appendix-C.4-1">NEF (TS29.522), Camara<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-1">Network APIs are the interface between the operator network and third-party providers. With 4G, the first methods were introduced to make network capabilities available, which has been greatly improved with the introduction of 5G. To this end, the new Network Exposure Function (NEF) is responsible for 5G, which is specified in <span>[<a href="#TS-29.522" class="cite xref">TS-29.522</a>]</span>, which defines a huge list of network capabilites for monitoring and configuration.<a href="#appendix-C.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-2">For integration into external services, initiatives such as the CAMARA Alliance and GSMA Open Gateway provide abstractions of these exposed network capabilities into service APIs for easy integration by developers.<a href="#appendix-C.4-2" class="pilcrow">¶</a></p>
+<p id="appendix-C.4-3">The CAMARA API "Network Slice Booking", which is currently under development, would be a way for a service provider to configure the necessary resources in the operator network. In the background, 5G features such as network slicing <a href="#ns" class="auto internal xref">Appendix C.2</a> , URSP <a href="#ursp" class="auto internal xref">Appendix C.3</a> and, if necessary, L4S <a href="#L4S" class="auto internal xref">Appendix C.1</a> could then ensure implementation in the operator network if triggered.<a href="#appendix-C.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
