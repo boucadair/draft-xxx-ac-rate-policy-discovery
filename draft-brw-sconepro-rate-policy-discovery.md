@@ -79,6 +79,14 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334
 
+     TS-29.522:
+        title: "TS 29.522: 5G System; Network Exposure Function Northbound APIs"
+        date: 2024
+        author:
+        -
+          org: 3GPP
+        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3437
+
      app-measurement:
         title: "Bandwidth measurement for QUIC"
         date: 2024
@@ -950,7 +958,11 @@ URSP rules that contain both descriptors can be announced from the carrier netwo
 
 ## Network APIs {#network_api}
 
-NEF (TS29.522), Camara
+Network APIs are the interface between the operator network and third-party providers. With 4G, the first methods were introduced to make network capabilities available, which has been greatly improved with the introduction of 5G. To this end, the new Network Exposure Function (NEF) is responsible for 5G, which is specified in {{TS-29.522}}, which defines a huge list of network capabilites for monitoring and configuration.
+
+For integration into external services, initiatives such as the CAMARA Alliance and GSMA Open Gateway provide abstractions of these exposed network capabilities into service APIs for easy integration by developers. 
+
+The CAMARA API "Network Slice Booking", which is currently under development, would be a way for a service provider to configure the necessary resources in the operator network. In the background, 5G features such as network slicing {{ns}} , URSP {{ursp}} and, if necessary, L4S {{L4S}} could then ensure implementation in the operator network if triggered.
 
 # Acknowledgments
 {:numbered="false"}
