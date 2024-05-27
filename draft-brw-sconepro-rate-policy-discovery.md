@@ -926,6 +926,7 @@ UE Route Selection Policy (URSP) is a feature specified in 3GPP for 5G which mat
 
 
 Specified traffic descriptors
+
 * Application
 * IP
 * Domain
@@ -936,6 +937,7 @@ Specified traffic descriptors
 * Connectivity Group ID
 
 Specified route selection descriptors
+
 * SSC Mode
 * Network Slice
 * DNN
