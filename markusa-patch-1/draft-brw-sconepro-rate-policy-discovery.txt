@@ -5,14 +5,16 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 28 November 2024                           Cloud Software Group
+Expires: 29 November 2024                           Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
                                                              Verizon Inc
-                                                             27 May 2024
+                                                                M. Amend
+                                                                      DT
+                                                             28 May 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -57,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2024.
+   This Internet-Draft will expire on 29 November 2024.
 
 Copyright Notice
 
@@ -1626,3 +1628,9 @@ Authors' Addresses
    Verizon Inc
    United States of America
    Email: gyan.s.mishra@verizon.com
+
+
+   Markus Amend
+   Deutsche Telekom
+   Germany
+   Email: markus.amend@telekom.de
