@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-26T01:03:45.792408+00:00",
+  "timestamp": "2024-05-28T00:59:23.474358+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -989,13 +989,13 @@
       "labels": [],
       "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
       "createdAt": "2024-05-03T08:53:14Z",
-      "updatedAt": "2024-05-25T10:24:55Z",
+      "updatedAt": "2024-05-27T15:35:30Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "markusa-patch-1",
-      "headRefOid": "3397fa6a03771541440360cb147282a0eb28a292",
+      "headRefOid": "fd53b482cf6d4d8cbd077b980f577fa197e41eae",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1097,6 +1097,106 @@
               "body": "```suggestion\r\nL4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).\r\n```\r\nShouldn't we emphasize also the configuration of network slices, e.g. by VoD providers, to achieve smooth playback?",
               "createdAt": "2024-05-25T10:24:54Z",
               "updatedAt": "2024-05-25T10:24:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58CWX3",
+          "commit": {
+            "abbreviatedOid": "3397fa6"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T13:59:44Z",
+          "updatedAt": "2024-05-27T13:59:44Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "This can be mentioned as an example.",
+              "createdAt": "2024-05-27T13:59:44Z",
+              "updatedAt": "2024-05-27T13:59:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58ClRf",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:25:05Z",
+          "updatedAt": "2024-05-27T14:25:05Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\nLow Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.\r\n```",
+              "createdAt": "2024-05-27T14:25:05Z",
+              "updatedAt": "2024-05-27T14:25:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cltz",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:26:06Z",
+          "updatedAt": "2024-05-27T14:26:06Z",
+          "comments": [
+            {
+              "originalPosition": 45,
+              "body": "```suggestion\r\nAs of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, and for external parties of the 5GS by exposure of congestion information.\r\n```",
+              "createdAt": "2024-05-27T14:26:06Z",
+              "updatedAt": "2024-05-27T14:26:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cneb",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:30:07Z",
+          "updatedAt": "2024-05-27T14:30:07Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\nOne measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources like adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path. e.g., the RAN air interface.\r\n```",
+              "createdAt": "2024-05-27T14:30:07Z",
+              "updatedAt": "2024-05-27T14:30:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cn4Z",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:31:04Z",
+          "updatedAt": "2024-05-27T14:31:05Z",
+          "comments": [
+            {
+              "originalPosition": 51,
+              "body": "```suggestion\r\nNetwork slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.\r\n```",
+              "createdAt": "2024-05-27T14:31:04Z",
+              "updatedAt": "2024-05-27T14:31:05Z"
             }
           ]
         }
