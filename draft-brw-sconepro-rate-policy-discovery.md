@@ -42,6 +42,13 @@ author:
     organization: Verizon Inc
     country: United States of America
     email: "gyan.s.mishra@verizon.com"
+ -
+    ins: M. Amend
+    name: Markus Amend
+    org: Deutsche Telekom
+    abbrev: DT
+    country: Germany
+    email: markus.amend@telekom.de
 
 
 normative:
