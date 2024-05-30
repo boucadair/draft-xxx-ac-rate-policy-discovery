@@ -957,7 +957,6 @@ Specified route selection descriptors: must contain PDU Session Type Selection (
 * SSC Mode
 * Network Slice
 * DNN
-* PDU Session Type
 * Non-Seamless Offload indication
 * Access Type preference
 
