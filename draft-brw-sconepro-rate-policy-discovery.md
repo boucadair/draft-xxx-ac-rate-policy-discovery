@@ -951,7 +951,8 @@ Specified traffic descriptors may be:
 * PIN ID
 * Connectivity Group ID
 
-Specified route selection descriptors
+Specified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:
+
 
 * SSC Mode
 * Network Slice
