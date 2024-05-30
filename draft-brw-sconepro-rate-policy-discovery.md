@@ -937,7 +937,7 @@ L4S {{L4S}} can be used for the realization of a network slice. Network slices p
 
 ## 3GPP UE Route Selection Policy {#ursp}
 
-UE Route Selection Policy (URSP) is a feature specified in 3GPP for 5G which matches and routes traffic based on a selection descriptor and a route descriptor and is further described in {{TS-23.503}}.
+UE Route Selection Policy (URSP) is a feature specified in 3GPP to match and forward traffic based upon a selection descriptor and a route descriptor as further detailed in {{TS-23.503}}.
 
 
 Specified traffic descriptors
