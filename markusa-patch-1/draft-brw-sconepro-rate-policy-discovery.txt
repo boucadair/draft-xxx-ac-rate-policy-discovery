@@ -1557,8 +1557,6 @@ C.3.  3GPP UE Route Selection Policy
 
    *  DNN
 
-   *  PDU Session Type
-
    *  Non-Seamless Offload indication
 
    *  Access Type preference
