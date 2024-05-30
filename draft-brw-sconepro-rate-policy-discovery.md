@@ -960,7 +960,6 @@ Specified route selection descriptors: must contain PDU Session Type Selection (
 * PDU Session Type
 * Non-Seamless Offload indication
 * Access Type preference
-* ...
 
 URSP rules that contain both descriptors can be announced from the carrier network to the UE or preconfigured in the UE, possibly subscription-based. In terms of this document, this can be used to identify services in the UE and network that are suffering from today's rate limiting policies, and to provide routes with clear characteristics or no rate limiting. URSP might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.
 
