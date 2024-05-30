@@ -933,7 +933,7 @@ One measure for guaranteeing resources in networks is network slicing. This is a
 
 Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
 
-L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
+L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
 
 ## 3GPP UE Route Selection Policy {#ursp}
 
