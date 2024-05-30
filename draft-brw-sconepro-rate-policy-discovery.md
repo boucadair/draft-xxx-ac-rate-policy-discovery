@@ -931,7 +931,7 @@ As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G 
 
 One measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources , including adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path, e.g., the RAN air interface.
 
-Network slicing is considered by the 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), the IETF {{RFC9543}} for transport networks, and BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
+Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
 
 L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
 
