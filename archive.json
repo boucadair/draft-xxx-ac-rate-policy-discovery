@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-28T00:59:23.474358+00:00",
+  "timestamp": "2024-05-30T01:00:01.608823+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -989,13 +989,13 @@
       "labels": [],
       "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
       "createdAt": "2024-05-03T08:53:14Z",
-      "updatedAt": "2024-05-27T15:35:30Z",
+      "updatedAt": "2024-05-28T09:33:30Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "markusa-patch-1",
-      "headRefOid": "fd53b482cf6d4d8cbd077b980f577fa197e41eae",
+      "headRefOid": "0a3dfa905d1ea7771d8dd04cb34f005ad837b5e8",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1197,6 +1197,104 @@
               "body": "```suggestion\r\nNetwork slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.\r\n```",
               "createdAt": "2024-05-27T14:31:04Z",
               "updatedAt": "2024-05-27T14:31:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HIu8",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:28:59Z",
+          "updatedAt": "2024-05-28T09:28:59Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "```suggestion\r\nUE Route Selection Policy (URSP) is a feature specified in 3GPP to match and forward traffic based upon a selection descriptor and a route descriptor as further detailed in {{TS-23.503}}.\r\n```",
+              "createdAt": "2024-05-28T09:28:59Z",
+              "updatedAt": "2024-05-28T09:28:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HI1M",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:29:10Z",
+          "updatedAt": "2024-05-28T09:29:11Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\r\nSpecified traffic descriptors may be:\r\n```",
+              "createdAt": "2024-05-28T09:29:11Z",
+              "updatedAt": "2024-05-28T09:29:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HJQQ",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:29:57Z",
+          "updatedAt": "2024-05-28T09:29:57Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\r\nSpecified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:\r\n\r\n```",
+              "createdAt": "2024-05-28T09:29:57Z",
+              "updatedAt": "2024-05-28T09:31:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HJ7L",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:31:11Z",
+          "updatedAt": "2024-05-28T09:33:30Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "PDU type is mandatory since rel 16 (wasn't in release 15)",
+              "createdAt": "2024-05-28T09:31:11Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 98,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-05-28T09:31:21Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 101,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-05-28T09:31:31Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 103,
+              "body": "```suggestion\r\nURSP rules that contain both descriptors can be announced from the provider network to a UE or preconfigured in the UE, possibly subscription-based. These rules can be used to identify services in the UE and to provide routes with explicit  characteristics. URSP rules might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.\r\n```",
+              "createdAt": "2024-05-28T09:33:21Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
             }
           ]
         }
