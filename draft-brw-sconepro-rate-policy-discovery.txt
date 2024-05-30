@@ -5,14 +5,16 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 9 October 2024                             Cloud Software Group
+Expires: 1 December 2024                            Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
                                                              Verizon Inc
-                                                            7 April 2024
+                                                                M. Amend
+                                                                      DT
+                                                             30 May 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -57,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 October 2024.
+   This Internet-Draft will expire on 1 December 2024.
 
 Copyright Notice
 
@@ -112,6 +114,11 @@ Table of Contents
    Appendix A.  Provisioning Domains
    Appendix B.  Example of Authentication, Authorization, and
            Accounting (AAA)
+   Appendix C.  Alternative/Complementary Mechanisms
+     C.1.  L4S
+     C.2.  Network Slicing
+     C.3.  3GPP UE Route Selection Policy
+     C.4.  Network APIs
    Acknowledgments
    Authors' Addresses
 
@@ -1156,9 +1163,9 @@ Table of Contents
               Rajagopalan, S., Wing, D., Boucadair, M., and T. Reddy.K,
               "Flow Metadata for Collaborative Host/Network Signaling",
               Work in Progress, Internet-Draft, draft-rwbr-sconepro-
-              flow-metadata-00, 4 March 2024,
+              flow-metadata-01, 26 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-rwbr-
-              sconepro-flow-metadata-00>.
+              sconepro-flow-metadata-01>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1207,25 +1214,33 @@ Table of Contents
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
               Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-01, 12 February 2024,
+              draft-ietf-masque-quic-proxy-02, 21 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-01>.
+              quic-proxy-02>.
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-07, 6 April 2024,
+              opsawg-ntw-attachment-circuit-11, 15 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-07>.
+              ntw-attachment-circuit-11>.
+
+   [I-D.ietf-teas-5g-ns-ip-mpls]
+              Szarkowicz, K. G., Roberts, R., Lucek, J., Boucadair, M.,
+              and L. M. Contreras, "A Realization of Network Slices for
+              5G Networks Using Current IP/MPLS Technologies", Work in
+              Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
+              07, 16 May 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-5g-ns-ip-mpls-07>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
               "A YANG Data Model for the RFC 9543 Network Slice
               Service", Work in Progress, Internet-Draft, draft-ietf-
-              teas-ietf-network-slice-nbi-yang-10, 16 March 2024,
+              teas-ietf-network-slice-nbi-yang-13, 9 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              ietf-network-slice-nbi-yang-10>.
+              ietf-network-slice-nbi-yang-13>.
 
    [I-D.ihlar-masque-sconepro-mediabitrate]
               Ihlar, M. and M. Kühlewind, "MASQUE extension for
@@ -1367,17 +1382,33 @@ Table of Contents
               Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
               <https://www.rfc-editor.org/rfc/rfc9543>.
 
+   [TR-470]   BBF, "5G Wireless Wireline Convergence Architecture -
+              Issue 2",
+              <https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf>.
+
    [TS-23.501]
               3GPP, "TS 23.501: System architecture for the 5G System
               (5GS)", 2024,
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=3144>.
 
+   [TS-23.503]
+              3GPP, "TS 23.503: Policy and charging control framework
+              for the 5G System (5GS)", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3334>.
+
    [TS-24.008]
               3GPP, "Technical Specification Group Core Network and
               Terminals; Mobile radio interface Layer 3 specification;
               Core network protocols; Stage 3 (Release 18)", 2024,
               <https://www.3gpp.org/DynaReport/24008.htm>.
+
+   [TS-29.522]
+              3GPP, "TS 29.522: 5G System; Network Exposure Function
+              Northbound APIs", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3437>.
 
 Appendix A.  Provisioning Domains
 
@@ -1447,6 +1478,119 @@ Appendix B.  Example of Authentication, Authorization, and Accounting
 
                Figure 10: An Example of RADIUS NRLP Exchanges
 
+Appendix C.  Alternative/Complementary Mechanisms
+
+   In the event of bottlenecks in a network, there are other mechanisms
+   that provide information or help to reserve resources.  These can be
+   used within the bottleneck network or, in some cases, across network
+   boundaries.  The following sections give examples of such mechanisms
+   and provide background information.
+
+C.1.  L4S
+
+   Low Latency, Low Loss, and Scalable Throughput (L4S) is an
+   architecture defined in [RFC9330] to avoid queuing at bottlenecks by
+   capacity-seeking congestion controllers of senders.  L4S support
+   addresses the investigated use case of this document, which considers
+   rate limiting, which typically involves queuing discipline at the
+   rate limiting bottleneck.  If all involved elements (UE, network, and
+   service) support L4S, the use of Explicit Congestion Notification
+   (ECN) provides the measure used to inform the network protocol and/or
+   service endpoints in use of impending congestion.  Congestion
+   detection and reaction may require a few RTTs to adjust to the
+   network forwarding conditions.
+
+   As of 3GPP Rel. 18 (5G Advanced, [TS-23.501]), L4S is also defined
+   for the 5G system (5GS) and can be used by UE and its services, and
+   for external parties of the 5GS by exposure of congestion
+   information.
+
+C.2.  Network Slicing
+
+   One measure for guaranteeing resources in networks is network
+   slicing.  This is achieved by configuring certain resources like
+   adequate QoS setup for communication streams, which are taken into
+   account in packet schedulers along the transport path. e.g., the RAN
+   air interface.
+
+   Network slicing is considered by 3GPP for 5G [TS-23.501] (an
+   equivalent can be achieved in 4G by configuring QFI values), by IETF
+   [RFC9543] for transport networks, and by BBF [TR-470] for wireline
+   access.  A realization model in transport networks is detailed in
+   [I-D.ietf-teas-5g-ns-ip-mpls].
+
+   L4S Appendix C.1 can be used for the realization of a network slice.
+   Network slices properties (e.g., throughput) can be retrieved from an
+   operator network or configured by third parties via a network API
+   Appendix C.4 (e.g., 3GPP NEF).
+
+C.3.  3GPP UE Route Selection Policy
+
+   UE Route Selection Policy (URSP) is a feature specified in 3GPP to
+   match and forward traffic based upon a selection descriptor and a
+   route descriptor as further detailed in [TS-23.503].
+
+   Specified traffic descriptors may be:
+
+   *  Application
+
+   *  IP
+
+   *  Domain
+
+   *  Non-IP
+
+   *  DNN
+
+   *  Connection Capabilities
+
+   *  PIN ID
+
+   *  Connectivity Group ID
+
+   Specified route selection descriptors: must contain PDU Session Type
+   Selection (e.g., IPv4v6 or IPv6) and may contain the following:
+
+   *  SSC Mode
+
+   *  Network Slice
+
+   *  DNN
+
+   *  Non-Seamless Offload indication
+
+   *  Access Type preference
+
+   URSP rules that contain both descriptors can be announced from the
+   provider network to a UE or preconfigured in the UE, possibly
+   subscription-based.  These rules can be used to identify services in
+   the UE and to provide routes with explicit characteristics.  URSP
+   rules might also be triggered by the usage of network APIs
+   Appendix C.4 and combined with network slicing Appendix C.2, for
+   example.
+
+C.4.  Network APIs
+
+   Network APIs are the interface between the operator network and
+   third-party providers.  With 4G, the first methods were introduced to
+   make network capabilities available, which has been greatly improved
+   with the introduction of 5G.  To this end, the new Network Exposure
+   Function (NEF) is responsible for 5G, which is specified in
+   [TS-29.522], which defines a huge list of network capabilites for
+   monitoring and configuration for external consumption.
+
+   For integration into external services, initiatives such as the
+   CAMARA Alliance and GSMA Open Gateway provide abstractions of these
+   exposed network capabilities into service APIs for easy integration
+   by developers.
+
+   The CAMARA API "Network Slice Booking", which is currently under
+   development, would be a way for a service provider to configure the
+   necessary resources in the operator network.  In the background, 5G
+   features such as network slicing Appendix C.2 , URSP Appendix C.3
+   and, if necessary, L4S Appendix C.1 could then ensure implementation
+   in the operator network.
+
 Acknowledgments
 
    TODO acknowledge.
@@ -1480,3 +1624,9 @@ Authors' Addresses
    Verizon Inc
    United States of America
    Email: gyan.s.mishra@verizon.com
+
+
+   Markus Amend
+   Deutsche Telekom
+   Germany
+   Email: markus.amend@telekom.de
