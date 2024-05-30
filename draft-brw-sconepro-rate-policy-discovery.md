@@ -42,6 +42,13 @@ author:
     organization: Verizon Inc
     country: United States of America
     email: "gyan.s.mishra@verizon.com"
+ -
+    ins: M. Amend
+    name: Markus Amend
+    org: Deutsche Telekom
+    abbrev: DT
+    country: Germany
+    email: markus.amend@telekom.de
 
 
 normative:
@@ -71,6 +78,22 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
 
+     TS-23.503:
+        title: "TS 23.503: Policy and charging control framework for the 5G System (5GS)"
+        date: 2024
+        author:
+        -
+          org: 3GPP
+        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334
+
+     TS-29.522:
+        title: "TS 29.522: 5G System; Network Exposure Function Northbound APIs"
+        date: 2024
+        author:
+        -
+          org: 3GPP
+        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3437
+
      app-measurement:
         title: "Bandwidth measurement for QUIC"
         date: 2024
@@ -96,6 +119,17 @@ informative:
         -
           org: BEREC
         target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
+
+     TR-470:
+        title: "5G Wireless Wireline Convergence Architecture - Issue 2"
+        date: false
+        author:
+        -
+          org: BBF
+        target: https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf
+
+     RFC9330:
+     RFC9543:
 
 --- abstract
 
@@ -882,6 +916,59 @@ This example assumes that the Network Access Server (NAS) embeds both Remote Aut
                      DHCP                    RADIUS
 ~~~~~
 {: #radius-ex title="An Example of RADIUS NRLP Exchanges"}
+
+# Alternative/Complementary Mechanisms
+
+In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
+
+## L4S {#L4S}
+
+Low Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.
+
+As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, and for external parties of the 5GS by exposure of congestion information.
+
+## Network Slicing {#ns}
+
+One measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources like adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path. e.g., the RAN air interface.
+
+Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
+
+L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
+
+## 3GPP UE Route Selection Policy {#ursp}
+
+UE Route Selection Policy (URSP) is a feature specified in 3GPP to match and forward traffic based upon a selection descriptor and a route descriptor as further detailed in {{TS-23.503}}.
+
+
+Specified traffic descriptors may be:
+
+* Application
+* IP
+* Domain
+* Non-IP
+* DNN
+* Connection Capabilities
+* PIN ID
+* Connectivity Group ID
+
+Specified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:
+
+
+* SSC Mode
+* Network Slice
+* DNN
+* Non-Seamless Offload indication
+* Access Type preference
+
+URSP rules that contain both descriptors can be announced from the provider network to a UE or preconfigured in the UE, possibly subscription-based. These rules can be used to identify services in the UE and to provide routes with explicit  characteristics. URSP rules might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.
+
+## Network APIs {#network_api}
+
+Network APIs are the interface between the operator network and third-party providers. With 4G, the first methods were introduced to make network capabilities available, which has been greatly improved with the introduction of 5G. To this end, the new Network Exposure Function (NEF) is responsible for 5G, which is specified in {{TS-29.522}}, which defines a huge list of network capabilites for monitoring and configuration for external consumption.
+
+For integration into external services, initiatives such as the CAMARA Alliance and GSMA Open Gateway provide abstractions of these exposed network capabilities into service APIs for easy integration by developers.
+
+The CAMARA API "Network Slice Booking", which is currently under development, would be a way for a service provider to configure the necessary resources in the operator network. In the background, 5G features such as network slicing {{ns}} , URSP {{ursp}} and, if necessary, L4S {{L4S}} could then ensure implementation in the operator network.
 
 # Acknowledgments
 {:numbered="false"}
