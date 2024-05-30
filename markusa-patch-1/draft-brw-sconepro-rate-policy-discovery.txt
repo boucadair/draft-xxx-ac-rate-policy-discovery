@@ -1497,8 +1497,8 @@ C.1.  L4S
    service) support L4S, the use of Explicit Congestion Notification
    (ECN) provides the measure used to inform the network protocol and/or
    service endpoints in use of impending congestion.  Congestion
-   detection and reaction may require a few RTTs to adjust to the
-   network forwarding conditions.
+   detection and reaction may require some few RTTs, though to adjust to
+   the network forwarding conditions.
 
    As of 3GPP Rel. 18 (5G Advanced, [TS-23.501]), L4S is also defined
    for the 5G system (5GS) and can be used by UE and its services, and
