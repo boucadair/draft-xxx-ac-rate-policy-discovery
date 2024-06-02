@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-30T01:00:01.608823+00:00",
+  "timestamp": "2024-06-02T01:04:02.214726+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -107,7 +107,7 @@
       "id": "I_kwDOLlGZlc6F1yvF",
       "title": "zoom more on existing tools (slicing/L4S)",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -116,8 +116,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-04-16T08:38:31Z",
-      "updatedAt": "2024-04-16T11:13:25Z",
-      "closedAt": null,
+      "updatedAt": "2024-05-30T06:45:50Z",
+      "closedAt": "2024-05-30T06:45:50Z",
       "comments": [
         {
           "author": "markusa",
@@ -982,24 +982,26 @@
       "id": "PR_kwDOLlGZlc5ucx-g",
       "title": "Alternative mechanisms",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "markusa",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
       "createdAt": "2024-05-03T08:53:14Z",
-      "updatedAt": "2024-05-28T09:33:30Z",
+      "updatedAt": "2024-05-30T06:45:50Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "markusa-patch-1",
-      "headRefOid": "0a3dfa905d1ea7771d8dd04cb34f005ad837b5e8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e7c0cd521b06ea099f0c8ac93733830a58d66ba5",
+      "closedAt": "2024-05-30T06:45:50Z",
+      "mergedAt": "2024-05-30T06:45:50Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "935324bdb81e5528bc35837195dd5ae5317c0ea1"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1297,6 +1299,19 @@
               "updatedAt": "2024-05-28T09:33:30Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58ar-T",
+          "commit": {
+            "abbreviatedOid": "e7c0cd5"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-30T06:45:44Z",
+          "updatedAt": "2024-05-30T06:45:44Z",
+          "comments": []
         }
       ]
     }
