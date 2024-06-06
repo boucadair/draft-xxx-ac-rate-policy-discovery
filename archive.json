@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-04T01:00:44.028399+00:00",
+  "timestamp": "2024-06-06T01:00:13.333349+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -229,6 +229,22 @@
       "body": "",
       "createdAt": "2024-05-22T08:29:54Z",
       "updatedAt": "2024-05-22T08:29:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOLlGZlc6LNqAr",
+      "title": "PvD comment from Tommy Pauly",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/27",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "De : Tommy Pauly <tpauly@apple.com> \r\nEnvoy\u00e9 : mardi 4 juin 2024 17:32\r\n\u00c0 : BOUCADAIR Mohamed INNOV/NET <mohamed.boucadair@orange.com>\r\nCc : tirumal reddy <kondtir@gmail.com>\r\nObjet : Re: Feedback on the use of PvD Use for Collaborative Networking\r\n\r\n\r\n\r\nHi Med,\r\n\r\nPvDs are starting to be implemented more now, for the proxy discovery use case, so I think we will see a push there.\r\n\r\nOverall, it seems a bit odd to just put that information in the appendix, as opposed to next to the other provisioning mechanisms, as it is a standards-track mechanism. I also think it makes sense to discuss whether you need the details of information to go directly into RAs or DHCP, or if it makes sense to have this be in a separate service (like PvD, or like how CAPPORT had a separate server that you talk to to get the information).\r\n\r\nThanks,\r\nTommy \r\n",
+      "createdAt": "2024-06-05T11:12:22Z",
+      "updatedAt": "2024-06-05T11:12:22Z",
       "closedAt": null,
       "comments": []
     }
