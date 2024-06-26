@@ -260,6 +260,11 @@ Networks that advertize NLRPs are likely to maintain the policing in place withi
 
 This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
 
+## Running Experiments
+
+   The benefits of enabling explicit signals are yet to be backed up with more evidence. Running experiments is thus
+   key to assess the benefits under various setups.
+
 ## Design Motivation & Rationale
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
