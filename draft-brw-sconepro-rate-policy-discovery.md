@@ -726,7 +726,7 @@ The validity of the estimation produced by the network could be questioned by th
 
 An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of the application.
 
-## Signal “interference”
+## Signal “Interference”
 
 The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.
 
