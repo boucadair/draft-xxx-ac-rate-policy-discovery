@@ -706,6 +706,40 @@ Rate-limit policies enforced at the network are assumed to be consistent with th
 
 > ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.
 
+Some additional operational considerations are detailed in the following sub-sections.
+
+## Architectural Aspects
+
+Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.
+Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end,  thus producing only partial observations which could not be sufficiently good at the time of generating appropriate signals.
+
+## Service Aspects
+
+Signals could be generated for multiple services and/or applications. For instance, services providing short video content could motivate signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.
+
+It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.
+
+On the other hand, if the experience of the flows improve, this could motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network).
+
+## Signal Enforcement
+
+Signals are conceived as indications from the network towards the application. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it can deal to a continuous loop of signal generation due to the fact of the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.
+
+Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions.
+
+## Signal Estimation
+
+The validity of the estimation produced by the network could be questioned by the application. Trust is required in a way that applications can safely follow guidance from the network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define an standard way of generating signals, for instance, per-flow or per group of flows.
+
+An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of the application.
+
+## Signal “Interference”
+
+The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.
+
+
+
+
 # Deployment Incentives {#sec-inc}
 
 ## Networks
