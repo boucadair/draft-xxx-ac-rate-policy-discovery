@@ -1213,6 +1213,23 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-architectural-aspects" class="internal xref">Architectural Aspects</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-service-aspects" class="internal xref">Service Aspects</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-signal-enforcement" class="internal xref">Signal Enforcement</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-signal-estimation" class="internal xref">Signal Estimation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-signal-interference" class="internal xref">Signal “Interference”</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-deployment-incentives" class="internal xref">Deployment Incentives</a></p>
@@ -2480,6 +2497,52 @@ its networks to adjust their behaviors.<a href="#section-6-1" class="pilcrow">¶
           <p id="section-6-7.1.1">ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.<a href="#section-6-7.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
+<p id="section-6-8">Some additional operational considerations are detailed in the following sub-sections.<a href="#section-6-8" class="pilcrow">¶</a></p>
+<div id="architectural-aspects">
+<section id="section-6.1">
+        <h3 id="name-architectural-aspects">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-architectural-aspects" class="section-name selfRef">Architectural Aspects</a>
+        </h3>
+<p id="section-6.1-1">Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.
+Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end,  thus producing only partial observations which could not be sufficiently good at the time of generating appropriate signals.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="service-aspects">
+<section id="section-6.2">
+        <h3 id="name-service-aspects">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-service-aspects" class="section-name selfRef">Service Aspects</a>
+        </h3>
+<p id="section-6.2-1">Signals could be generated for multiple services and/or applications. For instance, services providing short video content could motivate signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">On the other hand, if the experience of the flows improve, this could motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network).<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signal-enforcement">
+<section id="section-6.3">
+        <h3 id="name-signal-enforcement">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-signal-enforcement" class="section-name selfRef">Signal Enforcement</a>
+        </h3>
+<p id="section-6.3-1">Signals are conceived as indications from the network towards the application. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it can deal to a continuous loop of signal generation due to the fact of the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signal-estimation">
+<section id="section-6.4">
+        <h3 id="name-signal-estimation">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-signal-estimation" class="section-name selfRef">Signal Estimation</a>
+        </h3>
+<p id="section-6.4-1">The validity of the estimation produced by the network could be questioned by the application. Trust is required in a way that applications can safely follow guidance from the network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define an standard way of generating signals, for instance, per-flow or per group of flows.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-2">An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of the application.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signal-interference">
+<section id="section-6.5">
+        <h3 id="name-signal-interference">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-signal-interference" class="section-name selfRef">Signal “Interference”</a>
+        </h3>
+<p id="section-6.5-1">The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-inc">
