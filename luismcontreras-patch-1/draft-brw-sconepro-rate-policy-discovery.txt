@@ -5,7 +5,7 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 1 December 2024                            Cloud Software Group
+Expires: 3 January 2025                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -14,7 +14,7 @@ Expires: 1 December 2024                            Cloud Software Group
                                                              Verizon Inc
                                                                 M. Amend
                                                                       DT
-                                                             30 May 2024
+                                                             2 July 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 December 2024.
+   This Internet-Draft will expire on 3 January 2025.
 
 Copyright Notice
 
@@ -82,8 +82,9 @@ Table of Contents
      1.2.  Networks Are Already Sharing Network Properties with Hosts
      1.3.  What's In?
      1.4.  What's Out?
-     1.5.  Design Motivation & Rationale
-     1.6.  Sample Deployment Cases
+     1.5.  Running Experiments
+     1.6.  Design Motivation & Rationale
+     1.7.  Sample Deployment Cases
    2.  Conventions and Definitions
    3.  NRLP Blob
    4.  IPv6 RA NRLP Option
@@ -93,6 +94,11 @@ Table of Contents
      5.1.  Option Format
      5.2.  DHCPv4 Client Behavior
    6.  Operational Considerations
+     6.1.  Architectural Aspects
+     6.2.  Service Aspects
+     6.3.  Signal Enforcement
+     6.4.  Signal Estimation
+     6.5.  Signal “Interference”
    7.  Deployment Incentives
      7.1.  Networks
      7.2.  Applications
@@ -318,7 +324,13 @@ Table of Contents
    e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
    are enabled in a bottleneck link.
 
-1.5.  Design Motivation & Rationale
+1.5.  Running Experiments
+
+   The benefits of enabling explicit signals are yet to be backed up
+   with more evidence.  Running experiments is thus key to assess the
+   benefits under various setups.
+
+1.6.  Design Motivation & Rationale
 
    The main motivations for the use of ND for such a discovery are
    listed in Section 3 of [RFC8781]:
@@ -418,7 +430,7 @@ Table of Contents
       networks are required to support Neighbor Discovery [RFC4861].
       For IPv4, configure DHCP servers to include a new DHCP option.
 
-1.6.  Sample Deployment Cases
+1.7.  Sample Deployment Cases
 
    Some deployment use cases for NRLP are provided below:
 
@@ -903,6 +915,85 @@ Table of Contents
       integrity and security, and to manage congestion, provided that
       equivalent categories of traffic are treated equally.
 
+   Some additional operational considerations are detailed in the
+   following sub-sections.
+
+6.1.  Architectural Aspects
+
+   Approaches based on middleboxes are not recommended due to its
+   inherent limitations, in terms of performance, scalability,
+   redundancy, etc.  Moreover, the management and operation of such
+   middleboxes remain unclear, which can motivate operational issues and
+   responsibilities.  Furthermore, it is important to note that any
+   middlebox could not necessarily cover an entire service end-to-end,
+   thus producing only partial observations which could not be
+   sufficiently good at the time of generating appropriate signals.
+
+6.2.  Service Aspects
+
+   Signals could be generated for multiple services and/or applications.
+   For instance, services providing short video content could motivate
+   signals different to those based on long videos.  This implies the
+   need of defining a generic method suitable for any kind of service
+   and application, avoiding the multiplicity of solutions and the
+   dominance of some applications over others.
+
+   It should be also noted that more experimentation is needed in order
+   to fully understand the implications of the signals in the overall
+   performance of the network.  On one hand, the co-existence of
+   multiple flows, some of them using the signals for improving the
+   experience, some others not.  For this, more experimentation and
+   datasets are required, so then can be clear that no flows are
+   negatively impacted at all.
+
+   On the other hand, if the experience of the flows improve, this could
+   motivate a more intense usage of the network, then requiring to
+   accommodate larger number of flows, and in consequence, reducing the
+   available resources per application.  This kind of paradox can be
+   assessed with more experimental results under realistic conditions
+   (i.e., multiple users and multiple services in the network).
+
+6.3.  Signal Enforcement
+
+   Signals are conceived as indications from the network towards the
+   application.  It is not clear the way of enforcing the application to
+   follow the indication, especially in a context where different
+   applications from a user, or multiple users, simultaneously access
+   the network.  This can motivate a wastage of resources for generating
+   signals with the risk of not being effective.  Furthermore, it can
+   deal to a continuous loop of signal generation due to the fact of the
+   initial signals being ignored.  It is then necessary to define
+   mechanisms to avoid permanent signal generation when ignored.
+
+   Finally, signals could not be required at every moment, but only in
+   situations that can benefit the service.  Such situations could be
+   due, for instance, to given levels of congestion, or based on
+   previous information shared by the application (e.g., SLO thresholds)
+   so that signals can be triggered according to service conditions.
+
+6.4.  Signal Estimation
+
+   The validity of the estimation produced by the network could be
+   questioned by the application.  Trust is required in a way that
+   applications can safely follow guidance from the network.
+   Furthermore, whatever estimation should be timely produced, avoiding
+   the generation of aged estimations that could not correspond to the
+   actual service circumstances.  Finally, some common guidance is
+   necessary to define an standard way of generating signals, for
+   instance, per-flow or per group of flows.
+
+   An open point is how to deal with adaptive applications, in the sense
+   that signals could not be of value because the self-adaptation nature
+   of the application.
+
+6.5.  Signal “Interference”
+
+   The network is built on multiple layers.  In some cases, different
+   solutions targeting similar objectives (e.g., congestion control or
+   bottleneck mitigation) can be in place.  It is then necessary to
+   assess the simultaneous coexistence of these solutions to avoid
+   contradictory effects or “interferences”.
+
 7.  Deployment Incentives
 
 7.1.  Networks
@@ -1160,12 +1251,12 @@ Table of Contents
 10.1.  Normative References
 
    [I-D.rwbr-sconepro-flow-metadata]
-              Rajagopalan, S., Wing, D., Boucadair, M., and T. Reddy.K,
-              "Flow Metadata for Collaborative Host/Network Signaling",
-              Work in Progress, Internet-Draft, draft-rwbr-sconepro-
-              flow-metadata-01, 26 April 2024,
+              Rajagopalan, S., Wing, D., Boucadair, M., Reddy.K, T., and
+              L. M. Contreras, "Flow Metadata for Collaborative Host/
+              Network Signaling", Work in Progress, Internet-Draft,
+              draft-rwbr-sconepro-flow-metadata-02, 26 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-rwbr-
-              sconepro-flow-metadata-01>.
+              sconepro-flow-metadata-02>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1231,8 +1322,8 @@ Table of Contents
               and L. M. Contreras, "A Realization of Network Slices for
               5G Networks Using Current IP/MPLS Technologies", Work in
               Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
-              07, 16 May 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-teas-5g-ns-ip-mpls-07>.
+              08, 1 June 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-5g-ns-ip-mpls-08>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
