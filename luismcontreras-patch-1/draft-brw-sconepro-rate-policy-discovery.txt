@@ -920,8 +920,8 @@ Table of Contents
 
 6.1.  Architectural Aspects
 
-   Approaches based on middleboxes are not recommended due to its
-   inherent limitations, in terms of performance, scalability,
+   Approaches based on middleboxes are generally not recommended due to
+   their inherent limitations, in terms of performance, scalability,
    redundancy, etc.  Moreover, the management and operation of such
    middleboxes remain unclear, which can motivate operational issues and
    responsibilities.  Furthermore, it is important to note that any
