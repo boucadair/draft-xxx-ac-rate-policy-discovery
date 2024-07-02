@@ -706,7 +706,7 @@ Some additional operational considerations are detailed in the following sub-sec
 Approaches based on middleboxes are not recommended due to its inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.
 Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end,  thus producing only partial observations which could not be sufficiently good at the time of generating appropriate signals.
 
-## Service aspects
+## Service Aspects
 
 Signals could be generated for multiple services and/or applications. For instance, services providing short video content could motivate signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.
 
