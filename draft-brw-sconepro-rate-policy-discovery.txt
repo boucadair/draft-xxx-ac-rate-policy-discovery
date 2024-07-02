@@ -5,7 +5,7 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 28 December 2024                           Cloud Software Group
+Expires: 3 January 2025                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -14,7 +14,9 @@ Expires: 28 December 2024                           Cloud Software Group
                                                              Verizon Inc
                                                                 M. Amend
                                                                       DT
-                                                            26 June 2024
+                                                            L. Contreras
+                                                                     TID
+                                                             2 July 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -59,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 December 2024.
+   This Internet-Draft will expire on 3 January 2025.
 
 Copyright Notice
 
@@ -1637,3 +1639,9 @@ Authors' Addresses
    Deutsche Telekom
    Germany
    Email: markus.amend@telekom.de
+
+
+   Luis M. Contreras
+   Telefonica
+   Spain
+   Email: luismiguel.contrerasmurillo@telefonica.com
