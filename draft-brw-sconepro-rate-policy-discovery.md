@@ -720,7 +720,7 @@ Signals are conceived as indications from the network towards the application. I
 
 Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions.
 
-## Signal estimation
+## Signal Estimation
 
 The validity of the estimation produced by the network could be questioned by the application. Trust is required in a way that applications can safely follow guidance from the network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define an standard way of generating signals, for instance, per-flow or per group of flows.
 
