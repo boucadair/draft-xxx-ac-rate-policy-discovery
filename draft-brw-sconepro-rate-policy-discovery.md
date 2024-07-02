@@ -714,7 +714,7 @@ It should be also noted that more experimentation is needed in order to fully un
 
 On the other hand, if the experience of the flows improve, this could motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network).
 
-## Signal enforcement
+## Signal Enforcement
 
 Signals are conceived as indications from the network towards the application. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it can deal to a continuous loop of signal generation due to the fact of the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.
 
