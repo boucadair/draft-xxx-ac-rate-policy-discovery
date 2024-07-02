@@ -730,7 +730,6 @@ An open point is how to deal with adaptive applications, in the sense that signa
 
 The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.
 
-## Privacy and security aspects
 
 Network signals represent sensitive information subject of malicious behavior or creating vulnerabilities. The signals offered should be protected to avoid any of these concerns, and the consumers of these signals should be authenticated. 
 
