@@ -692,12 +692,12 @@ The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field 
 
 # Operational Considerations {#sec-ops}
 
-## NRLP Is Complementary Not Replacement Solution 
+## NRLP Is Complementary Not Replacement Solution
 
 Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
 its networks to adjust their behaviors.
 
-## Provisionning Policies 
+## Provisionning Policies
 
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
