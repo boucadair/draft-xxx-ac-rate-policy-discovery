@@ -145,6 +145,9 @@ or be reactive policies (e.g., enforced temporarily to manage an overload or dur
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
 properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined.
 
+Plenty operational challenges are to be yet evaluated and more experiments conducted to assess the actual benefits (including, identifying under which conditions).
+The document discusses these considerations.
+
 --- middle
 
 # Introduction
@@ -689,10 +692,16 @@ The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field 
 
 # Operational Considerations {#sec-ops}
 
+## NRLP Is Complementary Not Replacement Solution 
+
 Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
 its networks to adjust their behaviors.
 
+## Provisionning Policies 
+
 NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+
+## Redundant vs. Useful Signal
 
 In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.
 
@@ -700,20 +709,20 @@ In contexts where the (average) bitrate policies provided during the establishme
 
 When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
 
+## Fairness
+
 Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, {{BEREC}} says the following:
 
 > ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.
 
-Some additional operational considerations are detailed in the following sub-sections.
-
-## Architectural Aspects
+## Architectural Considerations Matter
 
 Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
 Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus **producing only partial observations which could not be sufficiently good at the time of generating appropriate signals**.
 
 The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.
 
-## Service Aspects
+## Service Considerations: Application Diversity & Realistic Assessment
 
 Signals could be generated for multiple services and/or applications. For instance, services providing short video content might require signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.
 
@@ -721,7 +730,7 @@ It should be also noted that more experimentation is needed in order to fully un
 
 On the other hand, if the experience of the flows improves and depending on the nature of the signals themselves, this might motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be **assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network)**.
 
-## Signal Enforcement
+## Operational Guidance for Signal Enforcement
 
 Signals are conceived as indications from the network towards applications. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it might lead to a continuous loop of signal generation because the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.
 
