@@ -46,7 +46,6 @@ author:
     ins: M. Amend
     name: Markus Amend
     org: Deutsche Telekom
-    abbrev: DT
     country: Germany
     email: markus.amend@telekom.de
 
@@ -54,7 +53,6 @@ author:
     ins: L. Contreras
     name: Luis M. Contreras
     org: Telefonica
-    abbrev: TID
     country: Spain
     email: luismiguel.contrerasmurillo@telefonica.com
 
@@ -265,7 +263,7 @@ Applications will have access to all these NRLPs and will, thus, adjust their be
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
-This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link.
+This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to {{sec-alt}} for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.
 
 ## Running Experiments
 
@@ -710,35 +708,34 @@ Some additional operational considerations are detailed in the following sub-sec
 
 ## Architectural Aspects
 
-Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.
-Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end,  thus producing only partial observations which could not be sufficiently good at the time of generating appropriate signals.
+Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
+Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus **producing only partial observations which could not be sufficiently good at the time of generating appropriate signals**.
+
+The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.
 
 ## Service Aspects
 
-Signals could be generated for multiple services and/or applications. For instance, services providing short video content could motivate signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.
+Signals could be generated for multiple services and/or applications. For instance, services providing short video content might require signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.
 
 It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.
 
-On the other hand, if the experience of the flows improve, this could motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network).
+On the other hand, if the experience of the flows improves and depending on the nature of the signals themselves, this might motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be **assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network)**.
 
 ## Signal Enforcement
 
-Signals are conceived as indications from the network towards the application. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it can deal to a continuous loop of signal generation due to the fact of the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.
+Signals are conceived as indications from the network towards applications. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it might lead to a continuous loop of signal generation because the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.
 
-Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions.
+Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions. **Elaborating more operational guidance on intended signal enforcment policy is key**.
 
 ## Signal Estimation
 
-The validity of the estimation produced by the network could be questioned by the application. Trust is required in a way that applications can safely follow guidance from the network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define an standard way of generating signals, for instance, per-flow or per group of flows.
+The validity of the estimation produced by a network might be questioned by the application. Trust is required in a way that applications can safely follow guidance from a network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define a standard way of generating signals, for instance, per-flow or per group of flows.
 
-An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of the application.
+An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of these applications.
 
-## Signal “Interference”
+## Signal "Interference"
 
-The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.
-
-
-
+The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to **assess the simultaneous coexistence of these solutions to avoid contradictory effects or "interferences"**.
 
 # Deployment Incentives {#sec-inc}
 
@@ -963,7 +960,7 @@ This example assumes that the Network Access Server (NAS) embeds both Remote Aut
 ~~~~~
 {: #radius-ex title="An Example of RADIUS NRLP Exchanges"}
 
-# Alternative/Complementary Mechanisms
+# Alternative/Complementary Mechanisms {#sec-alt}
 
 In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
 
@@ -994,7 +991,6 @@ Specified traffic descriptors may be:
 * Non-IP
 * DNN
 * Connection Capabilities
-* PIN ID
 * Connectivity Group ID
 
 Specified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:
