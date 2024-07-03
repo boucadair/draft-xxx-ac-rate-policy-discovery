@@ -19,12 +19,12 @@ or be reactive policies (e.g., enforced temporarily to manage an overload or dur
        Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
 properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="collaborative networking" name="keyword">
 <meta content="adaptive application" name="keyword">
 <meta content="draft-brw-sconepro-rate-policy-discovery-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -34,9 +34,8 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
     platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 69.5.1
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="draft-brw-sconepro-rate-policy-discovery.xml" rel="alternate" type="application/rfc+xml">
@@ -1040,7 +1039,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Boucadair, et al.</td>
-<td class="center">Expires 3 January 2025</td>
+<td class="center">Expires 4 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1053,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-brw-sconepro-rate-policy-discovery-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-02" class="published">2 July 2024</time>
+<time datetime="2024-07-03" class="published">3 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-03">3 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-04">4 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,11 +1082,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">M. Amend</div>
-<div class="org">DT</div>
+<div class="org">Deutsche Telekom</div>
 </div>
 <div class="author">
       <div class="author-name">L. Contreras</div>
-<div class="org">TID</div>
+<div class="org">Telefonica</div>
 </div>
 </dd>
 </dl>
@@ -1128,7 +1127,7 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1227,7 +1226,7 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
                 <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-signal-estimation" class="internal xref">Signal Estimation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-signal-interference" class="internal xref">Signal “Interference”</a></p>
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-signal-interference" class="internal xref">Signal "Interference"</a></p>
 </li>
             </ul>
 </li>
@@ -1639,7 +1638,7 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 are bound to the same AC is deployment specific.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
 <p id="section-1.4-3">Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to <span>[<a href="#I-D.rwbr-tsvwg-signaling-use-cases" class="cite xref">I-D.rwbr-tsvwg-signaling-use-cases</a>]</span> for some examples.<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <p id="section-1.4-4">Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., <span><a href="https://rfc-editor.org/rfc/rfc8803#section-9.3" class="relref">Section 9.3</a> of [<a href="#RFC8803" class="cite xref">RFC8803</a>]</span> or <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-quic-proxy-02#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-masque-quic-proxy" class="cite xref">I-D.ietf-masque-quic-proxy</a>]</span>). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
-<p id="section-1.4-5">This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span>, are enabled in a bottleneck link.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
+<p id="section-1.4-5">This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span>, are enabled in a bottleneck link. The reader may refer to <a href="#sec-alt" class="auto internal xref">Appendix C</a> for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="running-experiments">
@@ -2503,8 +2502,9 @@ its networks to adjust their behaviors.<a href="#section-6-1" class="pilcrow">¶
         <h3 id="name-architectural-aspects">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-architectural-aspects" class="section-name selfRef">Architectural Aspects</a>
         </h3>
-<p id="section-6.1-1">Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.
-Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end,  thus producing only partial observations which could not be sufficiently good at the time of generating appropriate signals.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
+Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus <strong>producing only partial observations which could not be sufficiently good at the time of generating appropriate signals</strong>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="service-aspects">
@@ -2512,9 +2512,9 @@ Furthermore, it is important to note that any middlebox could not necessarily co
         <h3 id="name-service-aspects">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-service-aspects" class="section-name selfRef">Service Aspects</a>
         </h3>
-<p id="section-6.2-1">Signals could be generated for multiple services and/or applications. For instance, services providing short video content could motivate signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">Signals could be generated for multiple services and/or applications. For instance, services providing short video content might require signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">On the other hand, if the experience of the flows improve, this could motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network).<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">On the other hand, if the experience of the flows improves and depending on the nature of the signals themselves, this might motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be <strong>assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network)</strong>.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signal-enforcement">
@@ -2522,8 +2522,8 @@ Furthermore, it is important to note that any middlebox could not necessarily co
         <h3 id="name-signal-enforcement">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-signal-enforcement" class="section-name selfRef">Signal Enforcement</a>
         </h3>
-<p id="section-6.3-1">Signals are conceived as indications from the network towards the application. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it can deal to a continuous loop of signal generation due to the fact of the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">Signals are conceived as indications from the network towards applications. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it might lead to a continuous loop of signal generation because the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions. <strong>Elaborating more operational guidance on intended signal enforcment policy is key</strong>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signal-estimation">
@@ -2531,16 +2531,16 @@ Furthermore, it is important to note that any middlebox could not necessarily co
         <h3 id="name-signal-estimation">
 <a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-signal-estimation" class="section-name selfRef">Signal Estimation</a>
         </h3>
-<p id="section-6.4-1">The validity of the estimation produced by the network could be questioned by the application. Trust is required in a way that applications can safely follow guidance from the network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define an standard way of generating signals, for instance, per-flow or per group of flows.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.4-2">An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of the application.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">The validity of the estimation produced by a network might be questioned by the application. Trust is required in a way that applications can safely follow guidance from a network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define a standard way of generating signals, for instance, per-flow or per group of flows.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-2">An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of these applications.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signal-interference">
 <section id="section-6.5">
         <h3 id="name-signal-interference">
-<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-signal-interference" class="section-name selfRef">Signal “Interference”</a>
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-signal-interference" class="section-name selfRef">Signal "Interference"</a>
         </h3>
-<p id="section-6.5-1">The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to assess the simultaneous coexistence of these solutions to avoid contradictory effects or “interferences”.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.5-1">The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to <strong>assess the simultaneous coexistence of these solutions to avoid contradictory effects or "interferences"</strong>.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3226,7 +3226,7 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
 </div>
 </section>
 </div>
-<div id="alternativecomplementary-mechanisms">
+<div id="sec-alt">
 <section id="appendix-C">
       <h2 id="name-alternative-complementary-m">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-alternative-complementary-m" class="section-name selfRef">Alternative/Complementary Mechanisms</a>
@@ -3278,10 +3278,7 @@ and an Authentication, Authorization, and Accounting (AAA) server to retrieve th
             <p id="appendix-C.3-3.6.1">Connection Capabilities<a href="#appendix-C.3-3.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-C.3-3.7">
-            <p id="appendix-C.3-3.7.1">PIN ID<a href="#appendix-C.3-3.7.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-C.3-3.8">
-            <p id="appendix-C.3-3.8.1">Connectivity Group ID<a href="#appendix-C.3-3.8.1" class="pilcrow">¶</a></p>
+            <p id="appendix-C.3-3.7.1">Connectivity Group ID<a href="#appendix-C.3-3.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="appendix-C.3-4">Specified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:<a href="#appendix-C.3-4" class="pilcrow">¶</a></p>

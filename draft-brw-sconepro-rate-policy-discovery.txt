@@ -5,7 +5,7 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 3 January 2025                             Cloud Software Group
+Expires: 4 January 2025                             Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -13,10 +13,10 @@ Expires: 3 January 2025                             Cloud Software Group
                                                                G. Mishra
                                                              Verizon Inc
                                                                 M. Amend
-                                                                      DT
+                                                        Deutsche Telekom
                                                             L. Contreras
-                                                                     TID
-                                                             2 July 2024
+                                                              Telefonica
+                                                             3 July 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2025.
+   This Internet-Draft will expire on 4 January 2025.
 
 Copyright Notice
 
@@ -100,7 +100,7 @@ Table of Contents
      6.2.  Service Aspects
      6.3.  Signal Enforcement
      6.4.  Signal Estimation
-     6.5.  Signal “Interference”
+     6.5.  Signal "Interference"
    7.  Deployment Incentives
      7.1.  Networks
      7.2.  Applications
@@ -324,7 +324,10 @@ Table of Contents
 
    This document does not assume nor preclude that other mechanisms,
    e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
-   are enabled in a bottleneck link.
+   are enabled in a bottleneck link.  The reader may refer to Appendix C
+   for a list of relevant mechanisms.  Whether these mechanism as
+   alternative or complementary to explicit host/network signals is to
+   be further assessed.
 
 1.5.  Running Experiments
 
@@ -924,17 +927,22 @@ Table of Contents
 
    Approaches based on middleboxes are generally not recommended due to
    their inherent limitations, in terms of performance, scalability,
-   redundancy, etc.  Moreover, the management and operation of such
-   middleboxes remain unclear, which can motivate operational issues and
+   redundancy, etc.  Specifically, if the management and operation of
+   such middleboxes remain unclear, that motivate operational issues and
    responsibilities.  Furthermore, it is important to note that any
    middlebox could not necessarily cover an entire service end-to-end,
-   thus producing only partial observations which could not be
-   sufficiently good at the time of generating appropriate signals.
+   thus *producing only partial observations which could not be
+   sufficiently good at the time of generating appropriate signals*.
+
+   The NRLP solution does not require such middleboxes but the
+   consideration about partial observability applies.  That concern can
+   be softened by cascaded NLRP design.  However, network integration of
+   such appraoch is to be further elaborated.
 
 6.2.  Service Aspects
 
    Signals could be generated for multiple services and/or applications.
-   For instance, services providing short video content could motivate
+   For instance, services providing short video content might require
    signals different to those based on long videos.  This implies the
    need of defining a generic method suitable for any kind of service
    and application, avoiding the multiplicity of solutions and the
@@ -948,53 +956,56 @@ Table of Contents
    datasets are required, so then can be clear that no flows are
    negatively impacted at all.
 
-   On the other hand, if the experience of the flows improve, this could
+   On the other hand, if the experience of the flows improves and
+   depending on the nature of the signals themselves, this might
    motivate a more intense usage of the network, then requiring to
    accommodate larger number of flows, and in consequence, reducing the
    available resources per application.  This kind of paradox can be
-   assessed with more experimental results under realistic conditions
-   (i.e., multiple users and multiple services in the network).
+   *assessed with more experimental results under realistic conditions
+   (i.e., multiple users and multiple services in the network)*.
 
 6.3.  Signal Enforcement
 
-   Signals are conceived as indications from the network towards the
-   application.  It is not clear the way of enforcing the application to
-   follow the indication, especially in a context where different
+   Signals are conceived as indications from the network towards
+   applications.  It is not clear the way of enforcing the application
+   to follow the indication, especially in a context where different
    applications from a user, or multiple users, simultaneously access
    the network.  This can motivate a wastage of resources for generating
-   signals with the risk of not being effective.  Furthermore, it can
-   deal to a continuous loop of signal generation due to the fact of the
-   initial signals being ignored.  It is then necessary to define
-   mechanisms to avoid permanent signal generation when ignored.
+   signals with the risk of not being effective.  Furthermore, it might
+   lead to a continuous loop of signal generation because the initial
+   signals being ignored.  It is then necessary to define mechanisms to
+   avoid permanent signal generation when ignored.
 
    Finally, signals could not be required at every moment, but only in
    situations that can benefit the service.  Such situations could be
    due, for instance, to given levels of congestion, or based on
    previous information shared by the application (e.g., SLO thresholds)
    so that signals can be triggered according to service conditions.
+   *Elaborating more operational guidance on intended signal enforcment
+   policy is key*.
 
 6.4.  Signal Estimation
 
-   The validity of the estimation produced by the network could be
+   The validity of the estimation produced by a network might be
    questioned by the application.  Trust is required in a way that
-   applications can safely follow guidance from the network.
-   Furthermore, whatever estimation should be timely produced, avoiding
-   the generation of aged estimations that could not correspond to the
+   applications can safely follow guidance from a network.  Furthermore,
+   whatever estimation should be timely produced, avoiding the
+   generation of aged estimations that could not correspond to the
    actual service circumstances.  Finally, some common guidance is
-   necessary to define an standard way of generating signals, for
+   necessary to define a standard way of generating signals, for
    instance, per-flow or per group of flows.
 
    An open point is how to deal with adaptive applications, in the sense
    that signals could not be of value because the self-adaptation nature
-   of the application.
+   of these applications.
 
-6.5.  Signal “Interference”
+6.5.  Signal "Interference"
 
    The network is built on multiple layers.  In some cases, different
    solutions targeting similar objectives (e.g., congestion control or
    bottleneck mitigation) can be in place.  It is then necessary to
-   assess the simultaneous coexistence of these solutions to avoid
-   contradictory effects or “interferences”.
+   *assess the simultaneous coexistence of these solutions to avoid
+   contradictory effects or "interferences"*.
 
 7.  Deployment Incentives
 
@@ -1636,8 +1647,6 @@ C.3.  3GPP UE Route Selection Policy
    *  DNN
 
    *  Connection Capabilities
-
-   *  PIN ID
 
    *  Connectivity Group ID
 
