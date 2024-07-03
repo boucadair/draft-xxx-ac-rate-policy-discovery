@@ -18,6 +18,8 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). 
        Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
 properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined. 
+       Plenty operational challenges are to be yet evaluated and more experiments conducted to assess the actual benefits (including, identifying under which conditions).
+The document discusses these considerations. 
     " name="description">
 <meta content="xml2rfc 3.22.0" name="generator">
 <meta content="collaborative networking" name="keyword">
@@ -1099,6 +1101,8 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
 properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">Plenty operational challenges are to be yet evaluated and more experiments conducted to assess the actual benefits (including, identifying under which conditions).
+The document discusses these considerations.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1214,19 +1218,31 @@ properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document comple
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-architectural-aspects" class="internal xref">Architectural Aspects</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-nrlp-is-complementary-not-r" class="internal xref">NRLP Is Complementary Not Replacement Solution</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-service-aspects" class="internal xref">Service Aspects</a></p>
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-provisionning-policies" class="internal xref">Provisionning Policies</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
-                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-signal-enforcement" class="internal xref">Signal Enforcement</a></p>
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-redundant-vs-useful-signal" class="internal xref">Redundant vs. Useful Signal</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-signal-estimation" class="internal xref">Signal Estimation</a></p>
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-fairness" class="internal xref">Fairness</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-signal-interference" class="internal xref">Signal "Interference"</a></p>
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-architectural-consideration" class="internal xref">Architectural Considerations Matter</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
+                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="auto internal xref">6.6</a>.  <a href="#name-service-considerations-appl" class="internal xref">Service Considerations: Application Diversity &amp; Realistic Assessment</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7">
+                <p id="section-toc.1-1.6.2.7.1"><a href="#section-6.7" class="auto internal xref">6.7</a>.  <a href="#name-operational-guidance-for-si" class="internal xref">Operational Guidance for Signal Enforcement</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8">
+                <p id="section-toc.1-1.6.2.8.1"><a href="#section-6.8" class="auto internal xref">6.8</a>.  <a href="#name-signal-estimation" class="internal xref">Signal Estimation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.9">
+                <p id="section-toc.1-1.6.2.9.1"><a href="#section-6.9" class="auto internal xref">6.9</a>.  <a href="#name-signal-interference" class="internal xref">Signal "Interference"</a></p>
 </li>
             </ul>
 </li>
@@ -2484,63 +2500,90 @@ already advertized using RAs and those policies are consistent with the network 
       <h2 id="name-operational-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-6-1">Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
-its networks to adjust their behaviors.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the AC would allow control the load at the source.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<p id="section-6-5">When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, <span>[<a href="#BEREC" class="cite xref">BEREC</a>]</span> says the following:<a href="#section-6-6" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-6-7.1">
-          <p id="section-6-7.1.1">ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.<a href="#section-6-7.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-8">Some additional operational considerations are detailed in the following sub-sections.<a href="#section-6-8" class="pilcrow">¶</a></p>
-<div id="architectural-aspects">
+<div id="nrlp-is-complementary-not-replacement-solution">
 <section id="section-6.1">
-        <h3 id="name-architectural-aspects">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-architectural-aspects" class="section-name selfRef">Architectural Aspects</a>
+        <h3 id="name-nrlp-is-complementary-not-r">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-nrlp-is-complementary-not-r" class="section-name selfRef">NRLP Is Complementary Not Replacement Solution</a>
         </h3>
-<p id="section-6.1-1">Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
-Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus <strong>producing only partial observations which could not be sufficiently good at the time of generating appropriate signals</strong>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
+its networks to adjust their behaviors.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="service-aspects">
+<div id="provisionning-policies">
 <section id="section-6.2">
-        <h3 id="name-service-aspects">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-service-aspects" class="section-name selfRef">Service Aspects</a>
+        <h3 id="name-provisionning-policies">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-provisionning-policies" class="section-name selfRef">Provisionning Policies</a>
         </h3>
-<p id="section-6.2-1">Signals could be generated for multiple services and/or applications. For instance, services providing short video content might require signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">On the other hand, if the experience of the flows improves and depending on the nature of the signals themselves, this might motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be <strong>assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network)</strong>.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signal-enforcement">
+<div id="redundant-vs-useful-signal">
 <section id="section-6.3">
-        <h3 id="name-signal-enforcement">
-<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-signal-enforcement" class="section-name selfRef">Signal Enforcement</a>
+        <h3 id="name-redundant-vs-useful-signal">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-redundant-vs-useful-signal" class="section-name selfRef">Redundant vs. Useful Signal</a>
         </h3>
-<p id="section-6.3-1">Signals are conceived as indications from the network towards applications. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it might lead to a continuous loop of signal generation because the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions. <strong>Elaborating more operational guidance on intended signal enforcment policy is key</strong>.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the AC would allow control the load at the source.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="fairness">
+<section id="section-6.4">
+        <h3 id="name-fairness">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-fairness" class="section-name selfRef">Fairness</a>
+        </h3>
+<p id="section-6.4-1">Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, <span>[<a href="#BEREC" class="cite xref">BEREC</a>]</span> says the following:<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-6.4-2.1">
+            <p id="section-6.4-2.1.1">ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.<a href="#section-6.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="architectural-considerations-matter">
+<section id="section-6.5">
+        <h3 id="name-architectural-consideration">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-architectural-consideration" class="section-name selfRef">Architectural Considerations Matter</a>
+        </h3>
+<p id="section-6.5-1">Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
+Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus <strong>producing only partial observations which could not be sufficiently good at the time of generating appropriate signals</strong>.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.5-2">The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.<a href="#section-6.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="service-considerations-application-diversity-realistic-assessment">
+<section id="section-6.6">
+        <h3 id="name-service-considerations-appl">
+<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-service-considerations-appl" class="section-name selfRef">Service Considerations: Application Diversity &amp; Realistic Assessment</a>
+        </h3>
+<p id="section-6.6-1">Signals could be generated for multiple services and/or applications. For instance, services providing short video content might require signals different to those based on long videos. This implies the need of defining a generic method suitable for any kind of service and application, avoiding the multiplicity of solutions and the dominance of some applications over others.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
+<p id="section-6.6-2">It should be also noted that more experimentation is needed in order to fully understand the implications of the signals in the overall performance of the network. On one hand, the co-existence of multiple flows, some of them using the signals for improving the experience, some others not. For this, more experimentation and datasets are required, so then can be clear that no flows are negatively impacted at all.<a href="#section-6.6-2" class="pilcrow">¶</a></p>
+<p id="section-6.6-3">On the other hand, if the experience of the flows improves and depending on the nature of the signals themselves, this might motivate a more intense usage of the network, then requiring to accommodate larger number of flows, and in consequence, reducing the available resources per application. This kind of paradox can be <strong>assessed with more experimental results under realistic conditions (i.e., multiple users and multiple services in the network)</strong>.<a href="#section-6.6-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="operational-guidance-for-signal-enforcement">
+<section id="section-6.7">
+        <h3 id="name-operational-guidance-for-si">
+<a href="#section-6.7" class="section-number selfRef">6.7. </a><a href="#name-operational-guidance-for-si" class="section-name selfRef">Operational Guidance for Signal Enforcement</a>
+        </h3>
+<p id="section-6.7-1">Signals are conceived as indications from the network towards applications. It is not clear the way of enforcing the application to follow the indication, especially in a context where different applications from a user, or multiple users, simultaneously access the network. This can motivate a wastage of resources for generating signals with the risk of not being effective. Furthermore, it might lead to a continuous loop of signal generation because the initial signals being ignored. It is then necessary to define mechanisms to avoid permanent signal generation when ignored.<a href="#section-6.7-1" class="pilcrow">¶</a></p>
+<p id="section-6.7-2">Finally, signals could not be required at every moment, but only in situations that can benefit the service. Such situations could be due, for instance, to given levels of congestion, or based on previous information shared by the application (e.g., SLO thresholds) so that signals can be triggered according to service conditions. <strong>Elaborating more operational guidance on intended signal enforcment policy is key</strong>.<a href="#section-6.7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signal-estimation">
-<section id="section-6.4">
+<section id="section-6.8">
         <h3 id="name-signal-estimation">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-signal-estimation" class="section-name selfRef">Signal Estimation</a>
+<a href="#section-6.8" class="section-number selfRef">6.8. </a><a href="#name-signal-estimation" class="section-name selfRef">Signal Estimation</a>
         </h3>
-<p id="section-6.4-1">The validity of the estimation produced by a network might be questioned by the application. Trust is required in a way that applications can safely follow guidance from a network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define a standard way of generating signals, for instance, per-flow or per group of flows.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.4-2">An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of these applications.<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+<p id="section-6.8-1">The validity of the estimation produced by a network might be questioned by the application. Trust is required in a way that applications can safely follow guidance from a network. Furthermore, whatever estimation should be timely produced, avoiding the generation of aged estimations that could not correspond to the actual service circumstances. Finally, some common guidance is necessary to define a standard way of generating signals, for instance, per-flow or per group of flows.<a href="#section-6.8-1" class="pilcrow">¶</a></p>
+<p id="section-6.8-2">An open point is how to deal with adaptive applications, in the sense that signals could not be of value because the self-adaptation nature of these applications.<a href="#section-6.8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signal-interference">
-<section id="section-6.5">
+<section id="section-6.9">
         <h3 id="name-signal-interference">
-<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-signal-interference" class="section-name selfRef">Signal "Interference"</a>
+<a href="#section-6.9" class="section-number selfRef">6.9. </a><a href="#name-signal-interference" class="section-name selfRef">Signal "Interference"</a>
         </h3>
-<p id="section-6.5-1">The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to <strong>assess the simultaneous coexistence of these solutions to avoid contradictory effects or "interferences"</strong>.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-6.9-1">The network is built on multiple layers. In some cases, different solutions targeting similar objectives (e.g., congestion control or bottleneck mitigation) can be in place. It is then necessary to <strong>assess the simultaneous coexistence of these solutions to avoid contradictory effects or "interferences"</strong>.<a href="#section-6.9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

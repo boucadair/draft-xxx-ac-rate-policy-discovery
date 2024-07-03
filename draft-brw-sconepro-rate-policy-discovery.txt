@@ -39,6 +39,11 @@ Abstract
    communicate these policies to hosts.  For address family parity, a
    new DHCP option is also defined.
 
+   Plenty operational challenges are to be yet evaluated and more
+   experiments conducted to assess the actual benefits (including,
+   identifying under which conditions).  The document discusses these
+   considerations.
+
 Discussion Venues
 
    This note is to be removed before publishing as an RFC.
@@ -96,11 +101,16 @@ Table of Contents
      5.1.  Option Format
      5.2.  DHCPv4 Client Behavior
    6.  Operational Considerations
-     6.1.  Architectural Aspects
-     6.2.  Service Aspects
-     6.3.  Signal Enforcement
-     6.4.  Signal Estimation
-     6.5.  Signal "Interference"
+     6.1.  NRLP Is Complementary Not Replacement Solution
+     6.2.  Provisionning Policies
+     6.3.  Redundant vs. Useful Signal
+     6.4.  Fairness
+     6.5.  Architectural Considerations Matter
+     6.6.  Service Considerations: Application Diversity & Realistic
+           Assessment
+     6.7.  Operational Guidance for Signal Enforcement
+     6.8.  Signal Estimation
+     6.9.  Signal "Interference"
    7.  Deployment Incentives
      7.1.  Networks
      7.2.  Applications
@@ -883,6 +893,8 @@ Table of Contents
 
 6.  Operational Considerations
 
+6.1.  NRLP Is Complementary Not Replacement Solution
+
    Sharing NRLP signals are not intended to replace usual actions to
    soften bottlenck issues (e.g., adequate network dimensioning and
    upgrades).  However, given that such actions may not be always
@@ -891,10 +903,14 @@ Table of Contents
    introducing some collaboration between a host and its networks to
    adjust their behaviors.
 
+6.2.  Provisionning Policies
+
    NRLP senders should be configured with instructions about the type of
    network rate-limit policies to be shared with requesting hosts.
    These types can be provided using mechanisms such as
    [I-D.ietf-opsawg-ntw-attachment-circuit].
+
+6.3.  Redundant vs. Useful Signal
 
    In contexts where the bitrate policies are known during the
    establishment of the underlying bearer (e.g., GBR PDU Sessions),
@@ -910,6 +926,8 @@ Table of Contents
    When both bearer-specific policies and NRLP signals are communicated
    to a host, the NRLP signals takes precedence.
 
+6.4.  Fairness
+
    Rate-limit policies enforced at the network are assumed to be
    consistent with the local jurisdictions.  For example, [BEREC] says
    the following:
@@ -920,10 +938,7 @@ Table of Contents
       integrity and security, and to manage congestion, provided that
       equivalent categories of traffic are treated equally.
 
-   Some additional operational considerations are detailed in the
-   following sub-sections.
-
-6.1.  Architectural Aspects
+6.5.  Architectural Considerations Matter
 
    Approaches based on middleboxes are generally not recommended due to
    their inherent limitations, in terms of performance, scalability,
@@ -939,7 +954,8 @@ Table of Contents
    be softened by cascaded NLRP design.  However, network integration of
    such appraoch is to be further elaborated.
 
-6.2.  Service Aspects
+6.6.  Service Considerations: Application Diversity & Realistic
+      Assessment
 
    Signals could be generated for multiple services and/or applications.
    For instance, services providing short video content might require
@@ -964,7 +980,7 @@ Table of Contents
    *assessed with more experimental results under realistic conditions
    (i.e., multiple users and multiple services in the network)*.
 
-6.3.  Signal Enforcement
+6.7.  Operational Guidance for Signal Enforcement
 
    Signals are conceived as indications from the network towards
    applications.  It is not clear the way of enforcing the application
@@ -984,7 +1000,7 @@ Table of Contents
    *Elaborating more operational guidance on intended signal enforcment
    policy is key*.
 
-6.4.  Signal Estimation
+6.8.  Signal Estimation
 
    The validity of the estimation produced by a network might be
    questioned by the application.  Trust is required in a way that
@@ -999,7 +1015,7 @@ Table of Contents
    that signals could not be of value because the self-adaptation nature
    of these applications.
 
-6.5.  Signal "Interference"
+6.9.  Signal "Interference"
 
    The network is built on multiple layers.  In some cases, different
    solutions targeting similar objectives (e.g., congestion control or
