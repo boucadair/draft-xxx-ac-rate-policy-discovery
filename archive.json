@@ -1,0 +1,1481 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-04T01:02:13.200511+00:00",
+  "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 15,
+      "id": "I_kwDOLlGZlc6EZgPT",
+      "title": "Attachment Circuit - Terminology Change",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/15",
+      "state": "CLOSED",
+      "author": "jlivingood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Suggesting changing from 'circuits' - since mobile and other IP networks are packet-based. Maybe some other term can be used. ",
+      "createdAt": "2024-04-02T19:20:56Z",
+      "updatedAt": "2024-04-03T13:05:15Z",
+      "closedAt": "2024-04-03T13:05:15Z",
+      "comments": [
+        {
+          "author": "jlivingood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I see that AC is used in linked docs - perhaps this is a 3GPP term?",
+          "createdAt": "2024-04-02T19:25:27Z",
+          "updatedAt": "2024-04-02T19:25:27Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Hi Jason,\r\n\r\n\"Attachment circuit\" is an established concept in IP/MPLS networks, you can see, for example, \r\n\r\n* https://datatracker.ietf.org/doc/html/rfc4026#section-6.1\r\n* https://datatracker.ietf.org/doc/html/rfc4364#section-3.1\r\n* https://datatracker.ietf.org/doc/html/rfc8049#section-3\r\n* https://datatracker.ietf.org/doc/draft-ietf-opsawg-teas-common-ac/\r\n* https://datatracker.ietf.org/doc/draft-ietf-opsawg-teas-attachment-circuit/\r\n* https://datatracker.ietf.org/doc/draft-ietf-opsawg-ntw-attachment-circuit/\r\n* etc.\r\n\r\nThe term \"circuit\" is also used in the transport layer, e.g., circuit breaker (https://datatracker.ietf.org/doc/rfc8084/)\r\n\r\nI agree that it is unfortunate that \"circuit\" was picked at the first place, but reusing this concept helps gluing various pieces that are already out there and also help generalizing the applicability. \r\n\r\nFor example, an AC can be UNI or NNI. Hence, s/ac/access network may not be adequate to mirror that scope as well.\r\n\r\nWhat about \"network attachment\"?  \r\n\r\n\r\n\r\n\r\n",
+          "createdAt": "2024-04-03T05:43:56Z",
+          "updatedAt": "2024-04-03T05:44:54Z"
+        },
+        {
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "body": "\u201cNetwork attachment\u201d is great",
+          "createdAt": "2024-04-03T11:23:35Z",
+          "updatedAt": "2024-04-03T11:23:35Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Thanks Dan. Went with \"network attachment\" in the abstract for now.\r\n",
+          "createdAt": "2024-04-03T11:44:16Z",
+          "updatedAt": "2024-04-03T11:44:16Z"
+        },
+        {
+          "author": "jlivingood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "+1 to network attachment - great idea!",
+          "createdAt": "2024-04-03T12:55:38Z",
+          "updatedAt": "2024-04-03T12:55:38Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOLlGZlc6F1yvF",
+      "title": "zoom more on existing tools (slicing/L4S)",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/20",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "markusa"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:38:31Z",
+      "updatedAt": "2024-05-30T06:45:50Z",
+      "closedAt": "2024-05-30T06:45:50Z",
+      "comments": [
+        {
+          "author": "markusa",
+          "authorAssociation": "COLLABORATOR",
+          "body": "First collection of tools. Feel free to add others that we can integrate and describe in the document.\r\n\r\n- L4S\r\n- Network-Slicing/URSP\r\n- NEF/Network-APIs",
+          "createdAt": "2024-04-16T11:13:23Z",
+          "updatedAt": "2024-04-16T11:13:23Z"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOLlGZlc6F10QD",
+      "title": "Add some more text about FCC/regulatory",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/21",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "luismcontreras"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:41:32Z",
+      "updatedAt": "2024-05-22T08:17:12Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "https://www.fcc.gov/document/fcc-restores-net-neutrality-0",
+          "createdAt": "2024-05-22T08:17:11Z",
+          "updatedAt": "2024-05-22T08:17:11Z"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOLlGZlc6F12qb",
+      "title": "Find app/os vendor",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/22",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:46:30Z",
+      "updatedAt": "2024-04-16T08:46:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOLlGZlc6F14Vb",
+      "title": "fairness to users",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/23",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "luismcontreras"
+      ],
+      "labels": [],
+      "body": "https://datatracker.ietf.org/doc/html/rfc8517#section-3.10\r\n\r\ncareful wording: wastage of data. Sending data that won't be consumed.",
+      "createdAt": "2024-04-16T08:49:55Z",
+      "updatedAt": "2024-05-22T08:03:00Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "luismcontreras",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Possible text to add:\r\n\r\n\"Different application-centric strategies can be not efficient form the perspective of the usage of resources. This fact can produce not desirable effects in the overall utilization of the network. Situations such as infinite scrolling, prefetching, or high-resolution content delivery can result on a wastage of resources that can be harmful from a global perspective, i.e., taking into consideration the different applications running on the network.\"",
+          "createdAt": "2024-05-22T08:02:59Z",
+          "updatedAt": "2024-05-22T08:02:59Z"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOLlGZlc6F19R9",
+      "title": "Review the draft (Chris Box)",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/24",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-16T08:59:12Z",
+      "updatedAt": "2024-04-16T08:59:12Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOLlGZlc6JrnGT",
+      "title": "TIP WP",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/26",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "luismcontreras"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-22T08:29:54Z",
+      "updatedAt": "2024-05-22T08:29:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOLlGZlc6LNqAr",
+      "title": "PvD comment from Tommy Pauly",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/27",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "De : Tommy Pauly <tpauly@apple.com> \r\nEnvoy\u00e9 : mardi 4 juin 2024 17:32\r\n\u00c0 : BOUCADAIR Mohamed INNOV/NET <mohamed.boucadair@orange.com>\r\nCc : tirumal reddy <kondtir@gmail.com>\r\nObjet : Re: Feedback on the use of PvD Use for Collaborative Networking\r\n\r\n\r\n\r\nHi Med,\r\n\r\nPvDs are starting to be implemented more now, for the proxy discovery use case, so I think we will see a push there.\r\n\r\nOverall, it seems a bit odd to just put that information in the appendix, as opposed to next to the other provisioning mechanisms, as it is a standards-track mechanism. I also think it makes sense to discuss whether you need the details of information to go directly into RAs or DHCP, or if it makes sense to have this be in a separate service (like PvD, or like how CAPPORT had a separate server that you talk to to get the information).\r\n\r\nThanks,\r\nTommy \r\n",
+      "createdAt": "2024-06-05T11:12:22Z",
+      "updatedAt": "2024-06-05T11:12:22Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLlGZlc5q4mxg",
+      "title": "reword argument with Dan's inputs",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/1",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-27T06:24:55Z",
+      "updatedAt": "2024-03-28T05:44:58Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "8ada251dc1859ab569752a8d1d72878d839f3d84",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "updated-arguments",
+      "headRefOid": "2eca290c4c004a9083b1649150e00a3f620e4f44",
+      "closedAt": "2024-03-28T05:44:58Z",
+      "mergedAt": "2024-03-28T05:44:58Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f2d0b59f8fcf829529a1532f10a52f09c512675d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51H05h",
+          "commit": {
+            "abbreviatedOid": "2eca290"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-28T00:49:10Z",
+          "updatedAt": "2024-03-28T00:49:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOLlGZlc5q5CKm",
+      "title": "add an example of 5G arch",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/2",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-27T07:51:01Z",
+      "updatedAt": "2024-03-28T05:45:55Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "8ada251dc1859ab569752a8d1d72878d839f3d84",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "3577e3ca691c057479561fb4d30d4cc0d510942b",
+      "closedAt": "2024-03-28T05:45:55Z",
+      "mergedAt": "2024-03-28T05:45:55Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "bd5b66c839f04402d34c6e557b3f25bf07ca3e87"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOLlGZlc5q5PO5",
+      "title": "Deployment Incentives",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/3",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-27T08:27:38Z",
+      "updatedAt": "2024-03-28T05:46:54Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "8ada251dc1859ab569752a8d1d72878d839f3d84",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Deployment-Incentives",
+      "headRefOid": "d1a1e6a72a6d2c1118f82a419daea2a3498bd881",
+      "closedAt": "2024-03-28T05:46:54Z",
+      "mergedAt": "2024-03-28T05:46:54Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "46e4e93654c96a6d17ecaab893ea195c2eba0456"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51HoCM",
+          "commit": {
+            "abbreviatedOid": "d1a1e6a"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-27T23:43:34Z",
+          "updatedAt": "2024-03-27T23:43:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOLlGZlc5q9-PA",
+      "title": "NRLP is Permitted in the RADIUS DHCPv4-Options Attribute",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/4",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-27T18:33:03Z",
+      "updatedAt": "2024-03-28T05:47:10Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "8ada251dc1859ab569752a8d1d72878d839f3d84",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "b29c49d0434acc4208f113d252f791f7f485edcb",
+      "closedAt": "2024-03-28T05:47:10Z",
+      "mergedAt": "2024-03-28T05:47:10Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "58be83d1622968054e617f76d02d4a254cc6f789"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51H1A9",
+          "commit": {
+            "abbreviatedOid": "b29c49d"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-28T00:49:55Z",
+          "updatedAt": "2024-03-28T00:49:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLlGZlc5rBFyV",
+      "title": "PvD",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/5",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T07:22:23Z",
+      "updatedAt": "2024-03-28T07:23:08Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "9edc1c9c93e7a431bf2970ad533e1f76c7c18061",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Pvd",
+      "headRefOid": "2839c2687c5925506f3a57a7f19cc5cd65fe967e",
+      "closedAt": "2024-03-28T07:23:08Z",
+      "mergedAt": "2024-03-28T07:23:08Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f49a34f2b9edae117ee8ccd272edaa070723cd5f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOLlGZlc5rBLSi",
+      "title": "one app multiple flow types",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/6",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T07:39:09Z",
+      "updatedAt": "2024-03-28T07:40:54Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "f49a34f2b9edae117ee8ccd272edaa070723cd5f",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-3",
+      "headRefOid": "c53afcd2a66e04b7f87fc0824ff99f5cd6a2d2d9",
+      "closedAt": "2024-03-28T07:40:53Z",
+      "mergedAt": "2024-03-28T07:40:53Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "d5fdd57d32baf4959af425687cca3f1861c30721"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOLlGZlc5rBqs2",
+      "title": "BEREC EU Law",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/7",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T09:06:40Z",
+      "updatedAt": "2024-03-28T09:07:19Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "e2dce7577c714db6a6fbea959049a2d93f5861d5",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-4",
+      "headRefOid": "5b4cc5d14fbf787b8a35ebf29c74ef5f01e9e2ab",
+      "closedAt": "2024-03-28T09:07:19Z",
+      "mergedAt": "2024-03-28T09:07:18Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f288e2ad23fd3309bb28eaf6440cc83f35fc72ec"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOLlGZlc5rB9jI",
+      "title": "split incentives to network/app/OS",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/8",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T09:51:09Z",
+      "updatedAt": "2024-03-28T09:51:55Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "699e59117870c1d7ff457caa7e68f6f48a0457ea",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-5",
+      "headRefOid": "880549019553cce22f0bbb64957001f83fb320d2",
+      "closedAt": "2024-03-28T09:51:55Z",
+      "mergedAt": "2024-03-28T09:51:55Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8b5a44ac340ee2cbde53cbb44dd771bab102d94c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOLlGZlc5rDUCn",
+      "title": "bypass policing out of scope",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/9",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T12:56:41Z",
+      "updatedAt": "2024-03-28T12:57:21Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "f8c59124200fa5e8c25449e8fff7339fbb682438",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-6",
+      "headRefOid": "1840e2446d2fc3feb14542c7d8fa6ecd23c33707",
+      "closedAt": "2024-03-28T12:57:21Z",
+      "mergedAt": "2024-03-28T12:57:21Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "5b2771b001e3fd47f780445a5dda3805e54c3052"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOLlGZlc5rUMuR",
+      "title": "Comparison with MASQUE proxy",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/10",
+      "state": "MERGED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-01T13:19:10Z",
+      "updatedAt": "2024-04-02T06:58:07Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "bcd3ed01a6f90c9c04311e15b97720ea459193d5",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "tireddy2-patch-1",
+      "headRefOid": "08515bceef8dda1415bb0efb5cb0297a853d9254",
+      "closedAt": "2024-04-02T06:58:07Z",
+      "mergedAt": "2024-04-02T06:58:07Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "88fb4c3b9cc0258a6888ea3861cd2b31fffb3823"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51li2h",
+          "commit": {
+            "abbreviatedOid": "2664dc8"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-02T06:57:11Z",
+          "updatedAt": "2024-04-02T06:57:12Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\n* **Does not suffer from penalizing the proxy** which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).\r\n```",
+              "createdAt": "2024-04-02T06:57:12Z",
+              "updatedAt": "2024-04-02T06:57:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc51li-H",
+          "commit": {
+            "abbreviatedOid": "08515bc"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-02T06:57:30Z",
+          "updatedAt": "2024-04-02T06:57:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOLlGZlc5rW8K8",
+      "title": "Including reliability bit to NRLP blob + Initial text for host OS incentive",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/11",
+      "state": "MERGED",
+      "author": "sridharangirish91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Unreliable traffic can have different bandwidth constraints due to no retransmits (and mostly it is fire-and-forget real-time but discardable data) and nature of it means we can have different policies for unreliable traffic during reactive event. Assigning the unassigned bit for this, if it is available.\n\nAdded initial text for OS deployment incentives ",
+      "createdAt": "2024-04-01T20:45:06Z",
+      "updatedAt": "2024-04-02T07:06:47Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "88fb4c3b9cc0258a6888ea3861cd2b31fffb3823",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "sridharanr",
+      "headRefOid": "5d01d249c702e62bcd72b8a9c539f176941f4ab8",
+      "closedAt": "2024-04-02T07:06:47Z",
+      "mergedAt": "2024-04-02T07:06:47Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "09e82392867d23586363139ac5f8ea85ef21f8df"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51lm-A",
+          "commit": {
+            "abbreviatedOid": "5d01d24"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Thanks @sridharangirish91 ",
+          "createdAt": "2024-04-02T07:06:41Z",
+          "updatedAt": "2024-04-02T07:06:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOLlGZlc5rZTWq",
+      "title": "Sri as co-author",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/12",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-02T07:08:00Z",
+      "updatedAt": "2024-04-02T07:08:54Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "09e82392867d23586363139ac5f8ea85ef21f8df",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-7",
+      "headRefOid": "21c5b10de3b5e93bcd3195ab8c8d2df70af00a0f",
+      "closedAt": "2024-04-02T07:08:53Z",
+      "mergedAt": "2024-04-02T07:08:53Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "83782447759c3648d3c58293b2e5f8fb1d52314b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOLlGZlc5rZV9z",
+      "title": "Minor tweaks to Sri's text",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/13",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-02T07:15:13Z",
+      "updatedAt": "2024-04-03T07:54:27Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "83782447759c3648d3c58293b2e5f8fb1d52314b",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-8",
+      "headRefOid": "623e44930388a7d71c8b91d862fa90f1e3eefd73",
+      "closedAt": "2024-04-03T05:55:25Z",
+      "mergedAt": "2024-04-03T05:55:25Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "11d1c4e7070dbd27712443e36bb063251eebae89"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51l0Ve",
+          "commit": {
+            "abbreviatedOid": "5394c8a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-02T07:28:55Z",
+          "updatedAt": "2024-04-02T07:28:55Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "@sridharangirish91: I wonder whether it makes more sense to define \"R\" as a TC value. ",
+              "createdAt": "2024-04-02T07:28:55Z",
+              "updatedAt": "2024-04-02T07:28:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc51r9je",
+          "commit": {
+            "abbreviatedOid": "623e449"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-02T17:14:01Z",
+          "updatedAt": "2024-04-02T17:14:01Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "Hey Med,\n\nI initially thought of that but things in TC seems to be nature of the application data but the reliability is more of a stream parameter, which is broader.\n\nFor eg. Real-time traffic can be both reliable (keyboard and mouse input) and unreliable (video P frames) - both can be from the same source (chat window in a presentation or a virtual desktop)\n\nThat's why kept a separate flag which can be treated globally above TC.",
+              "createdAt": "2024-04-02T17:14:01Z",
+              "updatedAt": "2024-04-02T17:15:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc51wNx2",
+          "commit": {
+            "abbreviatedOid": "623e449"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-03T05:55:03Z",
+          "updatedAt": "2024-04-03T05:55:03Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "We actually need to separate \r\n* flags to control data that is enclosed in the options\r\nvs\r\n* characteristics of the flow themselves.\r\n\r\nI will merge this PR, but will think about how to better articulate this in the spec.\r\n\r\n",
+              "createdAt": "2024-04-03T05:55:03Z",
+              "updatedAt": "2024-04-03T05:55:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc51wrwI",
+          "commit": {
+            "abbreviatedOid": "623e449"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-03T06:56:47Z",
+          "updatedAt": "2024-04-03T06:56:48Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "Thanks Med",
+              "createdAt": "2024-04-03T06:56:48Z",
+              "updatedAt": "2024-04-03T06:56:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc51xRiv",
+          "commit": {
+            "abbreviatedOid": "5394c8a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-03T07:54:26Z",
+          "updatedAt": "2024-04-03T07:54:27Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "See #17 ",
+              "createdAt": "2024-04-03T07:54:27Z",
+              "updatedAt": "2024-04-03T07:54:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOLlGZlc5renuX",
+      "title": "Abstract Chg draft-brw-sconepro-rate-policy-discovery.md",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/14",
+      "state": "MERGED",
+      "author": "jlivingood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Suggesting changing from 'circuits' - since mobile and other IP networks are packet-based.",
+      "createdAt": "2024-04-02T19:19:18Z",
+      "updatedAt": "2024-04-03T11:31:34Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "eadc6aaa61396e4ce497cba755b6eefa94f9f1e3",
+      "headRepository": "jlivingood/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "patch-1",
+      "headRefOid": "fb1558bca2299e83ff390bfef2ebe21a11d43204",
+      "closedAt": "2024-04-03T11:31:34Z",
+      "mergedAt": "2024-04-03T11:31:34Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "75f6516b9676facc9204b4f1d3927a350219ee93"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc51wOQ9",
+          "commit": {
+            "abbreviatedOid": "d0e2623"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks, Jason. \r\n\r\nI will add a note to the draft to clarify why AC is used in the spec.",
+          "createdAt": "2024-04-03T05:56:19Z",
+          "updatedAt": "2024-04-03T05:57:14Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nTraffic exchanged over a network attachment may be subject to rate-limit policies.\r\n```",
+              "createdAt": "2024-04-03T05:56:19Z",
+              "updatedAt": "2024-04-03T05:57:14Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nThese policies may be intentional policies (e.g., enforced as part of the activation of the network attachment and typically agreed upon service subscription)\r\n```",
+              "createdAt": "2024-04-03T05:56:36Z",
+              "updatedAt": "2024-04-03T05:57:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOLlGZlc5rhGj9",
+      "title": "clarify terminology choice",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/16",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-03T06:15:11Z",
+      "updatedAt": "2024-04-03T13:05:14Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "11d1c4e7070dbd27712443e36bb063251eebae89",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "why-ac",
+      "headRefOid": "4c95b78abd228d873bde542a08456a2e5636728d",
+      "closedAt": "2024-04-03T13:05:14Z",
+      "mergedAt": "2024-04-03T13:05:14Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "81f67d5c35f3439a5022e77b51ce70040c89c0c3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOLlGZlc5rhr0d",
+      "title": "flow vs attribute presence fields",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/17",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-03T07:50:48Z",
+      "updatedAt": "2024-04-04T08:36:08Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "why-ac",
+      "baseRefOid": "b437af2693c7ceb0eff48ed28e37d0630b05d753",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "f04e93850608aa4a6e46224e4369212b72aa76bf",
+      "closedAt": "2024-04-04T08:36:07Z",
+      "mergedAt": "2024-04-04T08:36:07Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8ee76b2fb2490eb7f4f327a33a137edc8f6f3205"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc5148wN",
+          "commit": {
+            "abbreviatedOid": "44c69b3"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-04-03T20:08:50Z",
+          "updatedAt": "2024-04-03T20:08:51Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\nOptional Parameter Flags:\r\n```",
+              "createdAt": "2024-04-03T20:08:51Z",
+              "updatedAt": "2024-04-03T20:10:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOLlGZlc5rrDnL",
+      "title": "Why ac",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/18",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-04T08:39:12Z",
+      "updatedAt": "2024-04-04T08:39:36Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "81f67d5c35f3439a5022e77b51ce70040c89c0c3",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "why-ac",
+      "headRefOid": "8ee76b2fb2490eb7f4f327a33a137edc8f6f3205",
+      "closedAt": "2024-04-04T08:39:35Z",
+      "mergedAt": "2024-04-04T08:39:35Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "dbe77ab4d140b637554ae778d0d0202eeb8318a2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOLlGZlc5rzOIH",
+      "title": "Update IANA sections + add a note about the extensibility of PvD",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/19",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-05T06:50:47Z",
+      "updatedAt": "2024-04-06T05:59:09Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "dbe77ab4d140b637554ae778d0d0202eeb8318a2",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "c53c321bc256428ea5cba082acabd748343ad394",
+      "closedAt": "2024-04-06T05:59:08Z",
+      "mergedAt": "2024-04-06T05:59:08Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "ccaa2fa7f919bb9bd1b4f3479962959810e3d697"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOLlGZlc5ucx-g",
+      "title": "Alternative mechanisms",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/25",
+      "state": "MERGED",
+      "author": "markusa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Attempt to address #20.\r\n\r\nThis is a living PR that will receive multiple commits over time.",
+      "createdAt": "2024-05-03T08:53:14Z",
+      "updatedAt": "2024-05-30T06:45:50Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "398b107c992b528f7fd43167ef72586f77ac25c3",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "markusa-patch-1",
+      "headRefOid": "e7c0cd521b06ea099f0c8ac93733830a58d66ba5",
+      "closedAt": "2024-05-30T06:45:50Z",
+      "mergedAt": "2024-05-30T06:45:50Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "935324bdb81e5528bc35837195dd5ae5317c0ea1"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc57BzSC",
+          "commit": {
+            "abbreviatedOid": "f4e2618"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "The structure looks good thanks.\r\n\r\nHowever,  I still think there is complementarity.",
+          "createdAt": "2024-05-17T17:46:24Z",
+          "updatedAt": "2024-05-17T17:57:58Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n# Alternative/Complementary Mechanisms\r\n```",
+              "createdAt": "2024-05-17T17:46:24Z",
+              "updatedAt": "2024-05-17T17:57:58Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nIn the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.\r\n```",
+              "createdAt": "2024-05-17T17:56:37Z",
+              "updatedAt": "2024-05-17T17:57:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc57Tqlu",
+          "commit": {
+            "abbreviatedOid": "6d0012f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-21T14:06:34Z",
+          "updatedAt": "2024-05-21T14:06:35Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nLow Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require some few RTTs, though to adjust to the network forwarding conditions.\r\n```",
+              "createdAt": "2024-05-21T14:06:35Z",
+              "updatedAt": "2024-05-21T14:06:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc57zhW_",
+          "commit": {
+            "abbreviatedOid": "891fea1"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks",
+          "createdAt": "2024-05-24T14:34:53Z",
+          "updatedAt": "2024-05-24T14:38:40Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\nOne measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources , including adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path, e.g., the RAN air interface.\r\n```",
+              "createdAt": "2024-05-24T14:34:54Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\nNetwork slicing is considered by the 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), the IETF {{RFC9543}} for transport networks, and BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.\r\n```",
+              "createdAt": "2024-05-24T14:36:17Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nL4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network by third parties via a network API {{network_api}} (e.g., 3GPP NEF).\r\n```",
+              "createdAt": "2024-05-24T14:38:28Z",
+              "updatedAt": "2024-05-24T14:38:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc576Ywg",
+          "commit": {
+            "abbreviatedOid": "3397fa6"
+          },
+          "author": "markusa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-25T10:24:54Z",
+          "updatedAt": "2024-05-25T10:24:55Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\nL4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).\r\n```\r\nShouldn't we emphasize also the configuration of network slices, e.g. by VoD providers, to achieve smooth playback?",
+              "createdAt": "2024-05-25T10:24:54Z",
+              "updatedAt": "2024-05-25T10:24:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58CWX3",
+          "commit": {
+            "abbreviatedOid": "3397fa6"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T13:59:44Z",
+          "updatedAt": "2024-05-27T13:59:44Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "This can be mentioned as an example.",
+              "createdAt": "2024-05-27T13:59:44Z",
+              "updatedAt": "2024-05-27T13:59:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58ClRf",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:25:05Z",
+          "updatedAt": "2024-05-27T14:25:05Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\nLow Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.\r\n```",
+              "createdAt": "2024-05-27T14:25:05Z",
+              "updatedAt": "2024-05-27T14:25:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cltz",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:26:06Z",
+          "updatedAt": "2024-05-27T14:26:06Z",
+          "comments": [
+            {
+              "originalPosition": 45,
+              "body": "```suggestion\r\nAs of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, and for external parties of the 5GS by exposure of congestion information.\r\n```",
+              "createdAt": "2024-05-27T14:26:06Z",
+              "updatedAt": "2024-05-27T14:26:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cneb",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:30:07Z",
+          "updatedAt": "2024-05-27T14:30:07Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\nOne measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources like adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path. e.g., the RAN air interface.\r\n```",
+              "createdAt": "2024-05-27T14:30:07Z",
+              "updatedAt": "2024-05-27T14:30:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58Cn4Z",
+          "commit": {
+            "abbreviatedOid": "d769788"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T14:31:04Z",
+          "updatedAt": "2024-05-27T14:31:05Z",
+          "comments": [
+            {
+              "originalPosition": 51,
+              "body": "```suggestion\r\nNetwork slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.\r\n```",
+              "createdAt": "2024-05-27T14:31:04Z",
+              "updatedAt": "2024-05-27T14:31:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HIu8",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:28:59Z",
+          "updatedAt": "2024-05-28T09:28:59Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "```suggestion\r\nUE Route Selection Policy (URSP) is a feature specified in 3GPP to match and forward traffic based upon a selection descriptor and a route descriptor as further detailed in {{TS-23.503}}.\r\n```",
+              "createdAt": "2024-05-28T09:28:59Z",
+              "updatedAt": "2024-05-28T09:28:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HI1M",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:29:10Z",
+          "updatedAt": "2024-05-28T09:29:11Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\r\nSpecified traffic descriptors may be:\r\n```",
+              "createdAt": "2024-05-28T09:29:11Z",
+              "updatedAt": "2024-05-28T09:29:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HJQQ",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:29:57Z",
+          "updatedAt": "2024-05-28T09:29:57Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "```suggestion\r\nSpecified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:\r\n\r\n```",
+              "createdAt": "2024-05-28T09:29:57Z",
+              "updatedAt": "2024-05-28T09:31:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58HJ7L",
+          "commit": {
+            "abbreviatedOid": "0a3dfa9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-05-28T09:31:11Z",
+          "updatedAt": "2024-05-28T09:33:30Z",
+          "comments": [
+            {
+              "originalPosition": 93,
+              "body": "PDU type is mandatory since rel 16 (wasn't in release 15)",
+              "createdAt": "2024-05-28T09:31:11Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 98,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-05-28T09:31:21Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 101,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-05-28T09:31:31Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            },
+            {
+              "originalPosition": 103,
+              "body": "```suggestion\r\nURSP rules that contain both descriptors can be announced from the provider network to a UE or preconfigured in the UE, possibly subscription-based. These rules can be used to identify services in the UE and to provide routes with explicit  characteristics. URSP rules might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.\r\n```",
+              "createdAt": "2024-05-28T09:33:21Z",
+              "updatedAt": "2024-05-28T09:33:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc58ar-T",
+          "commit": {
+            "abbreviatedOid": "e7c0cd5"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-30T06:45:44Z",
+          "updatedAt": "2024-05-30T06:45:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOLlGZlc50KdFY",
+      "title": "Update draft-brw-sconepro-rate-policy-discovery.md",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/28",
+      "state": "MERGED",
+      "author": "luismcontreras",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "New operational considerations proposed",
+      "createdAt": "2024-07-02T08:20:37Z",
+      "updatedAt": "2024-07-02T11:45:44Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "17699707f35f9b4bb17b44a8139a11fc31af279a",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "luismcontreras-patch-1",
+      "headRefOid": "113036087e15bbc3231c0b581f99fe2c16ffddc2",
+      "closedAt": "2024-07-02T11:45:42Z",
+      "mergedAt": "2024-07-02T11:45:42Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "0ba749040da5326d702bae4af4ce325e0fdbc41a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6AVaa6",
+          "commit": {
+            "abbreviatedOid": "9cfa627"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Some first proposals.",
+          "createdAt": "2024-07-02T08:30:18Z",
+          "updatedAt": "2024-07-02T08:33:34Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n## Architectural Aspects\r\n```",
+              "createdAt": "2024-07-02T08:30:18Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n## Service Aspects\r\n```",
+              "createdAt": "2024-07-02T08:30:45Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n## Signal Enforcement\r\n```",
+              "createdAt": "2024-07-02T08:30:56Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n## Signal Estimation\r\n```",
+              "createdAt": "2024-07-02T08:31:03Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\n## Signal \u201cInterference\u201d\r\n```",
+              "createdAt": "2024-07-02T08:31:11Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-02T08:31:48Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-02T08:31:56Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nApproaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.\r\n```",
+              "createdAt": "2024-07-02T08:32:58Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6AXMZs",
+          "commit": {
+            "abbreviatedOid": "1130360"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-02T11:45:38Z",
+          "updatedAt": "2024-07-02T11:45:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOLlGZlc50LMGM",
+      "title": "Update draft-brw-sconepro-rate-policy-discovery.md",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/29",
+      "state": "MERGED",
+      "author": "luismcontreras",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Author details",
+      "createdAt": "2024-07-02T09:51:58Z",
+      "updatedAt": "2024-07-02T11:43:43Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "17699707f35f9b4bb17b44a8139a11fc31af279a",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "luismcontreras-patch-2",
+      "headRefOid": "8bb17a0b555a43a090bf31f3c4feb239cc25b0e0",
+      "closedAt": "2024-07-02T11:43:41Z",
+      "mergedAt": "2024-07-02T11:43:41Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "64889ed7251fbec45c8b51ea7b9c094976b78c0e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6AXLUC",
+          "commit": {
+            "abbreviatedOid": "8bb17a0"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-02T11:43:38Z",
+          "updatedAt": "2024-07-02T11:43:38Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
