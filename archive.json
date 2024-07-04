@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-02T01:02:14.073750+00:00",
+  "timestamp": "2024-07-04T01:02:13.200511+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -1327,6 +1327,152 @@
           "body": "",
           "createdAt": "2024-05-30T06:45:44Z",
           "updatedAt": "2024-05-30T06:45:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOLlGZlc50KdFY",
+      "title": "Update draft-brw-sconepro-rate-policy-discovery.md",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/28",
+      "state": "MERGED",
+      "author": "luismcontreras",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "New operational considerations proposed",
+      "createdAt": "2024-07-02T08:20:37Z",
+      "updatedAt": "2024-07-02T11:45:44Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "17699707f35f9b4bb17b44a8139a11fc31af279a",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "luismcontreras-patch-1",
+      "headRefOid": "113036087e15bbc3231c0b581f99fe2c16ffddc2",
+      "closedAt": "2024-07-02T11:45:42Z",
+      "mergedAt": "2024-07-02T11:45:42Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "0ba749040da5326d702bae4af4ce325e0fdbc41a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6AVaa6",
+          "commit": {
+            "abbreviatedOid": "9cfa627"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Some first proposals.",
+          "createdAt": "2024-07-02T08:30:18Z",
+          "updatedAt": "2024-07-02T08:33:34Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n## Architectural Aspects\r\n```",
+              "createdAt": "2024-07-02T08:30:18Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n## Service Aspects\r\n```",
+              "createdAt": "2024-07-02T08:30:45Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n## Signal Enforcement\r\n```",
+              "createdAt": "2024-07-02T08:30:56Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n## Signal Estimation\r\n```",
+              "createdAt": "2024-07-02T08:31:03Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\n## Signal \u201cInterference\u201d\r\n```",
+              "createdAt": "2024-07-02T08:31:11Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-02T08:31:48Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-02T08:31:56Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            },
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nApproaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Moreover, the management and operation of such middleboxes remain unclear, which can motivate operational issues and responsibilities.\r\n```",
+              "createdAt": "2024-07-02T08:32:58Z",
+              "updatedAt": "2024-07-02T08:33:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6AXMZs",
+          "commit": {
+            "abbreviatedOid": "1130360"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-02T11:45:38Z",
+          "updatedAt": "2024-07-02T11:45:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOLlGZlc50LMGM",
+      "title": "Update draft-brw-sconepro-rate-policy-discovery.md",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/29",
+      "state": "MERGED",
+      "author": "luismcontreras",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Author details",
+      "createdAt": "2024-07-02T09:51:58Z",
+      "updatedAt": "2024-07-02T11:43:43Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "17699707f35f9b4bb17b44a8139a11fc31af279a",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "luismcontreras-patch-2",
+      "headRefOid": "8bb17a0b555a43a090bf31f3c4feb239cc25b0e0",
+      "closedAt": "2024-07-02T11:43:41Z",
+      "mergedAt": "2024-07-02T11:43:41Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "64889ed7251fbec45c8b51ea7b9c094976b78c0e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6AXLUC",
+          "commit": {
+            "abbreviatedOid": "8bb17a0"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-02T11:43:38Z",
+          "updatedAt": "2024-07-02T11:43:38Z",
           "comments": []
         }
       ]
