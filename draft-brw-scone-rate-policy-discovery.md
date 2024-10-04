@@ -59,6 +59,14 @@ author:
 normative:
 
 informative:
+     IANA-PVD:
+        title: Provisioning Domains (PvDs)
+        author:
+        -
+          organization: "IANA"
+        target: https://www.iana.org/assignments/pvds/
+        date: false
+
      IANA-ND:
         title: IPv6 Neighbor Discovery Option Formats
         author:
@@ -132,9 +140,6 @@ informative:
         -
           org: BBF
         target: https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf
-
-     RFC9330:
-     RFC9543:
 
 --- abstract
 
@@ -849,7 +854,7 @@ The initial values of this registry is provided in {{iana-op-flags}}.
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
-## Flow flags Registry {#sec-iana-ff}
+## Flow Flags Registry {#sec-iana-ff}
 
 This document requests IANA to create a new registry entitled "Flow flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
@@ -895,6 +900,58 @@ This document requests IANA to add the following DHCP Option Code to the "DHCP O
 |TBD2|OPTION_V4_NRLP|This-Document|
 {: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
+## Provisioning Domains Split DNS Additional Information
+
+IANA is requested to add the following entry to the "Additional Information PvD Keys"
+registry under the "Provisioning Domains (PvDs)" registry group {{IANA-PVD}}:
+
+JSON key:
+: "nrlp"
+
+Description:
+: "Network Rate-Limit Policies (NRLPs)"
+
+Type:
+: Array of Objects
+
+Example:
+
+~~~~
+   {
+      "nrlp":[
+         {
+            "direction":1,
+            "scope":1,
+            "tc":0,
+            "cir":50
+         }
+      ]
+   }
+~~~~
+
+Reference:
+: This_Document
+
+## New PvD Network Rate-Limit Policies (NRLPs) Registry
+
+IANA is requested to create a new registry "PvD Rate-Limit Policies (NRLPs)" registry,
+within the "Provisioning Domains (PvDs)" registry group.
+
+The initial contents of this registry are as follows:
+
+| JSON key   | Description           | Type    | Example         | Reference |
+|direction   |Indicates the traffic direction to which a policy applies. When set to "1", this parameter indicates that this policy is for network-to-host direction. When set to "0", this parameter indicates that this policy is for host-to-network direction.|Boolean|1 |This-Document|
+|scope|Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0)|Boolean|1 |This-Document|
+|tc|Specifies a traffic category to which this policy applies. Values are taken from the Rate-Limit Policy Objects Registry {{sec-iana-rlp}}|Integer|0|This-Document|
+|cir|Specifies the maximum number of bits that a network can receive or send during one second over an AC for a traffic category.|Integer|50|This-Document|
+| xxx   | xxx           | xxx    | xx         | This-Document |
+{: #iana-pvd-initial title="Initial PvD Network Rate-Limit Policies (NRLPs) Registry Content"}
+
+New assignments in the "PvD Network Rate-Limit Policies (NRLPs)" registry
+will be administered by IANA through Expert Review policy {{!RFC8126}}.
+Experts are requested to ensure that defined keys do not overlap in names
+or semantics.
+
 --- back
 
 # Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
@@ -937,7 +994,7 @@ In the event of bottlenecks in a network, there are other mechanisms that provid
 
 ## L4S {#L4S}
 
-Low Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.
+Low Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{?RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.
 
 As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, and for external parties of the 5GS by exposure of congestion information.
 
@@ -945,7 +1002,7 @@ As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G 
 
 One measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources like adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path. e.g., the RAN air interface.
 
-Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
+Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{?RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
 
 L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
 
