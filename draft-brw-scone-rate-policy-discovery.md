@@ -3,14 +3,14 @@ title: "Discovery of Network Rate-Limit Policies (NRLPs)"
 abbrev: "Rate-Limit Policies Discovery"
 category: std
 
-docname: draft-brw-sconepro-rate-policy-discovery-latest
+docname: draft-brw-scone-rate-policy-discovery-latest
 submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
 area: wit
-workgroup: sconepro
+workgroup: scone
 keyword:
  - collaborative networking
  - adaptive application
@@ -143,10 +143,7 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
-properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined.
-
-Plenty operational challenges are to be yet evaluated and more experiments conducted to assess the actual benefits (including, identifying under which conditions).
-The document discusses these considerations.
+properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined. The document also discusses how Provisioning Domains (PvD) can be used to notify hosts with NRLPs.
 
 --- middle
 
@@ -195,32 +192,7 @@ the PE-side of an AC is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}
 
 The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
 service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}} or Layer 3 VPN {{?RFC9182}}). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs**. An example of an AC provided over a 3GPP network is depicted in {{ex-arch}}. It is out of the scope of this document to describe all involved components. Readers may refer to {{TS-23.501}} for more details.
-
-{{sec-aaa}} provides another example of how existing tools can be leveraged for AAA purposes.
-
-~~~~aasvg
-  .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
-  |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
-  '--+--'  '--+--'  '--+--'    '--+--'  '--+--'  '--+--'
-Nnssf|    Nnef|    Nnrf|      Npcf|    Nudm|        |Naf
-  ---+--------+--+-----+--+-------+---+----+--------+---
-            Nausf|    Namf|       Nsmf|
-              .--+--.  .--+--.     .--+------.
-              │AUSR │  │ AMF │     │   SMF   │
-              '-----'  '--+--'     '----+----'
-                       ╱  |             |      ╲
-Control Plane      N1 ╱   |N2           |N4     ╲N4
-════════════════════════════════════════════════════════════
-User Plane          ╱     |             │         ╲
-                .---.  .-------.  N3 .--+--. N9 .--+--. N6   .--.
-                |UE +--+ (R)AN +-----+ UPF +----+ UPF +-----( DN )
-                '---'  '-------'     '-----'    '-----'      '--'
-                   |-------AC----------|
-~~~~
-{: #ex-arch title="5GS Architecture" artwork-align="center"}
-
-> The "AC" mention in {{ex-arch}} is not present in {{TS-23.501}}. It is added to the figure for the readers' convenience to position an attachment circuit.
+**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs**.
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
@@ -241,11 +213,9 @@ Encrypted DNS option {{?RFC9463}}:
 
 ## What's In?
 
-{{?I-D.rwbr-tsvwg-signaling-use-cases}} discusses some use cases where it is beneficial to share policies with the hosts. **Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
+**Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate rate-limit policies to hosts. For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
 
 These options are called: Network Rate-Limit Policy (NRLP).
-
-This document uses the host/network metadata specified in {{Section 5.1 of !I-D.rwbr-sconepro-flow-metadata}}.
 
 In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
@@ -262,16 +232,11 @@ This document does not make any assumption about the type of the network (fixed,
 Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
 are bound to the same AC is deployment specific.
 
-Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy. Readers should refer, e.g., to {{?I-D.rwbr-tsvwg-signaling-use-cases}} for some examples.
+Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
 This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to {{sec-alt}} for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.
-
-## Running Experiments
-
-   The benefits of enabling explicit signals are yet to be backed up with more evidence. Running experiments is thus
-   key to assess the benefits under various setups.
 
 ## Design Motivation & Rationale
 
@@ -414,7 +379,6 @@ Committed Information Rate (CIR) (Mbps):
   send during one second over an AC for a
   traffic category.
 : If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
-: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 : This parameter is mandatory.
 
 Committed Burst Size (CBS) (bytes):
@@ -439,7 +403,6 @@ Excess Burst Size (EBS) (bytes):
 Peak Information Rate (PIR) (Mbps):
 : MUST be present only if P flag is set to '1'.
 : Traffic that exceeds the CIR and the CBS is metered to the PIR.
-: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 : This parameter is optional.
 
 Peak Burst Size (PBS) (bytes):
@@ -690,6 +653,33 @@ To discover a network rate-limit policy, the DHCP client includes OPTION_V4_NRLP
 
 The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field entries in the OPTION_V4_NRLP option; each instance is to be treated as a separate network rate-limit policy.
 
+# Provisioning Domains {#sec-pvd}
+
+PvD may also be used as a mechanism to discover NRLP. Typically, the network will configured to set the H-flag so clients can
+request PvD Additional Information ({{Section 4.1 of ?RFC8801}}).
+
+{{pvd-ex}} provides an example of the returned "application/pvd+json" to indicate a network-to-host
+NRLP for all subscriber traffic. The NRLP list may include multiple instances if distinct policies
+are to be returned for distinct traffic categories.
+
+~~~~~json
+{
+   "nrlp":[
+      {
+         "direction":1,
+         "scope":1,
+         "tc":0,
+         "cir":50,
+         "cbs":10000,
+         "ebs":20000
+      }
+   ]
+}
+~~~~~
+{: #pvd-ex title="NRLP Example with PvD"}
+
+PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locators of a network entity to negotiate advanced features with the network, reachability information of a network API to invoke differentiated forwarding behaviors, a slice identifier {{TS-23.501}}{{?RFC9543}}, etc.).
+
 # Operational Considerations {#sec-ops}
 
 ## NRLP Is Complementary Not Replacement Solution
@@ -907,33 +897,6 @@ This document requests IANA to add the following DHCP Option Code to the "DHCP O
 {: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
 --- back
-
-# Provisioning Domains {#sec-pvd}
-
-PvD may also be considered as a mechanism to discover NRLP. Typically, the network will configured to set the H-flag so clients can
-request PvD Additional Information ({{Section 4.1 of ?RFC8801}}).
-
-{{pvd-ex}} provides an example of the returned "application/pvd+json" to indicate a network-to-host
-NRLP for all subscriber traffic. The NRLP list may include multiple instances if distinct policies
-are to be returned for distinct traffic categories.
-
-~~~~~json
-{
-   "nrlp":[
-      {
-         "direction":1,
-         "scope":1,
-         "tc":0,
-         "cir":50,
-         "cbs":10000,
-         "ebs":20000
-      }
-   ]
-}
-~~~~~
-{: #pvd-ex title="NRLP Example with PvD"}
-
-PvD NRLP object can be extended by defining new attributes (e.g., supply an ADN and locators of a network entity to negotiate advanced features with the network, reachability information of a network API to invoke differentiated forwarding behaviors, a slice identifier {{TS-23.501}}{{?RFC9543}}, etc.).
 
 # Example of Authentication, Authorization, and Accounting (AAA) {#sec-aaa}
 
