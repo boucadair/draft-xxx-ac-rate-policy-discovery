@@ -391,7 +391,6 @@ Excess Information Rate (EIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
   send during one second over an AC for a
   traffic category that is out of profile.
-: See {{Section 5.1 of I-D.rwbr-sconepro-flow-metadata}}.
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
