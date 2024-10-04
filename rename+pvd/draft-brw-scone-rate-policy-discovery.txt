@@ -117,11 +117,13 @@ Table of Contents
    10. IANA Considerations
      10.1.  Rate-Limit Policy Objects Registry Group
      10.2.  Optional Parameter Flags Registry
-     10.3.  Flow flags Registry
+     10.3.  Flow Flags Registry
      10.4.  Neighbor Discovery Option
      10.5.  DHCP Option
      10.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
             Attribute
+     10.7.  Provisioning Domains Split DNS Additional Information
+     10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
    11. References
      11.1.  Normative References
      11.2.  Informative References
@@ -1175,7 +1177,7 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-10.3.  Flow flags Registry
+10.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "Rate-Limit Policy Objects" registry group
@@ -1253,6 +1255,102 @@ Table of Contents
 
               Table 5: New DHCP Option Permitted in the RADIUS
                      DHCPv4-Options Attribute Registry
+
+10.7.  Provisioning Domains Split DNS Additional Information
+
+   IANA is requested to add the following entry to the "Additional
+   Information PvD Keys" registry under the "Provisioning Domains
+   (PvDs)" registry group [IANA-PVD]:
+
+   JSON key:  "nrlp"
+
+   Description:  "Network Rate-Limit Policies (NRLPs)"
+
+   Type:  Array of Objects
+
+   Example:
+
+      {
+         "nrlp":[
+            {
+               "direction":1,
+               "scope":1,
+               "tc":0,
+               "cir":50
+            }
+         ]
+      }
+
+   Reference:  This_Document
+
+10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+
+   IANA is requested to create a new registry "PvD Rate-Limit Policies
+   (NRLPs)" registry, within the "Provisioning Domains (PvDs)" registry
+   group.
+
+   The initial contents of this registry are as follows:
+
+   +===========+===================+=========+=========+===============+
+   | JSON key  | Description       | Type    | Example | Reference     |
+   +===========+===================+=========+=========+===============+
+   | direction | Indicates the     | Boolean | 1       | This-Document |
+   |           | traffic           |         |         |               |
+   |           | direction to      |         |         |               |
+   |           | which a policy    |         |         |               |
+   |           | applies.  When    |         |         |               |
+   |           | set to "1", this  |         |         |               |
+   |           | parameter         |         |         |               |
+   |           | indicates that    |         |         |               |
+   |           | this policy is    |         |         |               |
+   |           | for network-to-   |         |         |               |
+   |           | host direction.   |         |         |               |
+   |           | When set to "0",  |         |         |               |
+   |           | this parameter    |         |         |               |
+   |           | indicates that    |         |         |               |
+   |           | this policy is    |         |         |               |
+   |           | for host-to-      |         |         |               |
+   |           | network           |         |         |               |
+   |           | direction.        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | scope     | Specifies         | Boolean | 1       | This-Document |
+   |           | whether the       |         |         |               |
+   |           | policy is per     |         |         |               |
+   |           | host (when set    |         |         |               |
+   |           | to "1") or per    |         |         |               |
+   |           | subscriber (when  |         |         |               |
+   |           | set to "0)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | tc        | Specifies a       | Integer | 0       | This-Document |
+   |           | traffic category  |         |         |               |
+   |           | to which this     |         |         |               |
+   |           | policy applies.   |         |         |               |
+   |           | Values are taken  |         |         |               |
+   |           | from the Rate-    |         |         |               |
+   |           | Limit Policy      |         |         |               |
+   |           | Objects Registry  |         |         |               |
+   |           | Section 10.1      |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | cir       | Specifies the     | Integer | 50      | This-Document |
+   |           | maximum number    |         |         |               |
+   |           | of bits that a    |         |         |               |
+   |           | network can       |         |         |               |
+   |           | receive or send   |         |         |               |
+   |           | during one        |         |         |               |
+   |           | second over an    |         |         |               |
+   |           | AC for a traffic  |         |         |               |
+   |           | category.         |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | xxx       | xxx               | xxx     | xx      | This-Document |
+   +-----------+-------------------+---------+---------+---------------+
+
+     Table 6: Initial PvD Network Rate-Limit Policies (NRLPs) Registry
+                                  Content
+
+   New assignments in the "PvD Network Rate-Limit Policies (NRLPs)"
+   registry will be administered by IANA through Expert Review policy
+   [RFC8126].  Experts are requested to ensure that defined keys do not
+   overlap in names or semantics.
 
 11.  References
 
@@ -1347,6 +1445,9 @@ Table of Contents
 
    [IANA-ND]  IANA, "IPv6 Neighbor Discovery Option Formats",
               <https://www.iana.org/assignments/icmpv6-parameters/>.
+
+   [IANA-PVD] IANA, "Provisioning Domains (PvDs)",
+              <https://www.iana.org/assignments/pvds/>.
 
    [RFC2697]  Heinanen, J. and R. Guerin, "A Single Rate Three Color
               Marker", RFC 2697, DOI 10.17487/RFC2697, September 1999,
