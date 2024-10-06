@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-03T01:12:19.399555+00:00",
+  "timestamp": "2024-10-06T01:17:12.263712+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -1476,6 +1476,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOLlGZlc59mBu_",
+      "title": "minor edits + PvD to the main document",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/30",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-04T08:59:40Z",
+      "updatedAt": "2024-10-04T10:06:53Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "rename+pvd",
+      "headRefOid": "ad9d3c24c55ac9cada41184218a77f2a75184aa5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOLlGZlc59pjWx",
+      "title": "Adding text about FCC",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/31",
+      "state": "OPEN",
+      "author": "sridharangirish91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-04T17:31:33Z",
+      "updatedAt": "2024-10-04T23:39:40Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "sridharanr",
+      "headRefOid": "a593841423ff342b07793fbe7e032ef353493de5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
