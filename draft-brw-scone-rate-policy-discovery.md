@@ -226,7 +226,7 @@ Encrypted DNS option {{?RFC9463}}:
 
 ## What's In?
 
-**Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate rate-limit policies to hosts ({{sec-nd}}). For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4 in {{sec-dhcp}}. {{sec-pvd}} describes a discovery approach using Provisioning Domains (PvDs) {{?RFC8801}}.
+**Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate rate-limit policies to hosts ({{sec-nd}}). For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4 in {{sec-dhcp}}. {{sec-pvd}} describes a discovery approach using Provisioning Domains (PvDs) {{!RFC8801}}.
 
 These options are called: Network Rate-Limit Policy (NRLP).
 
@@ -666,7 +666,7 @@ The DHCP client MUST be prepared to receive multiple "NRLP Instance Data" field 
 # Provisioning Domains {#sec-pvd}
 
 PvD may also be used as a mechanism to discover NRLP. Typically, the network will configured to set the H-flag so clients can
-request PvD Additional Information ({{Section 4.1 of ?RFC8801}}).
+request PvD Additional Information ({{Section 4.1 of !RFC8801}}).
 
 {{pvd-ex}} provides an example of the returned "application/pvd+json" to indicate a network-to-host
 NRLP for all subscriber traffic. The NRLP list may include multiple instances if distinct policies
