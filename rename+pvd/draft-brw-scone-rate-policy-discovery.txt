@@ -904,14 +904,19 @@ Table of Contents
 7.4.  Fairness
 
    Rate-limit policies enforced at the network are assumed to be
-   consistent with the local jurisdictions.  For example, [BEREC] says
-   the following:
+   consistent with the local jurisdictions.  For example:
 
-      ISPs are prohibited from blocking or slowing down of Internet
-      traffic, except where necessary.  The exceptions are limited to:
-      traffic management to comply with a legal order, to ensure network
-      integrity and security, and to manage congestion, provided that
-      equivalent categories of traffic are treated equally.
+   *  [BEREC] states that ISPs are prohibited from blocking or slowing
+      down of Internet traffic, except for legal reasons, network
+      security, or congestion, provided that equivalent categories of
+      traffic are treated equally.
+
+   *  [FCC] states that net neutrality policies "prohibits internet
+      service providers from blocking, throttling, or engaging in paid
+      prioritization of lawful content".  The FCC allows some
+      exceptions, like for security and emergencies.
+
+   These regulatory frameworks align with the goals of this document.
 
 7.5.  Architectural Considerations Matter
 
@@ -1393,6 +1398,10 @@ Table of Contents
    [BEREC]    BEREC, "All you need to know about Net Neutrality rules in
               the EU", <https://www.berec.europa.eu/en/all-you-need-to-
               know-about-net-neutrality-rules-in-the-eu-0>.
+
+   [FCC]      FCC, "FCC Restores Net Neutrality",
+              <https://www.fcc.gov/document/fcc-restores-net-neutrality-
+              0>.
 
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
