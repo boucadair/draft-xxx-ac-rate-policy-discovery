@@ -2,7 +2,7 @@
 
 
 
-sconepro                                                    M. Boucadair
+scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
 Expires: 10 April 2025                              Cloud Software Group
@@ -37,12 +37,8 @@ Abstract
    This document complements these tools and specifies a Neighbor
    Discovery option to be used in Router Advertisements (RAs) to
    communicate these policies to hosts.  For address family parity, a
-   new DHCP option is also defined.
-
-   Plenty operational challenges are to be yet evaluated and more
-   experiments conducted to assess the actual benefits (including,
-   identifying under which conditions).  The document discusses these
-   considerations.
+   new DHCP option is also defined.  The document also discusses how
+   Provisioning Domains (PvD) can be used to notify hosts with NRLPs.
 
 Discussion Venues
 
@@ -89,9 +85,8 @@ Table of Contents
      1.2.  Networks Are Already Sharing Network Properties with Hosts
      1.3.  What's In?
      1.4.  What's Out?
-     1.5.  Running Experiments
-     1.6.  Design Motivation & Rationale
-     1.7.  Sample Deployment Cases
+     1.5.  Design Motivation & Rationale
+     1.6.  Sample Deployment Cases
    2.  Conventions and Definitions
    3.  NRLP Blob
    4.  IPv6 RA NRLP Option
@@ -100,43 +95,45 @@ Table of Contents
    5.  DHCP NRLP Option
      5.1.  Option Format
      5.2.  DHCPv4 Client Behavior
-   6.  Operational Considerations
-     6.1.  NRLP Is Complementary Not Replacement Solution
-     6.2.  Provisionning Policies
-     6.3.  Redundant vs. Useful Signal
-     6.4.  Fairness
-     6.5.  Architectural Considerations Matter
-     6.6.  Service Considerations: Application Diversity & Realistic
+   6.  Provisioning Domains
+   7.  Operational Considerations
+     7.1.  NRLP Is Complementary Not Replacement Solution
+     7.2.  Provisionning Policies
+     7.3.  Redundant vs. Useful Signal
+     7.4.  Fairness
+     7.5.  Architectural Considerations Matter
+     7.6.  Service Considerations: Application Diversity & Realistic
            Assessment
-     6.7.  Operational Guidance for Signal Enforcement
-     6.8.  Signal Estimation
-     6.9.  Signal "Interference"
-   7.  Deployment Incentives
-     7.1.  Networks
-     7.2.  Applications
-     7.3.  Host OS
-   8.  Security Considerations
-     8.1.  ND
-     8.2.  DHCP
-   9.  IANA Considerations
-     9.1.  Rate-Limit Policy Objects Registry Group
-     9.2.  Optional Parameter Flags Registry
-     9.3.  Flow flags Registry
-     9.4.  Neighbor Discovery Option
-     9.5.  DHCP Option
-     9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
-           Attribute
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
-   Appendix A.  Provisioning Domains
-   Appendix B.  Example of Authentication, Authorization, and
+     7.7.  Operational Guidance for Signal Enforcement
+     7.8.  Signal Estimation
+     7.9.  Signal "Interference"
+   8.  Deployment Incentives
+     8.1.  Networks
+     8.2.  Applications
+     8.3.  Host OS
+   9.  Security Considerations
+     9.1.  ND
+     9.2.  DHCP
+   10. IANA Considerations
+     10.1.  Rate-Limit Policy Objects Registry Group
+     10.2.  Optional Parameter Flags Registry
+     10.3.  Flow Flags Registry
+     10.4.  Neighbor Discovery Option
+     10.5.  DHCP Option
+     10.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
+            Attribute
+     10.7.  Provisioning Domains Split DNS Additional Information
+     10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
+   Appendix A.  Example of Authentication, Authorization, and
            Accounting (AAA)
-   Appendix C.  Alternative/Complementary Mechanisms
-     C.1.  L4S
-     C.2.  Network Slicing
-     C.3.  3GPP UE Route Selection Policy
-     C.4.  Network APIs
+   Appendix B.  Alternative/Complementary Mechanisms
+     B.1.  L4S
+     B.2.  Network Slicing
+     B.3.  3GPP UE Route Selection Policy
+     B.4.  Network APIs
    Acknowledgments
    Authors' Addresses
 
@@ -204,37 +201,7 @@ Table of Contents
    Enterprise services (e.g., Layer 2 VPN [RFC9291] or Layer 3 VPN
    [RFC9182]).  This document *leverages access control, authorization,
    and authentication mechanisms that are already in place for the
-   delivery of services over these ACs*. An example of an AC provided
-   over a 3GPP network is depicted in Figure 2.  It is out of the scope
-   of this document to describe all involved components.  Readers may
-   refer to [TS-23.501] for more details.
-
-   Appendix B provides another example of how existing tools can be
-   leveraged for AAA purposes.
-
-      .-----.  .-----.  .-----.    .-----.  .-----.  .-----.
-      |NSSF |  | NEF |  | NRF |    | PCF |  | UDM |  | AF  |
-      '--+--'  '--+--'  '--+--'    '--+--'  '--+--'  '--+--'
-    Nnssf|    Nnef|    Nnrf|      Npcf|    Nudm|        |Naf
-      ---+--------+--+-----+--+-------+---+----+--------+---
-                Nausf|    Namf|       Nsmf|
-                  .--+--.  .--+--.     .--+------.
-                  │AUSR │  │ AMF │     │   SMF   │
-                  '-----'  '--+--'     '----+----'
-                           ╱  |             |      ╲
-    Control Plane      N1 ╱   |N2           |N4     ╲N4
-    ════════════════════════════════════════════════════════════
-    User Plane          ╱     |             │         ╲
-                    .---.  .-------.  N3 .--+--. N9 .--+--. N6   .--.
-                    |UE +--+ (R)AN +-----+ UPF +----+ UPF +-----( DN )
-                    '---'  '-------'     '-----'    '-----'      '--'
-                       |-------AC----------|
-
-                         Figure 2: 5GS Architecture
-
-      The "AC" mention in Figure 2 is not present in [TS-23.501].  It is
-      added to the figure for the readers' convenience to position an
-      attachment circuit.
+   delivery of services over these ACs*.
 
 1.2.  Networks Are Already Sharing Network Properties with Hosts
 
@@ -269,18 +236,13 @@ Table of Contents
 
 1.3.  What's In?
 
-   [I-D.rwbr-tsvwg-signaling-use-cases] discusses some use cases where
-   it is beneficial to share policies with the hosts. *Given that all
-   IPv6 hosts and networks are required to support Neighbor Discovery
-   [RFC4861]*, this document specifies a Neighbor Discovery option to be
-   used in Router Advertisements (RAs) to communicate these policies to
-   hosts.  For address family parity, a DHCP option [RFC2132] is also
-   defined for IPv4.
+   *Given that all IPv6 hosts and networks are required to support
+   Neighbor Discovery [RFC4861]*, this document specifies a Neighbor
+   Discovery option to be used in Router Advertisements (RAs) to
+   communicate rate-limit policies to hosts.  For address family parity,
+   a DHCP option [RFC2132] is also defined for IPv4.
 
    These options are called: Network Rate-Limit Policy (NRLP).
-
-   This document uses the host/network metadata specified in Section 5.1
-   of [I-D.rwbr-sconepro-flow-metadata].
 
    In order to ensure consistent design for both IPv4 and IPv6 ACs,
    Section 3 groups the set of NRLP parameters that are returned
@@ -297,7 +259,7 @@ Table of Contents
    Also, the design supports returning one more NRLP instances for a
    given traffic direction.
 
-      Appendix A describes a candidate discovery approach using
+      Section 6 describes a candidate discovery approach using
       Provisioning Domains (PvDs) [RFC8801].  That approach requires
       more discussion as PvD is not currently deployed in mobile
       networks.
@@ -320,8 +282,7 @@ Table of Contents
    NRLPs AC to decide how to distribute its flows over these ACs (prefer
    an AC to place an application session, migrate connection, etc.).
    That's said, this document does not make any recommendation about how
-   a receiving host uses the discovered policy.  Readers should refer,
-   e.g., to [I-D.rwbr-tsvwg-signaling-use-cases] for some examples.
+   a receiving host uses the discovered policy.
 
    Networks that advertize NLRPs are likely to maintain the policing in
    place within the network because of the trust model (hosts are not
@@ -334,18 +295,12 @@ Table of Contents
 
    This document does not assume nor preclude that other mechanisms,
    e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
-   are enabled in a bottleneck link.  The reader may refer to Appendix C
+   are enabled in a bottleneck link.  The reader may refer to Appendix B
    for a list of relevant mechanisms.  Whether these mechanism as
    alternative or complementary to explicit host/network signals is to
    be further assessed.
 
-1.5.  Running Experiments
-
-   The benefits of enabling explicit signals are yet to be backed up
-   with more evidence.  Running experiments is thus key to assess the
-   benefits under various setups.
-
-1.6.  Design Motivation & Rationale
+1.5.  Design Motivation & Rationale
 
    The main motivations for the use of ND for such a discovery are
    listed in Section 3 of [RFC8781]:
@@ -379,7 +334,7 @@ Table of Contents
 
    *  *Supports cascaded environments* where multiple levels to enforce
       rate-limiting polices is required (e.g., WAN and LAN shown in
-      Figure 3).  NRLP signals can be coupled or decoupled as a function
+      Figure 2).  NRLP signals can be coupled or decoupled as a function
       of the local policy.
 
    *  *Supports signaling policies bound to one or both traffic
@@ -399,7 +354,7 @@ Table of Contents
            '------' nrlp#3               |                    |
                                          '--------------------'
 
-                    Figure 3: Example of Cascaded NRLPs
+                    Figure 2: Example of Cascaded NRLPs
 
    Compared to a proxy or an encapsulation-based proposal (e.g.,
    [I-D.ihlar-masque-sconepro-mediabitrate]), the solution defined in
@@ -445,7 +400,7 @@ Table of Contents
       networks are required to support Neighbor Discovery [RFC4861].
       For IPv4, configure DHCP servers to include a new DHCP option.
 
-1.7.  Sample Deployment Cases
+1.6.  Sample Deployment Cases
 
    Some deployment use cases for NRLP are provided below:
 
@@ -467,8 +422,8 @@ Table of Contents
       limit policies to connected hosts to adjust their forwarding
       behavior.
 
-   Operational considerations are discussed in Section 6, while
-   deployment incentives are described in Section 7.
+   Operational considerations are discussed in Section 7, while
+   deployment incentives are described in Section 8.
 
 2.  Conventions and Definitions
 
@@ -515,7 +470,7 @@ Table of Contents
 
          When set to "0", this flag indicates that PIR is not present.
 
-      U:  Unassigned bits.  See Section 9.2.
+      U:  Unassigned bits.  See Section 10.2.
 
          Unassigned bits MUST be set to zero by senders and MUST be
          ignored by receivers.
@@ -551,7 +506,7 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned bits.  See Section 9.3.
+      U:  Unassigned bits.  See Section 10.3.
 
          Unassigned bits MUST be set to zero by senders and MUST be
          ignored by receivers.
@@ -578,8 +533,6 @@ Table of Contents
       If set to 0, this indicates to the host that an alternate path (if
       any) should be preferred over this one.
 
-      See Section 5.1 of [I-D.rwbr-sconepro-flow-metadata].
-
       This parameter is mandatory.
 
    Committed Burst Size (CBS) (bytes):  Specifies the maximum burst size
@@ -595,8 +548,6 @@ Table of Contents
       Specifies the maximum number of bits that a network can receive or
       send during one second over an AC for a traffic category that is
       out of profile.
-
-      See Section 5.1 of [I-D.rwbr-sconepro-flow-metadata].
 
       This parameter is optional.
 
@@ -614,8 +565,6 @@ Table of Contents
       is set to '1'.
 
       Traffic that exceeds the CIR and the CBS is metered to the PIR.
-
-      See Section 5.1 of [I-D.rwbr-sconepro-flow-metadata].
 
       This parameter is optional.
 
@@ -641,7 +590,7 @@ Table of Contents
 4.1.  Option Format
 
    The format of the IPv6 RA NRLP option, with only mandatory fields
-   included, is illustrated in Figure 4.
+   included, is illustrated in Figure 3.
 
      MSB                                                          LSB
       0                   1                   2                   3
@@ -654,10 +603,10 @@ Table of Contents
      |                  Committed Burst Size (CBS)                   |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 4: NRLP Option Format with Mandatory Fields
+             Figure 3: NRLP Option Format with Mandatory Fields
 
    The format of the IPv6 RA NRLP option, with optional fields included,
-   is illustrated in Figure 4.
+   is illustrated in Figure 3.
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -677,12 +626,12 @@ Table of Contents
      |                  Peak Burst Size (PBS) (Optional)             |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 5: NRLP Option Format with Optional Fields
+             Figure 4: NRLP Option Format with Optional Fields
 
-   The fields of the option shown in Figure 5 are as follows:
+   The fields of the option shown in Figure 4 are as follows:
 
    Type:  8-bit identifier of the NRLP option as assigned by IANA (TBD1)
-      (see Section 9.4).
+      (see Section 10.4).
 
    Length:  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) is in units of 8 octets.
@@ -761,7 +710,7 @@ Table of Contents
 
 5.1.  Option Format
 
-   The format of the DHCP NRLP option is illustrated in Figure 6.
+   The format of the DHCP NRLP option is illustrated in Figure 5.
 
                  0                   1
                  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -775,17 +724,17 @@ Table of Contents
                 ~      NRLP Instance Data #n    ~    |
                 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   ---
 
-                     Figure 6: NRLP DHCP Option Format
+                     Figure 5: NRLP DHCP Option Format
 
-   The fields of the option shown in Figure 6 are as follows:
+   The fields of the option shown in Figure 5 are as follows:
 
-   Code:  OPTION_V4_NRLP (TBD2).  (see Section 9.5).
+   Code:  OPTION_V4_NRLP (TBD2).  (see Section 10.5).
 
    Length:  Indicates the length of the enclosed data in octets.
 
    NRLP Instance Data:  Includes a network rate-limit policy.  The
       format of this field with only mandatory parameters is shown in
-      Figure 7.
+      Figure 6.
 
       When several NRLPs are to be included, the "NRLP Instance Data"
       field is repeated.
@@ -804,10 +753,10 @@ Table of Contents
                      |                               |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-         Figure 7: NRLP Instance Data Format with Mandatory Fields
+         Figure 6: NRLP Instance Data Format with Mandatory Fields
 
    The format of this field, with optional parameters included, is shown
-   in Figure 7.
+   in Figure 6.
 
                     0                   1
                     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -835,9 +784,9 @@ Table of Contents
                    |                               |  |
                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
 
-     Figure 8: NRLP Instance Data Format with Optional Fields Included
+     Figure 7: NRLP Instance Data Format with Optional Fields Included
 
-   The fields shown in Figure 8 are as follows:
+   The fields shown in Figure 7 are as follows:
 
    NRLP Instance Data Length:  Length of all following data in octets.
       This field is set to '8' when only the nominal bitrate is provided
@@ -891,9 +840,35 @@ Table of Contents
    Data" field entries in the OPTION_V4_NRLP option; each instance is to
    be treated as a separate network rate-limit policy.
 
-6.  Operational Considerations
+6.  Provisioning Domains
 
-6.1.  NRLP Is Complementary Not Replacement Solution
+   PvD may also be used as a mechanism to discover NRLP.  Typically, the
+   network will configured to set the H-flag so clients can request PvD
+   Additional Information (Section 4.1 of [RFC8801]).
+
+   Figure 8 provides an example of the returned "application/pvd+json"
+   to indicate a network-to-host NRLP for all subscriber traffic.  The
+   NRLP list may include multiple instances if distinct policies are to
+   be returned for distinct traffic categories.
+
+   {
+      "nrlp":[
+         {
+            "direction":1,
+            "scope":1,
+            "tc":0,
+            "cir":50,
+            "cbs":10000,
+            "ebs":20000
+         }
+      ]
+   }
+
+                      Figure 8: NRLP Example with PvD
+
+7.  Operational Considerations
+
+7.1.  NRLP Is Complementary Not Replacement Solution
 
    Sharing NRLP signals are not intended to replace usual actions to
    soften bottlenck issues (e.g., adequate network dimensioning and
@@ -903,14 +878,14 @@ Table of Contents
    introducing some collaboration between a host and its networks to
    adjust their behaviors.
 
-6.2.  Provisionning Policies
+7.2.  Provisionning Policies
 
    NRLP senders should be configured with instructions about the type of
    network rate-limit policies to be shared with requesting hosts.
    These types can be provided using mechanisms such as
    [I-D.ietf-opsawg-ntw-attachment-circuit].
 
-6.3.  Redundant vs. Useful Signal
+7.3.  Redundant vs. Useful Signal
 
    In contexts where the bitrate policies are known during the
    establishment of the underlying bearer (e.g., GBR PDU Sessions),
@@ -926,7 +901,7 @@ Table of Contents
    When both bearer-specific policies and NRLP signals are communicated
    to a host, the NRLP signals takes precedence.
 
-6.4.  Fairness
+7.4.  Fairness
 
    Rate-limit policies enforced at the network are assumed to be
    consistent with the local jurisdictions.  For example:
@@ -943,7 +918,7 @@ Table of Contents
 
    These regulatory frameworks align with the goals of this document.
 
-6.5.  Architectural Considerations Matter
+7.5.  Architectural Considerations Matter
 
    Approaches based on middleboxes are generally not recommended due to
    their inherent limitations, in terms of performance, scalability,
@@ -959,7 +934,7 @@ Table of Contents
    be softened by cascaded NLRP design.  However, network integration of
    such appraoch is to be further elaborated.
 
-6.6.  Service Considerations: Application Diversity & Realistic
+7.6.  Service Considerations: Application Diversity & Realistic
       Assessment
 
    Signals could be generated for multiple services and/or applications.
@@ -985,7 +960,7 @@ Table of Contents
    *assessed with more experimental results under realistic conditions
    (i.e., multiple users and multiple services in the network)*.
 
-6.7.  Operational Guidance for Signal Enforcement
+7.7.  Operational Guidance for Signal Enforcement
 
    Signals are conceived as indications from the network towards
    applications.  It is not clear the way of enforcing the application
@@ -1005,7 +980,7 @@ Table of Contents
    *Elaborating more operational guidance on intended signal enforcment
    policy is key*.
 
-6.8.  Signal Estimation
+7.8.  Signal Estimation
 
    The validity of the estimation produced by a network might be
    questioned by the application.  Trust is required in a way that
@@ -1020,7 +995,7 @@ Table of Contents
    that signals could not be of value because the self-adaptation nature
    of these applications.
 
-6.9.  Signal "Interference"
+7.9.  Signal "Interference"
 
    The network is built on multiple layers.  In some cases, different
    solutions targeting similar objectives (e.g., congestion control or
@@ -1028,9 +1003,9 @@ Table of Contents
    *assess the simultaneous coexistence of these solutions to avoid
    contradictory effects or "interferences"*.
 
-7.  Deployment Incentives
+8.  Deployment Incentives
 
-7.1.  Networks
+8.1.  Networks
 
    There are a set of tradeoffs for networks to deploy NRLP discovery:
 
@@ -1065,7 +1040,7 @@ Table of Contents
    unlikely that they will mirror the actual network configuration
    (e.g., application-specific policies).
 
-7.2.  Applications
+8.2.  Applications
 
    Some applications support some forms of bandwidth measurements (e.g.,
    [app-measurement]) which feed how the content is accessed to using
@@ -1091,11 +1066,11 @@ Table of Contents
    schemes will be enriched with the NRLP signals as this will be
    exposed by an OS API.
 
-7.3.  Host OS
+8.3.  Host OS
 
    API to facilitate Application Development:  An OS can provide more
       accurate available bandwidth to applications through the API (as
-      mentioned in Section 7.2), making implementation easier for
+      mentioned in Section 8.2), making implementation easier for
       applications that don't requrie dedicated bandwidth measurement.
 
    Prevent Abuse:  The OS can allocate network resources more fairly
@@ -1115,12 +1090,12 @@ Table of Contents
       more responsive user experience.
 
    Improved Application Development Efficiency:  OS providing rate
-      limits through an API (as mentioned in Section 7.2) can provide
+      limits through an API (as mentioned in Section 8.2) can provide
       the above listed benefits at per application level.
 
-8.  Security Considerations
+9.  Security Considerations
 
-8.1.  ND
+9.1.  ND
 
    As discussed in [RFC8781], because RAs are required in all IPv6
    configuration scenarios, RAs must already be secured, e.g., by
@@ -1148,7 +1123,7 @@ Table of Contents
    Inject fake RAs:  The implications are similar to the impacts of
       tweaking the values of a legitimate RA.
 
-8.2.  DHCP
+9.2.  DHCP
 
    An attacker who has access to the DHCP exchanged over an AC may do a
    lot of harm (e.g., prevent access to the network).
@@ -1169,18 +1144,18 @@ Table of Contents
    information about the DHCP server or the entity hosting the DHCP
    server.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
-9.1.  Rate-Limit Policy Objects Registry Group
+10.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "Rate-Limit Policy Objects".
 
-9.2.  Optional Parameter Flags Registry
+10.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
    "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 9.1).
+   registry group (Section 10.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -1201,11 +1176,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.3.  Flow flags Registry
+10.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "Rate-Limit Policy Objects" registry group
-   (Section 9.1).
+   (Section 10.1).
 
    The initial values of this registry is provided in Table 2.
 
@@ -1228,7 +1203,7 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.4.  Neighbor Discovery Option
+10.4.  Neighbor Discovery Option
 
    This document requests IANA to assign the following new IPv6 Neighbor
    Discovery Option type in the "IPv6 Neighbor Discovery Option Formats"
@@ -1247,7 +1222,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD1" occurrences with
       the assigned value.
 
-9.5.  DHCP Option
+10.5.  DHCP Option
 
    This document requests IANA to assign the following new DHCP Option
    Code in the "BOOTP Vendor Extensions and DHCP Options" registry
@@ -1265,7 +1240,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD2" occurrences with
       the assigned value.
 
-9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
+10.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
 
    This document requests IANA to add the following DHCP Option Code to
    the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute"
@@ -1280,17 +1255,105 @@ Table of Contents
               Table 5: New DHCP Option Permitted in the RADIUS
                      DHCPv4-Options Attribute Registry
 
-10.  References
+10.7.  Provisioning Domains Split DNS Additional Information
 
-10.1.  Normative References
+   IANA is requested to add the following entry to the "Additional
+   Information PvD Keys" registry under the "Provisioning Domains
+   (PvDs)" registry group [IANA-PVD]:
 
-   [I-D.rwbr-sconepro-flow-metadata]
-              Rajagopalan, S., Wing, D., Boucadair, M., Reddy.K, T., and
-              L. M. Contreras, "Flow Metadata for Collaborative Host/
-              Network Signaling", Work in Progress, Internet-Draft,
-              draft-rwbr-sconepro-flow-metadata-02, 26 June 2024,
-              <https://datatracker.ietf.org/doc/html/draft-rwbr-
-              sconepro-flow-metadata-02>.
+   JSON key:  "nrlp"
+
+   Description:  "Network Rate-Limit Policies (NRLPs)"
+
+   Type:  Array of Objects
+
+   Example:
+
+      {
+         "nrlp":[
+            {
+               "direction":1,
+               "scope":1,
+               "tc":0,
+               "cir":50
+            }
+         ]
+      }
+
+   Reference:  This_Document
+
+10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+
+   IANA is requested to create a new registry "PvD Rate-Limit Policies
+   (NRLPs)" registry, within the "Provisioning Domains (PvDs)" registry
+   group.
+
+   The initial contents of this registry are as follows:
+
+   +===========+===================+=========+=========+===============+
+   | JSON key  | Description       | Type    | Example | Reference     |
+   +===========+===================+=========+=========+===============+
+   | direction | Indicates the     | Boolean | 1       | This-Document |
+   |           | traffic           |         |         |               |
+   |           | direction to      |         |         |               |
+   |           | which a policy    |         |         |               |
+   |           | applies.  When    |         |         |               |
+   |           | set to "1", this  |         |         |               |
+   |           | parameter         |         |         |               |
+   |           | indicates that    |         |         |               |
+   |           | this policy is    |         |         |               |
+   |           | for network-to-   |         |         |               |
+   |           | host direction.   |         |         |               |
+   |           | When set to "0",  |         |         |               |
+   |           | this parameter    |         |         |               |
+   |           | indicates that    |         |         |               |
+   |           | this policy is    |         |         |               |
+   |           | for host-to-      |         |         |               |
+   |           | network           |         |         |               |
+   |           | direction.        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | scope     | Specifies         | Boolean | 1       | This-Document |
+   |           | whether the       |         |         |               |
+   |           | policy is per     |         |         |               |
+   |           | host (when set    |         |         |               |
+   |           | to "1") or per    |         |         |               |
+   |           | subscriber (when  |         |         |               |
+   |           | set to "0)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | tc        | Specifies a       | Integer | 0       | This-Document |
+   |           | traffic category  |         |         |               |
+   |           | to which this     |         |         |               |
+   |           | policy applies.   |         |         |               |
+   |           | Values are taken  |         |         |               |
+   |           | from the Rate-    |         |         |               |
+   |           | Limit Policy      |         |         |               |
+   |           | Objects Registry  |         |         |               |
+   |           | Section 10.1      |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | cir       | Specifies the     | Integer | 50      | This-Document |
+   |           | maximum number    |         |         |               |
+   |           | of bits that a    |         |         |               |
+   |           | network can       |         |         |               |
+   |           | receive or send   |         |         |               |
+   |           | during one        |         |         |               |
+   |           | second over an    |         |         |               |
+   |           | AC for a traffic  |         |         |               |
+   |           | category.         |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | xxx       | xxx               | xxx     | xx      | This-Document |
+   +-----------+-------------------+---------+---------+---------------+
+
+     Table 6: Initial PvD Network Rate-Limit Policies (NRLPs) Registry
+                                  Content
+
+   New assignments in the "PvD Network Rate-Limit Policies (NRLPs)"
+   registry will be administered by IANA through Expert Review policy
+   [RFC8126].  Experts are requested to ensure that defined keys do not
+   overlap in names or semantics.
+
+11.  References
+
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1325,7 +1388,7 @@ Table of Contents
               DOI 10.17487/RFC9445, August 2023,
               <https://www.rfc-editor.org/rfc/rfc9445>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [app-measurement]
               Gurel, Z. and A. C. Begen, "Bandwidth measurement for
@@ -1379,20 +1442,15 @@ Table of Contents
               February 2024, <https://datatracker.ietf.org/doc/html/
               draft-ihlar-masque-sconepro-mediabitrate-00>.
 
-   [I-D.rwbr-tsvwg-signaling-use-cases]
-              Rajagopalan, S., Wing, D., Boucadair, M., and T. Reddy.K,
-              "Host to Network Signaling Use Cases for Collaborative
-              Traffic Differentiation", Work in Progress, Internet-
-              Draft, draft-rwbr-tsvwg-signaling-use-cases-02, 17 March
-              2024, <https://datatracker.ietf.org/doc/html/draft-rwbr-
-              tsvwg-signaling-use-cases-02>.
-
    [IANA-BOOTP]
               IANA, "BOOTP Vendor Extensions and DHCP Options",
               <https://www.iana.org/assignments/bootp-dhcp-parameters/>.
 
    [IANA-ND]  IANA, "IPv6 Neighbor Discovery Option Formats",
               <https://www.iana.org/assignments/icmpv6-parameters/>.
+
+   [IANA-PVD] IANA, "Provisioning Domains (PvDs)",
+              <https://www.iana.org/assignments/pvds/>.
 
    [RFC2697]  Heinanen, J. and R. Guerin, "A Single Rate Three Color
               Marker", RFC 2697, DOI 10.17487/RFC2697, September 1999,
@@ -1540,42 +1598,10 @@ Table of Contents
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=3437>.
 
-Appendix A.  Provisioning Domains
-
-   PvD may also be considered as a mechanism to discover NRLP.
-   Typically, the network will configured to set the H-flag so clients
-   can request PvD Additional Information (Section 4.1 of [RFC8801]).
-
-   Figure 9 provides an example of the returned "application/pvd+json"
-   to indicate a network-to-host NRLP for all subscriber traffic.  The
-   NRLP list may include multiple instances if distinct policies are to
-   be returned for distinct traffic categories.
-
-   {
-      "nrlp":[
-         {
-            "direction":1,
-            "scope":1,
-            "tc":0,
-            "cir":50,
-            "cbs":10000,
-            "ebs":20000
-         }
-      ]
-   }
-
-                      Figure 9: NRLP Example with PvD
-
-   PvD NRLP object can be extended by defining new attributes (e.g.,
-   supply an ADN and locators of a network entity to negotiate advanced
-   features with the network, reachability information of a network API
-   to invoke differentiated forwarding behaviors, a slice identifier
-   [TS-23.501][RFC9543], etc.).
-
-Appendix B.  Example of Authentication, Authorization, and Accounting
+Appendix A.  Example of Authentication, Authorization, and Accounting
              (AAA)
 
-   Figure 10 provides an example of the exchanges that might occur
+   Figure 9 provides an example of the exchanges that might occur
    between a DHCP server and an Authentication, Authorization, and
    Accounting (AAA) server to retrieve the per-subscriber NRLPs.
 
@@ -1606,9 +1632,9 @@ Appendix B.  Example of Authentication, Authorization, and Accounting
 
                         DHCP                    RADIUS
 
-               Figure 10: An Example of RADIUS NRLP Exchanges
+               Figure 9: An Example of RADIUS NRLP Exchanges
 
-Appendix C.  Alternative/Complementary Mechanisms
+Appendix B.  Alternative/Complementary Mechanisms
 
    In the event of bottlenecks in a network, there are other mechanisms
    that provide information or help to reserve resources.  These can be
@@ -1616,7 +1642,7 @@ Appendix C.  Alternative/Complementary Mechanisms
    boundaries.  The following sections give examples of such mechanisms
    and provide background information.
 
-C.1.  L4S
+B.1.  L4S
 
    Low Latency, Low Loss, and Scalable Throughput (L4S) is an
    architecture defined in [RFC9330] to avoid queuing at bottlenecks by
@@ -1635,7 +1661,7 @@ C.1.  L4S
    for external parties of the 5GS by exposure of congestion
    information.
 
-C.2.  Network Slicing
+B.2.  Network Slicing
 
    One measure for guaranteeing resources in networks is network
    slicing.  This is achieved by configuring certain resources like
@@ -1649,12 +1675,12 @@ C.2.  Network Slicing
    access.  A realization model in transport networks is detailed in
    [I-D.ietf-teas-5g-ns-ip-mpls].
 
-   L4S Appendix C.1 can be used for the realization of a network slice.
+   L4S Appendix B.1 can be used for the realization of a network slice.
    Network slices properties (e.g., throughput) can be retrieved from an
    operator network or configured by third parties via a network API
-   Appendix C.4 (e.g., 3GPP NEF).
+   Appendix B.4 (e.g., 3GPP NEF).
 
-C.3.  3GPP UE Route Selection Policy
+B.3.  3GPP UE Route Selection Policy
 
    UE Route Selection Policy (URSP) is a feature specified in 3GPP to
    match and forward traffic based upon a selection descriptor and a
@@ -1694,10 +1720,10 @@ C.3.  3GPP UE Route Selection Policy
    subscription-based.  These rules can be used to identify services in
    the UE and to provide routes with explicit characteristics.  URSP
    rules might also be triggered by the usage of network APIs
-   Appendix C.4 and combined with network slicing Appendix C.2, for
+   Appendix B.4 and combined with network slicing Appendix B.2, for
    example.
 
-C.4.  Network APIs
+B.4.  Network APIs
 
    Network APIs are the interface between the operator network and
    third-party providers.  With 4G, the first methods were introduced to
@@ -1715,8 +1741,8 @@ C.4.  Network APIs
    The CAMARA API "Network Slice Booking", which is currently under
    development, would be a way for a service provider to configure the
    necessary resources in the operator network.  In the background, 5G
-   features such as network slicing Appendix C.2 , URSP Appendix C.3
-   and, if necessary, L4S Appendix C.1 could then ensure implementation
+   features such as network slicing Appendix B.2 , URSP Appendix B.3
+   and, if necessary, L4S Appendix B.1 could then ensure implementation
    in the operator network.
 
 Acknowledgments
