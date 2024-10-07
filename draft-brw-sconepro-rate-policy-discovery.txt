@@ -5,7 +5,7 @@
 sconepro                                                    M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 4 January 2025                             Cloud Software Group
+Expires: 10 April 2025                              Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 4 January 2025                             Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                             3 July 2024
+                                                          7 October 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2025.
+   This Internet-Draft will expire on 10 April 2025.
 
 Copyright Notice
 
@@ -929,14 +929,19 @@ Table of Contents
 6.4.  Fairness
 
    Rate-limit policies enforced at the network are assumed to be
-   consistent with the local jurisdictions.  For example, [BEREC] says
-   the following:
+   consistent with the local jurisdictions.  For example:
 
-      ISPs are prohibited from blocking or slowing down of Internet
-      traffic, except where necessary.  The exceptions are limited to:
-      traffic management to comply with a legal order, to ensure network
-      integrity and security, and to manage congestion, provided that
-      equivalent categories of traffic are treated equally.
+   *  [BEREC] states that ISPs are prohibited from blocking or slowing
+      down of Internet traffic, except for legal reasons, network
+      security, or congestion, provided that equivalent categories of
+      traffic are treated equally.
+
+   *  [FCC] states that net neutrality policies "prohibits internet
+      service providers from blocking, throttling, or engaging in paid
+      prioritization of lawful content".  The FCC allows some
+      exceptions, like for security and emergencies.
+
+   These regulatory frameworks align with the goals of this document.
 
 6.5.  Architectural Considerations Matter
 
@@ -1331,36 +1336,41 @@ Table of Contents
               the EU", <https://www.berec.europa.eu/en/all-you-need-to-
               know-about-net-neutrality-rules-in-the-eu-0>.
 
+   [FCC]      FCC, "FCC Restores Net Neutrality",
+              <https://www.fcc.gov/document/fcc-restores-net-neutrality-
+              0>.
+
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
               Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-02, 21 May 2024,
+              draft-ietf-masque-quic-proxy-03, 7 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-02>.
+              quic-proxy-03>.
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-11, 15 May 2024,
+              opsawg-ntw-attachment-circuit-13, 5 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-11>.
+              ntw-attachment-circuit-13>.
 
    [I-D.ietf-teas-5g-ns-ip-mpls]
               Szarkowicz, K. G., Roberts, R., Lucek, J., Boucadair, M.,
               and L. M. Contreras, "A Realization of Network Slices for
               5G Networks Using Current IP/MPLS Technologies", Work in
               Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
-              08, 1 June 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-teas-5g-ns-ip-mpls-08>.
+              11, 23 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
+              ns-ip-mpls-11>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
               "A YANG Data Model for the RFC 9543 Network Slice
               Service", Work in Progress, Internet-Draft, draft-ietf-
-              teas-ietf-network-slice-nbi-yang-13, 9 May 2024,
+              teas-ietf-network-slice-nbi-yang-16, 28 August 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              ietf-network-slice-nbi-yang-13>.
+              ietf-network-slice-nbi-yang-16>.
 
    [I-D.ihlar-masque-sconepro-mediabitrate]
               Ihlar, M. and M. Kühlewind, "MASQUE extension for
