@@ -805,7 +805,7 @@ Improved Application Development Efficiency:
 
 # Security Considerations
 
-The techniques discussed in the draft offer the following security benefit: The operating system can identify the type of application (e.g., background, foreground, streaming, real-time etc.) and enforce appropriate network policies, even if a misbehaving application tries
+The techniques discussed in the document offer the following security benefit: An OS can identify the type of application (background, foreground, streaming, real-time, etc.) and enforce appropriate network policies, even if a misbehaving application tries
 to evade the rate-limit policies. If an application attempts to bypass rate-limiting by changing its 5-tuple or creating multiple flows,
 the OS can detect this and manage the application's traffic accordingly.
 
