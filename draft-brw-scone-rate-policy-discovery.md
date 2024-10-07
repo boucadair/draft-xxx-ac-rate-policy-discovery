@@ -1056,4 +1056,4 @@ The CAMARA API "Network Slice Booking", which is currently under development, wo
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+Thanks to Tommy Pauly for the comment on PvD.
