@@ -226,17 +226,15 @@ Encrypted DNS option {{?RFC9463}}:
 
 ## What's In?
 
-**Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate rate-limit policies to hosts. For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4.
+**Given that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}**, this document specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate rate-limit policies to hosts ({{sec-nd}}). For address family parity, a DHCP option {{!RFC2132}} is also defined for IPv4 in {{sec-dhcp}}. {{sec-pvd}} describes a discovery approach using Provisioning Domains (PvDs) {{?RFC8801}}.
 
 These options are called: Network Rate-Limit Policy (NRLP).
 
-In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where DHCP is not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
+In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where ND/DHCP/PvD are not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
 Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.
 
 Also, the design supports returning one more NRLP instances for a given traffic direction.
-
-> {{sec-pvd}} describes a candidate discovery approach using Provisioning Domains (PvDs) {{?RFC8801}}. That approach requires more discussion as PvD is not currently deployed in mobile networks.
 
 ## What's Out?
 
@@ -428,7 +426,7 @@ of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Ty
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
 * A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
 
-# IPv6 RA NRLP Option
+# IPv6 RA NRLP Option {#sec-nd}
 
 ## Option Format
 
@@ -532,7 +530,7 @@ already advertized using RAs and those policies are consistent with the network 
 
 Applications running over a host can learn the bitrates associated with a network attachment by invoking a dedicated API. The exact details of the API is OS-specific and, thus, out of scope of this document.
 
-# DHCP NRLP Option
+# DHCP NRLP Option {#sec-dhcp}
 
 > Note that the base DHCP can only signal a rate policy change when the
   client first joins the network or renews its lease, whereas IPv6 ND
