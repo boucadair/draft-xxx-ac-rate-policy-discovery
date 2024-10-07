@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 7 April 2025                               Cloud Software Group
+Expires: 10 April 2025                              Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 7 April 2025                               Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                          4 October 2024
+                                                          7 October 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 April 2025.
+   This Internet-Draft will expire on 10 April 2025.
 
 Copyright Notice
 
@@ -866,11 +866,11 @@ Table of Contents
 
                       Figure 8: NRLP Example with PvD
 
-   PvD NRLP object can be extended by defining new attributes (e.g.,
-   supply an ADN and locators of a network entity to negotiate advanced
-   features with the network, reachability information of a network API
-   to invoke differentiated forwarding behaviors, a slice identifier
-   [TS-23.501][RFC9543], etc.).
+   Extensions to the PvD NRLP object can be defined to accomodate future
+   uses (e.g., supply an authentication domain name and locators of a
+   network entity to negotiate advanced features with the network,
+   reachability information of a network API to invoke differentiated
+   forwarding behaviors, a slice identifier [TS-23.501][RFC9543], etc.).
 
 7.  Operational Considerations
 
