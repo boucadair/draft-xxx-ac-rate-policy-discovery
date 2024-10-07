@@ -808,6 +808,10 @@ Improved Application Development Efficiency:
 
 # Security Considerations
 
+The techniques discussed in the document offer the following security benefit: An OS can identify the type of application (background, foreground, streaming, real-time, etc.) and enforce appropriate network policies, even if a misbehaving application tries
+to evade the rate-limit policies. If an application attempts to bypass rate-limiting by changing its 5-tuple or creating multiple flows,
+the OS can detect this and manage the application's traffic accordingly.
+
 ## ND
 
 As discussed in {{?RFC8781}}, because RAs are required in all IPv6 configuration scenarios, RAs must already be secured, e.g., by deploying an RA-Guard {{?RFC6105}}. Providing all configuration in RAs reduces the attack surface to be targeted by malicious attackers trying to provide hosts with invalid configuration, as compared to distributing the configuration through multiple different mechanisms that need to be secured independently.
