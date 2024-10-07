@@ -20,7 +20,7 @@ Expires: 10 April 2025                              Cloud Software Group
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
-              draft-brw-scone-rate-policy-discovery-latest
+            draft-brw-sconepro-rate-policy-discovery-latest
 
 Abstract
 
