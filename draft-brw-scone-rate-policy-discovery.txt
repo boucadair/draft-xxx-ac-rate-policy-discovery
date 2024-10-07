@@ -239,16 +239,18 @@ Table of Contents
    *Given that all IPv6 hosts and networks are required to support
    Neighbor Discovery [RFC4861]*, this document specifies a Neighbor
    Discovery option to be used in Router Advertisements (RAs) to
-   communicate rate-limit policies to hosts.  For address family parity,
-   a DHCP option [RFC2132] is also defined for IPv4.
+   communicate rate-limit policies to hosts (Section 4).  For address
+   family parity, a DHCP option [RFC2132] is also defined for IPv4 in
+   Section 5.  Section 6 describes a discovery approach using
+   Provisioning Domains (PvDs) [RFC8801].
 
    These options are called: Network Rate-Limit Policy (NRLP).
 
    In order to ensure consistent design for both IPv4 and IPv6 ACs,
    Section 3 groups the set of NRLP parameters that are returned
    independent of the address family.  This blob can be leveraged in
-   networks where DHCP is not used and ease the mapping with specific
-   protocols used in these networks.  For example, *_a Protocol
+   networks where ND/DHCP/PvD are not used and ease the mapping with
+   specific protocols used in these networks.  For example, *_a Protocol
    Configuration Option (PCO) [TS-24.008] NRLP Information Element can
    be defined in 3GPP_*.
 
@@ -258,11 +260,6 @@ Table of Contents
 
    Also, the design supports returning one more NRLP instances for a
    given traffic direction.
-
-      Section 6 describes a candidate discovery approach using
-      Provisioning Domains (PvDs) [RFC8801].  That approach requires
-      more discussion as PvD is not currently deployed in mobile
-      networks.
 
 1.4.  What's Out?
 
