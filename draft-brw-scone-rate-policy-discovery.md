@@ -3,7 +3,7 @@ title: "Discovery of Network Rate-Limit Policies (NRLPs)"
 abbrev: "Rate-Limit Policies Discovery"
 category: std
 
-docname: draft-brw-sconepro-rate-policy-discovery-latest
+docname: draft-brw-scone-rate-policy-discovery-latest
 submissiontype: IETF
 number:
 date:
