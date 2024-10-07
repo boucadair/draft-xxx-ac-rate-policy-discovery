@@ -719,17 +719,10 @@ When both bearer-specific policies and NRLP signals are communicated to a host, 
 
 ## Fairness
 
-Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example,
+Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example:
 
-{{BEREC}}:
-
-> BEREC says the following: "ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally."
-
-{{FCC}}:
-
-> FCC says the following: "Net Neutrality policies are a national standard by which we ensure that broadband internet service is treated as an essential service. It prohibits internet service providers from blocking, throttling, or engaging in paid prioritization of lawful content. By classifying broadband service as a “telecommunications” service under Title II of the law, the FCC restores its oversight of internet service outages, national security threats in broadband networks, and consumer protection and regains key tools to promote broadband deployment."
-
-> The FCC’s net neutrality regulations include exceptions for zero-rating and sponsored data programs, state-level regulations, and considerations for national security and emergency services.
+* {{BEREC}} states that ISPs are prohibited from blocking or slowing down of Internet traffic, except for legal reasons, network security, or congestion, provided that equivalent categories of traffic are treated equally.
+* {{FCC}} states that net neutrality policies "prohibits internet service providers from blocking, throttling, or engaging in paid prioritization of lawful content". The FCC allows some exceptions, like for security and emergencies.
 
 These regulatory frameworks align with the goals of this document.
 
