@@ -1095,6 +1095,14 @@ Table of Contents
 
 9.  Security Considerations
 
+   The techniques discussed in the document offer the following security
+   benefit: An OS can identify the type of application (background,
+   foreground, streaming, real-time, etc.) and enforce appropriate
+   network policies, even if a misbehaving application tries to evade
+   the rate-limit policies.  If an application attempts to bypass rate-
+   limiting by changing its 5-tuple or creating multiple flows, the OS
+   can detect this and manage the application's traffic accordingly.
+
 9.1.  ND
 
    As discussed in [RFC8781], because RAs are required in all IPv6
