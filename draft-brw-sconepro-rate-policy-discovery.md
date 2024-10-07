@@ -125,6 +125,14 @@ informative:
           org: BEREC
         target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
 
+     FCC:
+        title: "FCC Restores Net Neutrality"
+        date: false
+        author:
+        -
+          org: FCC
+        target: https://www.fcc.gov/document/fcc-restores-net-neutrality-0
+
      TR-470:
         title: "5G Wireless Wireline Convergence Architecture - Issue 2"
         date: false
@@ -711,9 +719,12 @@ When both bearer-specific policies and NRLP signals are communicated to a host, 
 
 ## Fairness
 
-Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example, {{BEREC}} says the following:
+Rate-limit policies enforced at the network are assumed to be consistent with the local jurisdictions. For example:
 
-> ISPs are prohibited from blocking or slowing down of Internet traffic, except where necessary. The exceptions are limited to: traffic management to comply with a legal order, to ensure network integrity and security, and to manage congestion, provided that equivalent categories of traffic are treated equally.
+* {{BEREC}} states that ISPs are prohibited from blocking or slowing down of Internet traffic, except for legal reasons, network security, or congestion, provided that equivalent categories of traffic are treated equally.
+* {{FCC}} states that net neutrality policies "prohibits internet service providers from blocking, throttling, or engaging in paid prioritization of lawful content". The FCC allows some exceptions, like for security and emergencies.
+
+These regulatory frameworks align with the goals of this document.
 
 ## Architectural Considerations Matter
 
