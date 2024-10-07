@@ -1388,6 +1388,11 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8801]  Pfister, P., Vyncke, É., Pauly, T., Schinazi, D., and W.
+              Shao, "Discovering Provisioning Domain Names and Data",
+              RFC 8801, DOI 10.17487/RFC8801, July 2020,
+              <https://www.rfc-editor.org/rfc/rfc8801>.
+
    [RFC9445]  Boucadair, M., Reddy.K, T., and A. DeKok, "RADIUS
               Extensions for DHCP-Configured Services", RFC 9445,
               DOI 10.17487/RFC9445, August 2023,
@@ -1526,11 +1531,6 @@ Table of Contents
    [RFC8781]  Colitti, L. and J. Linkova, "Discovering PREF64 in Router
               Advertisements", RFC 8781, DOI 10.17487/RFC8781, April
               2020, <https://www.rfc-editor.org/rfc/rfc8781>.
-
-   [RFC8801]  Pfister, P., Vyncke, É., Pauly, T., Schinazi, D., and W.
-              Shao, "Discovering Provisioning Domain Names and Data",
-              RFC 8801, DOI 10.17487/RFC8801, July 2020,
-              <https://www.rfc-editor.org/rfc/rfc8801>.
 
    [RFC8803]  Bonaventure, O., Ed., Boucadair, M., Ed., Gundavelli, S.,
               Seo, S., and B. Hesmans, "0-RTT TCP Convert Protocol",
