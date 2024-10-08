@@ -153,7 +153,7 @@ informative:
 
 Traffic exchanged over a network attachment may be subject to rate-limit policies.
 These policies may be intentional policies (e.g., enforced as part of the activation of the network attachment and typically agreed upon service subscription)
-or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). This document specifies a mechanims for hosts to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then passed to applicaitons that might adjust their behaviors accordingly.
 
 Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options. Examples of such
 properties are link MTU (RFC 4861) and PREFIX64 (RFC 8781). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate these policies to hosts. For address family parity, a new DHCP option is also defined. The document also discusses how Provisioning Domains (PvD) can be used to notify hosts with NRLPs.
@@ -209,7 +209,7 @@ service offering while a more elaborated set is required for Enterprise services
 
 ## Networks Are Already Sharing Network Properties with Hosts
 
-To optimally deliver connectivity services, networks also advertize a set of network properties {{?RFC9473}} to connected hosts such as:
+To optimally deliver connectivity services via a network attachment, networks also advertize a set of network properties {{?RFC9473}} to connected hosts such as:
 
 Link Maximum Transmission Unit (MTU):
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
