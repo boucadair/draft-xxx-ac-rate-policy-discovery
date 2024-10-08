@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-06T01:17:12.263712+00:00",
+  "timestamp": "2024-10-08T01:12:03.979021+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -133,7 +133,7 @@
       "id": "I_kwDOLlGZlc6F10QD",
       "title": "Add some more text about FCC/regulatory",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/21",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -142,8 +142,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-04-16T08:41:32Z",
-      "updatedAt": "2024-05-22T08:17:12Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-07T07:01:19Z",
+      "closedAt": "2024-10-07T07:01:19Z",
       "comments": [
         {
           "author": "boucadair",
@@ -228,24 +228,32 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-22T08:29:54Z",
-      "updatedAt": "2024-05-22T08:29:54Z",
+      "updatedAt": "2024-10-07T17:11:09Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "luismcontreras",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The documents I commented for this Issue are not plublicly available, so cannot be referred to, I guess. We can keep this on hold, or close the issue and re-open it in case the documents become available at some point of time.",
+          "createdAt": "2024-10-07T17:11:08Z",
+          "updatedAt": "2024-10-07T17:11:08Z"
+        }
+      ]
     },
     {
       "number": 27,
       "id": "I_kwDOLlGZlc6LNqAr",
       "title": "PvD comment from Tommy Pauly",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/27",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "De : Tommy Pauly <tpauly@apple.com> \r\nEnvoy\u00e9 : mardi 4 juin 2024 17:32\r\n\u00c0 : BOUCADAIR Mohamed INNOV/NET <mohamed.boucadair@orange.com>\r\nCc : tirumal reddy <kondtir@gmail.com>\r\nObjet : Re: Feedback on the use of PvD Use for Collaborative Networking\r\n\r\n\r\n\r\nHi Med,\r\n\r\nPvDs are starting to be implemented more now, for the proxy discovery use case, so I think we will see a push there.\r\n\r\nOverall, it seems a bit odd to just put that information in the appendix, as opposed to next to the other provisioning mechanisms, as it is a standards-track mechanism. I also think it makes sense to discuss whether you need the details of information to go directly into RAs or DHCP, or if it makes sense to have this be in a separate service (like PvD, or like how CAPPORT had a separate server that you talk to to get the information).\r\n\r\nThanks,\r\nTommy \r\n",
       "createdAt": "2024-06-05T11:12:22Z",
-      "updatedAt": "2024-06-05T11:12:22Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-07T07:44:18Z",
+      "closedAt": "2024-10-07T07:44:18Z",
       "comments": []
     }
   ],
@@ -1482,21 +1490,281 @@
       "id": "PR_kwDOLlGZlc59mBu_",
       "title": "minor edits + PvD to the main document",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/30",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-04T08:59:40Z",
-      "updatedAt": "2024-10-04T10:06:53Z",
+      "updatedAt": "2024-10-07T07:41:18Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "rename+pvd",
-      "headRefOid": "ad9d3c24c55ac9cada41184218a77f2a75184aa5",
-      "closedAt": null,
+      "headRefOid": "c803abee148a9940af052c4408c6098f3ef943e0",
+      "closedAt": "2024-10-07T07:41:17Z",
+      "mergedAt": "2024-10-07T07:41:17Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "07850651110187b969bf78f1017d57dec47cd44d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6MGjva",
+          "commit": {
+            "abbreviatedOid": "75d5d90"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-06T13:04:32Z",
+          "updatedAt": "2024-10-06T13:04:32Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "what do you mean by \"ADN\"  and I don't get the example (is it required ?).\r\n",
+              "createdAt": "2024-10-06T13:04:32Z",
+              "updatedAt": "2024-10-07T05:19:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MGjz8",
+          "commit": {
+            "abbreviatedOid": "ad9d3c2"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Most of the changes look good. ",
+          "createdAt": "2024-10-06T13:06:14Z",
+          "updatedAt": "2024-10-06T13:06:14Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MH-0a",
+          "commit": {
+            "abbreviatedOid": "ad9d3c2"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I think security considerations section also needs to be updated to discuss about PvD.",
+          "createdAt": "2024-10-07T05:42:42Z",
+          "updatedAt": "2024-10-07T05:42:42Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MIH-S",
+          "commit": {
+            "abbreviatedOid": "75d5d90"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T06:12:02Z",
+          "updatedAt": "2024-10-07T06:12:02Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "This is to focus on the extensibility feature of PvD.\r\n\r\nPvD can provide the required information to locate a network API and thus negotiate more \"metadata\"-related operation, especially for the host to network direction. That direction is out of scope of scope; we may remove this if it is confusing.\r\n",
+              "createdAt": "2024-10-07T06:12:02Z",
+              "updatedAt": "2024-10-07T06:12:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MIm-P",
+          "commit": {
+            "abbreviatedOid": "75d5d90"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T07:04:29Z",
+          "updatedAt": "2024-10-07T07:04:29Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "Please remove it. ",
+              "createdAt": "2024-10-07T07:04:29Z",
+              "updatedAt": "2024-10-07T07:04:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MIoV0",
+          "commit": {
+            "abbreviatedOid": "75d5d90"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T07:07:31Z",
+          "updatedAt": "2024-10-07T07:07:31Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "Deal!\r\n\r\nShouldn't we highlight that PvD object can be easily extended?",
+              "createdAt": "2024-10-07T07:07:31Z",
+              "updatedAt": "2024-10-07T07:07:31Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOLlGZlc59pjWx",
+      "title": "Adding text about FCC",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/31",
+      "state": "MERGED",
+      "author": "sridharangirish91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-04T17:31:33Z",
+      "updatedAt": "2024-10-07T07:01:20Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "sridharanr",
+      "headRefOid": "44f35718abed1ef33b06da2ffabc0f358bb9103f",
+      "closedAt": "2024-10-07T07:01:19Z",
+      "mergedAt": "2024-10-07T07:01:19Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "1ebaca4f6b49b08cd5eca2bbd975671e78a1fbc7"
+      },
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Citing the exact text was initially meant to avoid interpreting the text.\r\n\r\nUpdated the text to include a summary as suggested by Tiru to shorten the text.",
+          "createdAt": "2024-10-07T06:48:18Z",
+          "updatedAt": "2024-10-07T06:48:18Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6MH3dG",
+          "commit": {
+            "abbreviatedOid": "a593841"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I suggest to summarize the text from BERC and FCC instead of repeating it, we can say the following: \r\n\r\nBEREC:\r\nISPs can\u2019t block or slow internet traffic, except for legal reasons, network security, or congestion, and all traffic must be treated equally.\r\n\r\nFCC:\r\nNet neutrality rules stop ISPs from blocking, slowing, or prioritizing internet content for money. The FCC oversees internet service and allows some exceptions, like for security and emergencies.",
+          "createdAt": "2024-10-07T05:10:32Z",
+          "updatedAt": "2024-10-07T05:10:32Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MIkiX",
+          "commit": {
+            "abbreviatedOid": "44f3571"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-07T07:01:12Z",
+          "updatedAt": "2024-10-07T07:01:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOLlGZlc59w4p1",
+      "title": "Update to Security Considerations Section",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/32",
+      "state": "MERGED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-07T05:53:10Z",
+      "updatedAt": "2024-10-07T07:41:44Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "tireddy2-patch-3",
+      "headRefOid": "8d08ff59aeeb63b7dc2163e53195ed7839ed0926",
+      "closedAt": "2024-10-07T07:41:43Z",
+      "mergedAt": "2024-10-07T07:41:43Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "db50e95a41d8db84a6ce5304beab2b0810de6eda"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6MIXtb",
+          "commit": {
+            "abbreviatedOid": "129d93f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "Looks good to me. Thanks",
+          "createdAt": "2024-10-07T06:49:26Z",
+          "updatedAt": "2024-10-07T06:49:56Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\nThe techniques discussed in the document offer the following security benefit: An OS can identify the type of application (background, foreground, streaming, real-time, etc.) and enforce appropriate network policies, even if a misbehaving application tries\r\n```",
+              "createdAt": "2024-10-07T06:49:26Z",
+              "updatedAt": "2024-10-07T06:49:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6MI84i",
+          "commit": {
+            "abbreviatedOid": "8d08ff5"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-07T07:41:37Z",
+          "updatedAt": "2024-10-07T07:41:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOLlGZlc59xjEf",
+      "title": "update sec",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/33",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-07T07:31:46Z",
+      "updatedAt": "2024-10-07T07:33:00Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "rename+pvd",
+      "baseRefOid": "772844ef30ae2ec9850354e173b2f701b77415a5",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "main",
+      "headRefOid": "1ebaca4f6b49b08cd5eca2bbd975671e78a1fbc7",
+      "closedAt": "2024-10-07T07:33:00Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1504,28 +1772,86 @@
       "reviews": []
     },
     {
-      "number": 31,
-      "id": "PR_kwDOLlGZlc59pjWx",
-      "title": "Adding text about FCC",
-      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/31",
-      "state": "OPEN",
-      "author": "sridharangirish91",
-      "authorAssociation": "COLLABORATOR",
+      "number": 34,
+      "id": "PR_kwDOLlGZlc59xnjq",
+      "title": "change filename",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/34",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
-      "createdAt": "2024-10-04T17:31:33Z",
-      "updatedAt": "2024-10-04T23:39:40Z",
+      "createdAt": "2024-10-07T07:42:14Z",
+      "updatedAt": "2024-10-07T07:42:25Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
-      "baseRefOid": "fe3cecb02d852380e8c6689235ed03ab30da8438",
+      "baseRefOid": "db50e95a41d8db84a6ce5304beab2b0810de6eda",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
-      "headRefName": "sridharanr",
-      "headRefOid": "a593841423ff342b07793fbe7e032ef353493de5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "de1478313cfaab5359d50dab4627a9626662cd51",
+      "closedAt": "2024-10-07T07:42:24Z",
+      "mergedAt": "2024-10-07T07:42:24Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "997ccd19f27739f26d637b998f145b7b7326d72b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOLlGZlc59xocQ",
+      "title": "ACK Tommy Pauly",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/35",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-07T07:44:01Z",
+      "updatedAt": "2024-10-07T07:44:19Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "997ccd19f27739f26d637b998f145b7b7326d72b",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "85db470d0820575f0f3ca15883356bef6aeecd45",
+      "closedAt": "2024-10-07T07:44:17Z",
+      "mergedAt": "2024-10-07T07:44:17Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "79a8ed8ae4f00b7009679e9a247df4207fa00bc9"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOLlGZlc59xswC",
+      "title": "reference solution sections",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/36",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-07T07:53:11Z",
+      "updatedAt": "2024-10-07T07:56:08Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "79a8ed8ae4f00b7009679e9a247df4207fa00bc9",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "28482120379d57c22b15445e636c495a167d034f",
+      "closedAt": "2024-10-07T07:56:07Z",
+      "mergedAt": "2024-10-07T07:56:07Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "338e6446c21c4ff8fb3a3f131a4b2b08ee6cd3ce"
+      },
       "comments": [],
       "reviews": []
     }
