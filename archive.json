@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-08T01:12:03.979021+00:00",
+  "timestamp": "2024-10-10T01:11:36.268600+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -219,7 +219,7 @@
       "id": "I_kwDOLlGZlc6JrnGT",
       "title": "TIP WP",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/26",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -228,8 +228,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-22T08:29:54Z",
-      "updatedAt": "2024-10-07T17:11:09Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-08T07:53:50Z",
+      "closedAt": "2024-10-08T07:53:50Z",
       "comments": [
         {
           "author": "luismcontreras",
@@ -237,6 +237,13 @@
           "body": "The documents I commented for this Issue are not plublicly available, so cannot be referred to, I guess. We can keep this on hold, or close the issue and re-open it in case the documents become available at some point of time.",
           "createdAt": "2024-10-07T17:11:08Z",
           "updatedAt": "2024-10-07T17:11:08Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Thanks, Luis. Let's close this one then.",
+          "createdAt": "2024-10-08T07:53:50Z",
+          "updatedAt": "2024-10-08T07:53:50Z"
         }
       ]
     },
