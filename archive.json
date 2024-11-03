@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-31T01:13:45.221693+00:00",
+  "timestamp": "2024-11-03T01:17:36.116735+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -219,7 +219,7 @@
       "id": "I_kwDOLlGZlc6JrnGT",
       "title": "TIP WP",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/26",
-      "state": "CLOSED",
+      "state": "OPEN",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -228,8 +228,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-05-22T08:29:54Z",
-      "updatedAt": "2024-10-08T07:53:50Z",
-      "closedAt": "2024-10-08T07:53:50Z",
+      "updatedAt": "2024-10-31T14:56:39Z",
+      "closedAt": null,
       "comments": [
         {
           "author": "luismcontreras",
@@ -244,6 +244,20 @@
           "body": "Thanks, Luis. Let's close this one then.",
           "createdAt": "2024-10-08T07:53:50Z",
           "updatedAt": "2024-10-08T07:53:50Z"
+        },
+        {
+          "author": "luismcontreras",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Re-opening this issue since Telecom Infra Project has just publicly released the material.\r\n\r\nThe reports are here: https://telecominfraproject.com/tip-releases-qoe-measurement-framework-and-graduates-metaverse-ready-project-group/\r\n\r\nSo, now, the point for this issue to check relevance of these reports for out draft. I take the action.",
+          "createdAt": "2024-10-31T14:56:18Z",
+          "updatedAt": "2024-10-31T14:56:18Z"
+        },
+        {
+          "author": "luismcontreras",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Re-opening this issue since Telecom Infra Project has just publicly released the material.\r\n\r\nThe reports are here: https://telecominfraproject.com/tip-releases-qoe-measurement-framework-and-graduates-metaverse-ready-project-group/\r\n\r\nSo, now, the point for this issue to check relevance of these reports for out draft. I take the action. ",
+          "createdAt": "2024-10-31T14:56:37Z",
+          "updatedAt": "2024-10-31T14:56:37Z"
         }
       ]
     },
