@@ -165,32 +165,49 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 ~~~~ CDDL
    ; Provides information about the rate-limit policy that
    ; is enforced for a network attachment.
-   ; Returning a value set to 0 (or a very low value) should trigger
-   ; the host to seek for better paths.
+   ; Returning a CIR value set to 0 (or a very low value)
+   ; should trigger the host to seek for better paths.
 
    throughput-advice =  [+ throughput-instance]
 
    throughput-instance =  {
-     ? opf => optional-parameter-flags,
-     ? ff => flow-flags,
-     cir: uint,  ; Mbps
-     cbs: uint,  ; bytes
-     ? eir: uint,  ; Mbps
-     ? ebs: uint,  ; bytes
-     ? pir: uint,  ; Mbps
-     ? pbs: uint  ; bytes
+     ? optional-parameter-flags => opf,
+     ? flow-flags => ff,
+     ? traffic-category => tc,
+     throughput => rate-limit
    }
 
-   optional-parameter-flags =  {
+   opf =  {
      ? excess: bool,
      ? peak: bool
    }
 
-   flow-flags =  {
+   ; Indicates scope, direction, and traffic reliability.
+   
+   ff =  {
      ? scope: bool,
      ? direction: bool,
-     ? reliablity: uint,
+     ? reliability: uint,
+   }
+
+   ; Indicates traffic category.
+   ; If the value is set to 0, this means the policy is
+   ; enforced for all traffic.
+
+   tc =  {
      ? tc: uint
+   }
+
+   ; Indicates various rates (committed, exces, and peak).
+   ; Only CIR is mandatory to include.
+
+   rate-limit =  {
+     cir: uint,    ; Mbps
+     cbs: uint,    ; bytes
+     ? eir: uint,  ; Mbps
+     ? ebs: uint,  ; bytes
+     ? pir: uint,  ; Mbps
+     ? pbs: uint   ; bytes
    }
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
