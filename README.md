@@ -7,7 +7,7 @@ This is the working area for the individual Internet-Draft, "Discovery of Networ
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-brw-sconepro-rate-policy-discovery)
 * [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-sconepro-rate-policy-discovery.diff)
 
-# Throughput Advice Blob
+# Throughput Advice Object for SCONE
 
 This is the working area for the individual Internet-Draft, "Throughput Advice Blob for SCONE".
 
