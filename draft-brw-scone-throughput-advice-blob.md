@@ -64,8 +64,6 @@ the discovery channel.
 
 # Introduction
 
-## Context
-
 Connectivity services are provided by networks to customers via
 dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
 To facilitate data transfer via the provider network, it is assumed that appropriate setup
