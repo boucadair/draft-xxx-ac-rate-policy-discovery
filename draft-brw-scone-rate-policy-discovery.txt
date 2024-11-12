@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 11 April 2025                              Cloud Software Group
+Expires: 16 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 11 April 2025                              Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                          8 October 2024
+                                                        12 November 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 April 2025.
+   This Internet-Draft will expire on 16 May 2025.
 
 Copyright Notice
 
@@ -1420,26 +1420,26 @@ Table of Contents
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
               Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-03, 7 July 2024,
+              draft-ietf-masque-quic-proxy-04, 18 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-03>.
+              quic-proxy-04>.
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-13, 5 September 2024,
+              opsawg-ntw-attachment-circuit-14, 7 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-13>.
+              ntw-attachment-circuit-14>.
 
    [I-D.ietf-teas-5g-ns-ip-mpls]
               Szarkowicz, K. G., Roberts, R., Lucek, J., Boucadair, M.,
               and L. M. Contreras, "A Realization of Network Slices for
               5G Networks Using Current IP/MPLS Technologies", Work in
               Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
-              12, 7 October 2024,
+              13, 11 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
-              ns-ip-mpls-12>.
+              ns-ip-mpls-13>.
 
    [I-D.ietf-teas-ietf-network-slice-nbi-yang]
               Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
@@ -1450,7 +1450,7 @@ Table of Contents
               ietf-network-slice-nbi-yang-16>.
 
    [I-D.ihlar-masque-sconepro-mediabitrate]
-              Ihlar, M. and M. Kühlewind, "MASQUE extension for
+              Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
               signaling media bitrate", Work in Progress, Internet-
               Draft, draft-ihlar-masque-sconepro-mediabitrate-00, 9
               February 2024, <https://datatracker.ietf.org/doc/html/
