@@ -165,8 +165,6 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 ~~~~ CDDL
    ; Provides information about the rate-limit policy that
    ; is enforced for a network attachment.
-   ; Returning a CIR value set to 0 (or a very low value)
-   ; should trigger the host to seek for better paths.
 
    throughput-advice =  [+ throughput-instance]
 
@@ -179,7 +177,10 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 
    ; Controls the presence of optional excess and peak
    ; rate parameters.
-   ; When omitted, tis
+   ; When omitted, this is equivalent to setting these
+   ; parameters to 0.
+   ; Settting these parameters to 0 means that excess and
+   ; peak parameters are not supplied in the policy.
 
    opf =  {
      ? excess: bool .default 0,
@@ -187,6 +188,12 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
    }
 
    ; Indicates scope, direction, and traffic reliability.
+   ; Default value for scope is 0 (i.e., per subscriber).
+   ; Default value for direction is network-to-host direction.
+   ; Default value for reliability is 0 (the policy is applicable
+   ; to both reliable and unreliable traffic.
+   ; If any of these parameters is present, this is equivalent
+   ; to enclosing the paramter with its default value.
 
    ff =  {
      ? scope: bool .default 0,
@@ -202,7 +209,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      ? tc: uint .default 0
    }
 
-   ; Indicates various rates (committed, exces, and peak).
+   ; Indicates various rates (committed, excess, and peak).
    ; Only CIR is mandatory to include.
 
    rate-limit =  {
