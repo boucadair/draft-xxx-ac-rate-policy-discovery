@@ -300,6 +300,46 @@ The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !R
 
 --- back
 
+# Overview of Provider Network Rate-Limit Policies
+
+As discussed, for example in {{?I-D.ietf-teas-5g-ns-ip-mpls}}, a provider network's inbound policy can be implemented using one
+of following options:
+
+   *  1r2c (single-rate two-color) rate limiter
+
+      This is the most basic rate limiter, described in {{Section 2.3 of ?RFC2475}}.
+      It meters at an ingress intreface a
+      traffic stream and marks its packets as in-profile
+      (below CIR being enforced) or out-of-profile (above CIR being enforced).
+      In-profile packets are accepted and forwarded.  Out-of profile
+      packets are either dropped right at the ingress node (hard rate limiting),
+      or remarked (with different MPLS TC or DSCP TN markings) to
+      signify 'this packet should be dropped in the first place, if
+      there is a congestion' (soft rate limiting), depending on the
+      business policy of the provider network.  In the second case, while
+      packets above CIR are forwarded at an ingress node, they are subject to being
+      dropped during any congestion event at any place in the provider network.
+
+   *  2r3c (two-rate three-color) rate limiter
+
+      This was initially defined in {{?RFC2698}}, and its improved version
+      in {{?RFC4115}}.  The traffic is assigned to one of the these three
+      categories:
+
+        -  Green, for traffic under CIR
+
+        -  Yellow, for traffic between CIR and PIR
+
+        -  Red, for traffic above PIR
+
+      An inbound 2r3c meter implemented with {{?RFC4115}}, compared to
+      {{?RFC2698}}, is more 'customer friendly' as it doesn't impose
+      outbound peak-rate shaping requirements on customer edge (CE)
+      devices. 2r3c meters in general give greater flexibility for provider network edge
+      enforcement regarding accepting the traffic (green),
+      de-prioritizing and potentially dropping the traffic on transit during
+      congestion (yellow), or hard dropping the traffic (red).
+
 # Acknowledgments
 {:numbered="false"}
 
