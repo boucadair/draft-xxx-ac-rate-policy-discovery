@@ -155,7 +155,7 @@ Rate-limit:
 
 # Throughput Advice Object {#sec-blob}
 
-## Multiple Throughput Advices
+## Overall Structure
 
 A throuput advice object may include multiple throughput advices (referred to as "throughput advice instance"), each covering a specific match criteria. Each of these
 adhere to the structure defined in {{sec-ins-structure}}.
