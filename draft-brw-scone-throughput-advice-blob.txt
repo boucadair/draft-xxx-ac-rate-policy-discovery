@@ -74,7 +74,6 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  Context
    2.  What's Out?
    3.  Sample Deployment Cases
    4.  Conventions and Definitions
@@ -94,8 +93,6 @@ Table of Contents
    Authors' Addresses
 
 1.  Introduction
-
-1.1.  Context
 
    Connectivity services are provided by networks to customers via
    dedicated terminating points, such as customer edges (CEs) or User
