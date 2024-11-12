@@ -191,8 +191,6 @@ Some deployment use cases for NRLP are provided below:
 
 * A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
 
-Operational considerations are discussed in {{sec-ops}}, while deployment incentives are described in {{sec-inc}}.
-
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
