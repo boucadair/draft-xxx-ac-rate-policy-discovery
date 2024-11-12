@@ -55,9 +55,10 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
-This document specifies a generic object that can be be used by any mechanim for hosts
-to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then
-passed to applicaitons that might adjust their behaviors accordingly.
+This document specifies a generic object that can be be used by mechanims for hosts
+to dynamically discover network rate-limit policies. This information is then
+passed to applications that might adjust their behaviors accordingly. The design of the object is thus independent of
+the discovery channel.
 
 --- middle
 
@@ -76,23 +77,23 @@ The bearer can be a physical or logical link that connects a customer device to 
 
 > Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
 
-{{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
+{{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
-for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).
+for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
+on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2). Note that the figure does not show the interconnection with other network for the sake of simplicity.
 
 ~~~~aasvg
                                                         Hosts
                                                         O O O
                                                          \|/
 .------.                .--------------------.         .------.
-|      +------+         |                    +---AC----+      |
-| UE#1 |      |         |                    +---AC----+ CE#2 |
-'------'      +---AC----+                    |         '------'
+|      +------+         |                    +---NA----+      |
+| UE#1 |      |         |                    +---NA----+ CE#2 |
+'------'      +---NA----+                    |         '------'
                         |     Network        |
-.------.      .---AC----+                    |
+.------.      .---NA----+                    |
 |      |      |         |                    |         .------.
-| CE#1 +------'         |                    +---AC----+ CE#3 |
+| CE#1 +------'         |                    +---NA----+ CE#3 |
 '------'                |                    |         '------'
    /|\                  '--------------------'            /|\
   O O O                                                  O O O
@@ -101,64 +102,104 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
 {: #ac title="Sample Network Attachments" artwork-align="center"}
 
 Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over an AC. A comprehensive list of provisioning parameters that are available on
-the PE-side of an AC is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
+the PE-side of a network attachment is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
-The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
-service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}} or Layer 3 VPN {{?RFC9182}}). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs**.
+The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}}).
 
-In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where ND/DHCP/PvD are not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
+{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment. The set of parameters are independent of the address family.
 
-Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.
+This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Also, the design supports returning one more NRLP instances for a given traffic direction.
+Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.
 
-## What's Out?
+One more throuput advice instances may be returned for a given traffic direction.
 
-This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an AC.
+The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides an overview of how inbound policies are enforced in ingress network nodes. Specifically, the reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
+of how various combinations of Committed Information Rate (EIR)/Committed Burst Size (CBS)/Excess Information Rate (EIR)/Excess Burst Size (EBS)/Peak Information Rate (PIR)/Peak Burst Size (PBS) are used for policing. Typically:
 
-Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
-are bound to the same AC is deployment specific.
+* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
+* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
 
-Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
+# What's Out?
 
+This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates a network attachment.
 
-## Sample Deployment Cases
+Likewise, the document does not make any assumption about the services or applications that are delivered over a network attachment. Whether one or multiple services
+are bound to the same network attachment is deployment specific.
 
-Some deployment use cases for NRLP are provided below:
+Applications will have access to all throuput advice instances and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category.
 
-* A network may advertize an NRLP when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
+Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
-* Discovery of intentional policy applied on ACs (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.
+# Sample Deployment Cases
 
-* A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
+Some deployment use cases for throuput advice discovery are provided below:
+
+Adaptive Application Behavior:
+: Discovery of intentional policy applied on network attachements (CE-PE links, peering links, etc.) when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.
+
+Network Assisted Offload:
+: A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
+
+Better Local Services:
+: A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-This document uses the terms defined in {{Section 2 of ?I-D.ietf-opsawg-ntw-attachment-circuit}} and {{?RFC9473}}.
-
-Also, this document makes use fo the following terms:
-
-Reactive policy:
-:  Treatment given to a flow when an exceptional event
-   occurs, such as diminished throughput to the host caused by radio
-   interference or weak radio signal, congestion on the network
-   caused by other users or other applications on the same host.
-
-Intentional policy:
-:  Configured bandwidth, pps, or similar throughput
-   constraints applied to a flow, application, host, or subscriber.
+This document makes use fo the following term:
 
 Rate-limit:
 : Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
 : It can be used with or without any traffic classification.
 
-# NRLP Blob {#sec-blob}
+# Throughput Advice Object {#sec-blob}
 
-This section defines the set of attributes that are included in an NRLP blob:
+## Multiple Throughput Advices
+
+A throuput advice object may include multiple throughput advices (referred to as "throughput advice instance"), each covering a specific match criteria. Each of these
+adhere to the structure defined in {{sec-ins-structure}}.
+
+The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}.
+
+~~~~ CDDL
+   ; Provides information about the rate-limit policy that
+   ; is enforced for a network attachment.
+   ; Returning a value set to 0 (or a very low value) should trigger
+   ; the host to seek for better paths.
+
+   throughput-advice =  [+ throughput-instance]
+
+   throughput-instance =  {
+     ? opf => optional-parameter-flags,
+     ? ff => flow-flags,
+     cir: uint,  ; Mbps
+     cbs: uint,  ; bytes
+     ? eir: uint,  ; Mbps
+     ? ebs: uint,  ; bytes
+     ? pir: uint,  ; Mbps
+     ? pbs: uint  ; bytes
+   }
+
+   optional-parameter-flags =  {
+     ? excess: bool,
+     ? peak: bool
+   }
+
+   flow-flags =  {
+     ? scope: bool,
+     ? direction: bool,
+     ? reliablity: uint,
+     ? tc: uint
+   }
+~~~~
+{: #cddl title="Throughput Advice Object Format in CDDL"}
+
+## Structure of a Throuput Advice Instance {#sec-ins-structure}
+
+This section defines the set of attributes that are included in a throuput advice instance:
 
 Optional Parameter Flags (OPF):
 : These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):
@@ -197,7 +238,7 @@ Flow flags (FF):
 
     U:
     : Unassigned bits. See {{sec-iana-ff}}.
-    :  Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
+    : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 TC (Traffic Category):
 : 6-bit field which specifies a traffic category to which this policy applies.
@@ -244,21 +285,15 @@ Peak Burst Size (PBS) (bytes):
 : Specifies the maximum burst size that can be transmitted at PIR.
 : MUST be greater than zero, if present.
 
-The reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
-of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Typically:
-
-* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
-* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
-
 # Security Considerations
 
-An attacker who has access to the XXXX exchanged over an AC may:
+An attacker who has access to the throuput advice objects exchanged over a network attachment may:
 
 Decrease the bitrate:
 : This may lower the perceived QoS if the host aggressively lowers its transmission rate.
 
 Increase the bitrate value:
-: The AC will be overloaded, but still the rate-limit at the network will discard excess traffic.
+: The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.
 
 
 # IANA Considerations
@@ -300,7 +335,7 @@ The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !R
 
 --- back
 
-# Overview of Provider Network Rate-Limit Policies
+# Overview of Provider Network Rate-Limit Policies {#sec-overview}
 
 As discussed, for example in {{?I-D.ietf-teas-5g-ns-ip-mpls}}, a provider network's inbound policy can be implemented using one
 of following options:
