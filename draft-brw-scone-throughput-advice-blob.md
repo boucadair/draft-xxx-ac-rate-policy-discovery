@@ -177,17 +177,21 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      throughput => rate-limit
    }
 
+   ; Controls the presence of optional excess and peak
+   ; rate parameters.
+   ; When omitted, tis
+
    opf =  {
-     ? excess: bool,
-     ? peak: bool
+     ? excess: bool .default 0,
+     ? peak: bool .default 0
    }
 
    ; Indicates scope, direction, and traffic reliability.
-   
+
    ff =  {
-     ? scope: bool,
-     ? direction: bool,
-     ? reliability: uint,
+     ? scope: bool .default 0,
+     ? direction: bool .default 0,
+     ? reliability: uint .default 0
    }
 
    ; Indicates traffic category.
@@ -195,7 +199,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
    ; enforced for all traffic.
 
    tc =  {
-     ? tc: uint
+     ? tc: uint .default 0
    }
 
    ; Indicates various rates (committed, exces, and peak).
@@ -239,16 +243,16 @@ Flow flags (FF):
 
     D (Direction):
     : 1-bit flag which indicates the direction on which to apply the enclosed policy.
-    : When set to "1", this flag indicates that this policy is for
-      network-to-host direction.
     : When set to "0", this flag indicates that this policy is for
+      network-to-host direction.
+    : When set to "1", this flag indicates that this policy is for
       host-to-network direction.
 
     R (Reliablity):
     : 2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.
-    : When set to "00b", this flag indicates that this policy is for unreliable traffic.
-    : When set to "01b", this flag indicates that this policy is for reliable traffic.
-    : When set to "10b", this flag indicates that this policy is for both reliable and unreliable traffic.
+    : When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.
+    : When set to "01b", this flag indicates that this policy is for unreliable traffic.
+    : When set to "10b", this flag indicates that this policy is for reliable traffic.
     : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
 
     U:
