@@ -268,32 +268,53 @@ Table of Contents
 
       ; Provides information about the rate-limit policy that
       ; is enforced for a network attachment.
-      ; Returning a value set to 0 (or a very low value) should trigger
-      ; the host to seek for better paths.
+      ; Returning a CIR value set to 0 (or a very low value)
+      ; should trigger the host to seek for better paths.
 
       throughput-advice =  [+ throughput-instance]
 
       throughput-instance =  {
-        ? opf => optional-parameter-flags,
-        ? ff => flow-flags,
-        cir: uint,  ; Mbps
-        cbs: uint,  ; bytes
+        ? optional-parameter-flags => opf,
+        ? flow-flags => ff,
+        ? traffic-category => tc,
+        throughput => rate-limit
+      }
+
+      ; Controls the presence of optional excess and peak
+      ; rate parameters.
+      ; When omitted, tis
+
+      opf =  {
+        ? excess: bool .default 0,
+        ? peak: bool .default 0
+      }
+
+      ; Indicates scope, direction, and traffic reliability.
+
+      ff =  {
+        ? scope: bool .default 0,
+        ? direction: bool .default 0,
+        ? reliability: uint .default 0
+      }
+
+      ; Indicates traffic category.
+      ; If the value is set to 0, this means the policy is
+      ; enforced for all traffic.
+
+      tc =  {
+        ? tc: uint .default 0
+      }
+
+      ; Indicates various rates (committed, exces, and peak).
+      ; Only CIR is mandatory to include.
+
+      rate-limit =  {
+        cir: uint,    ; Mbps
+        cbs: uint,    ; bytes
         ? eir: uint,  ; Mbps
         ? ebs: uint,  ; bytes
         ? pir: uint,  ; Mbps
-        ? pbs: uint  ; bytes
-      }
-
-      optional-parameter-flags =  {
-        ? excess: bool,
-        ? peak: bool
-      }
-
-      flow-flags =  {
-        ? scope: bool,
-        ? direction: bool,
-        ? reliablity: uint,
-        ? tc: uint
+        ? pbs: uint   ; bytes
       }
 
              Figure 2: Throughput Advice Object Format in CDDL
@@ -332,23 +353,23 @@ Table of Contents
       D (Direction):  1-bit flag which indicates the direction on which
          to apply the enclosed policy.
 
-         When set to "1", this flag indicates that this policy is for
+         When set to "0", this flag indicates that this policy is for
          network-to-host direction.
 
-         When set to "0", this flag indicates that this policy is for
+         When set to "1", this flag indicates that this policy is for
          host-to-network direction.
 
       R (Reliablity):  2-bit flag which indicates the reliability type
          of traffic on which to apply the enclosed policy.
 
          When set to "00b", this flag indicates that this policy is for
-         unreliable traffic.
+         both reliable and unreliable traffic.
 
          When set to "01b", this flag indicates that this policy is for
-         reliable traffic.
+         unreliable traffic.
 
          When set to "10b", this flag indicates that this policy is for
-         both reliable and unreliable traffic.
+         reliable traffic.
 
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
