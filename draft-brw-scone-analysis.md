@@ -63,7 +63,7 @@ tbc
 | Criteria                                      |MASQUE| NRLP |SCONE |TRAIN |
 |----------------------------------------------:|:----:|:----:|:----:|:----:|
 | Guard against random advice injection         |Y/N   |  Y   |Y/N   |  Y/N |
-| Guard against changing 5-tuple                |Y/N   |  Y   |Y/N   |  Y/N |
+| Mobility (guard against changing 5-tuple)     |Y/N   |  Y   |Y/N   |  Y/N |
 | Require guards against app abuse              |Y/N   |  Y   |Y/N   |  Y/N |
 | Fate sharing                                  |Y/N   |  Y   |Y/N   |  Y/N |
 | Atomic configuration                          |Y/N   |  Y   |Y/N   |  Y/N |
@@ -73,6 +73,7 @@ tbc
 | Applicable to QUIC                            |Y/N   |  Y   |Y/N   |  Y/N |
 | Applicable to any application                 |Y/N   |  Y   |Y/N   |  Y/N |
 | Require an OS API                             |Y/N   |  Y   |Y/N   |  Y/N |
+| Requires PvD                                  |Y/N   |  Y   |Y/N   |  Y/N |
 | Support cascaded environments                 |Y/N   |  Y   |Y/N   |  Y/N |
 | Path coupled signaling                        |Y/N   |  Y   |Y/N   |  Y/N |
 | Path decoupled signaling                      |Y/N   |  Y   |Y/N   |  Y/N |
@@ -87,8 +88,8 @@ tbc
 | Impact the connection setup delay             |Y/N   |  N   |Y/N   |  Y/N |
 | Require the identity of the target server     |Y/N   |  N   |Y/N   |  Y/N |
 | Require MTU tweaking                          |Y/N   |  N   |Y/N   |  Y/N |
-| Incure multi-layer encryption                 |Y/N   |  N   |Y/N   |  Y/N |
-| Incure nested congestion control              |Y/N   |  N   |Y/N   |  Y/N |
+| Incur multi-layer encryption                  |Y/N   |  N   |Y/N   |  Y/N |
+| Incur nested congestion control               |Y/N   |  N   |Y/N   |  Y/N |
 | Incur multiple round-trips                    |Y/N   |  N   |Y/N   |  Y/N |
 | Overhead of unauthenticated re-encryption     |Y/N   |  N   |Y/N   |  Y/N |
 | Forwarding peformance impact                  |Y/N   |  N   |Y/N   |  Y/N |
