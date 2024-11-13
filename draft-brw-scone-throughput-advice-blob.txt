@@ -204,6 +204,12 @@ Table of Contents
 
    *  How the throughput advice is computed/set.
 
+   *  How applications running over a host can learn the bitrates
+      associated with a network attachment.  Typically, this can be
+      achieved by invoking a dedicated API.  However, the exact details
+      of the API is OS-specific and, thus, out of scope of this
+      document.
+
 3.  Sample Deployment Cases
 
    Some deployment use cases for throuput advice discovery are provided
