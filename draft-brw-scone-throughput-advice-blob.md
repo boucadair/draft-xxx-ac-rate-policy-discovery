@@ -174,42 +174,42 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
    throughput-instance =  {
      ? optional-parameter-flags => opf,
      ? flow-flags => ff,
-     ? traffic-category => tc,
+     ? traffic-category => category,
      throughput => rate-limit
    }
 
    ; Controls the presence of optional excess and peak
    ; rate parameters.
    ; When omitted, this is equivalent to setting these
-   ; parameters to 0.
-   ; Settting these parameters to 0 means that excess and
+   ; parameters to false.
+   ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
 
    opf =  {
-     ? excess: bool .default 0,
-     ? peak: bool .default 0
+     ? excess: bool .default false,
+     ? peak: bool .default false
    }
 
    ; Indicates scope (per host or per subscriber, traffic direction,
    ; and reliability type (reliable or unreliable).
-   ; Default value for scope is 0 (i.e., per subscriber policy).
-   ; Default value for direction is network-to-host direction.
-   ; Default value for reliability is 0 (i.e., the policy is applicable
-   ; to both reliable and unreliable traffic).
+   ; Default value for scope is false (i.e., per subscriber policy).
+   ; Default value for direction is 0 (i.e. network-to-host direction).
+   ; Default value for reliability is false (i.e., the policy is
+   ; applicable to both reliable and unreliable traffic).
    ; If any of these parameters is not present, this is equivalent
    ; to enclosing the parameter with its default value.
 
    ff =  {
-     ? scope: bool .default 0,
-     ? direction: bool .default 0,
-     ? reliability: uint .default 0
+     ? scope: bool .default false,
+     ? direction: uint .default 0,
+     ? reliability: uint .default false
    }
 
    ; Indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
-   tc =  {
+   category =  {
      ? tc: uint .default 0
    }
 
@@ -218,30 +218,29 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 
    rate-limit =  {
      cir: uint,    ; Mbps
-     cbs: uint,    ; bytes
-     ? eir: uint,  ; Mbps
-     ? ebs: uint,  ; bytes
-     ? pir: uint,  ; Mbps
-     ? pbs: uint   ; bytes
+     cbs: uint .gt 0,    ; bytes
+     ? eir: uint,        ; Mbps
+     ? ebs: uint .gt 0,  ; bytes
+     ? pir: uint,        ; Mbps
+     ? pbs: uint .gt 0,  ; bytes
    }
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
 For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
-and for all traffic.
+includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic for any any host of a given subscriber.
 
 ~~~~~json
 {
-   "throughput-advice":[
-      {
-         "direction":1,
-         "scope":1,
-         "tc":0,
-         "cir":50,
-         "cbs":10000
-      }
-   ]
+    "throughput-advice": [
+        {
+            "direction": 0,
+            "scope": false,
+            "tc": 0,
+            "cir": 50,
+            "cbs": 10000
+        }
+    ]
 }
 ~~~~~
 {: #ex title="A JSON Example"}
@@ -268,27 +267,29 @@ Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
 
     S (Scope):
-    : 1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
+    : Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
 
     D (Direction):
-    : 1-bit flag which indicates the direction on which to apply the enclosed policy.
-    : When set to "0", this flag indicates that this policy is for
+    : Indicates the direction on which to apply the enclosed policy.
+    : When set to "00b", this flag indicates that this policy is for
       network-to-host direction.
-    : When set to "1", this flag indicates that this policy is for
+    : When set to "01b", this flag indicates that this policy is for
       host-to-network direction.
+    : When set to "10b", this flag indicates that this policy is for
+      both network-to-host and host-to-network directions.
 
     R (Reliablity):
-    : 2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.
+    : Indicates the reliability type of traffic on which to apply the enclosed policy.
     : When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for unreliable traffic.
     : When set to "10b", this flag indicates that this policy is for reliable traffic.
     : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
 
     U:
-    : Unassigned bits. See {{sec-iana-ff}}.
+    : Unassigned flags. See {{sec-iana-ff}}.
 
 TC (Traffic Category):
-: 6-bit field which specifies a traffic category to which this policy applies.
+: Specifies a traffic category to which this policy applies.
 : The following values are supported:
 
   + "0": All traffic. This is the default value.
