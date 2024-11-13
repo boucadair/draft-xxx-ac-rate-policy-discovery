@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 16 May 2025                                Cloud Software Group
+Expires: 17 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        12 November 2024
+                                                        13 November 2024
 
 
                    Throughput Advice Object for SCONE
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 May 2025.
+   This Internet-Draft will expire on 17 May 2025.
 
 Copyright Notice
 
@@ -88,7 +88,7 @@ Table of Contents
    8.  References
      8.1.  Normative References
      8.2.  Informative References
-   Appendix A.  Overview of Provider Network Rate-Limit Policies
+   Appendix A.  Overview of Network Rate-Limit Policies
    Acknowledgments
    Authors' Addresses
 
@@ -290,13 +290,14 @@ Table of Contents
         ? peak: bool .default 0
       }
 
-      ; Indicates scope, direction, and traffic reliability.
-      ; Default value for scope is 0 (i.e., per subscriber).
+      ; Indicates scope (per host or per subscriber, traffic direction,
+      ; and reliability type (reliable or unreliable).
+      ; Default value for scope is 0 (i.e., per subscriber policy).
       ; Default value for direction is network-to-host direction.
-      ; Default value for reliability is 0 (the policy is applicable
-      ; to both reliable and unreliable traffic.
-      ; If any of these parameters is present, this is equivalent
-      ; to enclosing the paramter with its default value.
+      ; Default value for reliability is 0 (i.e., the policy is applicable
+      ; to both reliable and unreliable traffic).
+      ; If any of these parameters is not present, this is equivalent
+      ; to enclosing the parameter with its default value.
 
       ff =  {
         ? scope: bool .default 0,
@@ -304,8 +305,8 @@ Table of Contents
         ? reliability: uint .default 0
       }
 
-      ; Indicates traffic category.
-      ; If the value is set to 0, this means the policy is
+      ; Indicates traffic category to which the policy is bound.
+      ; If the value is set to 0, this means that the policy is
       ; enforced for all traffic.
 
       tc =  {
@@ -347,9 +348,6 @@ Table of Contents
 
       U:  Unassigned bits.  See Section 7.2.
 
-         Unassigned bits MUST be set to zero by senders and MUST be
-         ignored by receivers.
-
    Flow flags (FF):  These flags are used to express some generic
       properties of the flow.  The following flags are defined (from MSB
       to LSB):
@@ -383,9 +381,6 @@ Table of Contents
 
       U:  Unassigned bits.  See Section 7.3.
 
-         Unassigned bits MUST be set to zero by senders and MUST be
-         ignored by receivers.
-
    TC (Traffic Category):  6-bit field which specifies a traffic
       category to which this policy applies.
 
@@ -403,7 +398,7 @@ Table of Contents
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
-      second over an AC for a traffic category.
+      second over a network attachment for a traffic category.
 
       If set to 0, this indicates to the host that an alternate path (if
       any) should be preferred over this one.
@@ -421,8 +416,8 @@ Table of Contents
       flag is set to '1'.
 
       Specifies the maximum number of bits that a network can receive or
-      send during one second over an AC for a traffic category that is
-      out of profile.
+      send during one second over a network attachment for a traffic
+      category that is out of profile.
 
       This parameter is optional.
 
@@ -607,7 +602,7 @@ Table of Contents
               VPNs", RFC 9291, DOI 10.17487/RFC9291, September 2022,
               <https://www.rfc-editor.org/rfc/rfc9291>.
 
-Appendix A.  Overview of Provider Network Rate-Limit Policies
+Appendix A.  Overview of Network Rate-Limit Policies
 
    As discussed, for example in [I-D.ietf-teas-5g-ns-ip-mpls], a
    provider network's inbound policy can be implemented using one of
