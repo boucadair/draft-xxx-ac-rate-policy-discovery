@@ -307,7 +307,7 @@ Table of Contents
       ; Indicates scope (per host or per subscriber, traffic direction,
       ; and reliability type (reliable or unreliable).
       ; Default value for scope is false (i.e., per subscriber policy).
-      ; Default value for direction is network-to-host direction.
+      ; Default value for direction is 0 (i.e. network-to-host direction).
       ; Default value for reliability is false (i.e., the policy is
       ; applicable to both reliable and unreliable traffic).
       ; If any of these parameters is not present, this is equivalent
@@ -315,7 +315,7 @@ Table of Contents
 
       ff =  {
         ? scope: bool .default false,
-        ? direction: boolean .default false,
+        ? direction: uint .default 0,
         ? reliability: uint .default false
       }
 
@@ -332,30 +332,30 @@ Table of Contents
 
       rate-limit =  {
         cir: uint,    ; Mbps
-        cbs: uint,    ; bytes
-        ? eir: uint,  ; Mbps
-        ? ebs: uint,  ; bytes
-        ? pir: uint,  ; Mbps
-        ? pbs: uint   ; bytes
+        cbs: uint .gt 0,    ; bytes
+        ? eir: uint,        ; Mbps
+        ? ebs: uint .gt 0,  ; bytes
+        ? pir: uint,        ; Mbps
+        ? pbs: uint .gt 0,  ; bytes
       }
 
              Figure 2: Throughput Advice Object Format in CDDL
 
    For the sake of illustration, Figure 3 exemplifies the content of a
    throughput advice using JSON notations.  The advice includes one
-   rate-limit instance that covers network-to-host direction, is
-   applicable all hosts of a given subscriber, and for all traffic.
+   rate-limit instance that covers network-to-host direction and is
+   applicable to all traffic for any any host of a given subscriber.
 
    {
-      "throughput-advice":[
-         {
-            "direction":false,
-            "scope":false,
-            "tc":0,
-            "cir":50,
-            "cbs":10000
-         }
-      ]
+       "throughput-advice": [
+           {
+               "direction": 0,
+               "scope": false,
+               "tc": 0,
+               "cir": 50,
+               "cbs": 10000
+           }
+       ]
    }
 
                           Figure 3: A JSON Example
@@ -385,20 +385,23 @@ Table of Contents
       properties of the flow.  The following flags are defined (from MSB
       to LSB):
 
-      S (Scope):  1-bit field which specifies whether the policy is per
-         host (when set to "1") or per subscriber (when set to "0).
+      S (Scope):  Specifies whether the policy is per host (when set to
+         "1") or per subscriber (when set to "0).
 
-      D (Direction):  1-bit flag which indicates the direction on which
-         to apply the enclosed policy.
+      D (Direction):  Indicates the direction on which to apply the
+         enclosed policy.
 
-         When set to "0", this flag indicates that this policy is for
+         When set to "00b", this flag indicates that this policy is for
          network-to-host direction.
 
-         When set to "1", this flag indicates that this policy is for
+         When set to "01b", this flag indicates that this policy is for
          host-to-network direction.
 
-      R (Reliablity):  2-bit flag which indicates the reliability type
-         of traffic on which to apply the enclosed policy.
+         When set to "10b", this flag indicates that this policy is for
+         both network-to-host and host-to-network directions.
+
+      R (Reliablity):  Indicates the reliability type of traffic on
+         which to apply the enclosed policy.
 
          When set to "00b", this flag indicates that this policy is for
          both reliable and unreliable traffic.
@@ -412,10 +415,10 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned bits.  See Section 7.3.
+      U:  Unassigned flags.  See Section 7.3.
 
-   TC (Traffic Category):  6-bit field which specifies a traffic
-      category to which this policy applies.
+   TC (Traffic Category):  Specifies a traffic category to which this
+      policy applies.
 
       The following values are supported:
 
@@ -478,10 +481,12 @@ Table of Contents
 
       MUST be greater than zero, if present.
 
+      This parameter is optional.
+
 6.  Security Considerations
 
-   An attacker who has access to the throuput advice objects exchanged
-   over a network attachment may:
+   An attacker who has the ability to change the throuput advice objects
+   exchanged over a network attachment may:
 
    Decrease the bitrate:  This may lower the perceived QoS if the host
       aggressively lowers its transmission rate.
