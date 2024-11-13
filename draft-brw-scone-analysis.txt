@@ -80,8 +80,8 @@ Table of Contents
       | Guard against random advice |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                   injection |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |      Guard against changing |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                     5-tuple |        |      |       |       |
+      |     Mobility (guard against |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |           changing 5-tuple) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |  Require guards against app |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                       abuse |        |      |       |       |
@@ -105,6 +105,8 @@ Table of Contents
       |                 application |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |           Require an OS API |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      +-----------------------------+--------+------+-------+-------+
+      |                Requires PvD |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
       |            Support cascaded |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                environments |        |      |       |       |
@@ -142,10 +144,10 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |        Require MTU tweaking |  Y/N   |  N   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
-      |          Incure multi-layer |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |           Incur multi-layer |  Y/N   |  N   |  Y/N  |  Y/N  |
       |                  encryption |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |    Incure nested congestion |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |     Incur nested congestion |  Y/N   |  N   |  Y/N  |  Y/N  |
       |                     control |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |  Incur multiple round-trips |  Y/N   |  N   |  Y/N  |  Y/N  |
