@@ -11,13 +11,13 @@
 <meta content="Sridharan Rajagopalan" name="author">
 <meta content="Luis M. Contreras" name="author">
 <meta content="
-       Traffic exchanged over a network attachment may be subject to rate-limit policies.
+       Traffic exchanged over a network may be subject to rate-limit policies.
 These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). 
        This document specifies a generic object that can be be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
-passed to applications that might adjust their behaviors accordingly. The design of the object is thus independent of
+passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
 the discovery channel. 
     " name="description">
 <meta content="xml2rfc 3.24.0" name="generator">
@@ -1140,13 +1140,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Throughput Advice Object for SCONE</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Traffic exchanged over a network attachment may be subject to rate-limit policies.
+<p id="section-abstract-1">Traffic exchanged over a network may be subject to rate-limit policies.
 These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document specifies a generic object that can be be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
-passed to applications that might adjust their behaviors accordingly. The design of the object is thus independent of
+passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
 the discovery channel.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1289,11 +1289,16 @@ while the underlying link is referred to as "bearers".<a href="#section-1-1" cla
 <p id="section-1-4"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2). Note that the figure does not show the interconnection with other network for the sake of simplicity.<a href="#section-1-4" class="pilcrow">¶</a></p>
+on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).<a href="#section-1-4" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1-5.1">
+          <p id="section-1-5.1.1"><a href="#ac" class="auto internal xref">Figure 1</a> does not show the interconnection with other networks for the sake of simplicity.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 <span id="name-sample-network-attachments"></span><div id="ac">
 <figure id="figure-1">
-        <div id="section-1-5.1">
-          <div class="alignCenter art-svg artwork" id="section-1-5.1.1">
+        <div id="section-1-6.1">
+          <div class="alignCenter art-svg artwork" id="section-1-6.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="512" viewBox="0 0 512 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 8,80 L 8,128" fill="none" stroke="black"></path>
               <path d="M 8,160 L 8,208" fill="none" stroke="black"></path>
@@ -1356,29 +1361,29 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
                 <text x="40" y="260">Hosts</text>
                 <text x="480" y="260">Hosts</text>
               </g>
-            </svg><a href="#section-1-5.1.1" class="pilcrow">¶</a>
+            </svg><a href="#section-1-6.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-sample-network-attachments" class="selfRef">Sample Network Attachments</a>
         </figcaption></figure>
 </div>
-<p id="section-1-6">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
+<p id="section-1-7">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
-the PE-side of a network attachment is documented in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>).<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment. The set of parameters are independent of the address family.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p id="section-1-10">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-10" class="pilcrow">¶</a></p>
-<p id="section-1-11">One more throuput advice instances may be returned for a given traffic direction.<a href="#section-1-11" class="pilcrow">¶</a></p>
-<p id="section-1-12">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides an overview of how inbound policies are enforced in ingress network nodes. Specifically, the reader should refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
-of how various combinations of Committed Information Rate (EIR)/Committed Burst Size (CBS)/Excess Information Rate (EIR)/Excess Burst Size (EBS)/Peak Information Rate (PIR)/Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-12" class="pilcrow">¶</a></p>
+the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>).<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-11" class="pilcrow">¶</a></p>
+<p id="section-1-12">Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-13">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
+of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-13" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-13.1">
-          <p id="section-1-13.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-13.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-14.1">
+          <p id="section-1-14.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-14.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-13.2">
-          <p id="section-1-13.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS.<a href="#section-1-13.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-14.2">
+          <p id="section-1-14.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS.<a href="#section-1-14.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1388,10 +1393,20 @@ of how various combinations of Committed Information Rate (EIR)/Committed Burst 
       <h2 id="name-whats-out">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-whats-out" class="section-name selfRef">What's Out?</a>
       </h2>
-<p id="section-2-1">This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates a network attachment.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">Likewise, the document does not make any assumption about the services or applications that are delivered over a network attachment. Whether one or multiple services
-are bound to the same network attachment is deployment specific.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">Applications will have access to all throuput advice instances and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-1">This document does not make any assumption about:<a href="#section-2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.1">
+          <p id="section-2-2.1.1">The type of the network (fixed, cellular, etc.) that terminates a network attachment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.2">
+          <p id="section-2-2.2.1">The services or applications that are delivered over a network attachment. Whether one or multiple services
+are bound to the same network attachment is deployment specific.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.3">
+          <p id="section-2-2.3.1">How the throughput advice is computed/set.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-2-3">Applications will have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
