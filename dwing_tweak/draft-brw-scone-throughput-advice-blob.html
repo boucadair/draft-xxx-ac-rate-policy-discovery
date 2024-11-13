@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Throughput Advice Object for SCONE</title>
+<meta content="Mohamed Boucadair" name="author">
+<meta content="Dan Wing" name="author">
+<meta content="Tirumaleswar Reddy" name="author">
+<meta content="Sridharan Rajagopalan" name="author">
+<meta content="Luis M. Contreras" name="author">
+<meta content="
+       Traffic exchanged over a network may be subject to rate-limit policies.
+These policies may be intentional policies (e.g., enforced as part of the activation
+of the network attachment and typically agreed upon service subscription)
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). 
+       This document specifies a generic object that can be be used by mechanims for hosts
+to dynamically discover network rate-limit policies. This information is then
+passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
+the discovery channel. 
+    " name="description">
+<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="collaborative networking" name="keyword">
+<meta content="adaptive application" name="keyword">
+<meta content="draft-brw-scone-throughput-advice-blob-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.24.0
+    Python 3.12.7
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.4
+    lxml 5.3.0
+    platformdirs 4.3.6
+    pycountry 22.3.5
+    PyYAML 6.0.1
+    requests 2.32.3
+    setuptools 70.3.0
+    wcwidth 0.2.13
+-->
+<link href="draft-brw-scone-throughput-advice-blob.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+}
+:is(ol, ul) :is(ol, ul) {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  line-height: 1;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+}
+dl.olPercent {
+  --indent: 5ch;
+}
+dl > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
+  margin-top: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
+  margin-bottom: 0;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    overflow-x: auto;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+}
+a.pilcrow[href] { color: var(--pilcrow-weak); }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  min-width: var(--identifier-width);
+  clear: left;
+  float: left;
+  text-align: right;
+  margin-right: 1ch;
+}
+#identifiers dd {
+  margin: 0;
+  margin-left: calc(1em + var(--identifier-width)) !important;
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+  }
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 2px 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 10ch;
+  margin-right: 1.5ch;
+}
+.references dt:target::before {
+  content: "⇒";
+  width: 15px;
+  margin: 0 10px 0 -25px;
+}
+.references dd {
+  margin-left: 12ch !important;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul :is(p, li) {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">SCONE Blob</td>
+<td class="right">November 2024</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Boucadair, et al.</td>
+<td class="center">Expires 17 May 2025</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">scone</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-brw-scone-throughput-advice-blob-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2024-11-13" class="published">13 November 2024</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Standards Track</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2025-05-17">17 May 2025</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Boucadair</div>
+<div class="org">Orange</div>
+</div>
+<div class="author">
+      <div class="author-name">D. Wing</div>
+<div class="org">Cloud Software Group</div>
+</div>
+<div class="author">
+      <div class="author-name">T. Reddy</div>
+<div class="org">Nokia</div>
+</div>
+<div class="author">
+      <div class="author-name">S. Rajagopalan</div>
+<div class="org">Cloud Software Group</div>
+</div>
+<div class="author">
+      <div class="author-name">L. Contreras</div>
+<div class="org">Telefonica</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Throughput Advice Object for SCONE</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">Traffic exchanged over a network may be subject to rate-limit policies.
+These policies may be intentional policies (e.g., enforced as part of the activation
+of the network attachment and typically agreed upon service subscription)
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document specifies a generic object that can be be used by mechanims for hosts
+to dynamically discover network rate-limit policies. This information is then
+passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
+the discovery channel.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Source for this draft and an issue tracker can be found at
+    <span><a href="https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery">https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 17 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2024 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-whats-out" class="internal xref">What's Out?</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-sample-deployment-cases" class="internal xref">Sample Deployment Cases</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-throughput-advice-object" class="internal xref">Throughput Advice Object</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-overall-structure" class="internal xref">Overall Structure</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-structure-of-a-throuput-adv" class="internal xref">Structure of a Throuput Advice Instance</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-rate-limit-policy-objects-r" class="internal xref">Rate-Limit Policy Objects Registry Group</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-optional-parameter-flags-re" class="internal xref">Optional Parameter Flags Registry</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-flow-flags-registry" class="internal xref">Flow Flags Registry</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-overview-of-network-rate-li" class="internal xref">Overview of Network Rate-Limit Policies</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">Connectivity services are provided by networks to customers via
+dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
+To facilitate data transfer via the provider network, it is assumed that appropriate setup
+is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
+successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
+while the underlying link is referred to as "bearers".<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1-3.1">
+          <p id="section-1-3.1.1">Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF (<span>[<a href="#RFC4026" class="cite xref">RFC4026</a>]</span>, <span>[<a href="#RFC4664" class="cite xref">RFC4664</a>]</span>, <span>[<a href="#RFC4364" class="cite xref">RFC4364</a>]</span>, etc.).<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-1-4"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
+other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
+for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
+on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).<a href="#section-1-4" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1-5.1">
+          <p id="section-1-5.1.1"><a href="#ac" class="auto internal xref">Figure 1</a> does not show the interconnection with other networks for the sake of simplicity.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<span id="name-sample-network-attachments"></span><div id="ac">
+<figure id="figure-1">
+        <div id="section-1-6.1">
+          <div class="alignCenter art-svg artwork" id="section-1-6.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="512" viewBox="0 0 512 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,80 L 8,128" fill="none" stroke="black"></path>
+              <path d="M 8,160 L 8,208" fill="none" stroke="black"></path>
+              <path d="M 64,80 L 64,128" fill="none" stroke="black"></path>
+              <path d="M 64,160 L 64,208" fill="none" stroke="black"></path>
+              <path d="M 120,96 L 120,128" fill="none" stroke="black"></path>
+              <path d="M 120,160 L 120,192" fill="none" stroke="black"></path>
+              <path d="M 200,80 L 200,224" fill="none" stroke="black"></path>
+              <path d="M 368,80 L 368,224" fill="none" stroke="black"></path>
+              <path d="M 448,80 L 448,128" fill="none" stroke="black"></path>
+              <path d="M 448,176 L 448,208" fill="none" stroke="black"></path>
+              <path d="M 504,80 L 504,128" fill="none" stroke="black"></path>
+              <path d="M 504,176 L 504,208" fill="none" stroke="black"></path>
+              <path d="M 8,80 L 64,80" fill="none" stroke="black"></path>
+              <path d="M 200,80 L 368,80" fill="none" stroke="black"></path>
+              <path d="M 448,80 L 504,80" fill="none" stroke="black"></path>
+              <path d="M 64,96 L 120,96" fill="none" stroke="black"></path>
+              <path d="M 368,96 L 392,96" fill="none" stroke="black"></path>
+              <path d="M 416,96 L 448,96" fill="none" stroke="black"></path>
+              <path d="M 368,112 L 392,112" fill="none" stroke="black"></path>
+              <path d="M 416,112 L 448,112" fill="none" stroke="black"></path>
+              <path d="M 8,128 L 64,128" fill="none" stroke="black"></path>
+              <path d="M 120,128 L 144,128" fill="none" stroke="black"></path>
+              <path d="M 168,128 L 200,128" fill="none" stroke="black"></path>
+              <path d="M 448,128 L 504,128" fill="none" stroke="black"></path>
+              <path d="M 8,160 L 64,160" fill="none" stroke="black"></path>
+              <path d="M 120,160 L 144,160" fill="none" stroke="black"></path>
+              <path d="M 168,160 L 200,160" fill="none" stroke="black"></path>
+              <path d="M 448,176 L 504,176" fill="none" stroke="black"></path>
+              <path d="M 64,192 L 120,192" fill="none" stroke="black"></path>
+              <path d="M 368,192 L 392,192" fill="none" stroke="black"></path>
+              <path d="M 416,192 L 448,192" fill="none" stroke="black"></path>
+              <path d="M 8,208 L 64,208" fill="none" stroke="black"></path>
+              <path d="M 448,208 L 504,208" fill="none" stroke="black"></path>
+              <path d="M 200,224 L 368,224" fill="none" stroke="black"></path>
+              <g class="text">
+                <text x="472" y="36">Hosts</text>
+                <text x="456" y="52">O</text>
+                <text x="472" y="52">O</text>
+                <text x="488" y="52">O</text>
+                <text x="472" y="68">\|/</text>
+                <text x="404" y="100">NA</text>
+                <text x="36" y="116">UE#1</text>
+                <text x="404" y="116">NA</text>
+                <text x="476" y="116">CE#2</text>
+                <text x="156" y="132">NA</text>
+                <text x="272" y="148">Network</text>
+                <text x="156" y="164">NA</text>
+                <text x="36" y="196">CE#1</text>
+                <text x="404" y="196">NA</text>
+                <text x="476" y="196">CE#3</text>
+                <text x="40" y="228">/|\</text>
+                <text x="480" y="228">/|\</text>
+                <text x="24" y="244">O</text>
+                <text x="40" y="244">O</text>
+                <text x="56" y="244">O</text>
+                <text x="464" y="244">O</text>
+                <text x="480" y="244">O</text>
+                <text x="496" y="244">O</text>
+                <text x="40" y="260">Hosts</text>
+                <text x="480" y="260">Hosts</text>
+              </g>
+            </svg><a href="#section-1-6.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-sample-network-attachments" class="selfRef">Sample Network Attachments</a>
+        </figcaption></figure>
+</div>
+<p id="section-1-7">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
+able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
+the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>).<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-11" class="pilcrow">¶</a></p>
+<p id="section-1-12">Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-13">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
+of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-13" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-14.1">
+          <p id="section-1-14.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-14.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-1-14.2">
+          <p id="section-1-14.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS.<a href="#section-1-14.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="whats-out">
+<section id="section-2">
+      <h2 id="name-whats-out">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-whats-out" class="section-name selfRef">What's Out?</a>
+      </h2>
+<p id="section-2-1">This document does not make any assumption about:<a href="#section-2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.1">
+          <p id="section-2-2.1.1">The type of the network (fixed, cellular, etc.) that terminates a network attachment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.2">
+          <p id="section-2-2.2.1">The services or applications that are delivered over a network attachment. Whether one or multiple services
+are bound to the same network attachment is deployment specific.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.3">
+          <p id="section-2-2.3.1">How the throughput advice is computed/set.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-2.4">
+          <p id="section-2-2.4.1">How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="sample-deployment-cases">
+<section id="section-3">
+      <h2 id="name-sample-deployment-cases">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-sample-deployment-cases" class="section-name selfRef">Sample Deployment Cases</a>
+      </h2>
+<p id="section-3-1">Some deployment use cases for throuput advice discovery are provided below:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3-2">
+        <dt id="section-3-2.1">Adaptive Application Behavior:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.2">
+          <p id="section-3-2.2.1">Discovery of intentional policy applied on network attachements (CE-PE links, peering links, etc.) when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.3"></dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.4">
+          <p id="section-3-2.4.1">Concretely, applications are supposed to have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.5"></dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.6">
+          <p id="section-3-2.6.1">Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.<a href="#section-3-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.7">Network Assisted Offload:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.8">
+          <p id="section-3-2.8.1">A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source <span>[<a href="#RFC9066" class="cite xref">RFC9066</a>]</span>.<a href="#section-3-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.9">Better Local Services:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.10">
+          <p id="section-3-2.10.1">A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.<a href="#section-3-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-4">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-4-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">This document makes use fo the following term:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4-3">
+        <dt id="section-4-3.1">Rate-limit:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.2">
+          <p id="section-4-3.2.1">Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.3"></dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.4">
+          <p id="section-4-3.4.1">It can be used with or without any traffic classification.<a href="#section-4-3.4.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-blob">
+<section id="section-5">
+      <h2 id="name-throughput-advice-object">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-throughput-advice-object" class="section-name selfRef">Throughput Advice Object</a>
+      </h2>
+<div id="overall-structure">
+<section id="section-5.1">
+        <h3 id="name-overall-structure">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-overall-structure" class="section-name selfRef">Overall Structure</a>
+        </h3>
+<p id="section-5.1-1">A throuput advice object may include multiple throughput advices (referred to as "throughput advice instance"), each covering a specific match criteria. Each of these
+adhere to the structure defined in <a href="#sec-ins-structure" class="auto internal xref">Section 5.2</a>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">The throughput advice object is described in CDDL <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> format shown in <a href="#cddl" class="auto internal xref">Figure 2</a>.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<span id="name-throughput-advice-object-fo"></span><div id="cddl">
+<figure id="figure-2">
+          <div class="breakable lang-CDDL sourcecode" id="section-5.1-3.1">
+<pre>
+   ; Provides information about the rate-limit policy that
+   ; is enforced for a network attachment.
+
+   throughput-advice =  [+ throughput-instance]
+
+   throughput-instance =  {
+     ? optional-parameter-flags =&gt; opf,
+     ? flow-flags =&gt; ff,
+     ? traffic-category =&gt; tc,
+     throughput =&gt; rate-limit
+   }
+
+   ; Controls the presence of optional excess and peak
+   ; rate parameters.
+   ; When omitted, this is equivalent to setting these
+   ; parameters to 0.
+   ; Settting these parameters to 0 means that excess and
+   ; peak parameters are not supplied in the policy.
+
+   opf =  {
+     ? excess: bool .default 0,
+     ? peak: bool .default 0
+   }
+
+   ; Indicates scope (per host or per subscriber, traffic direction,
+   ; and reliability type (reliable or unreliable).
+   ; Default value for scope is 0 (i.e., per subscriber policy).
+   ; Default value for direction is network-to-host direction.
+   ; Default value for reliability is 0 (i.e., the policy is applicable
+   ; to both reliable and unreliable traffic).
+   ; If any of these parameters is not present, this is equivalent
+   ; to enclosing the parameter with its default value.
+
+   ff =  {
+     ? scope: bool .default 0,
+     ? direction: bool .default 0,
+     ? reliability: uint .default 0
+   }
+
+   ; Indicates traffic category to which the policy is bound.
+   ; If the value is set to 0, this means that the policy is
+   ; enforced for all traffic.
+
+   tc =  {
+     ? tc: uint .default 0
+   }
+
+   ; Indicates various rates (committed, excess, and peak).
+   ; Only CIR is mandatory to include.
+
+   rate-limit =  {
+     cir: uint,    ; Mbps
+     cbs: uint,    ; bytes
+     ? eir: uint,  ; Mbps
+     ? ebs: uint,  ; bytes
+     ? pir: uint,  ; Mbps
+     ? pbs: uint   ; bytes
+   }
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-throughput-advice-object-fo" class="selfRef">Throughput Advice Object Format in CDDL</a>
+          </figcaption></figure>
+</div>
+<p id="section-5.1-4">For the sake of illustration, <a href="#ex" class="auto internal xref">Figure 3</a> exemplifies the content of a throughput advice using JSON notations. The advice
+includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
+and for all traffic.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<span id="name-a-json-example"></span><div id="ex">
+<figure id="figure-3">
+          <div class="lang-json sourcecode" id="section-5.1-5.1">
+<pre>
+{
+   "throughput-advice":[
+      {
+         "direction":1,
+         "scope":1,
+         "tc":0,
+         "cir":50,
+         "cbs":10000
+      }
+   ]
+}
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-a-json-example" class="selfRef">A JSON Example</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-ins-structure">
+<section id="section-5.2">
+        <h3 id="name-structure-of-a-throuput-adv">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-structure-of-a-throuput-adv" class="section-name selfRef">Structure of a Throuput Advice Instance</a>
+        </h3>
+<p id="section-5.2-1">This section defines the set of attributes that are included in a throuput advice instance:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.2-2">
+          <dt id="section-5.2-2.1">Optional Parameter Flags (OPF):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.2">
+            <p id="section-5.2-2.2.1">These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.2-2.2.2">
+              <dt id="section-5.2-2.2.2.1">E:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.2">
+                <p id="section-5.2-2.2.2.2.1">When set to "1", this flag indicates the presence of Excess Information Rate (EIR).<a href="#section-5.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.2.2.3"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.4">
+                <p id="section-5.2-2.2.2.4.1">When set to "0", this flag indicates that EIR is not present.<a href="#section-5.2-2.2.2.4.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.2.2.5">P:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.6">
+                <p id="section-5.2-2.2.2.6.1">When set to "1", this flag indicates the presence of Peak Information Rate (PIR).<a href="#section-5.2-2.2.2.6.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.2.2.7"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.8">
+                <p id="section-5.2-2.2.2.8.1">When set to "0", this flag indicates that PIR is not present.<a href="#section-5.2-2.2.2.8.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.2.2.9">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.10">
+                <p id="section-5.2-2.2.2.10.1">Unassigned bits. See <a href="#sec-iana-opf" class="auto internal xref">Section 7.2</a>.<a href="#section-5.2-2.2.2.10.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+</dl>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.3">Flow flags (FF):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.4">
+            <p id="section-5.2-2.4.1">These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.2-2.4.2">
+              <dt id="section-5.2-2.4.2.1">S (Scope):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.2">
+                <p id="section-5.2-2.4.2.2.1">1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).<a href="#section-5.2-2.4.2.2.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.3">D (Direction):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.4">
+                <p id="section-5.2-2.4.2.4.1">1-bit flag which indicates the direction on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.4.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.5"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.6">
+                <p id="section-5.2-2.4.2.6.1">When set to "0", this flag indicates that this policy is for
+network-to-host direction.<a href="#section-5.2-2.4.2.6.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.7"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.8">
+                <p id="section-5.2-2.4.2.8.1">When set to "1", this flag indicates that this policy is for
+host-to-network direction.<a href="#section-5.2-2.4.2.8.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.9">R (Reliablity):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.10">
+                <p id="section-5.2-2.4.2.10.1">2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.10.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.11"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.12">
+                <p id="section-5.2-2.4.2.12.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.2-2.4.2.12.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.13"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.14">
+                <p id="section-5.2-2.4.2.14.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.2-2.4.2.14.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.15"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.16">
+                <p id="section-5.2-2.4.2.16.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.2-2.4.2.16.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.17"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.18">
+                <p id="section-5.2-2.4.2.18.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.2-2.4.2.18.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.19">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.20">
+                <p id="section-5.2-2.4.2.20.1">Unassigned bits. See <a href="#sec-iana-ff" class="auto internal xref">Section 7.3</a>.<a href="#section-5.2-2.4.2.20.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+</dl>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.5">TC (Traffic Category):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.6">
+            <p id="section-5.2-2.6.1">6-bit field which specifies a traffic category to which this policy applies.<a href="#section-5.2-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.7"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.8">
+            <p id="section-5.2-2.8.1">The following values are supported:<a href="#section-5.2-2.8.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-2.8.2.1">
+                <p id="section-5.2-2.8.2.1.1">"0": All traffic. This is the default value.<a href="#section-5.2-2.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-2.8.2.2">
+                <p id="section-5.2-2.8.2.2.1">"1": Streaming<a href="#section-5.2-2.8.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-2.8.2.3">
+                <p id="section-5.2-2.8.2.3.1">"2": Real-time<a href="#section-5.2-2.8.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-2.8.2.4">
+                <p id="section-5.2-2.8.2.4.1">"3": Bulk traffic<a href="#section-5.2-2.8.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2-2.8.2.5">
+                <p id="section-5.2-2.8.2.5.1">4-63: Unassigned values<a href="#section-5.2-2.8.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.9">Committed Information Rate (CIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.10">
+            <p id="section-5.2-2.10.1">Specifies the maximum number of bits that a network can receive or
+send during one second over a network attachment for a
+traffic category.<a href="#section-5.2-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.11"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.12">
+            <p id="section-5.2-2.12.1">If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.<a href="#section-5.2-2.12.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.13"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.14">
+            <p id="section-5.2-2.14.1">This parameter is mandatory.<a href="#section-5.2-2.14.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.15">Committed Burst Size (CBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.16">
+            <p id="section-5.2-2.16.1">Specifies the maximum burst size that can be transmitted at CIR.<a href="#section-5.2-2.16.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.17"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.18">
+            <p id="section-5.2-2.18.1"><span class="bcp14">MUST</span> be greater than zero.<a href="#section-5.2-2.18.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.19"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.20">
+            <p id="section-5.2-2.20.1">This parameter is mandatory.<a href="#section-5.2-2.20.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.21">Excess Information Rate (EIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.22">
+            <p id="section-5.2-2.22.1"><span class="bcp14">MUST</span> be present only if the E flag is set to '1'.<a href="#section-5.2-2.22.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.23"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.24">
+            <p id="section-5.2-2.24.1">Specifies the maximum number of bits that a network can receive or
+send during one second over a network attachment for a
+traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.25"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.26">
+            <p id="section-5.2-2.26.1">This parameter is optional.<a href="#section-5.2-2.26.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.27">Excess Burst Size (EBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.28">
+            <p id="section-5.2-2.28.1"><span class="bcp14">MUST</span> be present only if EIR is also present.<a href="#section-5.2-2.28.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.29"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.30">
+            <p id="section-5.2-2.30.1">Indicates the maximum excess burst size that is allowed while not complying with the CIR.<a href="#section-5.2-2.30.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.31"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.32">
+            <p id="section-5.2-2.32.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.2-2.32.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.33"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.34">
+            <p id="section-5.2-2.34.1">This parameter is optional.<a href="#section-5.2-2.34.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.35">Peak Information Rate (PIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.36">
+            <p id="section-5.2-2.36.1"><span class="bcp14">MUST</span> be present only if P flag is set to '1'.<a href="#section-5.2-2.36.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.37"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.38">
+            <p id="section-5.2-2.38.1">Traffic that exceeds the CIR and the CBS is metered to the PIR.<a href="#section-5.2-2.38.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.39"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.40">
+            <p id="section-5.2-2.40.1">This parameter is optional.<a href="#section-5.2-2.40.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.41">Peak Burst Size (PBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.42">
+            <p id="section-5.2-2.42.1"><span class="bcp14">MUST</span> be present only if PIR is also present.<a href="#section-5.2-2.42.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.43"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.44">
+            <p id="section-5.2-2.44.1">Specifies the maximum burst size that can be transmitted at PIR.<a href="#section-5.2-2.44.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.45"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.46">
+            <p id="section-5.2-2.46.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.2-2.46.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.2-2.47"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.2-2.48">
+            <p id="section-5.2-2.48.1">This parameter is optional.<a href="#section-5.2-2.48.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-6">
+      <h2 id="name-security-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-6-1">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-6-2">
+        <dt id="section-6-2.1">Decrease the bitrate:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-2.2">
+          <p id="section-6-2.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-2.3">Increase the bitrate value:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-2.4">
+          <p id="section-6-2.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-7">
+      <h2 id="name-iana-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<div id="sec-iana-rlp">
+<section id="section-7.1">
+        <h3 id="name-rate-limit-policy-objects-r">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-rate-limit-policy-objects-r" class="section-name selfRef">Rate-Limit Policy Objects Registry Group</a>
+        </h3>
+<p id="section-7.1-1">This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-opf">
+<section id="section-7.2">
+        <h3 id="name-optional-parameter-flags-re">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-optional-parameter-flags-re" class="section-name selfRef">Optional Parameter Flags Registry</a>
+        </h3>
+<p id="section-7.2-1">This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group (<a href="#sec-iana-rlp" class="auto internal xref">Section 7.1</a>).<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">The initial values of this registry is provided in <a href="#iana-op-flags" class="auto internal xref">Table 1</a>.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<span id="name-optional-parameter-flags"></span><div id="iana-op-flags">
+<table class="center" id="table-1">
+          <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-optional-parameter-flags" class="selfRef">Optional Parameter Flags</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Bit Position</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">1</td>
+              <td class="text-left" rowspan="1" colspan="1">E-flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">P-flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">4</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<p id="section-7.2-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-7.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-ff">
+<section id="section-7.3">
+        <h3 id="name-flow-flags-registry">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-flow-flags-registry" class="section-name selfRef">Flow Flags Registry</a>
+        </h3>
+<p id="section-7.3-1">This document requests IANA to create a new registry entitled "Flow flags" under the "Rate-Limit Policy Objects" registry group (<a href="#sec-iana-rlp" class="auto internal xref">Section 7.1</a>).<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">The initial values of this registry is provided in <a href="#iana-flow-flags" class="auto internal xref">Table 2</a>.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<span id="name-flow-flags"></span><div id="iana-flow-flags">
+<table class="center" id="table-2">
+          <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-flow-flags" class="selfRef">Flow flags</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Bit Position</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">1</td>
+              <td class="text-left" rowspan="1" colspan="1">Scope (S) Flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">Direction (D) Flag</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3-4</td>
+              <td class="text-left" rowspan="1" colspan="1">Reliability (R) Flags</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">5</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">6</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<p id="section-7.3-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-7.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-8">
+      <h2 id="name-references">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-8.1">
+        <h3 id="name-normative-references">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+        <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8610">[RFC8610]</dt>
+      <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-8.2">
+        <h3 id="name-informative-references">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-opsawg-ntw-attachment-circuit">[I-D.ietf-opsawg-ntw-attachment-circuit]</dt>
+        <dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Roberts, R.</span>, <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">B. Wu</span>, <span class="refTitle">"A Network YANG Data Model for Attachment Circuits"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-ntw-attachment-circuit-14</span>, <time datetime="2024-11-07" class="refDate">7 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-ntw-attachment-circuit-14">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-ntw-attachment-circuit-14</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-teas-5g-ns-ip-mpls">[I-D.ietf-teas-5g-ns-ip-mpls]</dt>
+        <dd>
+<span class="refAuthor">Szarkowicz, K. G.</span>, <span class="refAuthor">Roberts, R.</span>, <span class="refAuthor">Lucek, J.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">L. M. Contreras</span>, <span class="refTitle">"A Realization of Network Slices for 5G Networks Using Current IP/MPLS Technologies"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-13</span>, <time datetime="2024-10-11" class="refDate">11 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-ns-ip-mpls-13">https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-ns-ip-mpls-13</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2475">[RFC2475]</dt>
+        <dd>
+<span class="refAuthor">Blake, S.</span>, <span class="refAuthor">Black, D.</span>, <span class="refAuthor">Carlson, M.</span>, <span class="refAuthor">Davies, E.</span>, <span class="refAuthor">Wang, Z.</span>, and <span class="refAuthor">W. Weiss</span>, <span class="refTitle">"An Architecture for Differentiated Services"</span>, <span class="seriesInfo">RFC 2475</span>, <span class="seriesInfo">DOI 10.17487/RFC2475</span>, <time datetime="1998-12" class="refDate">December 1998</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2475">https://www.rfc-editor.org/rfc/rfc2475</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2697">[RFC2697]</dt>
+        <dd>
+<span class="refAuthor">Heinanen, J.</span> and <span class="refAuthor">R. Guerin</span>, <span class="refTitle">"A Single Rate Three Color Marker"</span>, <span class="seriesInfo">RFC 2697</span>, <span class="seriesInfo">DOI 10.17487/RFC2697</span>, <time datetime="1999-09" class="refDate">September 1999</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2697">https://www.rfc-editor.org/rfc/rfc2697</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2698">[RFC2698]</dt>
+        <dd>
+<span class="refAuthor">Heinanen, J.</span> and <span class="refAuthor">R. Guerin</span>, <span class="refTitle">"A Two Rate Three Color Marker"</span>, <span class="seriesInfo">RFC 2698</span>, <span class="seriesInfo">DOI 10.17487/RFC2698</span>, <time datetime="1999-09" class="refDate">September 1999</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2698">https://www.rfc-editor.org/rfc/rfc2698</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4026">[RFC4026]</dt>
+        <dd>
+<span class="refAuthor">Andersson, L.</span> and <span class="refAuthor">T. Madsen</span>, <span class="refTitle">"Provider Provisioned Virtual Private Network (VPN) Terminology"</span>, <span class="seriesInfo">RFC 4026</span>, <span class="seriesInfo">DOI 10.17487/RFC4026</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4026">https://www.rfc-editor.org/rfc/rfc4026</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4115">[RFC4115]</dt>
+        <dd>
+<span class="refAuthor">Aboul-Magd, O.</span> and <span class="refAuthor">S. Rabie</span>, <span class="refTitle">"A Differentiated Service Two-Rate, Three-Color Marker with Efficient Handling of in-Profile Traffic"</span>, <span class="seriesInfo">RFC 4115</span>, <span class="seriesInfo">DOI 10.17487/RFC4115</span>, <time datetime="2005-07" class="refDate">July 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4115">https://www.rfc-editor.org/rfc/rfc4115</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4364">[RFC4364]</dt>
+        <dd>
+<span class="refAuthor">Rosen, E.</span> and <span class="refAuthor">Y. Rekhter</span>, <span class="refTitle">"BGP/MPLS IP Virtual Private Networks (VPNs)"</span>, <span class="seriesInfo">RFC 4364</span>, <span class="seriesInfo">DOI 10.17487/RFC4364</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4364">https://www.rfc-editor.org/rfc/rfc4364</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4664">[RFC4664]</dt>
+        <dd>
+<span class="refAuthor">Andersson, L., Ed.</span> and <span class="refAuthor">E. Rosen, Ed.</span>, <span class="refTitle">"Framework for Layer 2 Virtual Private Networks (L2VPNs)"</span>, <span class="seriesInfo">RFC 4664</span>, <span class="seriesInfo">DOI 10.17487/RFC4664</span>, <time datetime="2006-09" class="refDate">September 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4664">https://www.rfc-editor.org/rfc/rfc4664</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9066">[RFC9066]</dt>
+        <dd>
+<span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">J. Shallow</span>, <span class="refTitle">"Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home"</span>, <span class="seriesInfo">RFC 9066</span>, <span class="seriesInfo">DOI 10.17487/RFC9066</span>, <time datetime="2021-12" class="refDate">December 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9066">https://www.rfc-editor.org/rfc/rfc9066</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9291">[RFC9291]</dt>
+      <dd>
+<span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Gonzalez de Dios, O., Ed.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">L. Munoz</span>, <span class="refTitle">"A YANG Network Data Model for Layer 2 VPNs"</span>, <span class="seriesInfo">RFC 9291</span>, <span class="seriesInfo">DOI 10.17487/RFC9291</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9291">https://www.rfc-editor.org/rfc/rfc9291</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-overview">
+<section id="appendix-A">
+      <h2 id="name-overview-of-network-rate-li">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-overview-of-network-rate-li" class="section-name selfRef">Overview of Network Rate-Limit Policies</a>
+      </h2>
+<p id="appendix-A-1">As discussed, for example in <span>[<a href="#I-D.ietf-teas-5g-ns-ip-mpls" class="cite xref">I-D.ietf-teas-5g-ns-ip-mpls</a>]</span>, a provider network's inbound policy can be implemented using one
+of following options:<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-2.1">
+          <p id="appendix-A-2.1.1">1r2c (single-rate two-color) rate limiter<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2.1.2">
+This is the most basic rate limiter, described in <span><a href="https://rfc-editor.org/rfc/rfc2475#section-2.3" class="relref">Section 2.3</a> of [<a href="#RFC2475" class="cite xref">RFC2475</a>]</span>.
+It meters at an ingress intreface a
+traffic stream and marks its packets as in-profile
+(below CIR being enforced) or out-of-profile (above CIR being enforced).
+In-profile packets are accepted and forwarded.  Out-of profile
+packets are either dropped right at the ingress node (hard rate limiting),
+or remarked (with different MPLS TC or DSCP TN markings) to
+signify 'this packet should be dropped in the first place, if
+there is a congestion' (soft rate limiting), depending on the
+business policy of the provider network.  In the second case, while
+packets above CIR are forwarded at an ingress node, they are subject to being
+dropped during any congestion event at any place in the provider network.<a href="#appendix-A-2.1.2" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-A-2.2">
+          <p id="appendix-A-2.2.1">2r3c (two-rate three-color) rate limiter<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2.2.2">
+This was initially defined in <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and its improved version
+in <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>.  The traffic is assigned to one of the these three
+categories:<a href="#appendix-A-2.2.2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-2.2.3.1">
+              <p id="appendix-A-2.2.3.1.1">Green, for traffic under CIR<a href="#appendix-A-2.2.3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A-2.2.3.2">
+              <p id="appendix-A-2.2.3.2.1">Yellow, for traffic between CIR and PIR<a href="#appendix-A-2.2.3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A-2.2.3.3">
+              <p id="appendix-A-2.2.3.3.1">Red, for traffic above PIR<a href="#appendix-A-2.2.3.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="appendix-A-2.2.4">
+An inbound 2r3c meter implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, compared to
+<span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, is more 'customer friendly' as it doesn't impose
+outbound peak-rate shaping requirements on customer edge (CE)
+devices. 2r3c meters in general give greater flexibility for provider network edge
+enforcement regarding accepting the traffic (green),
+de-prioritizing and potentially dropping the traffic on transit during
+congestion (yellow), or hard dropping the traffic (red).<a href="#appendix-A-2.2.4" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-B">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-B-1">TBC.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-C">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Mohamed Boucadair</span></div>
+<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mohamed.boucadair@orange.com" class="email">mohamed.boucadair@orange.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Dan Wing</span></div>
+<div dir="auto" class="left"><span class="org">Cloud Software Group Holdings, Inc.</span></div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:danwing@gmail.com" class="email">danwing@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Tirumaleswar Reddy</span></div>
+<div dir="auto" class="left"><span class="org">Nokia</span></div>
+<div dir="auto" class="left"><span class="country-name">India</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:kondtir@gmail.com" class="email">kondtir@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Sridharan Rajagopalan</span></div>
+<div dir="auto" class="left"><span class="org">Cloud Software Group Holdings, Inc.</span></div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:sridharan.girish@gmail.com" class="email">sridharan.girish@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Luis M. Contreras</span></div>
+<div dir="auto" class="left"><span class="org">Telefonica</span></div>
+<div dir="auto" class="left"><span class="country-name">Spain</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:luismiguel.contrerasmurillo@telefonica.com" class="email">luismiguel.contrerasmurillo@telefonica.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
