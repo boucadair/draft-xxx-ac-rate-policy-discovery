@@ -64,12 +64,15 @@ tbc
 |----------------------------------------------:|:----:|:----:|:----:|:----:|
 | Guard against random advice injection         |Y/N   |  Y   |Y/N   |  Y/N |
 | Guard against changing 5-tuple                |Y/N   |  Y   |Y/N   |  Y/N |
+| Require guards against app abuse              |Y/N   |  Y   |Y/N   |  Y/N |
 | Fate sharing                                  |Y/N   |  Y   |Y/N   |  Y/N |
 | Atomic configuration                          |Y/N   |  Y   |Y/N   |  Y/N |
 | Updatability/Proactive signalling             |Y/N   |  Y   |Y/N   |  Y/N |
 | Integration with network management tools     |Y/N   |  Y   |Y/N   |  Y/N |
 | Applicable to any transport protocol          |Y/N   |  Y   |Y/N   |  Y/N |
 | Applicable to QUIC                            |Y/N   |  Y   |Y/N   |  Y/N |
+| Applicable to any application                 |Y/N   |  Y   |Y/N   |  Y/N |
+| Require an OS API                             |Y/N   |  Y   |Y/N   |  Y/N |
 | Support cascaded environments                 |Y/N   |  Y   |Y/N   |  Y/N |
 | Path coupled signaling                        |Y/N   |  Y   |Y/N   |  Y/N |
 | Path decoupled signaling                      |Y/N   |  Y   |Y/N   |  Y/N |
