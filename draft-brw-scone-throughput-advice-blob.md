@@ -174,42 +174,42 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
    throughput-instance =  {
      ? optional-parameter-flags => opf,
      ? flow-flags => ff,
-     ? traffic-category => tc,
+     ? traffic-category => category,
      throughput => rate-limit
    }
 
    ; Controls the presence of optional excess and peak
    ; rate parameters.
    ; When omitted, this is equivalent to setting these
-   ; parameters to 0.
-   ; Settting these parameters to 0 means that excess and
+   ; parameters to false.
+   ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
 
    opf =  {
-     ? excess: bool .default 0,
-     ? peak: bool .default 0
+     ? excess: bool .default false,
+     ? peak: bool .default false
    }
 
    ; Indicates scope (per host or per subscriber, traffic direction,
    ; and reliability type (reliable or unreliable).
-   ; Default value for scope is 0 (i.e., per subscriber policy).
+   ; Default value for scope is false (i.e., per subscriber policy).
    ; Default value for direction is network-to-host direction.
-   ; Default value for reliability is 0 (i.e., the policy is applicable
-   ; to both reliable and unreliable traffic).
+   ; Default value for reliability is false (i.e., the policy is
+   ; applicable to both reliable and unreliable traffic).
    ; If any of these parameters is not present, this is equivalent
    ; to enclosing the parameter with its default value.
 
    ff =  {
-     ? scope: bool .default 0,
-     ? direction: bool .default 0,
-     ? reliability: uint .default 0
+     ? scope: bool .default false,
+     ? direction: boolean .default false,
+     ? reliability: uint .default false
    }
 
    ; Indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
-   tc =  {
+   category =  {
      ? tc: uint .default 0
    }
 
@@ -228,15 +228,15 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
 For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
+includes one rate-limit instance that covers network-to-host direction, is applicable all hosts of a given subscriber,
 and for all traffic.
 
 ~~~~~json
 {
    "throughput-advice":[
       {
-         "direction":1,
-         "scope":1,
+         "direction":false,
+         "scope":false,
          "tc":0,
          "cir":50,
          "cbs":10000
