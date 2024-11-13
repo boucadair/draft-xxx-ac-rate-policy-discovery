@@ -83,6 +83,9 @@ Table of Contents
       |      Guard against changing |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                     5-tuple |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
+      |  Require guards against app |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                       abuse |        |      |       |       |
+      +-----------------------------+--------+------+-------+-------+
       |                Fate sharing |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
       |        Atomic configuration |  Y/N   |  Y   |  Y/N  |  Y/N  |
@@ -97,6 +100,11 @@ Table of Contents
       |                    protocol |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |          Applicable to QUIC |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      +-----------------------------+--------+------+-------+-------+
+      |           Applicable to any |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                 application |        |      |       |       |
+      +-----------------------------+--------+------+-------+-------+
+      |           Require an OS API |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
       |            Support cascaded |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                environments |        |      |       |       |
