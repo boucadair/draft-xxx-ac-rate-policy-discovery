@@ -228,6 +228,25 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
+For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
+includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
+and for all traffic.
+
+~~~~~json
+{
+   "throughput-advice":[
+      {
+         "direction":1,
+         "scope":1,
+         "tc":0,
+         "cir":50,
+         "cbs":10000
+      }
+   ]
+}
+~~~~~
+{: #ex title="A JSON Example"}
+
 ## Structure of a Throuput Advice Instance {#sec-ins-structure}
 
 This section defines the set of attributes that are included in a throuput advice instance:
