@@ -1495,42 +1495,42 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
    throughput-instance =  {
      ? optional-parameter-flags =&gt; opf,
      ? flow-flags =&gt; ff,
-     ? traffic-category =&gt; tc,
+     ? traffic-category =&gt; category,
      throughput =&gt; rate-limit
    }
 
    ; Controls the presence of optional excess and peak
    ; rate parameters.
    ; When omitted, this is equivalent to setting these
-   ; parameters to 0.
-   ; Settting these parameters to 0 means that excess and
+   ; parameters to false.
+   ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
 
    opf =  {
-     ? excess: bool .default 0,
-     ? peak: bool .default 0
+     ? excess: bool .default false,
+     ? peak: bool .default false
    }
 
    ; Indicates scope (per host or per subscriber, traffic direction,
    ; and reliability type (reliable or unreliable).
-   ; Default value for scope is 0 (i.e., per subscriber policy).
-   ; Default value for direction is network-to-host direction.
-   ; Default value for reliability is 0 (i.e., the policy is applicable
-   ; to both reliable and unreliable traffic).
+   ; Default value for scope is false (i.e., per subscriber policy).
+   ; Default value for direction is 0 (i.e. network-to-host direction).
+   ; Default value for reliability is false (i.e., the policy is
+   ; applicable to both reliable and unreliable traffic).
    ; If any of these parameters is not present, this is equivalent
    ; to enclosing the parameter with its default value.
 
    ff =  {
-     ? scope: bool .default 0,
-     ? direction: bool .default 0,
-     ? reliability: uint .default 0
+     ? scope: bool .default false,
+     ? direction: uint .default 0,
+     ? reliability: uint .default false
    }
 
    ; Indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
-   tc =  {
+   category =  {
      ? tc: uint .default 0
    }
 
@@ -1539,11 +1539,11 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
 
    rate-limit =  {
      cir: uint,    ; Mbps
-     cbs: uint,    ; bytes
-     ? eir: uint,  ; Mbps
-     ? ebs: uint,  ; bytes
-     ? pir: uint,  ; Mbps
-     ? pbs: uint   ; bytes
+     cbs: uint .gt 0,    ; bytes
+     ? eir: uint,        ; Mbps
+     ? ebs: uint .gt 0,  ; bytes
+     ? pir: uint,        ; Mbps
+     ? pbs: uint .gt 0,  ; bytes
    }
 </pre>
 </div>
@@ -1552,22 +1552,21 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
           </figcaption></figure>
 </div>
 <p id="section-5.1-4">For the sake of illustration, <a href="#ex" class="auto internal xref">Figure 3</a> exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
-and for all traffic.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic for any any host of a given subscriber.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <span id="name-a-json-example"></span><div id="ex">
 <figure id="figure-3">
           <div class="lang-json sourcecode" id="section-5.1-5.1">
 <pre>
 {
-   "throughput-advice":[
-      {
-         "direction":1,
-         "scope":1,
-         "tc":0,
-         "cir":50,
-         "cbs":10000
-      }
-   ]
+    "throughput-advice": [
+        {
+            "direction": 0,
+            "scope": false,
+            "tc": 0,
+            "cir": 50,
+            "cbs": 10000
+        }
+    ]
 }
 </pre>
 </div>
@@ -1622,54 +1621,60 @@ and for all traffic.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.2-2.4.2">
               <dt id="section-5.2-2.4.2.1">S (Scope):</dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.2">
-                <p id="section-5.2-2.4.2.2.1">1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).<a href="#section-5.2-2.4.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.2.1">Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).<a href="#section-5.2-2.4.2.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.3">D (Direction):</dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.4">
-                <p id="section-5.2-2.4.2.4.1">1-bit flag which indicates the direction on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.4.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.4.1">Indicates the direction on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.4.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.5"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.6">
-                <p id="section-5.2-2.4.2.6.1">When set to "0", this flag indicates that this policy is for
+                <p id="section-5.2-2.4.2.6.1">When set to "00b", this flag indicates that this policy is for
 network-to-host direction.<a href="#section-5.2-2.4.2.6.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.7"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.8">
-                <p id="section-5.2-2.4.2.8.1">When set to "1", this flag indicates that this policy is for
+                <p id="section-5.2-2.4.2.8.1">When set to "01b", this flag indicates that this policy is for
 host-to-network direction.<a href="#section-5.2-2.4.2.8.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.9">R (Reliablity):</dt>
+<dt id="section-5.2-2.4.2.9"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.10">
-                <p id="section-5.2-2.4.2.10.1">2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.10.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.10.1">When set to "10b", this flag indicates that this policy is for
+both network-to-host and host-to-network directions.<a href="#section-5.2-2.4.2.10.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.11"></dt>
+<dt id="section-5.2-2.4.2.11">R (Reliablity):</dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.12">
-                <p id="section-5.2-2.4.2.12.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.2-2.4.2.12.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.12.1">Indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.12.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.13"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.14">
-                <p id="section-5.2-2.4.2.14.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.2-2.4.2.14.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.14.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.2-2.4.2.14.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.15"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.16">
-                <p id="section-5.2-2.4.2.16.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.2-2.4.2.16.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.16.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.2-2.4.2.16.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2-2.4.2.17"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.18">
-                <p id="section-5.2-2.4.2.18.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.2-2.4.2.18.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.18.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.2-2.4.2.18.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.19">U:</dt>
+<dt id="section-5.2-2.4.2.19"></dt>
               <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.20">
-                <p id="section-5.2-2.4.2.20.1">Unassigned bits. See <a href="#sec-iana-ff" class="auto internal xref">Section 7.3</a>.<a href="#section-5.2-2.4.2.20.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.4.2.20.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.2-2.4.2.20.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.2-2.4.2.21">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.22">
+                <p id="section-5.2-2.4.2.22.1">Unassigned flags. See <a href="#sec-iana-ff" class="auto internal xref">Section 7.3</a>.<a href="#section-5.2-2.4.2.22.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1677,7 +1682,7 @@ host-to-network direction.<a href="#section-5.2-2.4.2.8.1" class="pilcrow">¶</a
           <dd class="break"></dd>
 <dt id="section-5.2-2.5">TC (Traffic Category):</dt>
           <dd style="margin-left: 1.5em" id="section-5.2-2.6">
-            <p id="section-5.2-2.6.1">6-bit field which specifies a traffic category to which this policy applies.<a href="#section-5.2-2.6.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.6.1">Specifies a traffic category to which this policy applies.<a href="#section-5.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.2-2.7"></dt>
