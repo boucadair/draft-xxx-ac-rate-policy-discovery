@@ -331,10 +331,11 @@ Peak Burst Size (PBS) (bytes):
 : MUST be present only if PIR is also present.
 : Specifies the maximum burst size that can be transmitted at PIR.
 : MUST be greater than zero, if present.
+: This parameter is optional.
 
 # Security Considerations
 
-An attacker who has access to the throuput advice objects exchanged over a network attachment may:
+An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
 
 Decrease the bitrate:
 : This may lower the perceived QoS if the host aggressively lowers its transmission rate.
