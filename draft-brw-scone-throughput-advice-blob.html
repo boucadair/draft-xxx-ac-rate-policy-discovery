@@ -1406,8 +1406,6 @@ are bound to the same network attachment is deployment specific.<a href="#sectio
           <p id="section-2-2.3.1">How the throughput advice is computed/set.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-2-3">Applications will have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sample-deployment-cases">
@@ -1422,14 +1420,24 @@ are bound to the same network attachment is deployment specific.<a href="#sectio
           <p id="section-3-2.2.1">Discovery of intentional policy applied on network attachements (CE-PE links, peering links, etc.) when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-3-2.3">Network Assisted Offload:</dt>
+<dt id="section-3-2.3"></dt>
         <dd style="margin-left: 1.5em" id="section-3-2.4">
-          <p id="section-3-2.4.1">A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source <span>[<a href="#RFC9066" class="cite xref">RFC9066</a>]</span>.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.4.1">Concretely, applications are supposed to have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-3-2.5">Better Local Services:</dt>
+<dt id="section-3-2.5"></dt>
         <dd style="margin-left: 1.5em" id="section-3-2.6">
-          <p id="section-3-2.6.1">A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.<a href="#section-3-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.6.1">Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.<a href="#section-3-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.7">Network Assisted Offload:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.8">
+          <p id="section-3-2.8.1">A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source <span>[<a href="#RFC9066" class="cite xref">RFC9066</a>]</span>.<a href="#section-3-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-2.9">Better Local Services:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-2.10">
+          <p id="section-3-2.10.1">A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.<a href="#section-3-2.10.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>

@@ -204,20 +204,6 @@ Table of Contents
 
    *  How the throughput advice is computed/set.
 
-   Applications will have access to all throuput advice instances and
-   would, thus, adjust their behavior as a function of scope and traffic
-   category indicated in a throughput policy (all traffic, streaming,
-   etc.).  An application that couples multiple flow types would adjust
-   each flow type to be consistent with the specific policy for the
-   relevant traffic category.
-
-   Likewise, a host with multiple network attachments may use the
-   discovered throuput advice instances over each network attachment to
-   decide how to distribute its flows over these network attachments
-   (prefer a network attachment to place an application session, migrate
-   connection, etc.).  That's said, this document does not make any
-   recommendation about how a receiving host uses the discovered policy.
-
 3.  Sample Deployment Cases
 
    Some deployment use cases for throuput advice discovery are provided
@@ -229,6 +215,22 @@ Table of Contents
       activation or when network upgrades are performed.  Adaptive
       applications will thus used the information to adjust their
       behavior.
+
+      Concretely, applications are supposed to have access to all
+      throuput advice instances and would, thus, adjust their behavior
+      as a function of scope and traffic category indicated in a
+      throughput policy (all traffic, streaming, etc.).  An application
+      that couples multiple flow types would adjust each flow type to be
+      consistent with the specific policy for the relevant traffic
+      category.
+
+      Likewise, a host with multiple network attachments may use the
+      discovered throuput advice instances over each network attachment
+      to decide how to distribute its flows over these network
+      attachments (prefer a network attachment to place an application
+      session, migrate connection, etc.).  That's said, this document
+      does not make any recommendation about how a receiving host uses
+      the discovered policy.
 
    Network Assisted Offload:  A network may advertize a throuput advice
       when it is overloaded, including when it is under attack.  The
