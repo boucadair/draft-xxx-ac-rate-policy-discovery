@@ -187,13 +187,14 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      ? peak: bool .default 0
    }
 
-   ; Indicates scope, direction, and traffic reliability.
-   ; Default value for scope is 0 (i.e., per subscriber).
+   ; Indicates scope (per host or per subscriber, traffic direction,
+   ; and reliability type (reliable or unreliable).
+   ; Default value for scope is 0 (i.e., per subscriber policy).
    ; Default value for direction is network-to-host direction.
-   ; Default value for reliability is 0 (the policy is applicable
-   ; to both reliable and unreliable traffic.
-   ; If any of these parameters is present, this is equivalent
-   ; to enclosing the paramter with its default value.
+   ; Default value for reliability is 0 (i.e., the policy is applicable
+   ; to both reliable and unreliable traffic).
+   ; If any of these parameters is not present, this is equivalent
+   ; to enclosing the parameter with its default value.
 
    ff =  {
      ? scope: bool .default 0,
@@ -201,8 +202,8 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      ? reliability: uint .default 0
    }
 
-   ; Indicates traffic category.
-   ; If the value is set to 0, this means the policy is
+   ; Indicates traffic category to which the policy is bound.
+   ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
    tc =  {
@@ -240,7 +241,6 @@ Optional Parameter Flags (OPF):
 
     U:
     : Unassigned bits. See {{sec-iana-opf}}.
-    : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
@@ -264,7 +264,6 @@ Flow flags (FF):
 
     U:
     : Unassigned bits. See {{sec-iana-ff}}.
-    : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 TC (Traffic Category):
 : 6-bit field which specifies a traffic category to which this policy applies.
@@ -278,7 +277,7 @@ TC (Traffic Category):
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
-  send during one second over an AC for a
+  send during one second over a network attachment for a
   traffic category.
 : If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
 : This parameter is mandatory.
@@ -291,7 +290,7 @@ Committed Burst Size (CBS) (bytes):
 Excess Information Rate (EIR) (Mbps):
 : MUST be present only if the E flag is set to '1'.
 : Specifies the maximum number of bits that a network can receive or
-  send during one second over an AC for a
+  send during one second over a network attachment for a
   traffic category that is out of profile.
 : This parameter is optional.
 
@@ -361,7 +360,7 @@ The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !R
 
 --- back
 
-# Overview of Provider Network Rate-Limit Policies {#sec-overview}
+# Overview of Network Rate-Limit Policies {#sec-overview}
 
 As discussed, for example in {{?I-D.ietf-teas-5g-ns-ip-mpls}}, a provider network's inbound policy can be implemented using one
 of following options:
