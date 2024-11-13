@@ -50,14 +50,14 @@ informative:
 
 --- abstract
 
-Traffic exchanged over a network attachment may be subject to rate-limit policies.
+Traffic exchanged over a network may be subject to rate-limit policies.
 These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
 This document specifies a generic object that can be be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
-passed to applications that might adjust their behaviors accordingly. The design of the object is thus independent of
+passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
 the discovery channel.
 
 --- middle
@@ -78,7 +78,9 @@ The bearer can be a physical or logical link that connects a customer device to 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2). Note that the figure does not show the interconnection with other network for the sake of simplicity.
+on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).
+
+> {{ac}} does not show the interconnection with other networks for the sake of simplicity.
 
 ~~~~aasvg
                                                         Hosts
@@ -101,32 +103,34 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
 
 Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
-the PE-side of a network attachment is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+the PE-side of a network attachment is specified in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
 The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}}).
 
-{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment. The set of parameters are independent of the address family.
+{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.
 
 This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
 Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.
 
-One more throuput advice instances may be returned for a given traffic direction.
+Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
-The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides an overview of how inbound policies are enforced in ingress network nodes. Specifically, the reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
-of how various combinations of Committed Information Rate (EIR)/Committed Burst Size (CBS)/Excess Information Rate (EIR)/Excess Burst Size (EBS)/Peak Information Rate (PIR)/Peak Burst Size (PBS) are used for policing. Typically:
+The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
+of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
 
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
 * A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
 
 # What's Out?
 
-This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates a network attachment.
+This document does not make any assumption about:
 
-Likewise, the document does not make any assumption about the services or applications that are delivered over a network attachment. Whether one or multiple services
+* The type of the network (fixed, cellular, etc.) that terminates a network attachment.
+* The services or applications that are delivered over a network attachment. Whether one or multiple services
 are bound to the same network attachment is deployment specific.
+* How the throughput advice is computed/set.
 
-Applications will have access to all throuput advice instances and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category.
+Applications will have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.
 
 Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
