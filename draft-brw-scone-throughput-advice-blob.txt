@@ -333,6 +333,25 @@ Table of Contents
 
              Figure 2: Throughput Advice Object Format in CDDL
 
+   For the sake of illustration, Figure 3 exemplifies the content of a
+   throughput advice using JSON notations.  The advice includes one
+   rate-limit instance that covers networkr-to-host direction, is
+   applicable all hosts of a given subscriber, and for all traffic.
+
+   {
+      "throughput-advice":[
+         {
+            "direction":1,
+            "scope":1,
+            "tc":0,
+            "cir":50,
+            "cbs":10000
+         }
+      ]
+   }
+
+                          Figure 3: A JSON Example
+
 5.2.  Structure of a Throuput Advice Instance
 
    This section defines the set of attributes that are included in a

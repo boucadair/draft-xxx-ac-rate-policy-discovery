@@ -1540,6 +1540,30 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
 <a href="#name-throughput-advice-object-fo" class="selfRef">Throughput Advice Object Format in CDDL</a>
           </figcaption></figure>
 </div>
+<p id="section-5.1-4">For the sake of illustration, <a href="#ex" class="auto internal xref">Figure 3</a> exemplifies the content of a throughput advice using JSON notations. The advice
+includes one rate-limit instance that covers networkr-to-host direction, is applicable all hosts of a given subscriber,
+and for all traffic.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<span id="name-a-json-example"></span><div id="ex">
+<figure id="figure-3">
+          <div class="lang-json sourcecode" id="section-5.1-5.1">
+<pre>
+{
+   "throughput-advice":[
+      {
+         "direction":1,
+         "scope":1,
+         "tc":0,
+         "cir":50,
+         "cbs":10000
+      }
+   ]
+}
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-a-json-example" class="selfRef">A JSON Example</a>
+          </figcaption></figure>
+</div>
 </section>
 </div>
 <div id="sec-ins-structure">
