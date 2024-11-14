@@ -168,6 +168,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 ~~~~ CDDL
    ; Provides information about the rate-limit policy that
    ; is enforced for a network attachment.
+   ; One or more throughput instances can be present.
 
    throughput-advice =  [+ throughput-instance]
 
@@ -178,10 +179,8 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      throughput => rate-limit
    }
 
-   ; Controls the presence of optional excess and peak
-   ; rate parameters.
-   ; When omitted, this is equivalent to setting these
-   ; parameters to false.
+   ; Controls the presence of optional excess and peak rate
+   ; parameters.
    ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
 
@@ -190,7 +189,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
      ? peak: bool .default false
    }
 
-   ; Indicates scope (per host or per subscriber, traffic direction,
+   ; Indicates scope (per host or per subscriber), traffic direction,
    ; and reliability type (reliable or unreliable).
    ; Default value for scope is false (i.e., per subscriber policy).
    ; Default value for direction is 0 (i.e. network-to-host direction).
@@ -228,7 +227,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
 For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic for any any host of a given subscriber.
+includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic destined to any any host of a given subscriber.
 
 ~~~~~json
 {
@@ -338,12 +337,14 @@ Peak Burst Size (PBS) (bytes):
 
 An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
 
-Decrease the bitrate:
+Decrease the bitrate value:
 : This may lower the perceived QoS if the host aggressively lowers its transmission rate.
 
 Increase the bitrate value:
 : The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.
 
+Delete or remove the advice:
+: This is equivalent to deployments where the advice is not shared.
 
 # IANA Considerations
 
