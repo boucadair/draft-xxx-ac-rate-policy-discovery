@@ -121,6 +121,8 @@ of how various combinations of Committed Information Rate (EIR), Committed Burst
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
 * A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
 
+In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
+
 # What's Out?
 
 This document does not make any assumption about:
@@ -295,7 +297,7 @@ TC (Traffic Category):
   + "1": Streaming
   + "2": Real-time
   + "3": Bulk traffic
-  + 4-63: Unassigned values
+  + 4-63: Unassigned values. See {{sec-iana-tc}}.
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -346,7 +348,7 @@ Increase the bitrate value:
 Delete or remove the advice:
 : This is equivalent to deployments where the advice is not shared.
 
-# IANA Considerations
+# IANA Considerations {#sec-iana}
 
 ## Rate-Limit Policy Objects Registry Group {#sec-iana-rlp}
 
@@ -380,6 +382,22 @@ The initial values of this registry is provided in {{iana-flow-flags}}.
 |5| Unassigned| |
 |6| Unassigned| |
 {: #iana-flow-flags title="Flow flags"}
+
+The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
+
+## Traffic Category Registry {#sec-iana-tc}
+
+This document requests IANA to create a new registry entitled "Traffic Category Types" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+
+The initial values of this registry is provided in {{iana-tc}}.
+
+|Value|     Description|     Reference|
+|0| All traffic|This-Document|
+|1| Streaming|This-Document|
+|2| Real-time|This-Document|
+|3| Bulk traffic| |
+|4-63| Unassigned| |
+{: #iana-tc title="Traffic Category Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
