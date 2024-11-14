@@ -176,7 +176,7 @@ A criterion may belong to one or more categories.
 ### Key Idea
 
 NRLP leverages existing discovery mechanisms (DHCP, RA, PvD) for networks to advertise throughout advices.
-The same generic blob is used independent of the signaling mechanism.
+The same generic blob is used independent of the signaling mechanism. NRLP operates within the existing network/host trust model.
 
 ### Discussion
 
@@ -266,7 +266,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 
 # Security Considerations
 
-TBC.
+Security-related criteria are analyzed for each proposed solution.
 
 # IANA Considerations
 
