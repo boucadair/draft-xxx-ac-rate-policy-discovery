@@ -322,8 +322,7 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |     Per-subscriber policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
-      |      Provide provisions for |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                  extensions |        |      |       |       |
+      |                  Extendable |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
       | Require data plane upgrade/ |  Y/N   |  N   |  Y/N  |  Y/N  |
       |                      change |        |      |       |       |
