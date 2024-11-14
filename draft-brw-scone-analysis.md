@@ -73,11 +73,11 @@ tbc
 | Applicable to QUIC                            |Y/N   |  Y   |Y/N   |  Y/N |
 | Applicable to any application                 |Y/N   |  Y   |Y/N   |  Y/N |
 | Require an OS API                             |Y/N   |  Y   |Y/N   |  Y/N |
-| Requires PvD                                  |Y/N   |  Y   |Y/N   |  Y/N |
+| Requires PvD                                  |Y/N   | Y(*) |Y/N   |  Y/N |
 | Support cascaded environments                 |Y/N   |  Y   |Y/N   |  Y/N |
 | Path coupled signaling                        |Y/N   |  Y   |Y/N   |  Y/N |
 | Path decoupled signaling                      |Y/N   |  Y   |Y/N   |  Y/N |
-| Traffic direction                             |Y/N   |  Y   |Y/N   |  Y/N |
+| Traffic direction (h2n, n2h, both)            |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-host policies                             |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-subscriber policies                       |Y/N   |  Y   |Y/N   |  Y/N |
 | Require data plane upgrade/change             |Y/N   |  N   |Y/N   |  Y/N |
