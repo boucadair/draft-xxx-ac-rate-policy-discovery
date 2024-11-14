@@ -72,7 +72,7 @@ A criterion may belong to one or more categories.
 
 
 | Criteria                                      |Security| Deployability |Performance|Service Interference|Functional|
-|----------------------------------------------:|:------:|:-------------:|:---------:|:------------------:|:---------|
+|----------------------------------------------:|:------:|:-------------:|:---------:|:------------------:|:--------:|
 | Guard against random advice injection         |X       |               |           |                    |          |
 | Mobility (guard against changing 5-tuple)     |X       |               |           |                    |   X      |
 | Require guards against app abuse              |X       |               |           |                    |   X      |
