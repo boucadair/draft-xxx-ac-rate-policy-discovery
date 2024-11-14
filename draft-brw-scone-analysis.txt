@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 17 May 2025                                Cloud Software Group
+Expires: 18 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        13 November 2024
+                                                        14 November 2024
 
 
                         SCONE Solution Analysis
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2025.
+   This Internet-Draft will expire on 18 May 2025.
 
 Copyright Notice
 
@@ -106,7 +106,7 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |           Require an OS API |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
-      |                Requires PvD |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                Requires PvD |  Y/N   | Y(*) |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
       |            Support cascaded |  Y/N   |  Y   |  Y/N  |  Y/N  |
       |                environments |        |      |       |       |
@@ -115,7 +115,8 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |    Path decoupled signaling |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
-      |           Traffic direction |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |     Traffic direction (h2n, |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                  n2h, both) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |           Per-host policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
