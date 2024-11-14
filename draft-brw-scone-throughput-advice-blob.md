@@ -119,7 +119,7 @@ The document leverages existing technologies for configuring policies in provide
 of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
 
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
-* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of {{?RFC4115}} for more details).
+* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
 
 In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
 
