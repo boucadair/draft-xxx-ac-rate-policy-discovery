@@ -20,7 +20,7 @@ Expires: 18 May 2025                                Cloud Software Group
 
 Abstract
 
-   TBC
+   This document provides an analysis of various SCONE solutions.
 
 Discussion Venues
 
@@ -64,15 +64,49 @@ Table of Contents
 
    1.  Introduction
    2.  Criteria Classification
-   3.  Summary
+   3.  Detailed Analysis
+     3.1.  Summary
+     3.2.  MASQUE (to be completed by the authors of MASQUE)
+       3.2.1.  Key Idea
+     3.3.  NRLP
+       3.3.1.  Key Idea
+       3.3.2.  Discussion
+     3.4.  SCONE (to be completed by the authors of SCONE)
+       3.4.1.  Key Idea
+     3.5.  TRAIN (to be completed by the authors of TRAIN)
+       3.5.1.  Key Idea
    4.  Security Considerations
    5.  IANA Considerations
-   6.  Informative References
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
 
-   tbc
+   The document provides an analysis of proposed SCONE solutions.  The
+   currently analyzed solutions (listed in alphabetic order) are as
+   follows:
+
+   MASQUE:  "MASQUE extension for signaling throughput advice"
+      [I-D.ihlar-scone-masque-mediabitrate]
+
+      See Section 3.2.
+
+   NRLP:  "Discovery of Network Rate-Limit Policies (NRLPs)"
+      [I-D.brw-scone-rate-policy-discovery]
+
+      See Section 3.3.
+
+   SCONE:  "A new QUIC version for network property communication"
+      [I-D.joras-scone-quic-protocol]
+
+      See Section 3.4.
+
+   TRAIN:  "Transparent Rate Adaptation Indications for Networks (TRAIN)
+      Protocol" [I-D.thomson-scone-train-protocol]
+
+      See Section 3.5.
 
 2.  Criteria Classification
 
@@ -167,6 +201,10 @@ Table of Contents
    | Per-subscriber|        |             |           |            |    X     |
    |       policies|        |             |           |            |          |
    +---------------+--------+-------------+-----------+------------+----------+
+   |        Provide|        |             |           |            |    X     |
+   | provisions for|        |             |           |            |          |
+   |     extensions|        |             |           |            |          |
+   +---------------+--------+-------------+-----------+------------+----------+
    |   Require data|        |      X      |           |            |          |
    | plane upgrade/|        |             |           |            |          |
    |         change|        |             |           |            |          |
@@ -232,7 +270,9 @@ Table of Contents
 
                                   Table 1
 
-3.  Summary
+3.  Detailed Analysis
+
+3.1.  Summary
 
       +=============================+========+======+=======+=======+
       |                    Criteria | MASQUE | NRLP | SCONE | TRAIN |
@@ -282,6 +322,9 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |     Per-subscriber policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
+      |      Provide provisions for |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                  extensions |        |      |       |       |
+      +-----------------------------+--------+------+-------+-------+
       | Require data plane upgrade/ |  Y/N   |  N   |  Y/N  |  Y/N  |
       |                      change |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
@@ -326,6 +369,165 @@ Table of Contents
 
                                   Table 2
 
+3.2.  MASQUE (to be completed by the authors of MASQUE)
+
+3.2.1.  Key Idea
+
+   ### Discussion
+
+3.3.  NRLP
+
+3.3.1.  Key Idea
+
+   NRLP leverages existing discovery mechanisms (DHCP, RA, PvD) for
+   networks to advertise throughout advices.  The same generic blob is
+   used independent of the signaling mechanism.
+
+3.3.2.  Discussion
+
+   Only network elements that are entitled to send DHCP/RA/DHCP
+   configuration are allowed to share an advice.  As such, NRLP has
+   built-in:
+
+   *  Guard against random advice injection
+
+   Taking into account that NRLP advices are bound to a traffic
+   category, NLRP relies upon the OS to enforce the received policies
+   for applications falling under a traffic category (or all traffic).
+   In doing so, NRLP adheres to the following:
+
+   *  Mobility (guard against changing 5-tuple)
+
+   *  Require guards against app abuse
+
+   NRLP meets the following criteria:
+
+   *  Fate sharing: RA/DHCP are needed anyway so that connectivity is
+      provided over a network attachment.  NRLP ensures that throughput
+      advices shares the fare of the other network configuration on the
+      host.
+
+   *  Atomic configuration: Only one packet (e.g., RA) is required to
+      share the advice.  Also, only a specific portion of the
+      configuration can be provided.
+
+   *  Updatability/Proactive signaling: It is possible to change the
+      policy at any time and notify hosts (e.g., by sending a new RA).
+
+   Given that NRLP advices are shared during the establishment of a
+   network attachment and then as part of the maintenance of the
+   attachment, NRLP is therefore:
+
+   *  Applicable to any transport protocol: This allows specifically to
+      ensure a feature parity for applications that fallback to another
+      transport protocol (e.g., QUIC to TCP).
+
+   *  Applicable to QUIC
+
+   *  Applicable to any application
+
+   To that aim aim, NRLP:
+
+   *  Requires an OS API to expose the signal to applications, and
+      ensure application fairness.
+
+   NRLP leverages existing mechanisms for the provisioning of network
+   attachments, including supply of the various policies
+   ([I-D.ietf-opsawg-ntw-attachment-circuit]).  Also, NRLP leverages AAA
+   mechanisms (e.g., [RFC9445]).  Therefore, NRLP eases:
+
+   *  Integration with network management tools
+
+   One of NRLP flavors:
+
+   *  Requires PvD discovery.  This is not required for DHCP/RA.
+
+   NRLP does not restrict the deployment options as providers can deploy
+   distributed or centralized DHCP servers, use relays, enable NRLP RA
+   in access routers, etc.  Similar to other network configuration
+   purposes, NRLP has the following capabilities:
+
+   *  Support cascaded environments
+
+   *  Path coupled signaling
+
+   *  Path decoupled signaling
+
+   The same generic blob is used in NRLP independent of the signaling
+   mechanism.  The blob is designed with the following key
+   characteristics:
+
+   *  Traffic direction (h2n, n2h, both): policies for one or both
+      directions can be supplied.
+
+   *  Per-host policies: An explicit indication in inserted in the
+      advice to tag per-host policies.
+
+   *  Per-subscriber policies: An explicit indication in inserted in the
+      advice to tag per-subscriber policies.  This covers deployment
+      scenarios such as tethering or CPE-based service offerings.
+
+   *  Provide provisions for extensions: NLRP includes provisions for
+      future attributes that are tracked in IANA registries.
+
+   Given that NRLP leverages existing control plane mechanisms, NRLP
+   does not:
+
+   *  Require data plane upgrade/change
+
+   *  Require transport payload inspection (network)
+
+   *  Require transport payload inspection (host)
+
+   Also, given that NRLP signals are exchanged before connection
+   establishment, NRLP does not:
+
+   *  Depend on the server to consume the signal: NRLP advices are
+      immediately consumable by applications and do not require
+      involving a remote server.
+
+   *  Require the identity of the target server to receive or consume
+      the advices.
+
+   Moreover, NRLP does require any encapsulation or proxy function at
+   the network.  As such, NRLP does not:
+
+   *  Require steering policies on the host to decide which flows are
+      eligible to the proxy service.
+
+   *  Impact the connection setup delay: NRLP signals are available on
+      bootstrap of a host (and prior to any connection establishment).
+
+   *  Require MTU tweaking
+
+   *  Incur multi-layer encryption
+
+   *  Incur nested congestion control
+
+   *  Incur multiple round-trips: The signal is immediately available in
+      one packet (RA NRLP, typically).
+
+   *  Overhead of unauthenticated re-encryption
+
+   *  Forwarding performance impact
+
+   *  IP address sharing issues: NRLP does not require changing the
+      source IP address used by a host.
+
+   *  Penalize any network node (a proxy, typically)
+
+3.4.  SCONE (to be completed by the authors of SCONE)
+
+3.4.1.  Key Idea
+
+   ### Discussion
+
+3.5.  TRAIN (to be completed by the authors of TRAIN)
+
+3.5.1.  Key Idea
+
+   ### Discussion
+
 4.  Security Considerations
 
    TBC.
@@ -334,12 +536,59 @@ Table of Contents
 
    This document does not make any IANA request.
 
-6.  Informative References
+6.  References
+
+6.1.  Normative References
+
+   [I-D.brw-scone-rate-policy-discovery]
+              Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S.,
+              Mishra, G. S., Amend, M., and L. M. Contreras, "Discovery
+              of Network Rate-Limit Policies (NRLPs)", Work in Progress,
+              Internet-Draft, draft-brw-scone-rate-policy-discovery-00,
+              8 October 2024, <https://datatracker.ietf.org/doc/html/
+              draft-brw-scone-rate-policy-discovery-00>.
+
+   [I-D.ihlar-scone-masque-mediabitrate]
+              Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
+              signaling throughput advice", Work in Progress, Internet-
+              Draft, draft-ihlar-scone-masque-mediabitrate-01, 21
+              October 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ihlar-scone-masque-mediabitrate-01>.
+
+   [I-D.joras-scone-quic-protocol]
+              Joras, M. and L. M. Ihlar, "A new QUIC version for network
+              property communication", Work in Progress, Internet-Draft,
+              draft-joras-scone-quic-protocol-00, 21 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-joras-scone-
+              quic-protocol-00>.
+
+   [I-D.thomson-scone-train-protocol]
+              Thomson, M., Huitema, C., and K. Oku, "Transparent Rate
+              Adaptation Indications for Networks (TRAIN) Protocol",
+              Work in Progress, Internet-Draft, draft-thomson-scone-
+              train-protocol-00, 14 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-thomson-
+              scone-train-protocol-00>.
+
+6.2.  Informative References
+
+   [I-D.ietf-opsawg-ntw-attachment-circuit]
+              Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
+              and B. Wu, "A Network YANG Data Model for Attachment
+              Circuits", Work in Progress, Internet-Draft, draft-ietf-
+              opsawg-ntw-attachment-circuit-14, 7 November 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
+              ntw-attachment-circuit-14>.
 
    [RFC6269]  Ford, M., Ed., Boucadair, M., Durand, A., Levis, P., and
               P. Roberts, "Issues with IP Address Sharing", RFC 6269,
               DOI 10.17487/RFC6269, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6269>.
+
+   [RFC9445]  Boucadair, M., Reddy.K, T., and A. DeKok, "RADIUS
+              Extensions for DHCP-Configured Services", RFC 9445,
+              DOI 10.17487/RFC9445, August 2023,
+              <https://www.rfc-editor.org/rfc/rfc9445>.
 
 Authors' Addresses
 
