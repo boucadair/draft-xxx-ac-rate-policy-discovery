@@ -60,6 +60,17 @@ tbc
 
 # Criteria Classification
 
+The following criteria are used to classify the various criteria:
+
+* Security: Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
+* Deployability: Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
+* Performance: May impact the performance of the network device that enables the solution and/or the performance of the flow.
+* Service Interference: captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}.
+* Functional: Characterizes the functional capabilities offered by activating a solution.
+
+A criterion may belong to one or more categories.
+
+
 | Criteria                                      |Security| Deployability |Performance|Service Interference|Functional|
 |----------------------------------------------:|:------:|:-------------:|:---------:|:------------------:|:---------|
 | Guard against random advice injection         |X       |               |           |                    |          |
