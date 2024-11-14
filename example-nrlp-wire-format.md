@@ -82,6 +82,15 @@ To add NRLP option to [kea-dhcp4.conf](https://kea.readthedocs.io/en/kea-2.2.0/a
 }
 ~~~
 
+#### Client Side
+
+Add the following to `dhclient.conf`:
+
+~~~~
+option nrlp code 224 = string;
+also request nrlp;
+~~~~
+
 ## One Throughput Instance Per Direction
 
 Let's consider the example of this advice:
