@@ -1209,6 +1209,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
                     <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-key-idea" class="internal xref">Key Idea</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
+                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-discussion" class="internal xref">Discussion</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
@@ -1218,7 +1221,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                     <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-key-idea-2" class="internal xref">Key Idea</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
-                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-discussion" class="internal xref">Discussion</a></p>
+                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-discussion-2" class="internal xref">Discussion</a></p>
 </li>
                 </ul>
 </li>
@@ -1228,6 +1231,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
                     <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="auto internal xref">3.4.1</a>.  <a href="#name-key-idea-3" class="internal xref">Key Idea</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
+                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-discussion-3" class="internal xref">Discussion</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
@@ -1235,6 +1241,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
                     <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="auto internal xref">3.5.1</a>.  <a href="#name-key-idea-4" class="internal xref">Key Idea</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
+                    <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="auto internal xref">3.5.2</a>.  <a href="#name-discussion-4" class="internal xref">Discussion</a></p>
 </li>
                 </ul>
 </li>
@@ -1323,19 +1332,19 @@ are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-2-1">The following criteria are used to classify the various criteria:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-2.1">
-          <p id="section-2-2.1.1">Security: Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.1.1">Security (Sec): Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.2">
-          <p id="section-2-2.2.1">Deployability: Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.2.1">Deployability (Dep): Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.3">
-          <p id="section-2-2.3.1">Performance: May impact the performance of the network device that enables the solution and/or the performance of the flow.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.3.1">Performance (Per): May impact the performance of the network device that enables the solution and/or the performance of the flow.<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.4">
-          <p id="section-2-2.4.1">Service Interference: captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in <span>[<a href="#RFC6269" class="cite xref">RFC6269</a>]</span>.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.4.1">Service Interference (Int): captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in <span>[<a href="#RFC6269" class="cite xref">RFC6269</a>]</span>.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.5">
-          <p id="section-2-2.5.1">Functional: Characterizes the functional capabilities offered by activating a solution.<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.5.1">Functional (Fun): Characterizes the functional capabilities offered by activating a solution.<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-2-3">A criterion may belong to one or more categories.<a href="#section-2-3" class="pilcrow">¶</a></p>
@@ -1344,11 +1353,11 @@ are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <thead>
           <tr>
             <th class="text-right" rowspan="1" colspan="1">Criteria</th>
-            <th class="text-center" rowspan="1" colspan="1">Security</th>
-            <th class="text-center" rowspan="1" colspan="1">Deployability</th>
-            <th class="text-center" rowspan="1" colspan="1">Performance</th>
-            <th class="text-center" rowspan="1" colspan="1">Service Interference</th>
-            <th class="text-center" rowspan="1" colspan="1">Functional</th>
+            <th class="text-center" rowspan="1" colspan="1">Sec</th>
+            <th class="text-center" rowspan="1" colspan="1">Dep</th>
+            <th class="text-center" rowspan="1" colspan="1">Per</th>
+            <th class="text-center" rowspan="1" colspan="1">Int</th>
+            <th class="text-center" rowspan="1" colspan="1">Fun</th>
           </tr>
         </thead>
         <tbody>
@@ -1901,8 +1910,14 @@ are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <section id="section-3.2.1">
           <h4 id="name-key-idea">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-key-idea" class="section-name selfRef">Key Idea</a>
-          </h4>
-<p id="section-3.2.1-1">### Discussion<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+        </h4>
+</section>
+</div>
+<div id="discussion">
+<section id="section-3.2.2">
+          <h4 id="name-discussion">
+<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-discussion" class="section-name selfRef">Discussion</a>
+        </h4>
 </section>
 </div>
 </section>
@@ -1921,10 +1936,10 @@ are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
 The same generic blob is used independent of the signaling mechanism.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="discussion">
+<div id="discussion-1">
 <section id="section-3.3.2">
-          <h4 id="name-discussion">
-<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-discussion" class="section-name selfRef">Discussion</a>
+          <h4 id="name-discussion-2">
+<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-discussion-2" class="section-name selfRef">Discussion</a>
           </h4>
 <p id="section-3.3.2-1">Only network elements that are entitled to send DHCP/RA/DHCP configuration are allowed to share an advice. As such, NRLP has built-in:<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -2078,8 +2093,14 @@ for applications falling under a traffic category (or all traffic). In doing so,
 <section id="section-3.4.1">
           <h4 id="name-key-idea-3">
 <a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-key-idea-3" class="section-name selfRef">Key Idea</a>
-          </h4>
-<p id="section-3.4.1-1">### Discussion<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
+        </h4>
+</section>
+</div>
+<div id="discussion-2">
+<section id="section-3.4.2">
+          <h4 id="name-discussion-3">
+<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-discussion-3" class="section-name selfRef">Discussion</a>
+        </h4>
 </section>
 </div>
 </section>
@@ -2093,8 +2114,14 @@ for applications falling under a traffic category (or all traffic). In doing so,
 <section id="section-3.5.1">
           <h4 id="name-key-idea-4">
 <a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-key-idea-4" class="section-name selfRef">Key Idea</a>
-          </h4>
-<p id="section-3.5.1-1">### Discussion<a href="#section-3.5.1-1" class="pilcrow">¶</a></p>
+        </h4>
+</section>
+</div>
+<div id="discussion-3">
+<section id="section-3.5.2">
+          <h4 id="name-discussion-4">
+<a href="#section-3.5.2" class="section-number selfRef">3.5.2. </a><a href="#name-discussion-4" class="section-name selfRef">Discussion</a>
+        </h4>
 </section>
 </div>
 </section>
