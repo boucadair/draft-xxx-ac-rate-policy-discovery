@@ -1,5 +1,26 @@
 # Examples of Wire Format Options
 
+## Reminder
+
+~~~~
+ 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| OPTION_V4_NRLP|     Length    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|   NRLP Instance Data Length   |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|U U P E|U U R R D S|    TC     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Committed Information Rate   |
+|              (CIR)            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Committed Burst Size (CBS)   |
+|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+~~~~
+
+
 ## One Throughput Instance
 
 Let's consider the example of this advice:
@@ -17,6 +38,9 @@ Let's consider the example of this advice:
     ]
 }
 ~~~
+
+* direction ==> D-flag
+* scope ==> S-flag
 
 ### DHCP
 
