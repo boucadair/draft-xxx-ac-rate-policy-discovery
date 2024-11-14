@@ -79,50 +79,50 @@ TRAIN:
 
 The following criteria are used to classify the various criteria:
 
-* Security: Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
-* Deployability: Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
-* Performance: May impact the performance of the network device that enables the solution and/or the performance of the flow.
-* Service Interference: captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}.
-* Functional: Characterizes the functional capabilities offered by activating a solution.
+* Security (Sec): Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
+* Deployability (Dep): Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
+* Performance (Per): May impact the performance of the network device that enables the solution and/or the performance of the flow.
+* Service Interference (Int): captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}.
+* Functional (Fun): Characterizes the functional capabilities offered by activating a solution.
 
 A criterion may belong to one or more categories.
 
-| Criteria                                      |Security| Deployability |Performance|Service Interference|Functional|
-|----------------------------------------------:|:------:|:-------------:|:---------:|:------------------:|:--------:|
-| Guard against random advice injection         |X       |               |           |                    |          |
-| Mobility (guard against changing 5-tuple)     |X       |               |           |                    |   X      |
-| Require guards against app abuse              |X       |               |           |                    |   X      |
-| Fate sharing                                  |        |  X            |           |                    |          |
-| Atomic configuration                          |        |  X            |           |                    |          |
-| Updatability/Proactive signalling             |        |               |           |                    |    X     |
-| Integration with network management tools     |        |  X            |           |                    |          |
-| Applicable to any transport protocol          |        |               |           |                    |    X     |
-| Applicable to QUIC                            |        |               |           |                    |    X     |
-| Applicable to any application                 |        |               |           |                    |    X     |
-| Require an OS API                             |        |  X            |           |                    |          |
-| Requires PvD                                  |        |  X            |           |                    |          |
-| Support cascaded environments                 |        |               |           |                    |    X     |
-| Path coupled signaling                        |        |               |           |                    |    X     |
-| Path decoupled signaling                      |        |               |           |                    |    X     |
-| Traffic direction (h2n, n2h, both)            |        |               |           |                    |    X     |
-| Per-host policies                             |        |               |           |                    |    X     |
-| Per-subscriber policies                       |        |               |           |                    |    X     |
-| Extendable                                    |        |               |           |                    |    X     |
-| Require data plane upgrade/change             |        |  X            |           |                    |          |
-| Require transport payload inspection (network)|        |  X            |           |                    |          |
-| Require transport payload inspection (host)   |        |  X            |           |                    |          |
-| Require steering policies on the host         |        |  X            |           |                    |          |
-| Depend on the server to consume the signal    |        |  X            |           |                    |          |
-| Impact the connection setup delay             |        |               |           |                    |    X     |
-| Require the identity of the target server     |   X    |               |           |                    |    X     |
-| Require MTU tweaking                          |        |  X            |           |        X           |          |
-| Incur multi-layer encryption                  |        |  X            |     X     |                    |          |
-| Incur nested congestion control               |        |  X            |     X     |                    |          |
-| Incur multiple round-trips                    |        |  X            |     X     |                    |          |
-| Overhead of unauthenticated re-encryption     |        |  X            |     X     |                    |          |
-| Forwarding peformance impact                  |        |  X            |     X     |        X           |          |
-| IP address sharing issues                     |        |  X            |           |        X           |          |
-| Penalizing the proxy                          |        |  X            |           |        X           |          |
+| Criteria                                      | Sec | Dep | Per | Int | Fun |
+|----------------------------------------------:|:---:|:---:|:---:|:---:|:---:|
+| Guard against random advice injection         |X    |     |     |     |     |
+| Mobility (guard against changing 5-tuple)     |X    |     |     |     |  X  |
+| Require guards against app abuse              |X    |     |     |     |  X  |
+| Fate sharing                                  |     |  X  |     |     |     |
+| Atomic configuration                          |     |  X  |     |     |     |
+| Updatability/Proactive signalling             |     |     |     |     |  X  |
+| Integration with network management tools     |     |  X  |     |     |     |
+| Applicable to any transport protocol          |     |     |     |     |  X  |
+| Applicable to QUIC                            |     |     |     |     |  X  |
+| Applicable to any application                 |     |     |     |     |  X  |
+| Require an OS API                             |     |  X  |     |     |     |
+| Requires PvD                                  |     |  X  |     |     |     |
+| Support cascaded environments                 |     |     |     |     |  X  |
+| Path coupled signaling                        |     |     |     |     |  X  |
+| Path decoupled signaling                      |     |     |     |     |  X  |
+| Traffic direction (h2n, n2h, both)            |     |     |     |     |  X  |
+| Per-host policies                             |     |     |     |     |  X  |
+| Per-subscriber policies                       |     |     |     |     |  X  |
+| Extendable                                    |     |     |     |     |  X  |
+| Require data plane upgrade/change             |     |  X  |     |     |     |
+| Require transport payload inspection (network)|     |  X  |     |     |     |
+| Require transport payload inspection (host)   |     |  X  |     |     |     |
+| Require steering policies on the host         |     |  X  |     |     |     |
+| Depend on the server to consume the signal    |     |  X  |     |     |     |
+| Impact the connection setup delay             |     |     |     |     |  X  |
+| Require the identity of the target server     |   X |     |     |     |  X  |
+| Require MTU tweaking                          |     |  X  |     |  X  |     |
+| Incur multi-layer encryption                  |     |  X  |  X  |     |     |
+| Incur nested congestion control               |     |  X  |  X  |     |     |
+| Incur multiple round-trips                    |     |  X  |  X  |     |     |
+| Overhead of unauthenticated re-encryption     |     |  X  |  X  |     |     |
+| Forwarding peformance impact                  |     |  X  |  X  |  X  |     |
+| IP address sharing issues                     |     |  X  |     |  X  |     |
+| Penalizing the proxy                          |     |  X  |     |  X  |     |
 
 # Detailed Analysis
 
@@ -148,7 +148,7 @@ A criterion may belong to one or more categories.
 | Traffic direction (h2n, n2h, both)            |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-host policies                             |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-subscriber policies                       |Y/N   |  Y   |Y/N   |  Y/N |
-| Extendable                            |Y/N   |  Y   |Y/N   |  Y/N |
+| Extendable                                    |Y/N   |  Y   |Y/N   |  Y/N |
 | Require data plane upgrade/change             |Y/N   |  N   |Y/N   |  Y/N |
 | Require transport payload inspection (network)|Y/N   |  N   |Y/N   |  Y/N |
 | Require transport payload inspection (host)   |Y/N   |  N   |Y/N   |  Y/N |
@@ -168,6 +168,7 @@ A criterion may belong to one or more categories.
 ## MASQUE (to be completed by the authors of MASQUE) {#sec-masque}
 
 ### Key Idea
+
 ### Discussion
 
 ## NRLP {#sec-nrlp}
@@ -254,11 +255,13 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 ## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
 
 ### Key Idea
+
 ### Discussion
 
 ## TRAIN  (to be completed by the authors of TRAIN) {#sec-train}
 
 ### Key Idea
+
 ### Discussion
 
 # Security Considerations
