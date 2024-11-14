@@ -58,6 +58,44 @@ TBC
 
 tbc
 
+# Criteria Classification
+
+| Criteria                                      |Security| Deployability |Performance|Service Interference|Functional|
+|----------------------------------------------:|:------:|:-------------:|:---------:|:------------------:|:---------|
+| Guard against random advice injection         |X       |               |           |                    |          |
+| Mobility (guard against changing 5-tuple)     |X       |               |           |                    |   X      |
+| Require guards against app abuse              |X       |               |           |                    |   X      |
+| Fate sharing                                  |        |  X            |           |                    |          |
+| Atomic configuration                          |        |  X            |           |                    |          |
+| Updatability/Proactive signalling             |        |               |           |                    |    X     |
+| Integration with network management tools     |        |  X            |           |                    |          |
+| Applicable to any transport protocol          |        |               |           |                    |    X     |
+| Applicable to QUIC                            |        |               |           |                    |    X     |
+| Applicable to any application                 |        |               |           |                    |    X     |
+| Require an OS API                             |        |  X            |           |                    |          |
+| Requires PvD                                  |        |  X            |           |                    |          |
+| Support cascaded environments                 |        |               |           |                    |    X     |
+| Path coupled signaling                        |        |               |           |                    |    X     |
+| Path decoupled signaling                      |        |               |           |                    |    X     |
+| Traffic direction (h2n, n2h, both)            |        |               |           |                    |    X     |
+| Per-host policies                             |        |               |           |                    |    X     |
+| Per-subscriber policies                       |        |               |           |                    |    X     |
+| Require data plane upgrade/change             |        |  X            |           |                    |          |
+| Require transport payload inspection (network)|        |  X            |           |                    |          |
+| Require transport payload inspection (host)   |        |  X            |           |                    |          |
+| Require steering policies on the host         |        |  X            |           |                    |          |
+| Depend on the server to consume the signal    |        |  X            |           |                    |          |
+| Impact the connection setup delay             |        |               |           |                    |    X     |
+| Require the identity of the target server     |   X    |               |           |                    |    X     |
+| Require MTU tweaking                          |        |  X            |           |        X           |          |
+| Incur multi-layer encryption                  |        |  X            |     X     |                    |          |
+| Incur nested congestion control               |        |  X            |     X     |                    |          |
+| Incur multiple round-trips                    |        |  X            |     X     |                    |          |
+| Overhead of unauthenticated re-encryption     |        |  X            |     X     |                    |          |
+| Forwarding peformance impact                  |        |  X            |     X     |        X           |          |
+| IP address sharing issues                     |        |  X            |           |        X           |          |
+| Penalizing the proxy                          |        |  X            |           |        X           |          |
+
 # Summary
 
 | Criteria                                      |MASQUE| NRLP |SCONE |TRAIN |
