@@ -201,9 +201,7 @@ Table of Contents
    | Per-subscriber|        |             |           |            |    X     |
    |       policies|        |             |           |            |          |
    +---------------+--------+-------------+-----------+------------+----------+
-   |        Provide|        |             |           |            |    X     |
-   | provisions for|        |             |           |            |          |
-   |     extensions|        |             |           |            |          |
+   |     Extendable|        |             |           |            |    X     |
    +---------------+--------+-------------+-----------+------------+----------+
    |   Require data|        |      X      |           |            |          |
    | plane upgrade/|        |             |           |            |          |
