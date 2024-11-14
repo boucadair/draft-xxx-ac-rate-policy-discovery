@@ -205,13 +205,13 @@ To that aim aim, NRLP:
 
 * Requires an OS API to expose the signal to applications, and ensure application fairness.
 
-NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies ({{?I-d.ietf-opsawg-ntw-attachment-circuit}}). Also, NRLP leverages AAA mechanisms (e.g., {{?RFC9445}}). Therefore, NRLP eases:
+NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies ({{?I-D.ietf-opsawg-ntw-attachment-circuit}}). Also, NRLP leverages AAA mechanisms (e.g., {{?RFC9445}}). Therefore, NRLP eases:
 
 * Integration with network management tools
 
 One of NRLP flavors:
 
-* Requires PvD
+* Requires PvD discovery. This is not required for DHCP/RA.
 
 NRLP does not restrict the deployment options as providers can deploy distributed or centralized DHCP servers, use relays, enable NRLP RA in access routers, etc. Similar to other network configuration purposes, NRLP has the following capabilities:
 
