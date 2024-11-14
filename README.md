@@ -1,3 +1,6 @@
+
+**[Blob](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/main#throughput-advice-object-for-scone) | [NRLP](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/main#discovery-of-network-rate-limit-policies) | [Analysis](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/main#solution-analysis) | [Manageability](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/main#manageability-considerations) | [Wire Format](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/main#wire-format-and-testing)**
+
 # Throughput Advice Object for SCONE
 
 This is the working area for the individual Internet-Draft, "Throughput Advice Blob for SCONE".
