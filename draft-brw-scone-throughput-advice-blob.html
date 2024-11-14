@@ -1489,6 +1489,7 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
 <pre>
    ; Provides information about the rate-limit policy that
    ; is enforced for a network attachment.
+   ; One or more throughput instances can be present.
 
    throughput-advice =  [+ throughput-instance]
 
@@ -1499,10 +1500,8 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
      throughput =&gt; rate-limit
    }
 
-   ; Controls the presence of optional excess and peak
-   ; rate parameters.
-   ; When omitted, this is equivalent to setting these
-   ; parameters to false.
+   ; Controls the presence of optional excess and peak rate
+   ; parameters.
    ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
 
@@ -1511,7 +1510,7 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
      ? peak: bool .default false
    }
 
-   ; Indicates scope (per host or per subscriber, traffic direction,
+   ; Indicates scope (per host or per subscriber), traffic direction,
    ; and reliability type (reliable or unreliable).
    ; Default value for scope is false (i.e., per subscriber policy).
    ; Default value for direction is 0 (i.e. network-to-host direction).
@@ -1552,7 +1551,7 @@ adhere to the structure defined in <a href="#sec-ins-structure" class="auto inte
           </figcaption></figure>
 </div>
 <p id="section-5.1-4">For the sake of illustration, <a href="#ex" class="auto internal xref">Figure 3</a> exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic for any any host of a given subscriber.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic destined to any any host of a given subscriber.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <span id="name-a-json-example"></span><div id="ex">
 <figure id="figure-3">
           <div class="lang-json sourcecode" id="section-5.1-5.1">
@@ -1823,7 +1822,7 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
       </h2>
 <p id="section-6-1">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6-2">
-        <dt id="section-6-2.1">Decrease the bitrate:</dt>
+        <dt id="section-6-2.1">Decrease the bitrate value:</dt>
         <dd style="margin-left: 1.5em" id="section-6-2.2">
           <p id="section-6-2.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
 </dd>
@@ -1831,6 +1830,11 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
 <dt id="section-6-2.3">Increase the bitrate value:</dt>
         <dd style="margin-left: 1.5em" id="section-6-2.4">
           <p id="section-6-2.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-6-2.5">Delete or remove the advice:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-2.6">
+          <p id="section-6-2.6.1">This is equivalent to deployments where the advice is not shared.<a href="#section-6-2.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
