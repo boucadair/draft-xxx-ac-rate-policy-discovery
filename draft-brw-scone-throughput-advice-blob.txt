@@ -679,11 +679,11 @@ Appendix A.  Overview of Network Rate-Limit Policies
       An inbound 2r3c meter implemented with [RFC4115], compared to
       [RFC2698], is more 'customer friendly' as it doesn't impose
       outbound peak-rate shaping requirements on customer edge (CE)
-      devices. 2r3c meters in general give greater flexibility for
-      provider network edge enforcement regarding accepting the traffic
-      (green), de-prioritizing and potentially dropping the traffic on
-      transit during congestion (yellow), or hard dropping the traffic
-      (red).
+      devices or hosts. 2r3c meters in general give greater flexibility
+      for provider network edge enforcement regarding accepting the
+      traffic (green), de-prioritizing and potentially dropping the
+      traffic on transit during congestion (yellow), or hard dropping
+      the traffic (red).
 
 Acknowledgments
 
