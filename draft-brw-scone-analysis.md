@@ -148,7 +148,7 @@ A criterion may belong to one or more categories.
 | Traffic direction (h2n, n2h, both)            |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-host policies                             |Y/N   |  Y   |Y/N   |  Y/N |
 | Per-subscriber policies                       |Y/N   |  Y   |Y/N   |  Y/N |
-| Provide provisions for extensions             |Y/N   |  Y   |Y/N   |  Y/N |
+| Extendable                            |Y/N   |  Y   |Y/N   |  Y/N |
 | Require data plane upgrade/change             |Y/N   |  N   |Y/N   |  Y/N |
 | Require transport payload inspection (network)|Y/N   |  N   |Y/N   |  Y/N |
 | Require transport payload inspection (host)   |Y/N   |  N   |Y/N   |  Y/N |
