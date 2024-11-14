@@ -37,6 +37,6 @@ This is the working area for the individual Internet-Draft, "SCONE Manageability
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-brw-scone-app-manageability)
 * [Compare Editor's Copy to Individual Draft](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/#go.draft-brw-scone-app-manageability.diff)  
 
-## Wire Format and Testing
+# Wire Format and Testing
 
 [example-nrlp-wire-format](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/example-nrlp-wire-format.md) list a set of examples and required configuration to exhange NRLP advices between networks and hosts.
