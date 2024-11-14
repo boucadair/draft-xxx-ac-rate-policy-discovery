@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-12T01:10:37.827407+00:00",
+  "timestamp": "2024-11-14T01:12:12.160184+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -47,6 +47,26 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "NRLP",
+      "description": "",
+      "color": "c5def5"
+    },
+    {
+      "name": "Analysis",
+      "description": "",
+      "color": "33895F"
+    },
+    {
+      "name": "Manageability",
+      "description": "",
+      "color": "63F729"
+    },
+    {
+      "name": "Blob",
+      "description": "",
+      "color": "2ADACE"
     }
   ],
   "issues": [
@@ -225,10 +245,13 @@
       "assignees": [
         "luismcontreras"
       ],
-      "labels": [],
+      "labels": [
+        "NRLP",
+        "Analysis"
+      ],
       "body": "",
       "createdAt": "2024-05-22T08:29:54Z",
-      "updatedAt": "2024-10-31T14:56:39Z",
+      "updatedAt": "2024-11-13T17:33:35Z",
       "closedAt": null,
       "comments": [
         {
@@ -258,6 +281,13 @@
           "body": "Re-opening this issue since Telecom Infra Project has just publicly released the material.\r\n\r\nThe reports are here: https://telecominfraproject.com/tip-releases-qoe-measurement-framework-and-graduates-metaverse-ready-project-group/\r\n\r\nSo, now, the point for this issue to check relevance of these reports for out draft. I take the action. ",
           "createdAt": "2024-10-31T14:56:37Z",
           "updatedAt": "2024-10-31T14:56:37Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "@luismcontreras, do you think there is something useful that is worth to share in our drafts (blob, for example)?",
+          "createdAt": "2024-11-13T10:08:11Z",
+          "updatedAt": "2024-11-13T10:08:11Z"
         }
       ]
     },
@@ -275,6 +305,125 @@
       "createdAt": "2024-06-05T11:12:22Z",
       "updatedAt": "2024-10-07T07:44:18Z",
       "closedAt": "2024-10-07T07:44:18Z",
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOLlGZlc6ePxlV",
+      "title": "Add some explanation for the need to have a reliability flag",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/37",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "sridharangirish91"
+      ],
+      "labels": [
+        "Blob"
+      ],
+      "body": "@sridharangirish91, can you please propose some text to https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/draft-brw-scone-throughput-advice-blob.md to motivate the need to have reliability flag? Thanks",
+      "createdAt": "2024-11-13T10:10:29Z",
+      "updatedAt": "2024-11-13T17:33:15Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think it is possible to distinguish between reliable and unreliable traffic in QUIC. How is rate-limit policy enforced by networks today for QUIC traffic ?\r\n",
+          "createdAt": "2024-11-13T11:21:16Z",
+          "updatedAt": "2024-11-13T11:21:16Z"
+        },
+        {
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I don't think it is possible to distinguish between reliable and unreliable traffic in QUIC. \r\n\r\nFor network to distinguish, the sender would have to set a bit somewhere.  DSCP bit, a certain QUIC short CID, IPv6 hop-by-hop option, *something*.",
+          "createdAt": "2024-11-13T16:33:02Z",
+          "updatedAt": "2024-11-13T16:33:02Z"
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "I_kwDOLlGZlc6eQcam",
+      "title": "Throughput advice",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/38",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "   rate-limit =  {\r\n     cir: uint,    ; Mbps\r\n     cbs: uint,    ; bytes\r\n     ? eir: uint,  ; Mbps\r\n     ? ebs: uint,  ; bytes\r\n     ? pir: uint,  ; Mbps\r\n     ? pbs: uint   ; bytes\r\n   }\r\n\r\nI assumed cir and cbs are sufficient to be conveyed to the client, what is the need to convey the other rates and how is the client supposed to react to each of the rates differently ?",
+      "createdAt": "2024-11-13T11:07:50Z",
+      "updatedAt": "2024-11-13T17:33:07Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> I assumed cir and cbs are sufficient to be conveyed to the client\r\n\r\nYes, these are mandatory\r\n\r\n> what is the need to convey the other rates and how is the client supposed to react to each of the rates differently ?\r\n\r\nA discussion about this is provided in https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#name-overview-of-network-rate-li (see the last para). See also the last two par in 4115.\r\n\r\n",
+          "createdAt": "2024-11-13T11:26:32Z",
+          "updatedAt": "2024-11-13T11:26:32Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Which two last paragraphs are you referring in 4115 ?\r\nIt is not clear to me how the client will react differently by learning the eir, ebs, pir and pbs rates ?\r\nFor instance, in case of 1r2c, the client only has to enforce the traffic does not exceed cir and cbs. what will it do with the other two parameters eir and ebs ?\r\nHow will the client identify the burst duration using cbs ?",
+          "createdAt": "2024-11-13T11:38:31Z",
+          "updatedAt": "2024-11-13T11:38:31Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "I was referring to,\r\n\r\n> The metering/marker defined here is different from those in [[RFC2697](https://www.rfc-editor.org/rfc/rfc2697)]\r\n>    and [[RFC2698](https://www.rfc-editor.org/rfc/rfc2698)].  It is different from [[RFC2697](https://www.rfc-editor.org/rfc/rfc2697)] in that it is a two-\r\n>    rate, three-color marker.  In contrast, [[RFC2697](https://www.rfc-editor.org/rfc/rfc2697)] is a single-rate\r\n>    marker.  It is different from [[RFC2698](https://www.rfc-editor.org/rfc/rfc2698)] in the way its parameters are\r\n>    defined, which allows a better handling of in-profile traffic for\r\n>    predominant service scenarios over a wider range of traffic\r\n>    parameters.\r\n> \r\n>    Furthermore, the algorithm described here eliminates the need for the\r\n>    CE to shape its traffic to a certain peak information rate (PIR), as\r\n>    might be the case for the marker defined in [[RFC2698](https://www.rfc-editor.org/rfc/rfc2698)] when the value\r\n>    for the peak burst size (PBS) is smaller than that for the committed\r\n>    burst size (CBS).\r\n\r\nThese parameters are already for the provisioning of CEs for some services. See, e.g., https://datatracker.ietf.org/doc/rfc8466/ (search for svc-bandwidth). ",
+          "createdAt": "2024-11-13T13:25:15Z",
+          "updatedAt": "2024-11-13T13:25:15Z"
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "I_kwDOLlGZlc6eRgwB",
+      "title": "Comments on CDDL",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/39",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "1.  In tc, the field tc: uint has the same name as the containing structure, which could lead to confusion. please rename this field.\r\n2.  In opf and ff, you may want to use \"false\" instead of \"0\". ",
+      "createdAt": "2024-11-13T12:56:06Z",
+      "updatedAt": "2024-11-13T17:12:05Z",
+      "closedAt": "2024-11-13T17:12:05Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Good catch. Please see #40 \r\n\r\nBTW, in order to save some space, I guess we need to have tree values for direction (n2h, h2n, both). Otherwise, we will need to repeat the same parameters twice to cover the case where the same policy is applied for both directions.",
+          "createdAt": "2024-11-13T13:08:15Z",
+          "updatedAt": "2024-11-13T13:08:15Z"
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "I_kwDOLlGZlc6eUy9f",
+      "title": "Add RSOO support for NRLP options (DHCP)",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/43",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "NRLP"
+      ],
+      "body": "See rfc6422: the relay may be configured with the rate-limit as it is on-path. It will then supply the info to the server, then back to the client.\r\n\r\nConsider adding NRLP to the registry at: https://www.iana.org/assignments/dhcpv6-parameters/dhcpv6-parameters.xhtml#options-relay-supplied \r\n\r\nAlso, add a provision to include NRLP in \"DHCPv6 Options Permitted in the RADIUS DHCPv6-Options Attribute\" (https://www.iana.org/assignments/dhcpv6-parameters/dhcpv6-parameters.xhtml#dhcpv6-options-attribute)",
+      "createdAt": "2024-11-13T17:32:12Z",
+      "updatedAt": "2024-11-13T17:32:59Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -1875,6 +2024,118 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOLlGZlc6Bx65B",
+      "title": "fix CDDL",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/40",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-13T13:06:29Z",
+      "updatedAt": "2024-11-13T17:12:06Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "962a4da2db3173c14ce855234baa254c1900fde6",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "fix-CDDL",
+      "headRefOid": "2422344cabf361526031a4315f05b6ea5a9b9eba",
+      "closedAt": "2024-11-13T17:12:04Z",
+      "mergedAt": "2024-11-13T17:12:04Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "58c059eef5f8f1bc6ec6e1fc19fb937cfcbc4ff6"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOLlGZlc6Bz4oe",
+      "title": "add PvD explicitly to table, mention Mobility in table, Incure->Incur",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/41",
+      "state": "MERGED",
+      "author": "danwing",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-13T16:40:13Z",
+      "updatedAt": "2024-11-13T16:45:25Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "6a9cfda2c0d3288b9adbf7f4975453ca117e61f7",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "dwing_tweaks",
+      "headRefOid": "1228b35d15d786636f10e21ccdc9f677efc3abdb",
+      "closedAt": "2024-11-13T16:45:23Z",
+      "mergedAt": "2024-11-13T16:45:23Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "51040b54179ca2816250dd13a8471b2dc6d82fd7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RET_P",
+          "commit": {
+            "abbreviatedOid": "1228b35"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-13T16:44:03Z",
+          "updatedAt": "2024-11-13T16:44:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOLlGZlc6Bz8Fb",
+      "title": "dwing tweak",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/42",
+      "state": "MERGED",
+      "author": "danwing",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- **add PvD explicitly to table, mention Mobility in table, Incure->Incur**\n- **tweak Security Considerations to say attacker has to *modify* the information (not merely access [read]); add 'this parameter is optional' to one that was missing**\n",
+      "createdAt": "2024-11-13T16:46:14Z",
+      "updatedAt": "2024-11-13T16:47:59Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "51040b54179ca2816250dd13a8471b2dc6d82fd7",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "dwing_tweak",
+      "headRefOid": "7a59e27ed126fff315a2069eab0ead397debb07c",
+      "closedAt": "2024-11-13T16:47:56Z",
+      "mergedAt": "2024-11-13T16:47:56Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "b60499e754980de0a1426d9016082a031de8e2a1"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6REXAr",
+          "commit": {
+            "abbreviatedOid": "7a59e27"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-13T16:47:38Z",
+          "updatedAt": "2024-11-13T16:47:38Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
