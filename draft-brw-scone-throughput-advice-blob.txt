@@ -85,6 +85,7 @@ Table of Contents
      7.1.  Rate-Limit Policy Objects Registry Group
      7.2.  Optional Parameter Flags Registry
      7.3.  Flow Flags Registry
+     7.4.  Traffic Category Registry
    8.  References
      8.1.  Normative References
      8.2.  Informative References
@@ -190,6 +191,10 @@ Table of Contents
 
    *  A Dual-Rate, Three-Color Marker [RFC2698] uses CIR, CBS, PIR, and
       PBS.
+
+   In order to ease mapping with specific signaling mechanims, allow for
+   future extensions, and ensure consistent use of the advice, a new
+   IANA registry is created in Section 7.
 
 2.  What's Out?
 
@@ -430,7 +435,7 @@ Table of Contents
 
       *  "3": Bulk traffic
 
-      *  4-63: Unassigned values
+      *  4-63: Unassigned values.  See Section 7.4.
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -553,6 +558,33 @@ Table of Contents
          +--------------+-----------------------+---------------+
 
                            Table 2: Flow flags
+
+   The allocation policy of this new registry is "IETF Review"
+   (Section 4.8 of [RFC8126]).
+
+7.4.  Traffic Category Registry
+
+   This document requests IANA to create a new registry entitled
+   "Traffic Category Types" under the "Rate-Limit Policy Objects"
+   registry group (Section 7.1).
+
+   The initial values of this registry is provided in Table 3.
+
+                 +=======+==============+===============+
+                 | Value | Description  | Reference     |
+                 +=======+==============+===============+
+                 | 0     | All traffic  | This-Document |
+                 +-------+--------------+---------------+
+                 | 1     | Streaming    | This-Document |
+                 +-------+--------------+---------------+
+                 | 2     | Real-time    | This-Document |
+                 +-------+--------------+---------------+
+                 | 3     | Bulk traffic |               |
+                 +-------+--------------+---------------+
+                 | 4-63  | Unassigned   |               |
+                 +-------+--------------+---------------+
+
+                     Table 3: Traffic Category Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).

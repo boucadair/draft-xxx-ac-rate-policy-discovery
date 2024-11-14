@@ -1243,6 +1243,9 @@ the discovery channel.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
                 <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-flow-flags-registry" class="internal xref">Flow Flags Registry</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
+                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-traffic-category-registry" class="internal xref">Traffic Category Registry</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
@@ -1386,6 +1389,7 @@ of how various combinations of Committed Information Rate (EIR), Committed Burst
           <p id="section-1-14.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS.<a href="#section-1-14.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
+<p id="section-1-15">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 7</a>.<a href="#section-1-15" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="whats-out">
@@ -1701,7 +1705,7 @@ both network-to-host and host-to-network directions.<a href="#section-5.2-2.4.2.
                 <p id="section-5.2-2.8.2.4.1">"3": Bulk traffic<a href="#section-5.2-2.8.2.4.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-5.2-2.8.2.5">
-                <p id="section-5.2-2.8.2.5.1">4-63: Unassigned values<a href="#section-5.2-2.8.2.5.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2-2.8.2.5.1">4-63: Unassigned values. See <a href="#sec-iana-tc" class="auto internal xref">Section 7.4</a>.<a href="#section-5.2-2.8.2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </dd>
@@ -1840,7 +1844,7 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
 </dl>
 </section>
 </div>
-<div id="iana-considerations">
+<div id="sec-iana">
 <section id="section-7">
       <h2 id="name-iana-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
@@ -1950,6 +1954,58 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
         </table>
 </div>
 <p id="section-7.3-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-7.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-tc">
+<section id="section-7.4">
+        <h3 id="name-traffic-category-registry">
+<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-traffic-category-registry" class="section-name selfRef">Traffic Category Registry</a>
+        </h3>
+<p id="section-7.4-1">This document requests IANA to create a new registry entitled "Traffic Category Types" under the "Rate-Limit Policy Objects" registry group (<a href="#sec-iana-rlp" class="auto internal xref">Section 7.1</a>).<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">The initial values of this registry is provided in <a href="#iana-tc" class="auto internal xref">Table 3</a>.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+<span id="name-traffic-category-values"></span><div id="iana-tc">
+<table class="center" id="table-3">
+          <caption>
+<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#name-traffic-category-values" class="selfRef">Traffic Category Values</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">0</td>
+              <td class="text-left" rowspan="1" colspan="1">All traffic</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">1</td>
+              <td class="text-left" rowspan="1" colspan="1">Streaming</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">Real-time</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3</td>
+              <td class="text-left" rowspan="1" colspan="1">Bulk traffic</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">4-63</td>
+              <td class="text-left" rowspan="1" colspan="1">Unassigned</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<p id="section-7.4-4">The allocation policy of this new registry is "IETF Review" (<span><a href="https://rfc-editor.org/rfc/rfc8126#section-4.8" class="relref">Section 4.8</a> of [<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).<a href="#section-7.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
