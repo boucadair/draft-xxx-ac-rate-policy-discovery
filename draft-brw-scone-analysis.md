@@ -295,7 +295,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 ### Main Expected Gains
 
 * Lower deployment barrier to experiment in large scale (no hardware or sofware change may be needed at network).
-* Schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance.
+* Schedule network requests (independent of the transport protocol) more efficiently, preventing network congestion, and improving overall stability and network performance.
 * Unlock new services in local networks and enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts.
 * Provide a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use of resources under non nominal conditions.
 
@@ -304,7 +304,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * A simple configuration is required for IPv4: DHCP flavor can be provided by configuration of custom options. Refer to {{NRLP-WIRE}}.
 * A similar configuration approach can be followed for DHCPv6.
 * A minor change to the network is required for NRLP RA: upgrade PE nodes to support a new Neighbor Discovery option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{?RFC4861}}.
-* An API needs to be exposed on the host to share the advice will applications.
+* An API needs to be exposed on the host to share the advice with applications.
 
 ## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
 
