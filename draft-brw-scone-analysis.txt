@@ -115,28 +115,29 @@ Table of Contents
 
    The following criteria are used to classify the various criteria:
 
-   *  Security (Sec): Indicates whether this impact security/privacy.
+   Security (Sec):  Indicates whether this impact security/privacy.
       Some of the criteria that are classified a security-related may
       also have implications on the efficiency of sharing an advice (as
       that is likely to be ignored).
 
-   *  Deployability (Dep): Captures a criteria that is important for
+   Deployability (Dep):  Captures a criteria that is important for
       unlocking the deployment of a solution at both network and host
       sides.
 
-   *  Performance (Per): May impact the performance of the network
-      device that enables the solution and/or the performance of the
-      flow.
+   Performance (Per):  May impact the performance of the network device
+      that enables the solution and/or the performance of the flow.
 
-   *  Service Interference (Int): captures implications on other
-      services (e.g., side effects).  For example, tweaking MTU may have
-      an implication on all the flows that share the same network
+   Service Interference (Int):  Captures implications on other services
+      (e.g., side effects).  For example, tweaking MTU may have an
+      implication on all the flows that share the same network
       attachment, not only those that consumes an advice.  Likewise,
       requiring address sharing has a plenty of issues that are
-      discussed in [RFC6269].
+      discussed in [RFC6269].  Alos, relying upon an explicit proxy
+      would penalize the proxy which could serve both good and 'bad'
+      clients (e.g., launching Layer 7 DDoS attacks).
 
-   *  Functional (Fun): Characterizes the functional capabilities
-      offered by activating a solution.
+   Functional (Fun):  Characterizes the functional capabilities offered
+      by activating a solution.
 
    A criterion may belong to one or more categories.
 
@@ -232,7 +233,7 @@ Table of Contents
        |        Penalizing the proxy |     |  X  |     |  X  |     |
        +-----------------------------+-----+-----+-----+-----+-----+
 
-                                  Table 1
+                      Table 1: Criteria Classification
 
 3.  Detailed Analysis
 
@@ -330,7 +331,7 @@ Table of Contents
       |        Penalizing the proxy |  Y/N   |  N   |  Y/N  |  Y/N  |
       +-----------------------------+--------+------+-------+-------+
 
-                                  Table 2
+                         Table 2: Analysis Summary
 
 3.2.  MASQUE (to be completed by the authors of MASQUE)
 
@@ -419,11 +420,26 @@ Table of Contents
    in access routers, etc.  Similar to other network configuration
    purposes, NRLP has the following capabilities:
 
-   *  Support cascaded environments
+   *  Support cascaded environments.  The throuput advice can even be
+      correlated with local conditions or policies as shown, e.g., in
+      Figure 1.
 
    *  Path coupled signaling
 
    *  Path decoupled signaling
+
+           .------.                      .--------------------.
+           | Host +---+     .---.        |                    |
+           |  #1  |   |     |   |        |                    |
+           '------'   +-----+ C |        |                    |
+                    nrlp#2  | P +--------+      Network       |
+           .------.   .-----+ E | nrlp#1 |                    |
+           | Host |   |     |   |        |                    |
+           |  #2  +---'     '---'        |                    |
+           '------' nrlp#3               |                    |
+                                         '--------------------'
+
+                    Figure 1: Example of Cascaded NRLPs
 
    The same generic blob is used in NRLP independent of the signaling
    mechanism.  The blob is designed with the following key
@@ -486,7 +502,8 @@ Table of Contents
    *  IP address sharing issues: NRLP does not require changing the
       source IP address used by a host.
 
-   *  Penalize any network node (a proxy, typically)
+   *  Penalize any network node (a proxy, typically) which could serve
+      bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
 3.4.  SCONE (to be completed by the authors of SCONE)
 
