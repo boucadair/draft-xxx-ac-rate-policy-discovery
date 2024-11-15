@@ -69,19 +69,23 @@ Table of Contents
      3.2.  MASQUE (to be completed by the authors of MASQUE)
        3.2.1.  Key Idea
        3.2.2.  Discussion
-       3.2.3.  Costs
+       3.2.3.  Main Expected Gains
+       3.2.4.  Costs
      3.3.  NRLP
        3.3.1.  Key Idea
        3.3.2.  Discussion
-       3.3.3.  Costs
+       3.3.3.  Main Expected Gains
+       3.3.4.  Costs
      3.4.  SCONE (to be completed by the authors of SCONE)
        3.4.1.  Key Idea
        3.4.2.  Discussion
-       3.4.3.  Costs
+       3.4.3.  Main Expected Gains
+       3.4.4.  Costs
      3.5.  TRAIN (to be completed by the authors of TRAIN)
        3.5.1.  Key Idea
        3.5.2.  Discussion
-       3.5.3.  Costs
+       3.5.3.  Main Expected Gains
+       3.5.4.  Costs
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -351,7 +355,9 @@ Table of Contents
 
 3.2.2.  Discussion
 
-3.2.3.  Costs
+3.2.3.  Main Expected Gains
+
+3.2.4.  Costs
 
 3.3.  NRLP
 
@@ -519,7 +525,24 @@ Table of Contents
    *  Penalize any network node (a proxy, typically) which could serve
       bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
-3.3.3.  Costs
+3.3.3.  Main Expected Gains
+
+   *  Lower deployment barrier to experiment in large scale (no hardware
+      or sofware change may be needed at network).
+
+   *  Schedule network requests more efficiently, preventing network
+      congestion, and improving overall stability and network
+      performance.
+
+   *  Unlock new services in local networks and enhance the quality of
+      experience at the LAN by providing a simple tool to communicate
+      local policies to hosts.
+
+   *  Provide a mechanism to assist networks managing the load at the
+      source and, thus, contribute to better handle network overloads
+      and optimize the use of resources under non nominal conditions.
+
+3.3.4.  Costs
 
    *  A simple configuration is required for IPv4: DHCP flavor can be
       provided by configuration of custom options.  Refer to
@@ -541,7 +564,9 @@ Table of Contents
 
 3.4.2.  Discussion
 
-3.4.3.  Costs
+3.4.3.  Main Expected Gains
+
+3.4.4.  Costs
 
 3.5.  TRAIN (to be completed by the authors of TRAIN)
 
@@ -549,7 +574,9 @@ Table of Contents
 
 3.5.2.  Discussion
 
-3.5.3.  Costs
+3.5.3.  Main Expected Gains
+
+3.5.4.  Costs
 
 4.  Security Considerations
 
