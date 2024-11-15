@@ -550,13 +550,13 @@ Table of Contents
 
    *  A similar configuration approach can be followed for DHCPv6.
 
-   *  A minor change to the network is required for NRLP RA: upgrade PE
-      nodes to support a new Neighbor Discovery option.  Note that all
-      IPv6 hosts and networks are required to support Neighbor Discovery
-      [RFC4861].
+   *  A minor change to the network is required for NRLP RA: upgrade
+      configuration of PE nodes with new Neighbor Discovery option.
+      Note that all IPv6 hosts and networks are already required to
+      support Neighbor Discovery [RFC4861].
 
    *  An API needs to be exposed on the host to share the advice with
-      applications.
+      applications (e.g., scutil on MacOS).
 
 3.4.  SCONE (to be completed by the authors of SCONE)
 
