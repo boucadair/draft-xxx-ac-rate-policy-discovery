@@ -80,16 +80,19 @@ TRAIN:
 The following criteria are used to classify the various criteria:
 
 Security (Sec):
-: Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
+: Indicates whether this impact security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
 
 Deployability (Dep):
 : Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
+: A deployability hurdle would be typically the misalignment of incentives
+between those receiving the benefit vs. those bearing the cost of providing the benefit ({{Section 3.3 of ?I-D.narten-radir-problem-statement}}). For example, the sender of the advice should see (immediate) benefits.
 
 Performance (Per):
 : May impact the performance of the network device that enables the solution and/or the performance of the flow.
 
 Service Interference (Int):
-: Captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}. Alos, relying upon an explicit proxy would penalize the proxy which could serve both good and 'bad' clients (e.g., launching Layer 7 DDoS attacks).
+: Captures implications on other services (e.g., side effects).
+: For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}. Also, relying upon an explicit proxy would penalize the proxy which could serve both good and 'bad' clients (e.g., launching Layer 7 DDoS attacks).
 
 Functional (Fun):
 : Characterizes the functional capabilities offered by activating a solution.
