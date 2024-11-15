@@ -75,8 +75,8 @@ Table of Contents
 
    1.  Introduction
    2.  What's Out?
-   3.  Sample Deployment Cases
-   4.  Conventions and Definitions
+   3.  Conventions and Definitions
+   4.  Sample Deployment Cases
    5.  Throughput Advice Object
      5.1.  Overall Structure
      5.2.  Structure of a Throuput Advice Instance
@@ -217,7 +217,24 @@ Table of Contents
       of the API is OS-specific and, thus, out of scope of this
       document.
 
-3.  Sample Deployment Cases
+3.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   This document makes use fo the following term:
+
+   Rate-limit:  Used as a generic term to refer to a policy to restrict
+      the maximum bitrate of a flow.
+
+      It can be used with or without any traffic classification.
+
+      A rate-limit can involve limiting the rate and/or burst size.
+
+4.  Sample Deployment Cases
 
    Some deployment use cases for throuput advice discovery are provided
    below:
@@ -259,21 +276,6 @@ Table of Contents
       gaming or video streaming.  The CPE can use the throuput advice to
       share these rate-limit policies to connected hosts to adjust their
       forwarding behavior.
-
-4.  Conventions and Definitions
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
-   This document makes use fo the following term:
-
-   Rate-limit:  Used as a generic term to refer to a policy to restrict
-      the maximum bitrate of a flow.
-
-      It can be used with or without any traffic classification.
 
 5.  Throughput Advice Object
 
