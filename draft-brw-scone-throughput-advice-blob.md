@@ -144,7 +144,7 @@ Rate-limit:
 : It can be used with or without any traffic classification.
 : A rate-limit can involve limiting the rate and/or burst size.
 
-# Sample Deployment Cases
+# Sample Deployment Cases {#sec-uc}
 
 Some deployment use cases for throuput advice discovery are provided below:
 
@@ -161,91 +161,75 @@ Better Local Services:
 
 # Throughput Advice Object {#sec-blob}
 
-## Overall Structure
+## Overall Object Structure
 
-A throuput advice object may include multiple throughput advices (referred to as "throughput advice instance"), each covering a specific match criteria. Each of these
-adhere to the structure defined in {{sec-ins-structure}}.
+A throuput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adhere to the structure defined in {{sec-ins-structure}}.
 
-The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}.
+The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.
 
 ~~~~ CDDL
-   ; Provides information about the rate-limit policy that
-   ; is enforced for a network attachment.
-   ; One or more throughput instances can be present.
+; Provides information about the rate-limit policy that is
+; enforced for a network attachment.
+; One or more throughput instances can be present in an advice.
 
-   throughput-advice =  [+ throughput-instance]
+throughput-advice =  [+ throughput-instance]
 
-   throughput-instance =  {
-     ? optional-parameter-flags => opf,
-     ? flow-flags => ff,
-     ? traffic-category => category,
-     throughput => rate-limit
-   }
+throughput-instance =  {
+  ? optional-parameter-flags => opf,
+  ? flow-flags => ff,
+  ? traffic-category => category,
+  throughput => rate-limit
+}
 
-   ; Controls the presence of optional excess and peak rate
-   ; parameters.
-   ; Settting these parameters to false means that excess and
-   ; peak parameters are not supplied in the policy.
+; opf controls the presence of optional parameters such as
+; excess and peak rates.
+; Settting these parameters to false means that excess and
+; peak parameters are not supplied in the policy.
+; These control bits may not be required for protocols
+; with built-in mechanisms to parse objects even with
+; optional/variable fields.
 
-   opf =  {
-     ? excess: bool .default false,
-     ? peak: bool .default false
-   }
+opf =  {
+  ? excess: bool .default false,
+  ? peak: bool .default false
+}
 
-   ; Indicates scope (per host or per subscriber), traffic direction,
-   ; and reliability type (reliable or unreliable).
-   ; Default value for scope is false (i.e., per subscriber policy).
-   ; Default value for direction is 0 (i.e. network-to-host direction).
-   ; Default value for reliability is false (i.e., the policy is
-   ; applicable to both reliable and unreliable traffic).
-   ; If any of these parameters is not present, this is equivalent
-   ; to enclosing the parameter with its default value.
+; ff indicates scope (per host or per subscriber), traffic
+; direction, and reliability type (reliable or unreliable).
+; Default value for scope is false (i.e., per subscriber policy).
+; Default value for direction is 0 (i.e. network-to-host direction).
+; Default value for reliability is false (i.e., the policy is
+; applicable to both reliable and unreliable traffic).
+; If any of these parameters is not present, this is equivalent
+; to enclosing the parameter with its default value.
 
-   ff =  {
-     ? scope: bool .default false,
-     ? direction: uint .default 0,
-     ? reliability: uint .default false
-   }
+ff =  {
+  ? scope: bool .default false,
+  ? direction: uint .default 0,
+  ? reliability: uint .default false
+}
 
-   ; Indicates traffic category to which the policy is bound.
-   ; If the value is set to 0, this means that the policy is
-   ; enforced for all traffic.
+; category indicates traffic category to which the policy is bound.
+; If the value is set to 0, this means that the policy is
+; enforced for all traffic.
 
-   category =  {
-     ? tc: uint .default 0
-   }
+category =  {
+  ? tc: uint .default 0
+}
 
-   ; Indicates various rates (committed, excess, and peak).
-   ; Only CIR is mandatory to include.
+; rate-limit indicates various rates (committed, excess, and peak).
+; Only CIR/CBS are mandatory to include.
 
-   rate-limit =  {
-     cir: uint,    ; Mbps
-     cbs: uint .gt 0,    ; bytes
-     ? eir: uint,        ; Mbps
-     ? ebs: uint .gt 0,  ; bytes
-     ? pir: uint,        ; Mbps
-     ? pbs: uint .gt 0,  ; bytes
-   }
+rate-limit =  {
+  cir: uint,          ; Mbps
+  cbs: uint .gt 0,    ; bytes
+  ? eir: uint,        ; Mbps
+  ? ebs: uint .gt 0,  ; bytes
+  ? pir: uint,        ; Mbps
+  ? pbs: uint .gt 0,  ; bytes
+}
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
-
-For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
-includes one rate-limit instance that covers network-to-host direction and is applicable to all traffic destined to any any host of a given subscriber.
-
-~~~~~json
-{
-    "throughput-advice": [
-        {
-            "direction": 0,
-            "scope": false,
-            "tc": 0,
-            "cir": 50,
-            "cbs": 10000
-        }
-    ]
-}
-~~~~~
-{: #ex title="A JSON Example"}
 
 ## Structure of a Throuput Advice Instance {#sec-ins-structure}
 
@@ -336,12 +320,86 @@ Peak Burst Size (PBS) (bytes):
 : MUST be greater than zero, if present.
 : This parameter is optional.
 
+# Examples
+
+For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
+includes one rate-limit instance that covers network-to-host traffic direction and is applicable to all traffic destined to any host of a subscriber.
+
+~~~~~json
+{
+    "throughput-advice": [
+        {
+            "direction": 0,
+            "scope": false,
+            "tc": 0,
+            "cir": 50,
+            "cbs": 10000
+        }
+    ]
+}
+~~~~~
+{: #ex title="A JSON Example"}
+
+The advice conveyed in {{ex-2}} is similar to the advice in {{ex}}. The only difference is that default values are trimmed in {{ex-2}}.
+
+~~~~~json
+{
+    "throughput-advice": [
+        {
+            "cir": 50,
+            "cbs": 10000
+        }
+    ]
+}
+~~~~~
+{: #ex-2 title="A JSON Example with Default Values Trimmed"}
+
+{{ex-3}} shows the example of an advice that encloses two instances, each for one traffic direction.
+
+~~~~~json
+{
+    "throughput-advice": [
+        {
+            "direction": 0,
+            "scope": false,
+            "tc": 0,
+            "cir": 50,
+            "cbs": 10000
+        },
+        {
+            "direction": 1,
+            "scope": false,
+            "tc": 0,
+            "cir": 30,
+            "cbs": 8000
+        }
+    ]
+}
+~~~~~
+{: #ex-3 title="A JSON Example with Both Traffic Directions"}
+
+If both directions are covered by the same rate-limit policy, then the advice can be supplied as shown in {{ex-4}}
+
+~~~~~json
+{
+    "throughput-advice": [
+        {
+            "direction": 2,
+            "cir": 50,
+            "cbs": 10000
+        }
+    ]
+}
+~~~~~
+{: #ex-4 title="A JSON Example with Single Bidir Rate-Limit Policy"}
+
 # Security Considerations
 
 The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
 {{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
-The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.). Other mechanisms are enabled to protect
-against overload (e.g., DDoS mitigation).
+The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).
+
+As discussed in {{sec-uc}}, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
 
 An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
 
