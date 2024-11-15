@@ -178,9 +178,11 @@ A criterion may belong to one or more categories.
 NRLP leverages existing discovery mechanisms (DHCP, RA, PvD) for networks to advertise throughout advices.
 The same generic blob is used independent of the signaling mechanism. NRLP operates within the existing network/host trust model.
 
+Also, NRLP does not introduce additional dependency that would hinder having the benefits of enabling the NRLP feature.
+
 ### Discussion
 
-Only network elements that are entitled to send DHCP/RA/DHCP configuration are allowed to share an advice. As such, NRLP has built-in:
+Only network elements that are entitled to send DHCP/RA/PvD configuration are allowed to share the throughput advices. As such, NRLP has built-in:
 
 * Guard against random advice injection
 
@@ -188,7 +190,8 @@ Taking into account that NRLP advices are bound to a traffic category, NLRP reli
 for applications falling under a traffic category (or all traffic). In doing so, NRLP adheres to the following:
 
 * Mobility (guard against changing 5-tuple)
-* Require guards against app abuse
+* Require guards against app abuse: The OS can allocate network resources more fairly
+among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
 
 NRLP meets the following criteria:
 
@@ -204,7 +207,8 @@ Given that NRLP advices are shared during the establishment of a network attachm
 
 To that aim aim, NRLP:
 
-* Requires an OS API to expose the signal to applications, and ensure application fairness.
+* Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
+accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.
 
 NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies ({{?I-D.ietf-opsawg-ntw-attachment-circuit}}). Also, NRLP leverages AAA mechanisms (e.g., {{?RFC9445}}). Therefore, NRLP eases:
 
