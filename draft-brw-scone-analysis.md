@@ -303,8 +303,8 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 
 * A simple configuration is required for IPv4: DHCP flavor can be provided by configuration of custom options. Refer to {{NRLP-WIRE}}.
 * A similar configuration approach can be followed for DHCPv6.
-* A minor change to the network is required for NRLP RA: upgrade PE nodes to support a new Neighbor Discovery option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{?RFC4861}}.
-* An API needs to be exposed on the host to share the advice with applications.
+* A minor change to the network is required for NRLP RA: upgrade configuration of PE nodes with new Neighbor Discovery option. Note that all IPv6 hosts and networks are already required to support Neighbor Discovery {{?RFC4861}}.
+* An API needs to be exposed on the host to share the advice with applications (e.g., scutil on MacOS).
 
 ## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
 
