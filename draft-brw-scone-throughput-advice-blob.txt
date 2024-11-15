@@ -445,8 +445,8 @@ Table of Contents
       number of bits that a network can receive or send during one
       second over a network attachment for a traffic category.
 
-      If set to 0, this indicates to the host that an alternate path (if
-      any) should be preferred over this one.
+      If set to 0 (or a very low value), this indicates to the host that
+      an alternate path (if any) should be preferred over this one.
 
       This parameter is mandatory.
 
@@ -493,6 +493,14 @@ Table of Contents
       This parameter is optional.
 
 6.  Security Considerations
+
+   The throughtput advice is bound to a subscriber, a host, and traffic
+   category, not individual flows.  This is consistent with, e.g.,
+   Section 8.1.1 of [RFC9330] which states that "there has never been a
+   universal need to police the rate of individual application flows".
+   The rate-limits are set for various reasons (e.g., guards against
+   resource abuse, fairness, etc.).  Other mechanisms are enabled to
+   protect against overload (e.g., DDoS mitigation).
 
    An attacker who has the ability to change the throuput advice objects
    exchanged over a network attachment may:
@@ -678,6 +686,12 @@ Table of Contents
               S., and L. Munoz, "A YANG Network Data Model for Layer 2
               VPNs", RFC 9291, DOI 10.17487/RFC9291, September 2022,
               <https://www.rfc-editor.org/rfc/rfc9291>.
+
+   [RFC9330]  Briscoe, B., Ed., De Schepper, K., Bagnulo, M., and G.
+              White, "Low Latency, Low Loss, and Scalable Throughput
+              (L4S) Internet Service: Architecture", RFC 9330,
+              DOI 10.17487/RFC9330, January 2023,
+              <https://www.rfc-editor.org/rfc/rfc9330>.
 
 Appendix A.  Overview of Network Rate-Limit Policies
 

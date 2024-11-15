@@ -1724,7 +1724,7 @@ traffic category.<a href="#section-5.2-2.10.1" class="pilcrow">¶</a></p>
           <dd class="break"></dd>
 <dt id="section-5.2-2.11"></dt>
           <dd style="margin-left: 1.5em" id="section-5.2-2.12">
-            <p id="section-5.2-2.12.1">If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.<a href="#section-5.2-2.12.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-2.12.1">If set to 0 (or a very low value), this indicates to the host that an alternate path (if any) should be preferred over this one.<a href="#section-5.2-2.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.2-2.13"></dt>
@@ -1829,21 +1829,25 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-6-2">
-        <dt id="section-6-2.1">Decrease the bitrate value:</dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.2">
-          <p id="section-6-2.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-6-1">The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
+<span><a href="https://rfc-editor.org/rfc/rfc9330#section-8.1.1" class="relref">Section 8.1.1</a> of [<a href="#RFC9330" class="cite xref">RFC9330</a>]</span> which states that "there has never been a universal need to police the rate of individual application flows".
+The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.). Other mechanisms are enabled to protect
+against overload (e.g., DDoS mitigation).<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-6-3">
+        <dt id="section-6-3.1">Decrease the bitrate value:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-3.2">
+          <p id="section-6-3.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.3">Increase the bitrate value:</dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.4">
-          <p id="section-6-2.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
+<dt id="section-6-3.3">Increase the bitrate value:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-3.4">
+          <p id="section-6-3.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-6-3.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.5">Delete or remove the advice:</dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.6">
-          <p id="section-6-2.6.1">This is equivalent to deployments where the advice is not shared.<a href="#section-6-2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-6-3.5">Delete or remove the advice:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-3.6">
+          <p id="section-6-3.6.1">This is equivalent to deployments where the advice is not shared.<a href="#section-6-3.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -2092,8 +2096,12 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
 <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">J. Shallow</span>, <span class="refTitle">"Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home"</span>, <span class="seriesInfo">RFC 9066</span>, <span class="seriesInfo">DOI 10.17487/RFC9066</span>, <time datetime="2021-12" class="refDate">December 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9066">https://www.rfc-editor.org/rfc/rfc9066</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9291">[RFC9291]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Gonzalez de Dios, O., Ed.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">L. Munoz</span>, <span class="refTitle">"A YANG Network Data Model for Layer 2 VPNs"</span>, <span class="seriesInfo">RFC 9291</span>, <span class="seriesInfo">DOI 10.17487/RFC9291</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9291">https://www.rfc-editor.org/rfc/rfc9291</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9330">[RFC9330]</dt>
+      <dd>
+<span class="refAuthor">Briscoe, B., Ed.</span>, <span class="refAuthor">De Schepper, K.</span>, <span class="refAuthor">Bagnulo, M.</span>, and <span class="refAuthor">G. White</span>, <span class="refTitle">"Low Latency, Low Loss, and Scalable Throughput (L4S) Internet Service: Architecture"</span>, <span class="seriesInfo">RFC 9330</span>, <span class="seriesInfo">DOI 10.17487/RFC9330</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9330">https://www.rfc-editor.org/rfc/rfc9330</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
