@@ -55,10 +55,10 @@ These policies may be intentional policies (e.g., enforced as part of the activa
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
 
-This document specifies a generic object that can be be used by mechanims for hosts
+This document specifies a generic object that can be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
-the discovery channel.
+the discovery channel (protocol, API, etc.).
 
 --- middle
 
@@ -71,7 +71,7 @@ is provisioned over the links that connect customer terminating points and a pro
 successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
 while the underlying link is referred to as "bearers".
 
-The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
+The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN or cellular) to graft customer terminating points to a network.
 
 > Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
 
@@ -125,6 +125,8 @@ of how various combinations of Committed Information Rate (EIR), Committed Burst
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
 * A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
 
+Sample uses of the advice are listed in {{sec-samples}}.
+
 In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
 
 # What's Out?
@@ -153,15 +155,16 @@ Rate-limit:
 Some deployment use cases for throuput advice discovery are provided below:
 
 Adaptive Application Behavior:
-: Discovery of intentional policy applied on network attachements (CE-PE links, peering links, etc.) when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.
+: Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.
 : Concretely, applications are supposed to have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.
 : Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
 Network Assisted Offload:
-: A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
+: A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example).
+: The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
 
 Better Local Services:
-: A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
+: A user may configure policies on the CE such as securing some resources to a specific internal host used for gaming or video streaming. The CE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
 
 # Throughput Advice Object {#sec-blob}
 
@@ -397,7 +400,7 @@ If both directions are covered by the same rate-limit policy, then the advice ca
 ~~~~~
 {: #ex-4 title="A JSON Example with Single Bidir Rate-Limit Policy"}
 
-# Sample Uses of the Advice
+# Sample Uses of the Advice {#sec-samples}
 
 It is out of scope of this document to make recommendations about how the advice is consumed by applications/OS/Hosts. A non-exhaustive list is provided hereafter for illustration purposes:
 
