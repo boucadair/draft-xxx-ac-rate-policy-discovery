@@ -338,8 +338,10 @@ Peak Burst Size (PBS) (bytes):
 
 # Security Considerations
 
-The throughtput advice is bound to a traffic category, not individual flows. This is consistent with, e.g.,
-{{Section 8.1.1 of RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
+The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
+{{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
+The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.). Other mechanisms are enabled to protect
+against overload (e.g., DDoS mitigation).
 
 An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
 
