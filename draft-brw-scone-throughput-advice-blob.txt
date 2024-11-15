@@ -78,17 +78,18 @@ Table of Contents
    3.  Conventions and Definitions
    4.  Sample Deployment Cases
    5.  Throughput Advice Object
-     5.1.  Overall Structure
+     5.1.  Overall Object Structure
      5.2.  Structure of a Throuput Advice Instance
-   6.  Security Considerations
-   7.  IANA Considerations
-     7.1.  Rate-Limit Policy Objects Registry Group
-     7.2.  Optional Parameter Flags Registry
-     7.3.  Flow Flags Registry
-     7.4.  Traffic Category Registry
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   6.  Examples
+   7.  Security Considerations
+   8.  IANA Considerations
+     8.1.  Rate-Limit Policy Objects Registry Group
+     8.2.  Optional Parameter Flags Registry
+     8.3.  Flow Flags Registry
+     8.4.  Traffic Category Registry
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Overview of Network Rate-Limit Policies
    Acknowledgments
    Authors' Addresses
@@ -196,7 +197,7 @@ Table of Contents
 
    In order to ease mapping with specific signaling mechanims, allow for
    future extensions, and ensure consistent use of the advice, a new
-   IANA registry is created in Section 7.
+   IANA registry is created in Section 8.
 
 2.  What's Out?
 
@@ -279,95 +280,80 @@ Table of Contents
 
 5.  Throughput Advice Object
 
-5.1.  Overall Structure
+5.1.  Overall Object Structure
 
    A throuput advice object may include multiple throughput advices
-   (referred to as "throughput advice instance"), each covering a
+   (referred to as "throughput advice instances"), each covering a
    specific match criteria.  Each of these adhere to the structure
    defined in Section 5.2.
 
    The throughput advice object is described in CDDL [RFC8610] format
-   shown in Figure 2.
+   shown in Figure 2.  This format is meant to ease mapping with
+   encoding specifics of a given discovery channel that supplies the
+   throughput advice.
 
-      ; Provides information about the rate-limit policy that
-      ; is enforced for a network attachment.
-      ; One or more throughput instances can be present.
+   ; Provides information about the rate-limit policy that is
+   ; enforced for a network attachment.
+   ; One or more throughput instances can be present in an advice.
 
-      throughput-advice =  [+ throughput-instance]
+   throughput-advice =  [+ throughput-instance]
 
-      throughput-instance =  {
-        ? optional-parameter-flags => opf,
-        ? flow-flags => ff,
-        ? traffic-category => category,
-        throughput => rate-limit
-      }
-
-      ; Controls the presence of optional excess and peak rate
-      ; parameters.
-      ; Settting these parameters to false means that excess and
-      ; peak parameters are not supplied in the policy.
-
-      opf =  {
-        ? excess: bool .default false,
-        ? peak: bool .default false
-      }
-
-      ; Indicates scope (per host or per subscriber), traffic direction,
-      ; and reliability type (reliable or unreliable).
-      ; Default value for scope is false (i.e., per subscriber policy).
-      ; Default value for direction is 0 (i.e. network-to-host direction).
-      ; Default value for reliability is false (i.e., the policy is
-      ; applicable to both reliable and unreliable traffic).
-      ; If any of these parameters is not present, this is equivalent
-      ; to enclosing the parameter with its default value.
-
-      ff =  {
-        ? scope: bool .default false,
-        ? direction: uint .default 0,
-        ? reliability: uint .default false
-      }
-
-      ; Indicates traffic category to which the policy is bound.
-      ; If the value is set to 0, this means that the policy is
-      ; enforced for all traffic.
-
-      category =  {
-        ? tc: uint .default 0
-      }
-
-      ; Indicates various rates (committed, excess, and peak).
-      ; Only CIR is mandatory to include.
-
-      rate-limit =  {
-        cir: uint,    ; Mbps
-        cbs: uint .gt 0,    ; bytes
-        ? eir: uint,        ; Mbps
-        ? ebs: uint .gt 0,  ; bytes
-        ? pir: uint,        ; Mbps
-        ? pbs: uint .gt 0,  ; bytes
-      }
-
-             Figure 2: Throughput Advice Object Format in CDDL
-
-   For the sake of illustration, Figure 3 exemplifies the content of a
-   throughput advice using JSON notations.  The advice includes one
-   rate-limit instance that covers network-to-host direction and is
-   applicable to all traffic destined to any any host of a given
-   subscriber.
-
-   {
-       "throughput-advice": [
-           {
-               "direction": 0,
-               "scope": false,
-               "tc": 0,
-               "cir": 50,
-               "cbs": 10000
-           }
-       ]
+   throughput-instance =  {
+     ? optional-parameter-flags => opf,
+     ? flow-flags => ff,
+     ? traffic-category => category,
+     throughput => rate-limit
    }
 
-                          Figure 3: A JSON Example
+   ; opf controls the presence of optional parameters such as
+   ; excess and peak rates.
+   ; Settting these parameters to false means that excess and
+   ; peak parameters are not supplied in the policy.
+   ; These control bits may not be required for protocols
+   ; with built-in mechanisms to parse objects even with
+   ; optional/variable fields.
+
+   opf =  {
+     ? excess: bool .default false,
+     ? peak: bool .default false
+   }
+
+   ; ff indicates scope (per host or per subscriber), traffic
+   ; direction, and reliability type (reliable or unreliable).
+   ; Default value for scope is false (i.e., per subscriber policy).
+   ; Default value for direction is 0 (i.e. network-to-host direction).
+   ; Default value for reliability is false (i.e., the policy is
+   ; applicable to both reliable and unreliable traffic).
+   ; If any of these parameters is not present, this is equivalent
+   ; to enclosing the parameter with its default value.
+
+   ff =  {
+     ? scope: bool .default false,
+     ? direction: uint .default 0,
+     ? reliability: uint .default false
+   }
+
+   ; category indicates traffic category to which the policy is bound.
+   ; If the value is set to 0, this means that the policy is
+   ; enforced for all traffic.
+
+   category =  {
+     ? tc: uint .default 0
+   }
+
+   ; rate-limit indicates various rates (committed, excess, and peak).
+   ; Only CIR/CBS are mandatory to include.
+
+   rate-limit =  {
+     cir: uint,          ; Mbps
+     cbs: uint .gt 0,    ; bytes
+     ? eir: uint,        ; Mbps
+     ? ebs: uint .gt 0,  ; bytes
+     ? pir: uint,        ; Mbps
+     ? pbs: uint .gt 0,  ; bytes
+   }
+
+             Figure 2: Throughput Advice Object Format in CDDL
 
 5.2.  Structure of a Throuput Advice Instance
 
@@ -388,7 +374,7 @@ Table of Contents
 
          When set to "0", this flag indicates that PIR is not present.
 
-      U:  Unassigned bits.  See Section 7.2.
+      U:  Unassigned bits.  See Section 8.2.
 
    Flow flags (FF):  These flags are used to express some generic
       properties of the flow.  The following flags are defined (from MSB
@@ -424,7 +410,7 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned flags.  See Section 7.3.
+      U:  Unassigned flags.  See Section 8.3.
 
    TC (Traffic Category):  Specifies a traffic category to which this
       policy applies.
@@ -439,7 +425,7 @@ Table of Contents
 
       *  "3": Bulk traffic
 
-      *  4-63: Unassigned values.  See Section 7.4.
+      *  4-63: Unassigned values.  See Section 8.4.
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -492,15 +478,93 @@ Table of Contents
 
       This parameter is optional.
 
-6.  Security Considerations
+6.  Examples
+
+   For the sake of illustration, Figure 3 exemplifies the content of a
+   throughput advice using JSON notations.  The advice includes one
+   rate-limit instance that covers network-to-host traffic direction and
+   is applicable to all traffic destined to any host of a subscriber.
+
+   {
+       "throughput-advice": [
+           {
+               "direction": 0,
+               "scope": false,
+               "tc": 0,
+               "cir": 50,
+               "cbs": 10000
+           }
+       ]
+   }
+
+                          Figure 3: A JSON Example
+
+   The advice conveyed in Figure 4 is similar to the advice in Figure 3.
+   The only difference is that default values are trimmed in Figure 4.
+
+   {
+       "throughput-advice": [
+           {
+               "cir": 50,
+               "cbs": 10000
+           }
+       ]
+   }
+
+            Figure 4: A JSON Example with Default Values Trimmed
+
+   Figure 5 shows the example of an advice that encloses two instances,
+   each for one traffic direction.
+
+   {
+       "throughput-advice": [
+           {
+               "direction": 0,
+               "scope": false,
+               "tc": 0,
+               "cir": 50,
+               "cbs": 10000
+           },
+           {
+               "direction": 1,
+               "scope": false,
+               "tc": 0,
+               "cir": 30,
+               "cbs": 8000
+           }
+       ]
+   }
+
+           Figure 5: A JSON Example with Both Traffic Directions
+
+   If both directions are covered by the same rate-limit policy, then
+   the advice can be supplied as shown in Figure 6
+
+   {
+       "throughput-advice": [
+           {
+               "direction": 2,
+               "cir": 50,
+               "cbs": 10000
+           }
+       ]
+   }
+
+        Figure 6: A JSON Example with Single Bidir Rate-Limit Policy
+
+7.  Security Considerations
 
    The throughtput advice is bound to a subscriber, a host, and traffic
    category, not individual flows.  This is consistent with, e.g.,
    Section 8.1.1 of [RFC9330] which states that "there has never been a
    universal need to police the rate of individual application flows".
    The rate-limits are set for various reasons (e.g., guards against
-   resource abuse, fairness, etc.).  Other mechanisms are enabled to
-   protect against overload (e.g., DDoS mitigation).
+   resource abuse, fairness, etc.).
+
+   As discussed in Section 4, the throughout advice assist networks to
+   soften overloads during DDoS attacks, in paricular.  Of course, other
+   mechanisms are enabled by networks to protect against overload (e.g.,
+   DDoS mitigation [RFC8811]).
 
    An attacker who has the ability to change the throuput advice objects
    exchanged over a network attachment may:
@@ -515,18 +579,18 @@ Table of Contents
    Delete or remove the advice:  This is equivalent to deployments where
       the advice is not shared.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
-7.1.  Rate-Limit Policy Objects Registry Group
+8.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "Rate-Limit Policy Objects".
 
-7.2.  Optional Parameter Flags Registry
+8.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
    "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 7.1).
+   registry group (Section 8.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -547,11 +611,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-7.3.  Flow Flags Registry
+8.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "Rate-Limit Policy Objects" registry group
-   (Section 7.1).
+   (Section 8.1).
 
    The initial values of this registry is provided in Table 2.
 
@@ -574,11 +638,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-7.4.  Traffic Category Registry
+8.4.  Traffic Category Registry
 
    This document requests IANA to create a new registry entitled
    "Traffic Category Types" under the "Rate-Limit Policy Objects"
-   registry group (Section 7.1).
+   registry group (Section 8.1).
 
    The initial values of this registry is provided in Table 3.
 
@@ -601,9 +665,9 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -625,7 +689,7 @@ Table of Contents
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
@@ -675,6 +739,11 @@ Table of Contents
               2 Virtual Private Networks (L2VPNs)", RFC 4664,
               DOI 10.17487/RFC4664, September 2006,
               <https://www.rfc-editor.org/rfc/rfc4664>.
+
+   [RFC8811]  Mortensen, A., Ed., Reddy.K, T., Ed., Andreasen, F.,
+              Teague, N., and R. Compton, "DDoS Open Threat Signaling
+              (DOTS) Architecture", RFC 8811, DOI 10.17487/RFC8811,
+              August 2020, <https://www.rfc-editor.org/rfc/rfc8811>.
 
    [RFC9066]  Reddy.K, T., Boucadair, M., Ed., and J. Shallow,
               "Distributed Denial-of-Service Open Threat Signaling
