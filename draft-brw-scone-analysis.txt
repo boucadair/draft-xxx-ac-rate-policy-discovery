@@ -69,15 +69,19 @@ Table of Contents
      3.2.  MASQUE (to be completed by the authors of MASQUE)
        3.2.1.  Key Idea
        3.2.2.  Discussion
+       3.2.3.  Costs
      3.3.  NRLP
        3.3.1.  Key Idea
        3.3.2.  Discussion
+       3.3.3.  Costs
      3.4.  SCONE (to be completed by the authors of SCONE)
        3.4.1.  Key Idea
        3.4.2.  Discussion
+       3.4.3.  Costs
      3.5.  TRAIN (to be completed by the authors of TRAIN)
        3.5.1.  Key Idea
        3.5.2.  Discussion
+       3.5.3.  Costs
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -347,6 +351,8 @@ Table of Contents
 
 3.2.2.  Discussion
 
+3.2.3.  Costs
+
 3.3.  NRLP
 
 3.3.1.  Key Idea
@@ -513,17 +519,37 @@ Table of Contents
    *  Penalize any network node (a proxy, typically) which could serve
       bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
+3.3.3.  Costs
+
+   *  A simple configuration is required for IPv4: DHCP flavor can be
+      provided by configuration of custom options.  Refer to
+      [NRLP-WIRE].
+
+   *  A similar configuration approach can be followed for DHCPv6.
+
+   *  A minor change to the network is required for NRLP RA: upgrade PE
+      nodes to support a new Neighbor Discovery option.  Note that all
+      IPv6 hosts and networks are required to support Neighbor Discovery
+      [RFC4861].
+
+   *  An API needs to be exposed on the host to share the advice will
+      applications.
+
 3.4.  SCONE (to be completed by the authors of SCONE)
 
 3.4.1.  Key Idea
 
 3.4.2.  Discussion
 
+3.4.3.  Costs
+
 3.5.  TRAIN (to be completed by the authors of TRAIN)
 
 3.5.1.  Key Idea
 
 3.5.2.  Discussion
+
+3.5.3.  Costs
 
 4.  Security Considerations
 
@@ -583,6 +609,16 @@ Table of Contents
               statement-05, 17 February 2010,
               <https://datatracker.ietf.org/doc/html/draft-narten-radir-
               problem-statement-05>.
+
+   [NRLP-WIRE]
+              "Examples of Wire Format Options",
+              <https://github.com/boucadair/draft-xxx-ac-rate-policy-
+              discovery/blob/main/example-nrlp-wire-format.md>.
+
+   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
+              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
+              DOI 10.17487/RFC4861, September 2007,
+              <https://www.rfc-editor.org/rfc/rfc4861>.
 
    [RFC6269]  Ford, M., Ed., Boucadair, M., Durand, A., Levis, P., and
               P. Roberts, "Issues with IP Address Sharing", RFC 6269,
