@@ -393,6 +393,14 @@ If both directions are covered by the same rate-limit policy, then the advice ca
 ~~~~~
 {: #ex-4 title="A JSON Example with Single Bidir Rate-Limit Policy"}
 
+# Sample Uses of the Advice
+
+It is out of scope of this document to make recommendations about how the advice is consumed by applications/OS/Hosts. A non-exhaustive list is provided hereafter for illustration purposes:
+
+* Applications can send/receive data at a rate beyond the CIR up to the PIR when the network is not congested. If network feedback (e.g., packet loss or delay) indicates congestion, the application can scale back to the CIR. Otherwise, it can use the PIR for temporary throughput boosts.
+* Applications can send/receive short-term bursts of data that exceed the committed burst size CBS up to the PBS if there is no congestion. This is useful for scenarios where short, high-throughput bursts are needed.
+* Applications can ensure that their sending rate never exceeds the PIR and that their short-term bursts of traffic never exceeds PBS.
+
 # Security Considerations
 
 The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
