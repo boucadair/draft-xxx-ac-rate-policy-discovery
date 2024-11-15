@@ -528,7 +528,7 @@ Table of Contents
 3.3.3.  Main Expected Gains
 
    *  Lower deployment barrier to experiment in large scale (no hardware
-      or sofware change may be needed at network).
+      or software change is needed in network components).
 
    *  Schedule network requests (independent of the transport protocol)
       more efficiently, preventing network congestion, and improving
