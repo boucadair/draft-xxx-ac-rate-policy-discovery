@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>boucadair/draft-xxx-ac-rate-policy-discovery nit preview</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <style type="text/css">/*<![CDATA[*/
+      body { font-family: "Helvetica Neue","Open Sans", Helvetica, Calibri,sans-serif; }
+      h1, h2, td { font-family: "Helvetica Neue", "Roboto Condensed", "Open Sans", Helvetica, Calibri, sans-serif; }
+      h1 { font-size: 20px; } h2 { font-size: 16px; }
+      table { margin: 5px 10px; border-collapse: collapse; }
+      th, td { font-weight: normal; text-align: left; padding: 2px 5px; }
+      a:link { color: #000; } a:visited { color: #00a; }
+    /*]]>*/</style>
+  </head>
+  <body>
+    <h1>Editor's drafts for nit branch of <a href="https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/tree/nit">boucadair/draft-xxx-ac-rate-policy-discovery</a></h1>
+    <table id="branch-nit">
+      <tr>
+        <td><a href="./draft-brw-scone-analysis.html" class="html draft-brw-scone-analysis" title="SCONE Solution Analysis (HTML)">Solution Analysis</a></td>
+        <td><a href="./draft-brw-scone-analysis.txt" class="txt draft-brw-scone-analysis" title="SCONE Solution Analysis (Text)">plain text</a></td>
+        <td>same as main</td>
+      </tr>
+      <tr>
+        <td><a href="./draft-brw-scone-rate-policy-discovery.html" class="html draft-brw-scone-rate-policy-discovery" title="Discovery of Network Rate-Limit Policies (NRLPs) (HTML)">Rate-Limit Policies Discovery</a></td>
+        <td><a href="./draft-brw-scone-rate-policy-discovery.txt" class="txt draft-brw-scone-rate-policy-discovery" title="Discovery of Network Rate-Limit Policies (NRLPs) (Text)">plain text</a></td>
+        <td>same as main</td>
+      </tr>
+      <tr>
+        <td><a href="./draft-brw-scone-throughput-advice-blob.html" class="html draft-brw-scone-throughput-advice-blob" title="Throughput Advice Object for SCONE (HTML)">SCONE Blob</a></td>
+        <td><a href="./draft-brw-scone-throughput-advice-blob.txt" class="txt draft-brw-scone-throughput-advice-blob" title="Throughput Advice Object for SCONE (Text)">plain text</a></td>
+        <td>same as main</td>
+      </tr>
+      <tr>
+        <td><a href="./draft-brw-scone-app-manageability.html" class="html draft-brw-scone-app-manageability" title="SCONE Applicability &amp; Manageability (HTML)">SCONE Applicability &amp; Manageability</a></td>
+        <td><a href="./draft-brw-scone-app-manageability.txt" class="txt draft-brw-scone-app-manageability" title="SCONE Applicability &amp; Manageability (Text)">plain text</a></td>
+        <td>same as main</td>
+      </tr>
+    </table>
+    <script>
+window.onload = function() {
+  var referrer_branch = 'main';
+  // e.g., "https://github.com/user/repo/tree/main"
+  var chunks = document.referrer.split("/");
+  if (chunks[2] === 'github.com' && chunks[5] === 'tree') {
+    referrer_branch = chunks[6];
+  }
+  let branch = document.querySelector('#branch-' + referrer_branch);
+  let h = document.location.hash.substring(1);
+  if (h === 'show') {
+    document.location.hash = '#' + branch.id;
+  } else if (branch && h.startsWith('go')) {
+    let e = branch.querySelector(h.substring(2));
+    if (e && e.href) {
+      document.location = e.href;
+    }
+  }
+};
+    </script>
+  </body>
+</html>
