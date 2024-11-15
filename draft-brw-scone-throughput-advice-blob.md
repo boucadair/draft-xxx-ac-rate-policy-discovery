@@ -407,6 +407,7 @@ It is out of scope of this document to make recommendations about how the advice
 * Applications can send/receive data at a rate beyond the CIR up to the PIR when the network is not congested. If network feedback (e.g., packet loss or delay) indicates congestion, the application can scale back to the CIR. Otherwise, it can use the PIR for temporary throughput boosts.
 * Applications can send/receive short-term bursts of data that exceed the committed burst size CBS up to the PBS if there is no congestion. This is useful for scenarios where short, high-throughput bursts are needed.
 * Applications can ensure that their sending rate never exceeds the PIR and that their short-term bursts of traffic never exceeds PBS.
+* The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
 
 # Security Considerations
 
