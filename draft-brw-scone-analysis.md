@@ -190,6 +190,8 @@ A criterion may belong to one or more categories.
 
 ### Discussion
 
+### Main Expected Gains
+
 ### Costs
 
 ## NRLP {#sec-nrlp}
@@ -290,6 +292,13 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * IP address sharing issues: NRLP does not require changing the source IP address used by a host.
 * Penalize any network node (a proxy, typically) which could serve bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
+### Main Expected Gains
+
+* Lower deployment barrier to experiment in large scale (no hardware or sofware change may be needed at network).
+* Schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance.
+* Unlock new services in local networks and enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts.
+* Provide a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use of resources under non nominal conditions.
+
 ### Costs
 
 * A simple configuration is required for IPv4: DHCP flavor can be provided by configuration of custom options. Refer to {{NRLP-WIRE}}.
@@ -303,6 +312,8 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 
 ### Discussion
 
+### Main Expected Gains
+
 ### Costs
 
 ## TRAIN  (to be completed by the authors of TRAIN) {#sec-train}
@@ -310,6 +321,8 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 ### Key Idea
 
 ### Discussion
+
+### Main Expected Gains
 
 ### Costs
 
