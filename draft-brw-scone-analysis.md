@@ -79,11 +79,20 @@ TRAIN:
 
 The following criteria are used to classify the various criteria:
 
-* Security (Sec): Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
-* Deployability (Dep): Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
-* Performance (Per): May impact the performance of the network device that enables the solution and/or the performance of the flow.
-* Service Interference (Int): captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}.
-* Functional (Fun): Characterizes the functional capabilities offered by activating a solution.
+Security (Sec):
+: Indicates whether this impact security/privacy. Some of the criteria that are classified a security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
+  
+Deployability (Dep):
+: Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
+
+Performance (Per):
+: May impact the performance of the network device that enables the solution and/or the performance of the flow.
+
+Service Interference (Int):
+: Captures implications on other services (e.g., side effects). For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in {{?RFC6269}}. Alos, relying upon an explicit proxy would penalize the proxy which could serve both good and 'bad' clients (e.g., launching Layer 7 DDoS attacks).
+
+Functional (Fun):
+: Characterizes the functional capabilities offered by activating a solution.
 
 A criterion may belong to one or more categories.
 
@@ -123,6 +132,7 @@ A criterion may belong to one or more categories.
 | Forwarding peformance impact                  |     |  X  |  X  |  X  |     |
 | IP address sharing issues                     |     |  X  |     |  X  |     |
 | Penalizing the proxy                          |     |  X  |     |  X  |     |
+{: #class title="Criteria Classification"}
 
 # Detailed Analysis
 
@@ -164,6 +174,7 @@ A criterion may belong to one or more categories.
 | Forwarding peformance impact                  |Y/N   |  N   |Y/N   |  Y/N |
 | IP address sharing issues                     |Y/N   |  N   |Y/N   |  Y/N |
 | Penalizing the proxy                          |Y/N   |  N   |Y/N   |  Y/N |
+{: #sol-sum title="Analysis Summary"}
 
 ## MASQUE (to be completed by the authors of MASQUE) {#sec-masque}
 
@@ -220,9 +231,23 @@ One of NRLP flavors:
 
 NRLP does not restrict the deployment options as providers can deploy distributed or centralized DHCP servers, use relays, enable NRLP RA in access routers, etc. Similar to other network configuration purposes, NRLP has the following capabilities:
 
-* Support cascaded environments
+* Support cascaded environments. The throuput advice can even be correlated with local conditions or policies as shown, e.g., in {{ac-casc}}.
 * Path coupled signaling
 * Path decoupled signaling
+
+~~~~aasvg
+.------.                      .--------------------.
+| Host +---+     .---.        |                    |
+|  #1  |   |     |   |        |                    |
+'------'   +-----+ C |        |                    |
+         nrlp#2  | P +--------+      Network       |
+.------.   .-----+ E | nrlp#1 |                    |
+| Host |   |     |   |        |                    |
+|  #2  +---'     '---'        |                    |
+'------' nrlp#3               |                    |
+                              '--------------------'
+~~~~
+{: #ac-casc title="Example of Cascaded NRLPs" artwork-align="center"}
 
 The same generic blob is used in NRLP independent of the signaling mechanism. The blob is designed with the following key characteristics:
 
@@ -253,7 +278,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * Overhead of unauthenticated re-encryption
 * Forwarding performance impact
 * IP address sharing issues: NRLP does not require changing the source IP address used by a host.
-* Penalize any network node (a proxy, typically)
+* Penalize any network node (a proxy, typically) which could serve bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
 
 ## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
