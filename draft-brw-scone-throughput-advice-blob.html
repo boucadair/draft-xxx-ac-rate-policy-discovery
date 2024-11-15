@@ -1380,22 +1380,25 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
 <p id="section-1-7">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
 the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>).<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p id="section-1-10">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-10" class="pilcrow">¶</a></p>
-<p id="section-1-11">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-11" class="pilcrow">¶</a></p>
-<p id="section-1-12">Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-12" class="pilcrow">¶</a></p>
-<p id="section-1-13">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
-of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-13" class="pilcrow">¶</a></p>
+<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">As discussed, e.g., in <span><a href="https://rfc-editor.org/rfc/rfc7567#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7567" class="cite xref">RFC7567</a>]</span>, packet dropping by network devices occurs
+mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. Rate-limits are usually
+configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-11" class="pilcrow">¶</a></p>
+<p id="section-1-12">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-13">Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-13" class="pilcrow">¶</a></p>
+<p id="section-1-14">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
+of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-14" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-14.1">
-          <p id="section-1-14.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-15.1">
+          <p id="section-1-15.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-15.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-14.2">
-          <p id="section-1-14.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-1-14.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-15.2">
+          <p id="section-1-15.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-1-15.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-15">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-15" class="pilcrow">¶</a></p>
+<p id="section-1-16">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-16" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="whats-out">
@@ -2193,6 +2196,14 @@ The rate-limits are set for various reasons (e.g., guards against resource abuse
         <dd>
 <span class="refAuthor">Andersson, L., Ed.</span> and <span class="refAuthor">E. Rosen, Ed.</span>, <span class="refTitle">"Framework for Layer 2 Virtual Private Networks (L2VPNs)"</span>, <span class="seriesInfo">RFC 4664</span>, <span class="seriesInfo">DOI 10.17487/RFC4664</span>, <time datetime="2006-09" class="refDate">September 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4664">https://www.rfc-editor.org/rfc/rfc4664</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC7567">[RFC7567]</dt>
+        <dd>
+<span class="refAuthor">Baker, F., Ed.</span> and <span class="refAuthor">G. Fairhurst, Ed.</span>, <span class="refTitle">"IETF Recommendations Regarding Active Queue Management"</span>, <span class="seriesInfo">BCP 197</span>, <span class="seriesInfo">RFC 7567</span>, <span class="seriesInfo">DOI 10.17487/RFC7567</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7567">https://www.rfc-editor.org/rfc/rfc7567</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8466">[RFC8466]</dt>
+        <dd>
+<span class="refAuthor">Wen, B.</span>, <span class="refAuthor">Fioccola, G., Ed.</span>, <span class="refAuthor">Xie, C.</span>, and <span class="refAuthor">L. Jalil</span>, <span class="refTitle">"A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery"</span>, <span class="seriesInfo">RFC 8466</span>, <span class="seriesInfo">DOI 10.17487/RFC8466</span>, <time datetime="2018-10" class="refDate">October 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8466">https://www.rfc-editor.org/rfc/rfc8466</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8811">[RFC8811]</dt>
         <dd>
 <span class="refAuthor">Mortensen, A., Ed.</span>, <span class="refAuthor">Reddy.K, T., Ed.</span>, <span class="refAuthor">Andreasen, F.</span>, <span class="refAuthor">Teague, N.</span>, and <span class="refAuthor">R. Compton</span>, <span class="refTitle">"DDoS Open Threat Signaling (DOTS) Architecture"</span>, <span class="seriesInfo">RFC 8811</span>, <span class="seriesInfo">DOI 10.17487/RFC8811</span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8811">https://www.rfc-editor.org/rfc/rfc8811</a>&gt;</span>. </dd>
@@ -2200,10 +2211,6 @@ The rate-limits are set for various reasons (e.g., guards against resource abuse
 <dt id="RFC9066">[RFC9066]</dt>
         <dd>
 <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">J. Shallow</span>, <span class="refTitle">"Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home"</span>, <span class="seriesInfo">RFC 9066</span>, <span class="seriesInfo">DOI 10.17487/RFC9066</span>, <time datetime="2021-12" class="refDate">December 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9066">https://www.rfc-editor.org/rfc/rfc9066</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9291">[RFC9291]</dt>
-        <dd>
-<span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Gonzalez de Dios, O., Ed.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">L. Munoz</span>, <span class="refTitle">"A YANG Network Data Model for Layer 2 VPNs"</span>, <span class="seriesInfo">RFC 9291</span>, <span class="seriesInfo">DOI 10.17487/RFC9291</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9291">https://www.rfc-editor.org/rfc/rfc9291</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9330">[RFC9330]</dt>
       <dd>

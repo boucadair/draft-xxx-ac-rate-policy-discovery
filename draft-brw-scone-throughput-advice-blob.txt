@@ -158,8 +158,15 @@ Table of Contents
    The required set of parameters to provision a network attachment is a
    function of the service offering.  For example, a very limited set of
    parameters is required for mass-market service offering while a more
-   elaborated set is required for Enterprise services (e.g., Layer 2 VPN
-   [RFC9291]).
+   elaborated set is required for Enterprise services.
+
+   As discussed, e.g., in Section 4.2 of [RFC7567], packet dropping by
+   network devices occurs mainly to protect the network (e.g.,
+   congestion-unresponsive flows) and also to ensure fairness over a
+   shared link.  Rate-limits are usually configured in (ingress) nodes.
+   These rate-limits can be shared with customers when subscribing to a
+   connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual
+   Private Network (L2VPN) Service Deliver" [RFC8466]).
 
    Section 5 defines a set parameters that can be used by networks to
    share the rate-limit policies applied on a network attachment:
@@ -761,6 +768,16 @@ Table of Contents
               DOI 10.17487/RFC4664, September 2006,
               <https://www.rfc-editor.org/rfc/rfc4664>.
 
+   [RFC7567]  Baker, F., Ed. and G. Fairhurst, Ed., "IETF
+              Recommendations Regarding Active Queue Management",
+              BCP 197, RFC 7567, DOI 10.17487/RFC7567, July 2015,
+              <https://www.rfc-editor.org/rfc/rfc7567>.
+
+   [RFC8466]  Wen, B., Fioccola, G., Ed., Xie, C., and L. Jalil, "A YANG
+              Data Model for Layer 2 Virtual Private Network (L2VPN)
+              Service Delivery", RFC 8466, DOI 10.17487/RFC8466, October
+              2018, <https://www.rfc-editor.org/rfc/rfc8466>.
+
    [RFC8811]  Mortensen, A., Ed., Reddy.K, T., Ed., Andreasen, F.,
               Teague, N., and R. Compton, "DDoS Open Threat Signaling
               (DOTS) Architecture", RFC 8811, DOI 10.17487/RFC8811,
@@ -771,11 +788,6 @@ Table of Contents
               (DOTS) Signal Channel Call Home", RFC 9066,
               DOI 10.17487/RFC9066, December 2021,
               <https://www.rfc-editor.org/rfc/rfc9066>.
-
-   [RFC9291]  Boucadair, M., Ed., Gonzalez de Dios, O., Ed., Barguil,
-              S., and L. Munoz, "A YANG Network Data Model for Layer 2
-              VPNs", RFC 9291, DOI 10.17487/RFC9291, September 2022,
-              <https://www.rfc-editor.org/rfc/rfc9291>.
 
    [RFC9330]  Briscoe, B., Ed., De Schepper, K., Bagnulo, M., and G.
               White, "Low Latency, Low Loss, and Scalable Throughput
