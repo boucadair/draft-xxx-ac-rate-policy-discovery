@@ -530,9 +530,9 @@ Table of Contents
    *  Lower deployment barrier to experiment in large scale (no hardware
       or sofware change may be needed at network).
 
-   *  Schedule network requests more efficiently, preventing network
-      congestion, and improving overall stability and network
-      performance.
+   *  Schedule network requests (independent of the transport protocol)
+      more efficiently, preventing network congestion, and improving
+      overall stability and network performance.
 
    *  Unlock new services in local networks and enhance the quality of
       experience at the LAN by providing a simple tool to communicate
@@ -555,7 +555,7 @@ Table of Contents
       IPv6 hosts and networks are required to support Neighbor Discovery
       [RFC4861].
 
-   *  An API needs to be exposed on the host to share the advice will
+   *  An API needs to be exposed on the host to share the advice with
       applications.
 
 3.4.  SCONE (to be completed by the authors of SCONE)
