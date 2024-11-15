@@ -77,10 +77,10 @@ TRAIN:
 
 # Criteria Classification {#sec-class}
 
-The following criteria are used to classify the various criteria:
+The following categories are used to classify the various criteria:
 
 Security (Sec):
-: Indicates whether this impact security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (as that is likely to be ignored).
+: Indicates whether this impacts security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (e.g., as that is likely to be ignored).
 
 Deployability (Dep):
 : Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
