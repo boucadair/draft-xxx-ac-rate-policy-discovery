@@ -48,6 +48,11 @@ normative:
 
 informative:
 
+   NRLP-WIRE:
+      title: Examples of Wire Format Options
+      target: https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/example-nrlp-wire-format.md
+      date: false
+
 --- abstract
 
 This document provides an analysis of various SCONE solutions.
@@ -185,6 +190,8 @@ A criterion may belong to one or more categories.
 
 ### Discussion
 
+### Costs
+
 ## NRLP {#sec-nrlp}
 
 ### Key Idea
@@ -283,6 +290,12 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * IP address sharing issues: NRLP does not require changing the source IP address used by a host.
 * Penalize any network node (a proxy, typically) which could serve bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
 
+### Costs
+
+* A simple configuration is required for IPv4: DHCP flavor can be provided by configuration of custom options. Refer to {{NRLP-WIRE}}.
+* A similar configuration approach can be followed for DHCPv6.
+* A minor change to the network is required for NRLP RA: upgrade PE nodes to support a new Neighbor Discovery option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{?RFC4861}}.
+* An API needs to be exposed on the host to share the advice will applications.
 
 ## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
 
@@ -290,11 +303,15 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 
 ### Discussion
 
+### Costs
+
 ## TRAIN  (to be completed by the authors of TRAIN) {#sec-train}
 
 ### Key Idea
 
 ### Discussion
+
+### Costs
 
 # Security Considerations
 
