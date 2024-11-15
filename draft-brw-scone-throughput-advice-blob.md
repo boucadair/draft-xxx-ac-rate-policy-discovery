@@ -133,6 +133,17 @@ are bound to the same network attachment is deployment specific.
 * How the throughput advice is computed/set.
 * How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.
 
+# Conventions and Definitions
+
+{::boilerplate bcp14-tagged}
+
+This document makes use fo the following term:
+
+Rate-limit:
+: Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
+: It can be used with or without any traffic classification.
+: A rate-limit can involve limiting the rate and/or burst size.
+
 # Sample Deployment Cases
 
 Some deployment use cases for throuput advice discovery are provided below:
@@ -147,16 +158,6 @@ Network Assisted Offload:
 
 Better Local Services:
 : A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
-
-# Conventions and Definitions
-
-{::boilerplate bcp14-tagged}
-
-This document makes use fo the following term:
-
-Rate-limit:
-: Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
-: It can be used with or without any traffic classification.
 
 # Throughput Advice Object {#sec-blob}
 
