@@ -105,7 +105,11 @@ Customer terminating points are provided with a set of information (e.g., IP add
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
 the PE-side of a network attachment is specified in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
-The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}}).
+The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.
+
+As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network devices occurs
+mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. Rate-limits are usually
+configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" {{?RFC8466}}).
 
 {{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.
 
