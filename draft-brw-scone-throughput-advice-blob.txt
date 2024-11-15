@@ -81,15 +81,16 @@ Table of Contents
      5.1.  Overall Object Structure
      5.2.  Structure of a Throuput Advice Instance
    6.  Examples
-   7.  Security Considerations
-   8.  IANA Considerations
-     8.1.  Rate-Limit Policy Objects Registry Group
-     8.2.  Optional Parameter Flags Registry
-     8.3.  Flow Flags Registry
-     8.4.  Traffic Category Registry
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   7.  Sample Uses of the Advice
+   8.  Security Considerations
+   9.  IANA Considerations
+     9.1.  Rate-Limit Policy Objects Registry Group
+     9.2.  Optional Parameter Flags Registry
+     9.3.  Flow Flags Registry
+     9.4.  Traffic Category Registry
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Overview of Network Rate-Limit Policies
    Acknowledgments
    Authors' Addresses
@@ -197,7 +198,7 @@ Table of Contents
 
    In order to ease mapping with specific signaling mechanims, allow for
    future extensions, and ensure consistent use of the advice, a new
-   IANA registry is created in Section 8.
+   IANA registry is created in Section 9.
 
 2.  What's Out?
 
@@ -374,7 +375,7 @@ Table of Contents
 
          When set to "0", this flag indicates that PIR is not present.
 
-      U:  Unassigned bits.  See Section 8.2.
+      U:  Unassigned bits.  See Section 9.2.
 
    Flow flags (FF):  These flags are used to express some generic
       properties of the flow.  The following flags are defined (from MSB
@@ -410,7 +411,7 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned flags.  See Section 8.3.
+      U:  Unassigned flags.  See Section 9.3.
 
    TC (Traffic Category):  Specifies a traffic category to which this
       policy applies.
@@ -425,7 +426,7 @@ Table of Contents
 
       *  "3": Bulk traffic
 
-      *  4-63: Unassigned values.  See Section 8.4.
+      *  4-63: Unassigned values.  See Section 9.4.
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -552,7 +553,27 @@ Table of Contents
 
         Figure 6: A JSON Example with Single Bidir Rate-Limit Policy
 
-7.  Security Considerations
+7.  Sample Uses of the Advice
+
+   It is out of scope of this document to make recommendations about how
+   the advice is consumed by applications/OS/Hosts.  A non-exhaustive
+   list is provided hereafter for illustration purposes:
+
+   *  Applications can send/receive data at a rate beyond the CIR up to
+      the PIR when the network is not congested.  If network feedback
+      (e.g., packet loss or delay) indicates congestion, the application
+      can scale back to the CIR.  Otherwise, it can use the PIR for
+      temporary throughput boosts.
+
+   *  Applications can send/receive short-term bursts of data that
+      exceed the committed burst size CBS up to the PBS if there is no
+      congestion.  This is useful for scenarios where short, high-
+      throughput bursts are needed.
+
+   *  Applications can ensure that their sending rate never exceeds the
+      PIR and that their short-term bursts of traffic never exceeds PBS.
+
+8.  Security Considerations
 
    The throughtput advice is bound to a subscriber, a host, and traffic
    category, not individual flows.  This is consistent with, e.g.,
@@ -579,18 +600,18 @@ Table of Contents
    Delete or remove the advice:  This is equivalent to deployments where
       the advice is not shared.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
-8.1.  Rate-Limit Policy Objects Registry Group
+9.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "Rate-Limit Policy Objects".
 
-8.2.  Optional Parameter Flags Registry
+9.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
    "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 8.1).
+   registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -611,11 +632,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-8.3.  Flow Flags Registry
+9.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "Rate-Limit Policy Objects" registry group
-   (Section 8.1).
+   (Section 9.1).
 
    The initial values of this registry is provided in Table 2.
 
@@ -638,11 +659,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-8.4.  Traffic Category Registry
+9.4.  Traffic Category Registry
 
    This document requests IANA to create a new registry entitled
    "Traffic Category Types" under the "Rate-Limit Policy Objects"
-   registry group (Section 8.1).
+   registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 3.
 
@@ -665,9 +686,9 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -689,7 +710,7 @@ Table of Contents
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
