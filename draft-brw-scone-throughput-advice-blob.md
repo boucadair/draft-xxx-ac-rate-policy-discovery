@@ -304,7 +304,7 @@ Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
   send during one second over a network attachment for a
   traffic category.
-: If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
+: If set to 0 (or a very low value), this indicates to the host that an alternate path (if any) should be preferred over this one.
 : This parameter is mandatory.
 
 Committed Burst Size (CBS) (bytes):
@@ -337,6 +337,9 @@ Peak Burst Size (PBS) (bytes):
 : This parameter is optional.
 
 # Security Considerations
+
+The throughtput advice is bound to a traffic category, not individual flows. This is consistent with, e.g.,
+{{Section 8.1.1 of RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
 
 An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
 
