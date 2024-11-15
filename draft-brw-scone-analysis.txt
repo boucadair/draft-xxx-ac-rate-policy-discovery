@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 18 May 2025                                Cloud Software Group
+Expires: 19 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        14 November 2024
+                                                        15 November 2024
 
 
                         SCONE Solution Analysis
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 May 2025.
+   This Internet-Draft will expire on 19 May 2025.
 
 Copyright Notice
 
@@ -347,11 +347,14 @@ Table of Contents
    used independent of the signaling mechanism.  NRLP operates within
    the existing network/host trust model.
 
+   Also, NRLP does not introduce additional dependency that would hinder
+   having the benefits of enabling the NRLP feature.
+
 3.3.2.  Discussion
 
-   Only network elements that are entitled to send DHCP/RA/DHCP
-   configuration are allowed to share an advice.  As such, NRLP has
-   built-in:
+   Only network elements that are entitled to send DHCP/RA/PvD
+   configuration are allowed to share the throughput advices.  As such,
+   NRLP has built-in:
 
    *  Guard against random advice injection
 
@@ -362,7 +365,9 @@ Table of Contents
 
    *  Mobility (guard against changing 5-tuple)
 
-   *  Require guards against app abuse
+   *  Require guards against app abuse: The OS can allocate network
+      resources more fairly among different processes, with NRLP
+      signals, ensuring that no single process monopolizes the network.
 
    NRLP meets the following criteria:
 
@@ -393,7 +398,10 @@ Table of Contents
    To that aim aim, NRLP:
 
    *  Requires an OS API to expose the signal to applications, and
-      ensure application fairness.
+      ensure application fairness: An OS can provide more accurate
+      available bandwidth to applications through the API, making
+      implementation easier for applications that don't require
+      dedicated bandwidth measurement.
 
    NRLP leverages existing mechanisms for the provisioning of network
    attachments, including supply of the various policies
