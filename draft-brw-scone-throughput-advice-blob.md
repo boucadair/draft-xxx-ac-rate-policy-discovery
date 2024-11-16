@@ -203,18 +203,22 @@ opf =  {
 
 ; ff indicates scope (per host or per subscriber), traffic
 ; direction, and reliability type (reliable or unreliable).
-; Default value for scope is false (i.e., per subscriber policy).
-; Default value for direction is 0 (i.e. network-to-host direction).
+; Default value for scope is per subscriber policy.
+; Default value for direction is network-to-host direction.
 ; Default value for reliability is false (i.e., the policy is
 ; applicable to both reliable and unreliable traffic).
 ; If any of these parameters is not present, this is equivalent
 ; to enclosing the parameter with its default value.
 
 ff =  {
-  ? scope: bool .default false,
-  ? direction: uint .default 0,
-  ? reliability: uint .default false
+  ? scope: &scope-values .default subscriber,
+  ? direction: &direction-values .default n2h,
+  ? reliability: &reliability-values .default any
 }
+
+scope-values = (subscriber: 0, host: 1)
+direction-values = (n2h: 0, h2n: 1, bidir: 2)
+reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
 ; category indicates traffic category to which the policy is bound.
 ; If the value is set to 0, this means that the policy is
