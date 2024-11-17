@@ -592,11 +592,11 @@ Table of Contents
       [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
       size.
 
-   *  Applications can send/receive data at different rates reliable and
-      unreliable traffic (reliable could map to QB and unreliable could
-      map to NQB) by mapping reliability flag.  One of the ways for
-      application to make reliability markings visible is by following
-      the considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
+   *  Applications can send/receive data at different rates for reliable
+      and unreliable traffic (reliable could map to QB and unreliable
+      could map to NQB) by mapping reliability flag.  One of the ways
+      for application to make reliability markings visible is by
+      following the considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
 
 8.  Security Considerations
 
