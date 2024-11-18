@@ -1939,6 +1939,9 @@ includes one rate-limit instance that covers network-to-host traffic direction a
         <li class="normal" id="section-7-2.4">
           <p id="section-7-2.4.1">The throughput advice can feed mechanisms such as <span><a href="https://rfc-editor.org/rfc/rfc7661#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7661" class="cite xref">RFC7661</a>]</span> or <span><a href="https://rfc-editor.org/rfc/rfc9002#section-7.8" class="relref">Section 7.8</a> of [<a href="#RFC9002" class="cite xref">RFC9002</a>]</span> to control the maximum burst size.<a href="#section-7-2.4.1" class="pilcrow">¶</a></p>
 </li>
+        <li class="normal" id="section-7-2.5">
+          <p id="section-7-2.5.1">Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tsvwg-nqb" class="cite xref">I-D.ietf-tsvwg-nqb</a>]</span>.<a href="#section-7-2.5.1" class="pilcrow">¶</a></p>
+</li>
       </ul>
 </section>
 </div>
@@ -2180,6 +2183,10 @@ The rate-limits are set for various reasons (e.g., guards against resource abuse
 <dt id="I-D.ietf-teas-5g-ns-ip-mpls">[I-D.ietf-teas-5g-ns-ip-mpls]</dt>
         <dd>
 <span class="refAuthor">Szarkowicz, K. G.</span>, <span class="refAuthor">Roberts, R.</span>, <span class="refAuthor">Lucek, J.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">L. M. Contreras</span>, <span class="refTitle">"A Realization of Network Slices for 5G Networks Using Current IP/MPLS Technologies"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-13</span>, <time datetime="2024-10-11" class="refDate">11 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-ns-ip-mpls-13">https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-ns-ip-mpls-13</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tsvwg-nqb">[I-D.ietf-tsvwg-nqb]</dt>
+        <dd>
+<span class="refAuthor">White, G.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">R. Geib</span>, <span class="refTitle">"A Non-Queue-Building Per-Hop Behavior (NQB PHB) for Differentiated Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tsvwg-nqb-27</span>, <time datetime="2024-11-08" class="refDate">8 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27">https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2475">[RFC2475]</dt>
         <dd>

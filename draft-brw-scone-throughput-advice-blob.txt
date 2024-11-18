@@ -592,6 +592,13 @@ Table of Contents
       [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
       size.
 
+   *  Applications can send/receive data at different rates for reliable
+      and unreliable traffic (reliable could map to Queue-Building (QB)
+      and unreliable could map to Non-Queue-Building (NQB)) by mapping
+      reliability flag.  One of the ways for application to make
+      reliability markings visible is by following, e.g., the
+      considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
+
 8.  Security Considerations
 
    The throughtput advice is bound to a subscriber, a host, and traffic
@@ -747,6 +754,13 @@ Table of Contents
               13, 11 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
               ns-ip-mpls-13>.
+
+   [I-D.ietf-tsvwg-nqb]
+              White, G., Fossati, T., and R. Geib, "A Non-Queue-Building
+              Per-Hop Behavior (NQB PHB) for Differentiated Services",
+              Work in Progress, Internet-Draft, draft-ietf-tsvwg-nqb-27,
+              8 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tsvwg-nqb-27>.
 
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
