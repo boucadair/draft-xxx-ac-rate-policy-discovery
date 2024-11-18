@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 21 May 2025                                Cloud Software Group
+Expires: 22 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        17 November 2024
+                                                        18 November 2024
 
 
                    Throughput Advice Object for SCONE
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 May 2025.
+   This Internet-Draft will expire on 22 May 2025.
 
 Copyright Notice
 
@@ -593,10 +593,11 @@ Table of Contents
       size.
 
    *  Applications can send/receive data at different rates for reliable
-      and unreliable traffic (reliable could map to QB and unreliable
-      could map to NQB) by mapping reliability flag.  One of the ways
-      for application to make reliability markings visible is by
-      following the considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
+      and unreliable traffic (reliable could map to Queue-Building (QB)
+      and unreliable could map to Non-Queue-Building (NQB)) by mapping
+      reliability flag.  One of the ways for application to make
+      reliability markings visible is by following, e.g., the
+      considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
 
 8.  Security Considerations
 
