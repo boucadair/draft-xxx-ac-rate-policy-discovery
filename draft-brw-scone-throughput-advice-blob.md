@@ -115,9 +115,7 @@ configured in (ingress) nodes. These rate-limits can be shared with customers wh
 
 This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document. The throughput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
-{{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
-The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).
+Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document. 
 
 Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
@@ -218,7 +216,7 @@ ff =  {
   ? reliability: &reliability-values .default any
 }
 
-scope-values = (subscriber: 0, host: 1)
+scope-values = (subscriber: 0, host: 1, flow: 2)
 direction-values = (n2h: 0, h2n: 1, bidir: 2)
 reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
@@ -267,7 +265,7 @@ Flow flags (FF):
 
     S (Scope):
     : Indicates the granularity of enforcing policies.
-    : Concretely, this parameter specifies whether the policy is a per-host (when set to "1") or per-subscriber (when set to "0) policy.
+    : This parameter specifies whether the policy is a per-host, per-subscriber, or per-flow policy.
 
     D (Direction):
     : Indicates the direction on which to apply the enclosed policy.
