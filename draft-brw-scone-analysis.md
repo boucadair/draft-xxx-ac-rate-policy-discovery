@@ -148,40 +148,40 @@ A criterion may belong to one or more categories.
 
 | Criteria                                      |MASQUE| NRLP |SCONE |TRAIN |
 |----------------------------------------------:|:----:|:----:|:----:|:----:|
-| Guard against random advice injection         |Y/N   |  Y   |Y/N   |  Y/N |
-| Mobility (guard against changing 5-tuple)     |Y/N   |  Y   |Y/N   |  Y/N |
-| Require guards against app abuse              |Y/N   |  Y   |Y/N   |  Y/N |
-| Fate sharing                                  |Y/N   |  Y   |Y/N   |  Y/N |
-| Atomic configuration                          |Y/N   |  Y   |Y/N   |  Y/N |
-| Updatability/Proactive signalling             |Y/N   |  Y   |Y/N   |  Y/N |
-| Integration with network management tools     |Y/N   |  Y   |Y/N   |  Y/N |
-| Applicable to any transport protocol          |Y/N   |  Y   |Y/N   |  Y/N |
-| Applicable to QUIC                            |Y/N   |  Y   |Y/N   |  Y/N |
-| Applicable to any application                 |Y/N   |  Y   |Y/N   |  Y/N |
-| Require an OS API                             |Y/N   |  Y   |Y/N   |  Y/N |
-| Requires PvD                                  |Y/N   | Y(*) |Y/N   |  Y/N |
-| Support cascaded environments                 |Y/N   |  Y   |Y/N   |  Y/N |
-| Path coupled signaling                        |Y/N   |  Y   |Y/N   |  Y/N |
-| Path decoupled signaling                      |Y/N   |  Y   |Y/N   |  Y/N |
-| Traffic direction (h2n, n2h, both)            |Y/N   |  Y   |Y/N   |  Y/N |
-| Per-host policies                             |Y/N   |  Y   |Y/N   |  Y/N |
-| Per-subscriber policies                       |Y/N   |  Y   |Y/N   |  Y/N |
-| Extendable                                    |Y/N   |  Y   |Y/N   |  Y/N |
-| Require data plane upgrade/change             |Y/N   |  N   |Y/N   |  Y/N |
-| Require transport payload inspection (network)|Y/N   |  N   |Y/N   |  Y/N |
-| Require transport payload inspection (host)   |Y/N   |  N   |Y/N   |  Y/N |
-| Require steering policies on the host         |Y/N   |  N   |Y/N   |  Y/N |
-| Depend on the server to consume the signal    |Y/N   |  N   |Y/N   |  Y/N |
-| Impact the connection setup delay             |Y/N   |  N   |Y/N   |  Y/N |
-| Require the identity of the target server     |Y/N   |  N   |Y/N   |  Y/N |
-| Require MTU tweaking                          |Y/N   |  N   |Y/N   |  Y/N |
-| Incur multi-layer encryption                  |Y/N   |  N   |Y/N   |  Y/N |
-| Incur nested congestion control               |Y/N   |  N   |Y/N   |  Y/N |
-| Incur multiple round-trips                    |Y/N   |  N   |Y/N   |  Y/N |
-| Overhead of unauthenticated re-encryption     |Y/N   |  N   |Y/N   |  Y/N |
-| Forwarding peformance impact                  |Y/N   |  N   |Y/N   |  Y/N |
-| IP address sharing issues                     |Y/N   |  N   |Y/N   |  Y/N |
-| Penalizing the proxy                          |Y/N   |  N   |Y/N   |  Y/N |
+| Guard against random advice injection         |TBC   |  Y   |TBC   |  TBC |
+| Mobility (guard against changing 5-tuple)     |TBC   |  Y   |TBC   |  TBC |
+| Require guards against app abuse              |TBC   |  Y   |TBC   |  TBC |
+| Fate sharing                                  |TBC   |  Y   |TBC   |  TBC |
+| Atomic configuration                          |TBC   |  Y   |TBC   |  TBC |
+| Updatability/Proactive signalling             |TBC   |  Y   |TBC   |  TBC |
+| Integration with network management tools     |TBC   |  Y   |TBC   |  TBC |
+| Applicable to any transport protocol          |TBC   |  Y   |TBC   |  TBC |
+| Applicable to QUIC                            |TBC   |  Y   |TBC   |  TBC |
+| Applicable to any application                 |TBC   |  Y   |TBC   |  TBC |
+| Require an OS API                             |TBC   |  Y   |TBC   |  TBC |
+| Requires PvD                                  |TBC   | Y(*) |TBC   |  TBC |
+| Support cascaded environments                 |TBC   |  Y   |TBC   |  TBC |
+| Path coupled signaling                        |TBC   |  Y   |TBC   |  TBC |
+| Path decoupled signaling                      |TBC   |  Y   |TBC   |  TBC |
+| Traffic direction (h2n, n2h, both)            |TBC   |  Y   |TBC   |  TBC |
+| Per-host policies                             |TBC   |  Y   |TBC   |  TBC |
+| Per-subscriber policies                       |TBC   |  Y   |TBC   |  TBC |
+| Extendable                                    |TBC   |  Y   |TBC   |  TBC |
+| Require data plane upgrade/change             |TBC   |  N   |TBC   |  TBC |
+| Require transport payload inspection (network)|TBC   |  N   |TBC   |  TBC |
+| Require transport payload inspection (host)   |TBC   |  N   |TBC   |  TBC |
+| Require steering policies on the host         |TBC   |  N   |TBC   |  TBC |
+| Depend on the server to consume the signal    |TBC   |  N   |TBC   |  TBC |
+| Impact the connection setup delay             |TBC   |  N   |TBC   |  TBC |
+| Require the identity of the target server     |TBC   |  N   |TBC   |  TBC |
+| Require MTU tweaking                          |TBC   |  N   |TBC   |  TBC |
+| Incur multi-layer encryption                  |TBC   |  N   |TBC   |  TBC |
+| Incur nested congestion control               |TBC   |  N   |TBC   |  TBC |
+| Incur multiple round-trips                    |TBC   |  N   |TBC   |  TBC |
+| Overhead of unauthenticated re-encryption     |TBC   |  N   |TBC   |  TBC |
+| Forwarding peformance impact                  |TBC   |  N   |TBC   |  TBC |
+| IP address sharing issues                     |TBC   |  N   |TBC   |  TBC |
+| Penalizing the proxy                          |TBC   |  N   |TBC   |  TBC |
 {: #sol-sum title="Analysis Summary"}
 
 ## MASQUE (to be completed by the authors of MASQUE) {#sec-masque}
