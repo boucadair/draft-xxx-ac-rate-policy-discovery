@@ -137,6 +137,7 @@ This document does not make any assumption about:
 * The services or applications that are delivered over a network attachment. Whether one or multiple services
 are bound to the same network attachment is deployment specific.
 * How the throughput advice is computed/set.
+* The protocol machinery for validating, refreshing, detecting stale, and flushing out received advices.
 * How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.
 
 # Conventions and Definitions
