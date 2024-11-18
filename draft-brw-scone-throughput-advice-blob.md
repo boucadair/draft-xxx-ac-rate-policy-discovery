@@ -264,7 +264,8 @@ Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
 
     S (Scope):
-    : Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
+    : Indicates the granularity of enforcing policies.
+    : Concretely, this parameter specifies whether the policy is a per-host (when set to "1") or per-subscriber (when set to "0) policy.
 
     D (Direction):
     : Indicates the direction on which to apply the enclosed policy.
