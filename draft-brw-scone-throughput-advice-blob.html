@@ -11,11 +11,8 @@
 <meta content="Sridharan Rajagopalan" name="author">
 <meta content="Luis M. Contreras" name="author">
 <meta content="
-       Traffic exchanged over a network may be subject to rate-limit policies.
-These policies may be intentional policies (e.g., enforced as part of the activation
-of the network attachment and typically agreed upon service subscription)
-or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). 
-       This document specifies a generic object that can be used by mechanims for hosts
+       Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
+This document specifies a generic object that can be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
 the discovery channel (protocol, API, etc.). 
@@ -1140,14 +1137,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Throughput Advice Object for SCONE</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Traffic exchanged over a network may be subject to rate-limit policies.
-These policies may be intentional policies (e.g., enforced as part of the activation
-of the network attachment and typically agreed upon service subscription)
-or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document specifies a generic object that can be used by mechanims for hosts
+<p id="section-abstract-1">Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
+This document specifies a generic object that can be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
-the discovery channel (protocol, API, etc.).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+the discovery channel (protocol, API, etc.).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1382,24 +1376,26 @@ able to send and receive traffic over a network attachment. A comprehensive list
 the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">As discussed, e.g., in <span><a href="https://rfc-editor.org/rfc/rfc7567#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7567" class="cite xref">RFC7567</a>]</span>, packet dropping by network devices occurs
-mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. Rate-limits are usually
-configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p id="section-1-10"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-10" class="pilcrow">¶</a></p>
-<p id="section-1-11">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-11" class="pilcrow">¶</a></p>
-<p id="section-1-12">Whether host-to-network, network-to-host, or both policies are returned in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-12" class="pilcrow">¶</a></p>
-<p id="section-1-13">Also, one more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-13" class="pilcrow">¶</a></p>
-<p id="section-1-14">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
-of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-14" class="pilcrow">¶</a></p>
+mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
+of the network attachment and typically agreed upon service subscription)
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">Rate-limits are usually configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-11" class="pilcrow">¶</a></p>
+<p id="section-1-12">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-13">Whether host-to-network, network-to-host, or both policies are returned in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-13" class="pilcrow">¶</a></p>
+<p id="section-1-14">Also, one more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-14" class="pilcrow">¶</a></p>
+<p id="section-1-15">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
+of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-15" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-15.1">
-          <p id="section-1-15.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-15.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-1-16.1">
+          <p id="section-1-16.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-16.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-15.2">
-          <p id="section-1-15.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-1-15.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-1-16.2">
+          <p id="section-1-16.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-1-16.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-16">Sample uses of the advice are listed in <a href="#sec-samples" class="auto internal xref">Section 7</a>.<a href="#section-1-16" class="pilcrow">¶</a></p>
-<p id="section-1-17">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-17" class="pilcrow">¶</a></p>
+<p id="section-1-17">Sample uses of the advice are listed in <a href="#sec-samples" class="auto internal xref">Section 7</a>.<a href="#section-1-17" class="pilcrow">¶</a></p>
+<p id="section-1-18">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-18" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="whats-out">

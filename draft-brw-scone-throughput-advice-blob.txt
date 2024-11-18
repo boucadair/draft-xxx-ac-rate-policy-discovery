@@ -21,17 +21,12 @@ Expires: 22 May 2025                                Cloud Software Group
 Abstract
 
    Traffic exchanged over a network may be subject to rate-limit
-   policies.  These policies may be intentional policies (e.g., enforced
-   as part of the activation of the network attachment and typically
-   agreed upon service subscription) or be reactive policies (e.g.,
-   enforced temporarily to manage an overload or during a DDoS attack
-   mitigation).
-
-   This document specifies a generic object that can be used by
-   mechanims for hosts to dynamically discover network rate-limit
-   policies.  This information is then passed to applications that might
-   adjust their behaviors accordingly.  The design of the object is
-   independent of the discovery channel (protocol, API, etc.).
+   policies for various operational reasons.  This document specifies a
+   generic object that can be used by mechanims for hosts to dynamically
+   discover network rate-limit policies.  This information is then
+   passed to applications that might adjust their behaviors accordingly.
+   The design of the object is independent of the discovery channel
+   (protocol, API, etc.).
 
 Discussion Venues
 
@@ -163,8 +158,14 @@ Table of Contents
    As discussed, e.g., in Section 4.2 of [RFC7567], packet dropping by
    network devices occurs mainly to protect the network (e.g.,
    congestion-unresponsive flows) and also to ensure fairness over a
-   shared link.  Rate-limits are usually configured in (ingress) nodes.
-   These rate-limits can be shared with customers when subscribing to a
+   shared link.  These policies may be intentional policies (e.g.,
+   enforced as part of the activation of the network attachment and
+   typically agreed upon service subscription) or be reactive policies
+   (e.g., enforced temporarily to manage an overload or during a DDoS
+   attack mitigation).
+
+   Rate-limits are usually configured in (ingress) nodes.  These rate-
+   limits can be shared with customers when subscribing to a
    connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual
    Private Network (L2VPN) Service Deliver" [RFC8466]).
 
