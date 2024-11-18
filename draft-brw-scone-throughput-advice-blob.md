@@ -111,13 +111,13 @@ As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network d
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. Rate-limits are usually
 configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" {{?RFC8466}}).
 
-{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.
+{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: throughput Advice. The set of parameters are independent of the address family.
 
-This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
+This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.
+Whether host-to-network, network-to-host, or both policies are returned in a throughput advice is deployment specific. All these combinations are supported in this document.
 
-Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
+Also, one more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
 The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
 of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
@@ -152,25 +152,25 @@ Rate-limit:
 
 # Sample Deployment Cases {#sec-uc}
 
-Some deployment use cases for throuput advice discovery are provided below:
+Some deployment use cases for throughput advice discovery are provided below:
 
 Adaptive Application Behavior:
 : Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.
-: Concretely, applications are supposed to have access to all throuput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.
-: Likewise, a host with multiple network attachments may use the discovered throuput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
+: Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.
+: Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
 Network Assisted Offload:
-: A network may advertize a throuput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example).
+: A network may advertize a throughput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example).
 : The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
 
 Better Local Services:
-: A user may configure policies on the CE such as securing some resources to a specific internal host used for gaming or video streaming. The CE can use the throuput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
+: A user may configure policies on the CE such as securing some resources to a specific internal host used for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
 
 # Throughput Advice Object {#sec-blob}
 
 ## Overall Object Structure
 
-A throuput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adhere to the structure defined in {{sec-ins-structure}}.
+A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adhere to the structure defined in {{sec-ins-structure}}.
 
 The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.
 
@@ -242,9 +242,9 @@ rate-limit =  {
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
-## Structure of a Throuput Advice Instance {#sec-ins-structure}
+## Structure of a Throughput Advice Instance {#sec-ins-structure}
 
-This section defines the set of attributes that are included in a throuput advice instance:
+This section defines the set of attributes that are included in a throughput advice instance:
 
 Optional Parameter Flags (OPF):
 : These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):
@@ -422,7 +422,7 @@ The rate-limits are set for various reasons (e.g., guards against resource abuse
 
 As discussed in {{sec-uc}}, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
 
-An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:
+An attacker who has the ability to change the throughput advice objects exchanged over a network attachment may:
 
 Decrease the bitrate value:
 : This may lower the perceived QoS if the host aggressively lowers its transmission rate.
