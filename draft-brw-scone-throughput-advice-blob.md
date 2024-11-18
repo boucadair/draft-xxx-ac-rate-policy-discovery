@@ -414,6 +414,14 @@ It is out of scope of this document to make recommendations about how the advice
 * The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
 * Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
 
+# Bearer Considerations
+
+In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending throughput advices may be redundant and should thus be disabled.
+
+In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending  throughput advices over a network attachment would allow control the load at the source.
+
+When both bearer-specific policies and throughput advices are communicated to a host, the throughput advices take precedence.
+
 # Security Considerations
 
 The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
