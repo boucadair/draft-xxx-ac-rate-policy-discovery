@@ -115,7 +115,7 @@ configured in (ingress) nodes. These rate-limits can be shared with customers wh
 
 This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document. 
+Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.
 
 Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
