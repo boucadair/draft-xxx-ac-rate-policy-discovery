@@ -475,10 +475,7 @@ The initial values of this registry is provided in {{iana-tc}}.
 
 |Value|     Description|     Reference|
 |0| All traffic|This-Document|
-|1| Streaming|This-Document|
-|2| Real-time|This-Document|
-|3| Bulk traffic| |
-|4-63| Unassigned| |
+|1-63| Unassigned| |
 {: #iana-tc title="Traffic Category Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
