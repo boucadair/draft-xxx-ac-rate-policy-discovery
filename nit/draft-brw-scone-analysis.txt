@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 19 May 2025                                Cloud Software Group
+Expires: 22 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        15 November 2024
+                                                        18 November 2024
 
 
                         SCONE Solution Analysis
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 May 2025.
+   This Internet-Draft will expire on 22 May 2025.
 
 Copyright Notice
 
@@ -258,93 +258,93 @@ Table of Contents
       +=============================+========+======+=======+=======+
       |                    Criteria | MASQUE | NRLP | SCONE | TRAIN |
       +=============================+========+======+=======+=======+
-      | Guard against random advice |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      | Guard against random advice |  TBC   |  Y   |  TBC  |  TBC  |
       |                   injection |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |     Mobility (guard against |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |     Mobility (guard against |  TBC   |  Y   |  TBC  |  TBC  |
       |           changing 5-tuple) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |  Require guards against app |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |  Require guards against app |  TBC   |  Y   |  TBC  |  TBC  |
       |                       abuse |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |                Fate sharing |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                Fate sharing |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |        Atomic configuration |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |        Atomic configuration |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |      Updatability/Proactive |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |      Updatability/Proactive |  TBC   |  Y   |  TBC  |  TBC  |
       |                  signalling |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |    Integration with network |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |    Integration with network |  TBC   |  Y   |  TBC  |  TBC  |
       |            management tools |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      | Applicable to any transport |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      | Applicable to any transport |  TBC   |  Y   |  TBC  |  TBC  |
       |                    protocol |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |          Applicable to QUIC |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |          Applicable to QUIC |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |           Applicable to any |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |           Applicable to any |  TBC   |  Y   |  TBC  |  TBC  |
       |                 application |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |           Require an OS API |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |           Require an OS API |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |                Requires PvD |  Y/N   | Y(*) |  Y/N  |  Y/N  |
+      |                Requires PvD |  TBC   | Y(*) |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |            Support cascaded |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |            Support cascaded |  TBC   |  Y   |  TBC  |  TBC  |
       |                environments |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |      Path coupled signaling |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |      Path coupled signaling |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |    Path decoupled signaling |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |    Path decoupled signaling |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |     Traffic direction (h2n, |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |     Traffic direction (h2n, |  TBC   |  Y   |  TBC  |  TBC  |
       |                  n2h, both) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |           Per-host policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |           Per-host policies |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |     Per-subscriber policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |     Per-subscriber policies |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |                  Extendable |  Y/N   |  Y   |  Y/N  |  Y/N  |
+      |                  Extendable |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      | Require data plane upgrade/ |  Y/N   |  N   |  Y/N  |  Y/N  |
+      | Require data plane upgrade/ |  TBC   |  N   |  TBC  |  TBC  |
       |                      change |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |   Require transport payload |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |   Require transport payload |  TBC   |  N   |  TBC  |  TBC  |
       |        inspection (network) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |   Require transport payload |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |   Require transport payload |  TBC   |  N   |  TBC  |  TBC  |
       |           inspection (host) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |   Require steering policies |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |   Require steering policies |  TBC   |  N   |  TBC  |  TBC  |
       |                 on the host |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |     Depend on the server to |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |     Depend on the server to |  TBC   |  N   |  TBC  |  TBC  |
       |          consume the signal |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      | Impact the connection setup |  Y/N   |  N   |  Y/N  |  Y/N  |
+      | Impact the connection setup |  TBC   |  N   |  TBC  |  TBC  |
       |                       delay |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      | Require the identity of the |  Y/N   |  N   |  Y/N  |  Y/N  |
+      | Require the identity of the |  TBC   |  N   |  TBC  |  TBC  |
       |               target server |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |        Require MTU tweaking |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |        Require MTU tweaking |  TBC   |  N   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |           Incur multi-layer |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |           Incur multi-layer |  TBC   |  N   |  TBC  |  TBC  |
       |                  encryption |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |     Incur nested congestion |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |     Incur nested congestion |  TBC   |  N   |  TBC  |  TBC  |
       |                     control |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |  Incur multiple round-trips |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |  Incur multiple round-trips |  TBC   |  N   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      | Overhead of unauthenticated |  Y/N   |  N   |  Y/N  |  Y/N  |
+      | Overhead of unauthenticated |  TBC   |  N   |  TBC  |  TBC  |
       |               re-encryption |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |       Forwarding peformance |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |       Forwarding peformance |  TBC   |  N   |  TBC  |  TBC  |
       |                      impact |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
-      |   IP address sharing issues |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |   IP address sharing issues |  TBC   |  N   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |        Penalizing the proxy |  Y/N   |  N   |  Y/N  |  Y/N  |
+      |        Penalizing the proxy |  TBC   |  N   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
 
                          Table 2: Analysis Summary
@@ -550,13 +550,13 @@ Table of Contents
 
    *  A similar configuration approach can be followed for DHCPv6.
 
-   *  A minor change to the network is required for NRLP RA: upgrade PE
-      nodes to support a new Neighbor Discovery option.  Note that all
-      IPv6 hosts and networks are required to support Neighbor Discovery
-      [RFC4861].
+   *  A minor change to the network is required for NRLP RA: upgrade
+      configuration of PE nodes with new Neighbor Discovery option.
+      Note that all IPv6 hosts and networks are already required to
+      support Neighbor Discovery [RFC4861].
 
    *  An API needs to be exposed on the host to share the advice with
-      applications.
+      applications (e.g., scutil on MacOS).
 
 3.4.  SCONE (to be completed by the authors of SCONE)
 

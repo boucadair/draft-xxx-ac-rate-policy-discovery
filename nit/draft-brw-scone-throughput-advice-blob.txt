@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 19 May 2025                                Cloud Software Group
+Expires: 22 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        15 November 2024
+                                                        18 November 2024
 
 
                    Throughput Advice Object for SCONE
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 May 2025.
+   This Internet-Draft will expire on 22 May 2025.
 
 Copyright Notice
 
@@ -190,7 +190,7 @@ Table of Contents
    in provider networks.  Appendix A provides a brief overview of how
    inbound policies are enforced in ingress network nodes.  The reader
    may refer to [RFC2697], [RFC2698], and [RFC4115] for examples of how
-   various combinations of Committed Information Rate (EIR), Committed
+   various combinations of Committed Information Rate (CIR), Committed
    Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size
    (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are
    used for policing.  Typically:
@@ -332,18 +332,22 @@ Table of Contents
 
    ; ff indicates scope (per host or per subscriber), traffic
    ; direction, and reliability type (reliable or unreliable).
-   ; Default value for scope is false (i.e., per subscriber policy).
-   ; Default value for direction is 0 (i.e. network-to-host direction).
+   ; Default value for scope is per subscriber policy.
+   ; Default value for direction is network-to-host direction.
    ; Default value for reliability is false (i.e., the policy is
    ; applicable to both reliable and unreliable traffic).
    ; If any of these parameters is not present, this is equivalent
    ; to enclosing the parameter with its default value.
 
    ff =  {
-     ? scope: bool .default false,
-     ? direction: uint .default 0,
-     ? reliability: uint .default false
+     ? scope: &scope-values .default subscriber,
+     ? direction: &direction-values .default n2h,
+     ? reliability: &reliability-values .default any
    }
+
+   scope-values = (subscriber: 0, host: 1)
+   direction-values = (n2h: 0, h2n: 1, bidir: 2)
+   reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
    ; category indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
@@ -588,6 +592,13 @@ Table of Contents
       [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
       size.
 
+   *  Applications can send/receive data at different rates for reliable
+      and unreliable traffic (reliable could map to Queue-Building (QB)
+      and unreliable could map to Non-Queue-Building (NQB)) by mapping
+      reliability flag.  One of the ways for application to make
+      reliability markings visible is by following, e.g., the
+      considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
+
 8.  Security Considerations
 
    The throughtput advice is bound to a subscriber, a host, and traffic
@@ -743,6 +754,13 @@ Table of Contents
               13, 11 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
               ns-ip-mpls-13>.
+
+   [I-D.ietf-tsvwg-nqb]
+              White, G., Fossati, T., and R. Geib, "A Non-Queue-Building
+              Per-Hop Behavior (NQB PHB) for Differentiated Services",
+              Work in Progress, Internet-Draft, draft-ietf-tsvwg-nqb-27,
+              8 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tsvwg-nqb-27>.
 
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
