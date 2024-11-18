@@ -115,7 +115,9 @@ configured in (ingress) nodes. These rate-limits can be shared with customers wh
 
 This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.
+Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document. The throughput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
+{{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
+The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).
 
 Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
@@ -416,10 +418,6 @@ It is out of scope of this document to make recommendations about how the advice
 * Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
 
 # Security Considerations
-
-The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
-{{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
-The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).
 
 As discussed in {{sec-uc}}, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
 
