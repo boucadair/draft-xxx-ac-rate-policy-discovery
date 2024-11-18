@@ -687,21 +687,15 @@ Table of Contents
 
    The initial values of this registry is provided in Table 3.
 
-                 +=======+==============+===============+
-                 | Value | Description  | Reference     |
-                 +=======+==============+===============+
-                 | 0     | All traffic  | This-Document |
-                 +-------+--------------+---------------+
-                 | 1     | Streaming    | This-Document |
-                 +-------+--------------+---------------+
-                 | 2     | Real-time    | This-Document |
-                 +-------+--------------+---------------+
-                 | 3     | Bulk traffic |               |
-                 +-------+--------------+---------------+
-                 | 4-63  | Unassigned   |               |
-                 +-------+--------------+---------------+
+                  +=======+=============+===============+
+                  | Value | Description | Reference     |
+                  +=======+=============+===============+
+                  | 0     | All traffic | This-Document |
+                  +-------+-------------+---------------+
+                  | 1-63  | Unassigned  |               |
+                  +-------+-------------+---------------+
 
-                     Table 3: Traffic Category Values
+                      Table 3: Traffic Category Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
