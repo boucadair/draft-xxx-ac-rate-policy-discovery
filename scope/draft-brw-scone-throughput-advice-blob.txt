@@ -79,7 +79,7 @@ Table of Contents
    4.  Sample Deployment Cases
    5.  Throughput Advice Object
      5.1.  Overall Object Structure
-     5.2.  Structure of a throughput Advice Instance
+     5.2.  Structure of a Throughput Advice Instance
    6.  Examples
    7.  Sample Uses of the Advice
    8.  Security Considerations
@@ -190,7 +190,7 @@ Table of Contents
    in provider networks.  Appendix A provides a brief overview of how
    inbound policies are enforced in ingress network nodes.  The reader
    may refer to [RFC2697], [RFC2698], and [RFC4115] for examples of how
-   various combinations of Committed Information Rate (EIR), Committed
+   various combinations of Committed Information Rate (CIR), Committed
    Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size
    (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are
    used for policing.  Typically:
@@ -371,7 +371,7 @@ Table of Contents
 
              Figure 2: Throughput Advice Object Format in CDDL
 
-5.2.  Structure of a throughput Advice Instance
+5.2.  Structure of a Throughput Advice Instance
 
    This section defines the set of attributes that are included in a
    throughput advice instance:
