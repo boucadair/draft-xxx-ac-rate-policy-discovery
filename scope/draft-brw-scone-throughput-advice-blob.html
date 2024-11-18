@@ -1386,7 +1386,9 @@ mainly to protect the network (e.g., congestion-unresponsive flows) and also to 
 configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-9" class="pilcrow">¶</a></p>
 <p id="section-1-10"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throuput Advice. The set of parameters are independent of the address family.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">This document does not assume nor preclude any specific signaling protocol to share the throuput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-11" class="pilcrow">¶</a></p>
-<p id="section-1-12">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-12">Whether host-to-network, network-to-host, or both policies are returned in a throuput advice is deployment specific. All these combinations are supported in this document. The throughput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
+<span><a href="https://rfc-editor.org/rfc/rfc9330#section-8.1.1" class="relref">Section 8.1.1</a> of [<a href="#RFC9330" class="cite xref">RFC9330</a>]</span> which states that "there has never been a universal need to police the rate of individual application flows".
+The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).<a href="#section-1-12" class="pilcrow">¶</a></p>
 <p id="section-1-13">Also, one more throuput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-13" class="pilcrow">¶</a></p>
 <p id="section-1-14">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
 of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-14" class="pilcrow">¶</a></p>
@@ -1955,25 +1957,22 @@ includes one rate-limit instance that covers network-to-host traffic direction a
       <h2 id="name-security-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
-<span><a href="https://rfc-editor.org/rfc/rfc9330#section-8.1.1" class="relref">Section 8.1.1</a> of [<a href="#RFC9330" class="cite xref">RFC9330</a>]</span> which states that "there has never been a universal need to police the rate of individual application flows".
-The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">As discussed in <a href="#sec-uc" class="auto internal xref">Section 4</a>, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation <span>[<a href="#RFC8811" class="cite xref">RFC8811</a>]</span>).<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-8-3" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-8-4">
-        <dt id="section-8-4.1">Decrease the bitrate value:</dt>
-        <dd style="margin-left: 1.5em" id="section-8-4.2">
-          <p id="section-8-4.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-8-4.2.1" class="pilcrow">¶</a></p>
+<p id="section-8-1">As discussed in <a href="#sec-uc" class="auto internal xref">Section 4</a>, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation <span>[<a href="#RFC8811" class="cite xref">RFC8811</a>]</span>).<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">An attacker who has the ability to change the throuput advice objects exchanged over a network attachment may:<a href="#section-8-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-8-3">
+        <dt id="section-8-3.1">Decrease the bitrate value:</dt>
+        <dd style="margin-left: 1.5em" id="section-8-3.2">
+          <p id="section-8-3.2.1">This may lower the perceived QoS if the host aggressively lowers its transmission rate.<a href="#section-8-3.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-8-4.3">Increase the bitrate value:</dt>
-        <dd style="margin-left: 1.5em" id="section-8-4.4">
-          <p id="section-8-4.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-8-4.4.1" class="pilcrow">¶</a></p>
+<dt id="section-8-3.3">Increase the bitrate value:</dt>
+        <dd style="margin-left: 1.5em" id="section-8-3.4">
+          <p id="section-8-3.4.1">The network attachment will be overloaded, but still the rate-limit at the network will discard excess traffic.<a href="#section-8-3.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-8-4.5">Delete or remove the advice:</dt>
-        <dd style="margin-left: 1.5em" id="section-8-4.6">
-          <p id="section-8-4.6.1">This is equivalent to deployments where the advice is not shared.<a href="#section-8-4.6.1" class="pilcrow">¶</a></p>
+<dt id="section-8-3.5">Delete or remove the advice:</dt>
+        <dd style="margin-left: 1.5em" id="section-8-3.6">
+          <p id="section-8-3.6.1">This is equivalent to deployments where the advice is not shared.<a href="#section-8-3.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
