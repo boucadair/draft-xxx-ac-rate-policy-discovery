@@ -412,6 +412,7 @@ It is out of scope of this document to make recommendations about how the advice
 * Applications can send/receive short-term bursts of data that exceed the committed burst size CBS up to the PBS if there is no congestion. This is useful for scenarios where short, high-throughput bursts are needed.
 * Applications can ensure that their sending rate never exceeds the PIR and that their short-term bursts of traffic never exceeds PBS.
 * The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
+* Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
 
 # Security Considerations
 
