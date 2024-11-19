@@ -51,10 +51,11 @@ informative:
 --- abstract
 
 Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
-This document specifies a generic object that can be used by mechanims for hosts
-to dynamically discover network rate-limit policies. This information is then
-passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
-the discovery channel (protocol, API, etc.).
+This document specifies a generic object (called, Throughput Advice) that can be used by mechanims for hosts
+to dynamically discover these network rate-limit policies. This information is then
+passed to applications that might adjust their behaviors accordingly.
+
+The design of the throughput advice object is independent of the discovery channel (protocol, API, etc.).
 
 --- middle
 
@@ -169,9 +170,9 @@ Better Local Services:
 
 ## Overall Object Structure
 
-A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adhere to the structure defined in {{sec-ins-structure}}.
+A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adheres to the structure defined in {{sec-ins-structure}}.
 
-Throughput advice objects are bound to the network interface over which the advice applies.
+Throughput advice objects are bound to the network interface over which the advice was received.
 
 The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.
 
@@ -189,7 +190,7 @@ throughput-instance =  {
   throughput => rate-limit
 }
 
-; opf controls the presence of optional parameters such as
+; Controls the presence of optional parameters such as
 ; excess and peak rates.
 ; Settting these parameters to false means that excess and
 ; peak parameters are not supplied in the policy.
@@ -202,7 +203,7 @@ opf =  {
   ? peak: bool .default false
 }
 
-; ff indicates scope, traffic direction, and reliability type.
+; Indicates scope, traffic direction, and reliability type.
 ; Default value for scope is per subscriber policy.
 ; Default value for direction is network-to-host direction.
 ; Default value for reliability is false (i.e., the policy is
@@ -220,7 +221,7 @@ scope-values = (subscriber: 0, host: 1, flow: 2)
 direction-values = (n2h: 0, h2n: 1, bidir: 2)
 reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
-; category indicates traffic category to which the policy is bound.
+; Indicates traffic category to which the policy is bound.
 ; If the value is set to 0, this means that the policy is
 ; enforced for all traffic.
 
@@ -228,7 +229,7 @@ category =  {
   ? tc: uint .default 0
 }
 
-; rate-limit indicates various rates (committed, excess, and peak).
+; Indicates various rates (committed, excess, and peak).
 ; Only CIR/CBS are mandatory to include.
 
 rate-limit =  {
@@ -440,11 +441,11 @@ This document requests IANA to create a new registry entitled "Optional Paramete
 
 The initial values of this registry is provided in {{iana-op-flags}}.
 
-|Bit Position|     Description|     Reference|
-|1| E-flag|This-Document|
-|2| P-flag|This-Document|
-|3| Unassigned| |
-|4| Unassigned| |
+|Bit Position|Label|     Description                       |    Reference|
+|1           | E   |Indicates presence of excess rate/burst|This-Document|
+|2           | P   |Indicates presence of peak rate/burst  |This-Document|
+|3           |     | Unassigned                            |             |
+|4           |     | Unassigned                            |             |
 {: #iana-op-flags title="Optional Parameter Flags"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
@@ -455,11 +456,11 @@ This document requests IANA to create a new registry entitled "Flow flags" under
 
 The initial values of this registry is provided in {{iana-flow-flags}}.
 
-|Bit Position|     Description|     Reference|
-|1| Scope (S) Flag|This-Document|
-|2-3| Direction (D) Flag|This-Document|
-|4-5| Reliability (R) Flags|This-Document|
-|6-8| Unassigned| |
+|Bit Position|Label|     Description   |    Reference|
+|1           | S   | Scope             |This-Document|
+|2-3         | D   | Direction         |This-Document|
+|4-5         | R   | Reliability       |This-Document|
+|6-8         |     | Unassigned        |             |
 {: #iana-flow-flags title="Flow flags"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
@@ -471,9 +472,26 @@ This document requests IANA to create a new registry entitled "Traffic Category 
 The initial values of this registry is provided in {{iana-tc}}.
 
 |Value|     Description|     Reference|
-|0| All traffic|This-Document|
-|1-63| Unassigned| |
+|0    | All traffic    |This-Document|
+|1-63 | Unassigned     |             |
 {: #iana-tc title="Traffic Category Values"}
+
+The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
+
+## Rate Parameters Registry {#sec-iana-rate}
+
+This document requests IANA to create a new registry entitled "Rate Parameters" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+
+The initial values of this registry is provided in {{iana-rate}}.
+
+|Parameter|     Description                 |Mandatory (Y/N)|     Reference|
+|cir      | Committed Information Rate (CIR)|Y              |This-Document |
+|cbs      | Committed Burst Size (CBS)      |Y              |This-Document|
+|eir      | Excess Information Rate (EIR)   |N              |This-Document|
+|ebs      | Excess Burst Size (EBS)         |N              |This-Document|
+|pir      | Peak Information Rate (PIR)     |N              |This-Document|
+|pbs      | Peak Burst Size (PBS)           |N              |This-Document|
+{: #iana-rate title="Initial Rate Parameters Values Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
