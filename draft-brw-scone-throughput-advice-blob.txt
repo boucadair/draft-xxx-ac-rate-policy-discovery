@@ -122,8 +122,8 @@ Table of Contents
    point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or
    multiple network attachments (e.g., CE#2).
 
-      Figure 1 does not show the interconnection with other networks for
-      the sake of simplicity.
+      For the sake of simplicity, Figure 1 does not show the
+      interconnection with other networks or multi-homed CEs.
 
                                                               Hosts
                                                               O O O
@@ -178,10 +178,10 @@ Table of Contents
    policies.
 
    Whether host-to-network, network-to-host, or both policies are
-   returned in a throughput advice is deployment specific.  All these
+   included in a throughput advice is deployment specific.  All these
    combinations are supported in this document.
 
-   Also, one more throughput advice instances may be returned for a
+   Also, one or more throughput advice instances may be returned for a
    given traffic direction.  Each of these instances may cover a
    specific traffic category.
 
@@ -301,6 +301,9 @@ Table of Contents
    specific match criteria.  Each of these adhere to the structure
    defined in Section 5.2.
 
+   Throughput advice objects are bound to the network interface over
+   which the advice applies.
+
    The throughput advice object is described in CDDL [RFC8610] format
    shown in Figure 2.  This format is meant to ease mapping with
    encoding specifics of a given discovery channel that supplies the
@@ -323,8 +326,8 @@ Table of Contents
    ; excess and peak rates.
    ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
-   ; These control bits may not be required for protocols
-   ; with built-in mechanisms to parse objects even with
+   ; These control bits may not be required for protocols with
+   ; built-in mechanisms to parse objects even with
    ; optional/variable fields.
 
    opf =  {
@@ -332,8 +335,7 @@ Table of Contents
      ? peak: bool .default false
    }
 
-   ; ff indicates scope (per host or per subscriber), traffic
-   ; direction, and reliability type (reliable or unreliable).
+   ; ff indicates scope, traffic direction, and reliability type.
    ; Default value for scope is per subscriber policy.
    ; Default value for direction is network-to-host direction.
    ; Default value for reliability is false (i.e., the policy is
@@ -586,10 +588,6 @@ Table of Contents
    *  Applications can ensure that their sending rate never exceeds the
       PIR and that their short-term bursts of traffic never exceeds PBS.
 
-   *  The throughput advice can feed mechanisms such as Section 4.4.2 of
-      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
-      size.
-
    *  Applications can send/receive data at different rates for reliable
       and unreliable traffic (reliable could map to Queue-Building (QB)
       and unreliable could map to Non-Queue-Building (NQB)) by mapping
@@ -597,12 +595,16 @@ Table of Contents
       reliability markings visible is by following, e.g., the
       considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
 
+   *  The throughput advice can feed mechanisms such as Section 4.4.2 of
+      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
+      size.
+
 8.  Security Considerations
 
-   As discussed in Section 4, the throughout advice assist networks to
-   soften overloads during DDoS attacks, in paricular.  Of course, other
-   mechanisms are enabled by networks to protect against overload (e.g.,
-   DDoS mitigation [RFC8811]).
+   As discussed in Section 4, sharing a throughout advice assists
+   networks to soften overloads during DDoS attacks, in paricular.  Of
+   course, other mechanisms should be enabled by networks to protect
+   against overload (e.g., DDoS mitigation [RFC8811]).
 
    An attacker who has the ability to change the throughput advice
    objects exchanged over a network attachment may:
@@ -622,13 +624,13 @@ Table of Contents
 9.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
-   "Rate-Limit Policy Objects".
+   "SCONE Rate-Limit Policy Objects".
 
 9.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
-   "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 9.1).
+   "Optional Parameter Flags" under the "SCONE Rate-Limit Policy
+   Objects" registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -652,7 +654,7 @@ Table of Contents
 9.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
-   flags" under the "Rate-Limit Policy Objects" registry group
+   flags" under the "SCONE Rate-Limit Policy Objects" registry group
    (Section 9.1).
 
    The initial values of this registry is provided in Table 2.
@@ -662,13 +664,11 @@ Table of Contents
          +==============+=======================+===============+
          | 1            | Scope (S) Flag        | This-Document |
          +--------------+-----------------------+---------------+
-         | 2            | Direction (D) Flag    | This-Document |
+         | 2-3          | Direction (D) Flag    | This-Document |
          +--------------+-----------------------+---------------+
-         | 3-4          | Reliability (R) Flags | This-Document |
+         | 4-5          | Reliability (R) Flags | This-Document |
          +--------------+-----------------------+---------------+
-         | 5            | Unassigned            |               |
-         +--------------+-----------------------+---------------+
-         | 6            | Unassigned            |               |
+         | 6-8          | Unassigned            |               |
          +--------------+-----------------------+---------------+
 
                            Table 2: Flow flags
@@ -679,7 +679,7 @@ Table of Contents
 9.4.  Traffic Category Registry
 
    This document requests IANA to create a new registry entitled
-   "Traffic Category Types" under the "Rate-Limit Policy Objects"
+   "Traffic Category Types" under the "SCONE Rate-Limit Policy Objects"
    registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 3.
