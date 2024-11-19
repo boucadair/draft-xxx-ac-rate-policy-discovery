@@ -22,11 +22,13 @@ Abstract
 
    Traffic exchanged over a network may be subject to rate-limit
    policies for various operational reasons.  This document specifies a
-   generic object that can be used by mechanims for hosts to dynamically
-   discover network rate-limit policies.  This information is then
-   passed to applications that might adjust their behaviors accordingly.
-   The design of the object is independent of the discovery channel
-   (protocol, API, etc.).
+   generic object (called, Throughput Advice) that can be used by
+   mechanims for hosts to dynamically discover these network rate-limit
+   policies.  This information is then passed to applications that might
+   adjust their behaviors accordingly.
+
+   The design of the throughput advice object is independent of the
+   discovery channel (protocol, API, etc.).
 
 Discussion Venues
 
@@ -83,6 +85,7 @@ Table of Contents
      9.2.  Optional Parameter Flags Registry
      9.3.  Flow Flags Registry
      9.4.  Traffic Category Registry
+     9.5.  Rate Parameters Registry
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -298,11 +301,11 @@ Table of Contents
 
    A throughput advice object may include multiple throughput advices
    (referred to as "throughput advice instances"), each covering a
-   specific match criteria.  Each of these adhere to the structure
+   specific match criteria.  Each of these adheres to the structure
    defined in Section 5.2.
 
    Throughput advice objects are bound to the network interface over
-   which the advice applies.
+   which the advice was received.
 
    The throughput advice object is described in CDDL [RFC8610] format
    shown in Figure 2.  This format is meant to ease mapping with
@@ -322,7 +325,7 @@ Table of Contents
      throughput => rate-limit
    }
 
-   ; opf controls the presence of optional parameters such as
+   ; Controls the presence of optional parameters such as
    ; excess and peak rates.
    ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
@@ -335,7 +338,7 @@ Table of Contents
      ? peak: bool .default false
    }
 
-   ; ff indicates scope, traffic direction, and reliability type.
+   ; Indicates scope, traffic direction, and reliability type.
    ; Default value for scope is per subscriber policy.
    ; Default value for direction is network-to-host direction.
    ; Default value for reliability is false (i.e., the policy is
@@ -353,7 +356,7 @@ Table of Contents
    direction-values = (n2h: 0, h2n: 1, bidir: 2)
    reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
-   ; category indicates traffic category to which the policy is bound.
+   ; Indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
@@ -361,7 +364,7 @@ Table of Contents
      ? tc: uint .default 0
    }
 
-   ; rate-limit indicates various rates (committed, excess, and peak).
+   ; Indicates various rates (committed, excess, and peak).
    ; Only CIR/CBS are mandatory to include.
 
    rate-limit =  {
@@ -634,19 +637,21 @@ Table of Contents
 
    The initial values of this registry is provided in Table 1.
 
-              +==============+=============+===============+
-              | Bit Position | Description | Reference     |
-              +==============+=============+===============+
-              | 1            | E-flag      | This-Document |
-              +--------------+-------------+---------------+
-              | 2            | P-flag      | This-Document |
-              +--------------+-------------+---------------+
-              | 3            | Unassigned  |               |
-              +--------------+-------------+---------------+
-              | 4            | Unassigned  |               |
-              +--------------+-------------+---------------+
+      +==============+=======+======================+===============+
+      | Bit Position | Label | Description          | Reference     |
+      +==============+=======+======================+===============+
+      | 1            | E     | Indicates presence   | This-Document |
+      |              |       | of excess rate/burst |               |
+      +--------------+-------+----------------------+---------------+
+      | 2            | P     | Indicates presence   | This-Document |
+      |              |       | of peak rate/burst   |               |
+      +--------------+-------+----------------------+---------------+
+      | 3            |       | Unassigned           |               |
+      +--------------+-------+----------------------+---------------+
+      | 4            |       | Unassigned           |               |
+      +--------------+-------+----------------------+---------------+
 
-                    Table 1: Optional Parameter Flags
+                     Table 1: Optional Parameter Flags
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
@@ -659,17 +664,17 @@ Table of Contents
 
    The initial values of this registry is provided in Table 2.
 
-         +==============+=======================+===============+
-         | Bit Position | Description           | Reference     |
-         +==============+=======================+===============+
-         | 1            | Scope (S) Flag        | This-Document |
-         +--------------+-----------------------+---------------+
-         | 2-3          | Direction (D) Flag    | This-Document |
-         +--------------+-----------------------+---------------+
-         | 4-5          | Reliability (R) Flags | This-Document |
-         +--------------+-----------------------+---------------+
-         | 6-8          | Unassigned            |               |
-         +--------------+-----------------------+---------------+
+          +==============+=======+=============+===============+
+          | Bit Position | Label | Description | Reference     |
+          +==============+=======+=============+===============+
+          | 1            | S     | Scope       | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 2-3          | D     | Direction   | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 4-5          | R     | Reliability | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 6-8          |       | Unassigned  |               |
+          +--------------+-------+-------------+---------------+
 
                            Table 2: Flow flags
 
@@ -693,6 +698,41 @@ Table of Contents
                   +-------+-------------+---------------+
 
                       Table 3: Traffic Category Values
+
+   The allocation policy of this new registry is "IETF Review"
+   (Section 4.8 of [RFC8126]).
+
+9.5.  Rate Parameters Registry
+
+   This document requests IANA to create a new registry entitled "Rate
+   Parameters" under the "SCONE Rate-Limit Policy Objects" registry
+   group (Section 9.1).
+
+   The initial values of this registry is provided in Table 4.
+
+     +===========+=======================+===========+===============+
+     | Parameter | Description           | Mandatory | Reference     |
+     |           |                       | (Y/N)     |               |
+     +===========+=======================+===========+===============+
+     | cir       | Committed Information | Y         | This-Document |
+     |           | Rate (CIR)            |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | cbs       | Committed Burst Size  | Y         | This-Document |
+     |           | (CBS)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | eir       | Excess Information    | N         | This-Document |
+     |           | Rate (EIR)            |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | ebs       | Excess Burst Size     | N         | This-Document |
+     |           | (EBS)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | pir       | Peak Information Rate | N         | This-Document |
+     |           | (PIR)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | pbs       | Peak Burst Size (PBS) | N         | This-Document |
+     +-----------+-----------------------+-----------+---------------+
+
+               Table 4: Initial Rate Parameters Values Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
