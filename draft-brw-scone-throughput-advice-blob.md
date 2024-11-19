@@ -77,8 +77,6 @@ while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN or cellular) to graft customer terminating points to a network.
 
-> Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
-
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
@@ -255,7 +253,7 @@ rate-limit =  {
 This section defines the set of attributes that are included in a throughput advice instance:
 
 Optional Parameter Flags (OPF):
-: These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):
+: These flags indicate the presence of some optional parameters. The following flags are defined:
 
     E:
     : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
@@ -269,7 +267,7 @@ Optional Parameter Flags (OPF):
     : Unassigned bits. See {{sec-iana-opf}}.
 
 Flow flags (FF):
-: These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
+: These flags are used to express some generic properties of the flow. The following flags are defined:
 
     S (Scope):
     : Indicates the granularity of enforcing policies.
@@ -305,7 +303,7 @@ Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
   send during one second over a network attachment for a
   traffic category.
-: If set to 0 (or a very low value), this indicates to the host that an alternate path (if any) should be preferred over this one.
+: If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.
 : This parameter is mandatory.
 
 Committed Burst Size (CBS) (bytes):
