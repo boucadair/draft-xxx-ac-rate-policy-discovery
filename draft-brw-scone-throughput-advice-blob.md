@@ -50,11 +50,7 @@ informative:
 
 --- abstract
 
-Traffic exchanged over a network may be subject to rate-limit policies.
-These policies may be intentional policies (e.g., enforced as part of the activation
-of the network attachment and typically agreed upon service subscription)
-or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
-
+Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
 This document specifies a generic object that can be used by mechanims for hosts
 to dynamically discover network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly. The design of the object is independent of
@@ -108,7 +104,9 @@ the PE-side of a network attachment is specified in {{?I-D.ietf-opsawg-ntw-attac
 The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.
 
 As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network devices occurs
-mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. Rate-limits are usually
+mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
+of the network attachment and typically agreed upon service subscription)
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
 configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" {{?RFC8466}}).
 
 {{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.
@@ -291,10 +289,7 @@ TC (Traffic Category):
 : The following values are supported:
 
   + "0": All traffic. This is the default value.
-  + "1": Streaming
-  + "2": Real-time
-  + "3": Bulk traffic
-  + 4-63: Unassigned values. See {{sec-iana-tc}}.
+  + 1-63: Unassigned values. See {{sec-iana-tc}}.
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -475,10 +470,7 @@ The initial values of this registry is provided in {{iana-tc}}.
 
 |Value|     Description|     Reference|
 |0| All traffic|This-Document|
-|1| Streaming|This-Document|
-|2| Real-time|This-Document|
-|3| Bulk traffic| |
-|4-63| Unassigned| |
+|1-63| Unassigned| |
 {: #iana-tc title="Traffic Category Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
