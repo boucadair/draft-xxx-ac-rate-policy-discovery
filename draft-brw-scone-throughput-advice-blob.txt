@@ -166,9 +166,10 @@ Table of Contents
    typically agreed upon service subscription) or be reactive policies
    (e.g., enforced temporarily to manage an overload or during a DDoS
    attack mitigation).  Rate-limits are usually configured in (ingress)
-   nodes.  These rate-limits can be shared with customers when
-   subscribing to a connectivity service (e.g., "A YANG Data Model for
-   Layer 2 Virtual Private Network (L2VPN) Service Delivery" [RFC8466]).
+   nodes (e.g., [VPP]).  These rate-limits can be shared with customers
+   when subscribing to a connectivity service (e.g., "A YANG Data Model
+   for Layer 2 Virtual Private Network (L2VPN) Service Delivery"
+   [RFC8466]).
 
    Section 5 defines a set parameters that can be used by networks to
    share the rate-limit policies applied on a network attachment:
@@ -848,6 +849,9 @@ Table of Contents
               (DOTS) Signal Channel Call Home", RFC 9066,
               DOI 10.17487/RFC9066, December 2021,
               <https://www.rfc-editor.org/rfc/rfc9066>.
+
+   [VPP]      Vector Packet Processor (VPP), "Policing", <https://s3-
+              docs.fd.io/vpp/23.06/developer/corefeatures/policer.html>.
 
 Appendix A.  Overview of Network Rate-Limit Policies
 

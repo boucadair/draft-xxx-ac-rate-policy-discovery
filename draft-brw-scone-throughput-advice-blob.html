@@ -1345,7 +1345,7 @@ the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-op
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
-configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-9" class="pilcrow">¶</a></p>
+configured in (ingress) nodes (e.g., <span>[<a href="#VPP" class="cite xref">VPP</a>]</span>). These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-9" class="pilcrow">¶</a></p>
 <p id="section-1-10"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-11" class="pilcrow">¶</a></p>
 <p id="section-1-12">Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-12" class="pilcrow">¶</a></p>
@@ -2249,8 +2249,12 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">I. Swett, Ed.</span>, <span class="refTitle">"QUIC Loss Detection and Congestion Control"</span>, <span class="seriesInfo">RFC 9002</span>, <span class="seriesInfo">DOI 10.17487/RFC9002</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9002">https://www.rfc-editor.org/rfc/rfc9002</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9066">[RFC9066]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">J. Shallow</span>, <span class="refTitle">"Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Call Home"</span>, <span class="seriesInfo">RFC 9066</span>, <span class="seriesInfo">DOI 10.17487/RFC9066</span>, <time datetime="2021-12" class="refDate">December 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9066">https://www.rfc-editor.org/rfc/rfc9066</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="VPP">[VPP]</dt>
+      <dd>
+<span class="refAuthor">Vector Packet Processor (VPP)</span>, <span class="refTitle">"Policing"</span>, <span>&lt;<a href="https://s3-docs.fd.io/vpp/23.06/developer/corefeatures/policer.html">https://s3-docs.fd.io/vpp/23.06/developer/corefeatures/policer.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
