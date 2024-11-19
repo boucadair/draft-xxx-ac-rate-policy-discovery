@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 22 May 2025                                Cloud Software Group
+Expires: 23 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 22 May 2025                                Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                        18 November 2024
+                                                        19 November 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2025.
+   This Internet-Draft will expire on 23 May 2025.
 
 Copyright Notice
 
@@ -99,37 +99,26 @@ Table of Contents
      5.1.  Option Format
      5.2.  DHCPv4 Client Behavior
    6.  Provisioning Domains
-   7.  Operational Considerations
-     7.1.  NRLP Is Complementary Not Replacement Solution
-     7.2.  Provisionning Policies
-     7.3.  Redundant vs. Useful Signal
-     7.4.  Fairness
-     7.5.  Architectural Considerations Matter
-     7.6.  Service Considerations: Application Diversity & Realistic
-           Assessment
-     7.7.  Operational Guidance for Signal Enforcement
-     7.8.  Signal Estimation
-     7.9.  Signal "Interference"
-   8.  Deployment Incentives
-     8.1.  Networks
-     8.2.  Applications
-     8.3.  Host OS
-   9.  Security Considerations
-     9.1.  ND
-     9.2.  DHCP
-   10. IANA Considerations
-     10.1.  Rate-Limit Policy Objects Registry Group
-     10.2.  Optional Parameter Flags Registry
-     10.3.  Flow Flags Registry
-     10.4.  Neighbor Discovery Option
-     10.5.  DHCP Option
-     10.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
-            Attribute
-     10.7.  Provisioning Domains Split DNS Additional Information
-     10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   7.  Deployment Incentives
+     7.1.  Networks
+     7.2.  Applications
+     7.3.  Host OS
+   8.  Security Considerations
+     8.1.  ND
+     8.2.  DHCP
+   9.  IANA Considerations
+     9.1.  Rate-Limit Policy Objects Registry Group
+     9.2.  Optional Parameter Flags Registry
+     9.3.  Flow Flags Registry
+     9.4.  Neighbor Discovery Option
+     9.5.  DHCP Option
+     9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options
+           Attribute
+     9.7.  Provisioning Domains Split DNS Additional Information
+     9.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Example of Authentication, Authorization, and
            Accounting (AAA)
    Appendix B.  Alternative/Complementary Mechanisms
@@ -423,8 +412,7 @@ Table of Contents
       limit policies to connected hosts to adjust their forwarding
       behavior.
 
-   Operational considerations are discussed in Section 7, while
-   deployment incentives are described in Section 8.
+   Deployment incentives are described in Section 7.
 
 2.  Conventions and Definitions
 
@@ -471,7 +459,7 @@ Table of Contents
 
          When set to "0", this flag indicates that PIR is not present.
 
-      U:  Unassigned bits.  See Section 10.2.
+      U:  Unassigned bits.  See Section 9.2.
 
          Unassigned bits MUST be set to zero by senders and MUST be
          ignored by receivers.
@@ -507,7 +495,7 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned bits.  See Section 10.3.
+      U:  Unassigned bits.  See Section 9.3.
 
          Unassigned bits MUST be set to zero by senders and MUST be
          ignored by receivers.
@@ -632,7 +620,7 @@ Table of Contents
    The fields of the option shown in Figure 4 are as follows:
 
    Type:  8-bit identifier of the NRLP option as assigned by IANA (TBD1)
-      (see Section 10.4).
+      (see Section 9.4).
 
    Length:  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) is in units of 8 octets.
@@ -729,7 +717,7 @@ Table of Contents
 
    The fields of the option shown in Figure 5 are as follows:
 
-   Code:  OPTION_V4_NRLP (TBD2).  (see Section 10.5).
+   Code:  OPTION_V4_NRLP (TBD2).  (see Section 9.5).
 
    Length:  Indicates the length of the enclosed data in octets.
 
@@ -867,146 +855,9 @@ Table of Contents
 
                       Figure 8: NRLP Example with PvD
 
-7.  Operational Considerations
+7.  Deployment Incentives
 
-7.1.  NRLP Is Complementary Not Replacement Solution
-
-   Sharing NRLP signals are not intended to replace usual actions to
-   soften bottlenck issues (e.g., adequate network dimensioning and
-   upgrades).  However, given that such actions may not be always
-   immediately possible or economically justified, NRLP signals can be
-   considered as complementary mitigations to soften these issues by
-   introducing some collaboration between a host and its networks to
-   adjust their behaviors.
-
-7.2.  Provisionning Policies
-
-   NRLP senders should be configured with instructions about the type of
-   network rate-limit policies to be shared with requesting hosts.
-   These types can be provided using mechanisms such as
-   [I-D.ietf-opsawg-ntw-attachment-circuit].
-
-7.3.  Redundant vs. Useful Signal
-
-   In contexts where the bitrate policies are known during the
-   establishment of the underlying bearer (e.g., GBR PDU Sessions),
-   sending NRLP signals over the AC may be redundant and should thus be
-   disabled.
-
-   In contexts where the (average) bitrate policies provided during the
-   establishment of a bearer cannot be refreshed to echo network-
-   specific conditions (e.g., overload) using bearer-specific
-   mechanisms, sending NRLP signals over the AC would allow control the
-   load at the source.
-
-   When both bearer-specific policies and NRLP signals are communicated
-   to a host, the NRLP signals takes precedence.
-
-7.4.  Fairness
-
-   Rate-limit policies enforced at the network are assumed to be
-   consistent with the local jurisdictions.  For example:
-
-   *  [BEREC] states that ISPs are prohibited from blocking or slowing
-      down of Internet traffic, except for legal reasons, network
-      security, or congestion, provided that equivalent categories of
-      traffic are treated equally.
-
-   *  [FCC] states that net neutrality policies "prohibits internet
-      service providers from blocking, throttling, or engaging in paid
-      prioritization of lawful content".  The FCC allows some
-      exceptions, like for security and emergencies.
-
-   These regulatory frameworks align with the goals of this document.
-
-7.5.  Architectural Considerations Matter
-
-   Approaches based on middleboxes are generally not recommended due to
-   their inherent limitations, in terms of performance, scalability,
-   redundancy, etc.  Specifically, if the management and operation of
-   such middleboxes remain unclear, that motivate operational issues and
-   responsibilities.  Furthermore, it is important to note that any
-   middlebox could not necessarily cover an entire service end-to-end,
-   thus *producing only partial observations which could not be
-   sufficiently good at the time of generating appropriate signals*.
-
-   The NRLP solution does not require such middleboxes but the
-   consideration about partial observability applies.  That concern can
-   be softened by cascaded NLRP design.  However, network integration of
-   such appraoch is to be further elaborated.
-
-7.6.  Service Considerations: Application Diversity & Realistic
-      Assessment
-
-   Signals could be generated for multiple services and/or applications.
-   For instance, services providing short video content might require
-   signals different to those based on long videos.  This implies the
-   need of defining a generic method suitable for any kind of service
-   and application, avoiding the multiplicity of solutions and the
-   dominance of some applications over others.
-
-   It should be also noted that more experimentation is needed in order
-   to fully understand the implications of the signals in the overall
-   performance of the network.  On one hand, the co-existence of
-   multiple flows, some of them using the signals for improving the
-   experience, some others not.  For this, more experimentation and
-   datasets are required, so then can be clear that no flows are
-   negatively impacted at all.
-
-   On the other hand, if the experience of the flows improves and
-   depending on the nature of the signals themselves, this might
-   motivate a more intense usage of the network, then requiring to
-   accommodate larger number of flows, and in consequence, reducing the
-   available resources per application.  This kind of paradox can be
-   *assessed with more experimental results under realistic conditions
-   (i.e., multiple users and multiple services in the network)*.
-
-7.7.  Operational Guidance for Signal Enforcement
-
-   Signals are conceived as indications from the network towards
-   applications.  It is not clear the way of enforcing the application
-   to follow the indication, especially in a context where different
-   applications from a user, or multiple users, simultaneously access
-   the network.  This can motivate a wastage of resources for generating
-   signals with the risk of not being effective.  Furthermore, it might
-   lead to a continuous loop of signal generation because the initial
-   signals being ignored.  It is then necessary to define mechanisms to
-   avoid permanent signal generation when ignored.
-
-   Finally, signals could not be required at every moment, but only in
-   situations that can benefit the service.  Such situations could be
-   due, for instance, to given levels of congestion, or based on
-   previous information shared by the application (e.g., SLO thresholds)
-   so that signals can be triggered according to service conditions.
-   *Elaborating more operational guidance on intended signal enforcment
-   policy is key*.
-
-7.8.  Signal Estimation
-
-   The validity of the estimation produced by a network might be
-   questioned by the application.  Trust is required in a way that
-   applications can safely follow guidance from a network.  Furthermore,
-   whatever estimation should be timely produced, avoiding the
-   generation of aged estimations that could not correspond to the
-   actual service circumstances.  Finally, some common guidance is
-   necessary to define a standard way of generating signals, for
-   instance, per-flow or per group of flows.
-
-   An open point is how to deal with adaptive applications, in the sense
-   that signals could not be of value because the self-adaptation nature
-   of these applications.
-
-7.9.  Signal "Interference"
-
-   The network is built on multiple layers.  In some cases, different
-   solutions targeting similar objectives (e.g., congestion control or
-   bottleneck mitigation) can be in place.  It is then necessary to
-   *assess the simultaneous coexistence of these solutions to avoid
-   contradictory effects or "interferences"*.
-
-8.  Deployment Incentives
-
-8.1.  Networks
+7.1.  Networks
 
    There are a set of tradeoffs for networks to deploy NRLP discovery:
 
@@ -1041,7 +892,7 @@ Table of Contents
    unlikely that they will mirror the actual network configuration
    (e.g., application-specific policies).
 
-8.2.  Applications
+7.2.  Applications
 
    Some applications support some forms of bandwidth measurements (e.g.,
    [app-measurement]) which feed how the content is accessed to using
@@ -1067,11 +918,11 @@ Table of Contents
    schemes will be enriched with the NRLP signals as this will be
    exposed by an OS API.
 
-8.3.  Host OS
+7.3.  Host OS
 
    API to facilitate Application Development:  An OS can provide more
       accurate available bandwidth to applications through the API (as
-      mentioned in Section 8.2), making implementation easier for
+      mentioned in Section 7.2), making implementation easier for
       applications that don't requrie dedicated bandwidth measurement.
 
    Prevent Abuse:  The OS can allocate network resources more fairly
@@ -1091,10 +942,10 @@ Table of Contents
       more responsive user experience.
 
    Improved Application Development Efficiency:  OS providing rate
-      limits through an API (as mentioned in Section 8.2) can provide
+      limits through an API (as mentioned in Section 7.2) can provide
       the above listed benefits at per application level.
 
-9.  Security Considerations
+8.  Security Considerations
 
    The techniques discussed in the document offer the following security
    benefit: An OS can identify the type of application (background,
@@ -1104,7 +955,7 @@ Table of Contents
    limiting by changing its 5-tuple or creating multiple flows, the OS
    can detect this and manage the application's traffic accordingly.
 
-9.1.  ND
+8.1.  ND
 
    As discussed in [RFC8781], because RAs are required in all IPv6
    configuration scenarios, RAs must already be secured, e.g., by
@@ -1132,7 +983,7 @@ Table of Contents
    Inject fake RAs:  The implications are similar to the impacts of
       tweaking the values of a legitimate RA.
 
-9.2.  DHCP
+8.2.  DHCP
 
    An attacker who has access to the DHCP exchanged over an AC may do a
    lot of harm (e.g., prevent access to the network).
@@ -1153,18 +1004,18 @@ Table of Contents
    information about the DHCP server or the entity hosting the DHCP
    server.
 
-10.  IANA Considerations
+9.  IANA Considerations
 
-10.1.  Rate-Limit Policy Objects Registry Group
+9.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "Rate-Limit Policy Objects".
 
-10.2.  Optional Parameter Flags Registry
+9.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
    "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 10.1).
+   registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -1185,11 +1036,11 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-10.3.  Flow Flags Registry
+9.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "Rate-Limit Policy Objects" registry group
-   (Section 10.1).
+   (Section 9.1).
 
    The initial values of this registry is provided in Table 2.
 
@@ -1212,7 +1063,7 @@ Table of Contents
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-10.4.  Neighbor Discovery Option
+9.4.  Neighbor Discovery Option
 
    This document requests IANA to assign the following new IPv6 Neighbor
    Discovery Option type in the "IPv6 Neighbor Discovery Option Formats"
@@ -1231,7 +1082,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD1" occurrences with
       the assigned value.
 
-10.5.  DHCP Option
+9.5.  DHCP Option
 
    This document requests IANA to assign the following new DHCP Option
    Code in the "BOOTP Vendor Extensions and DHCP Options" registry
@@ -1249,7 +1100,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD2" occurrences with
       the assigned value.
 
-10.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
+9.6.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
 
    This document requests IANA to add the following DHCP Option Code to
    the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute"
@@ -1264,7 +1115,7 @@ Table of Contents
               Table 5: New DHCP Option Permitted in the RADIUS
                      DHCPv4-Options Attribute Registry
 
-10.7.  Provisioning Domains Split DNS Additional Information
+9.7.  Provisioning Domains Split DNS Additional Information
 
    IANA is requested to add the following entry to the "Additional
    Information PvD Keys" registry under the "Provisioning Domains
@@ -1291,7 +1142,7 @@ Table of Contents
 
    Reference:  This_Document
 
-10.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+9.8.  New PvD Network Rate-Limit Policies (NRLPs) Registry
 
    IANA is requested to create a new registry "PvD Rate-Limit Policies
    (NRLPs)" registry, within the "Provisioning Domains (PvDs)" registry
@@ -1337,7 +1188,7 @@ Table of Contents
    |           | from the Rate-    |         |         |               |
    |           | Limit Policy      |         |         |               |
    |           | Objects Registry  |         |         |               |
-   |           | Section 10.1      |         |         |               |
+   |           | Section 9.1       |         |         |               |
    +-----------+-------------------+---------+---------+---------------+
    | cir       | Specifies the     | Integer | 50      | This-Document |
    |           | maximum number    |         |         |               |
@@ -1360,9 +1211,9 @@ Table of Contents
    [RFC8126].  Experts are requested to ensure that defined keys do not
    overlap in names or semantics.
 
-11.  References
+10.  References
 
-11.1.  Normative References
+10.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1402,7 +1253,7 @@ Table of Contents
               DOI 10.17487/RFC9445, August 2023,
               <https://www.rfc-editor.org/rfc/rfc9445>.
 
-11.2.  Informative References
+10.2.  Informative References
 
    [app-measurement]
               Gurel, Z. and A. C. Begen, "Bandwidth measurement for
