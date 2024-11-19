@@ -111,10 +111,6 @@ Table of Contents
    establish the bearer (e.g., WLAN or cellular) to graft customer
    terminating points to a network.
 
-      Network attachment is also known as "Attachment Circuit (AC)"
-      which is an established concept in the industry and also in the
-      IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
-
    Figure 1 shows an example of a network that connects CEs and hosts
    (UE, for example).  These CEs are servicing other (internal) hosts.
    The identification of these hosts is hidden from the network.  The
@@ -387,8 +383,7 @@ Table of Contents
    throughput advice instance:
 
    Optional Parameter Flags (OPF):  These flags indicate the presence of
-      some optional parameters.  The following flags are defined (from
-      MSB to LSB):
+      some optional parameters.  The following flags are defined:
 
       E:  When set to "1", this flag indicates the presence of Excess
          Information Rate (EIR).
@@ -403,8 +398,7 @@ Table of Contents
       U:  Unassigned bits.  See Section 9.2.
 
    Flow flags (FF):  These flags are used to express some generic
-      properties of the flow.  The following flags are defined (from MSB
-      to LSB):
+      properties of the flow.  The following flags are defined:
 
       S (Scope):  Indicates the granularity of enforcing policies.
 
@@ -454,7 +448,7 @@ Table of Contents
       second over a network attachment for a traffic category.
 
       If set to 0 (or a very low value), this indicates to the host that
-      an alternate path (if any) should be preferred over this one.
+      alternate paths (if any) should be preferred over this one.
 
       This parameter is mandatory.
 
@@ -799,24 +793,10 @@ Table of Contents
               Marker", RFC 2698, DOI 10.17487/RFC2698, September 1999,
               <https://www.rfc-editor.org/rfc/rfc2698>.
 
-   [RFC4026]  Andersson, L. and T. Madsen, "Provider Provisioned Virtual
-              Private Network (VPN) Terminology", RFC 4026,
-              DOI 10.17487/RFC4026, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4026>.
-
    [RFC4115]  Aboul-Magd, O. and S. Rabie, "A Differentiated Service
               Two-Rate, Three-Color Marker with Efficient Handling of
               in-Profile Traffic", RFC 4115, DOI 10.17487/RFC4115, July
               2005, <https://www.rfc-editor.org/rfc/rfc4115>.
-
-   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
-              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
-              2006, <https://www.rfc-editor.org/rfc/rfc4364>.
-
-   [RFC4664]  Andersson, L., Ed. and E. Rosen, Ed., "Framework for Layer
-              2 Virtual Private Networks (L2VPNs)", RFC 4664,
-              DOI 10.17487/RFC4664, September 2006,
-              <https://www.rfc-editor.org/rfc/rfc4664>.
 
    [RFC7567]  Baker, F., Ed. and G. Fairhurst, Ed., "IETF
               Recommendations Regarding Active Queue Management",
