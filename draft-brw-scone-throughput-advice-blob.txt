@@ -120,10 +120,10 @@ Table of Contents
    The identification of these hosts is hidden from the network.  The
    policies enforced at the network for a network attachment are per-
    subscriber, not per-host.  Typically, if a CE is provided with a /56
-   IPv6 prefix, policies are enforced on that /56 not the individual
-   /64s that will be used by internal hosts.  A customer terminating
-   point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or
-   multiple network attachments (e.g., CE#2).
+   IPv6 prefix, policies are enforced in the network on that /56 not the
+   individual /64s that will be used by internal hosts.  A customer
+   terminating point may be serviced with one (e.g., UE#1, CE#1, and
+   CE#3) or multiple network attachments (e.g., CE#2).
 
       For the sake of simplicity, Figure 1 does not show the
       interconnection with other networks or multi-homed CEs.
@@ -154,9 +154,10 @@ Table of Contents
    [I-D.ietf-opsawg-ntw-attachment-circuit].
 
    The required set of parameters to provision a network attachment is a
-   function of the service offering.  For example, a very limited set of
-   parameters is required for mass-market service offering while a more
-   elaborated set is required for Enterprise services.
+   function of the connectivity service offering.  For example, a very
+   limited set of parameters is required for mass-market service
+   offering while a more elaborated set is required for Enterprise
+   services.
 
    As discussed, e.g., in Section 4.2 of [RFC7567], packet dropping by
    network devices occurs mainly to protect the network (e.g.,
@@ -259,14 +260,14 @@ Table of Contents
    Adaptive Application Behavior:  Discovery of intentional policy
       applied on network attachements when such information is not made
       available during the service activation or when network upgrades
-      are performed.  Adaptive applications will thus used the
-      information to adjust their behavior.
+      are performed.  Adaptive applications will use the information to
+      adjust their behavior.
 
       Concretely, applications are supposed to have access to all
       throughput advice instances and would, thus, adjust their behavior
       as a function of scope and traffic category indicated in a
       throughput policy (all traffic, streaming, etc.).  An application
-      that couples multiple flow types would adjust each flow type to be
+      that couples multiple flow types will adjust each flow type to be
       consistent with the specific policy for the relevant traffic
       category.
 
@@ -290,11 +291,12 @@ Table of Contents
       source [RFC9066].
 
    Better Local Services:  A user may configure policies on the CE such
-      as securing some resources to a specific internal host used for
-      gaming or video streaming.  The CE can use the throughput advice
-      to share these rate-limit policies to connected hosts to adjust
-      their forwarding behavior.  Controling the load at the source will
-      allow to partition the resources between connected hosts.
+      as securing some resources to a specific internal host used, e.g.,
+      for gaming or video streaming.  The CE can use the throughput
+      advice to share these rate-limit policies to connected hosts to
+      adjust their forwarding behavior.  Controling the load at the
+      source will allow to partition the resources between connected
+      hosts.
 
 5.  Throughput Advice Object
 
@@ -540,15 +542,11 @@ Table of Contents
        "throughput-advice": [
            {
                "direction": 0,
-               "scope": false,
-               "tc": 0,
                "cir": 50,
                "cbs": 10000
            },
            {
                "direction": 1,
-               "scope": false,
-               "tc": 0,
                "cir": 30,
                "cbs": 8000
            }

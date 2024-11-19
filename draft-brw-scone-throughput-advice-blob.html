@@ -1258,7 +1258,7 @@ while the underlying link is referred to as "bearers".<a href="#section-1-1" cla
 <p id="section-1-4"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).<a href="#section-1-4" class="pilcrow">¶</a></p>
+in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).<a href="#section-1-4" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-1-5.1">
           <p id="section-1-5.1.1">For the sake of simplicity, <a href="#ac" class="auto internal xref">Figure 1</a> does not show the interconnection with other networks or multi-homed CEs.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
@@ -1340,7 +1340,7 @@ on that /56 not the individual /64s that will be used by internal hosts. A custo
 <p id="section-1-7">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
 the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-8">The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">As discussed, e.g., in <span><a href="https://rfc-editor.org/rfc/rfc7567#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7567" class="cite xref">RFC7567</a>]</span>, packet dropping by network devices occurs
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
@@ -1428,12 +1428,12 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
 <span class="break"></span><dl class="dlParallel" id="section-4-2">
         <dt id="section-4-2.1">Adaptive Application Behavior:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.2">
-          <p id="section-4-2.2.1">Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.2.1">Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-4-2.3"></dt>
         <dd style="margin-left: 1.5em" id="section-4-2.4">
-          <p id="section-4-2.4.1">Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.4.1">Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category.<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-4-2.5"></dt>
@@ -1453,7 +1453,7 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
         <dd class="break"></dd>
 <dt id="section-4-2.11">Better Local Services:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.12">
-          <p id="section-4-2.12.1">A user may configure policies on the CE such as securing some resources to a specific internal host used for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.12.1">A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1839,15 +1839,11 @@ includes one rate-limit instance that covers network-to-host traffic direction a
     "throughput-advice": [
         {
             "direction": 0,
-            "scope": false,
-            "tc": 0,
             "cir": 50,
             "cbs": 10000
         },
         {
             "direction": 1,
-            "scope": false,
-            "tc": 0,
             "cir": 30,
             "cbs": 8000
         }
