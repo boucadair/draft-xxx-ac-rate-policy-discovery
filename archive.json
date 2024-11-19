@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-17T01:20:04.167555+00:00",
+  "timestamp": "2024-11-19T01:16:21.990367+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -67,6 +67,11 @@
       "name": "Blob",
       "description": "",
       "color": "2ADACE"
+    },
+    {
+      "name": "revive_future_revision",
+      "description": "",
+      "color": "1d76db"
     }
   ],
   "issues": [
@@ -179,7 +184,7 @@
       "id": "I_kwDOLlGZlc6F12qb",
       "title": "Find app/os vendor",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -188,8 +193,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-04-16T08:46:30Z",
-      "updatedAt": "2024-04-16T08:46:31Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-18T14:52:06Z",
+      "closedAt": "2024-11-18T14:52:06Z",
       "comments": []
     },
     {
@@ -223,15 +228,15 @@
       "id": "I_kwDOLlGZlc6F19R9",
       "title": "Review the draft (Chris Box)",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-04-16T08:59:12Z",
-      "updatedAt": "2024-04-16T08:59:12Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-18T14:52:16Z",
+      "closedAt": "2024-11-18T14:52:16Z",
       "comments": []
     },
     {
@@ -312,7 +317,7 @@
       "id": "I_kwDOLlGZlc6ePxlV",
       "title": "Add some explanation for the need to have a reliability flag",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/37",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -323,8 +328,8 @@
       ],
       "body": "@sridharangirish91, can you please propose some text to https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/draft-brw-scone-throughput-advice-blob.md to motivate the need to have reliability flag? Thanks",
       "createdAt": "2024-11-13T10:10:29Z",
-      "updatedAt": "2024-11-15T08:31:00Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-18T09:27:12Z",
+      "closedAt": "2024-11-18T09:27:12Z",
       "comments": [
         {
           "author": "tireddy2",
@@ -501,7 +506,7 @@
       "id": "I_kwDOLlGZlc6enxOI",
       "title": "Nit",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/47",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -510,8 +515,8 @@
       ],
       "body": "A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.\r\nNit> The above line needs to be updated to include EIR.",
       "createdAt": "2024-11-15T08:39:17Z",
-      "updatedAt": "2024-11-15T10:50:51Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-18T09:21:14Z",
+      "closedAt": "2024-11-18T09:21:13Z",
       "comments": [
         {
           "author": "boucadair",
@@ -533,6 +538,20 @@
           "body": "That's defined in RFC4115, for example:\r\n\r\n>    The operation of the marker is described by two rate values.  The\r\n>    committed information rate (CIR) and the excess information rate\r\n>    (EIR).  CIR and EIR define the token generation rate of a token\r\n>    bucket with size that is equal to committed burst size (CBS) and\r\n>    excess burst size (EBS), respectively.\r\n\r\nWe need to cover the various combination out there.",
           "createdAt": "2024-11-15T10:50:50Z",
           "updatedAt": "2024-11-15T10:50:50Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "we may need to clarify that EIR is defined in RFC 4115. ",
+          "createdAt": "2024-11-18T07:40:31Z",
+          "updatedAt": "2024-11-18T07:40:31Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "We already have: \r\n\r\n> The document leverages existing technologies for configuring policies in provider networks. [Appendix A](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#sec-overview) provides a brief overview of how inbound policies are enforced in ingress network nodes. **The reader may refer to [[RFC2697](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC2697)], [[RFC2698](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC2698)], and [[RFC4115](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC4115)]** for examples of how various combinations of Committed Information Rate (EIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing.\r\n\r\n",
+          "createdAt": "2024-11-18T07:58:56Z",
+          "updatedAt": "2024-11-18T07:58:56Z"
         }
       ]
     },
@@ -571,6 +590,296 @@
       "body": "We will need to update the discovery draft to explain how the metadata defined in CDDL can be leveraged by DHCP, RA and PvD.",
       "createdAt": "2024-11-15T08:58:48Z",
       "updatedAt": "2024-11-15T09:03:43Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 55,
+      "id": "I_kwDOLlGZlc6fAFnA",
+      "title": "Use EIR, EBS, PIR and PBS",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/55",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "Blob",
+        "revive_future_revision"
+      ],
+      "body": "My understanding is if EIR, EBS are conveyed in the metadata, PIR and PBS must not be signaled and vice-versa. we will have re-define the CDDL in the following way:\r\n\r\nrate-limit = (\r\n  group-a / group-b\r\n)\r\n\r\ngroup-a = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? eir: uint,        ; Mbps\r\n  ? ebs: uint .gt 0   ; bytes\r\n}\r\n\r\ngroup-b = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? pir: uint,        ; Mbps\r\n  ? pbs: uint .gt 0   ; bytes\r\n}\r\n\r\n",
+      "createdAt": "2024-11-18T08:17:05Z",
+      "updatedAt": "2024-11-18T15:17:18Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I couldn't find RFCs to refer but in practical deployments, can there be a case where a packet exceeds CBS but is within PBS, so is EBS used in that case to have a more lenient window (like packets > CBS but < EBS to be treated with lower(lowest) priority and drop the ones that exceed PBS? ",
+          "createdAt": "2024-11-18T15:17:16Z",
+          "updatedAt": "2024-11-18T15:17:16Z"
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "I_kwDOLlGZlc6fDH8z",
+      "title": "Need to classify catgeories",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/56",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "sridharangirish91"
+      ],
+      "labels": [
+        "Blob"
+      ],
+      "body": "-\tI don't think there is need to classify categories of traffic now, this would definitely create some confusion, specially how it is done in the draft. For example, what does real-time mean? Is this p2p conversational media? Or does live streaming also fall into that category?  Another would be Bulk traffic , what does that even mean? Are you doing more that Diff serv or mimicking that?",
+      "createdAt": "2024-11-18T12:31:17Z",
+      "updatedAt": "2024-11-18T15:18:35Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Other points are defined in separate issues: #63 #62 #61 ",
+          "createdAt": "2024-11-18T12:55:54Z",
+          "updatedAt": "2024-11-18T12:55:54Z"
+        },
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@tireddy2 - Bulk traffic would be akin to QB and real-time would be akin to NQB. Although streaming and real-time can be overlapping one another, real-time would be something that has to be delivered as fast as possible (think live-streaming or a surgery done remote in near/distant future, flight simulation for military training etc) event while streaming refers to any OTT streaming or video streaming but not certainly something critical and needs to be delivered.\r\n\r\nAlthough I do agree that it is more complicated to identify such traffic signaled by the application without associated metadata signaling in place. We could maybe move this to appendix as extended structure that can be included in future and keep the main text to what is essential? \r\n\r\nI'll tweak the text to reflect the above.",
+          "createdAt": "2024-11-18T15:02:25Z",
+          "updatedAt": "2024-11-18T15:07:02Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Thanks @sridharangirish91. Please see also #69 (and the example of categories defined for example by the GSMA). \r\n\r\nI suggest we only include \"any\" TC for -00 and continue the discussion about other TC values that we might include in future version.",
+          "createdAt": "2024-11-18T15:18:33Z",
+          "updatedAt": "2024-11-18T15:18:33Z"
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "I_kwDOLlGZlc6fDJUB",
+      "title": "reactive policy",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/57",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "-\tShould there be mentioned already in the Abstract for the reactive policy as an additional example the limited capacity due to varying radio connection conditions (now there are mentioned the overload and DDoS attach mitigation)? The \u201cissue with RAN resources\u201d is mentioned though in the Sample Deployment Cases, so don\u2019t know if this is already enough.\r\n\r\n",
+      "createdAt": "2024-11-18T12:33:43Z",
+      "updatedAt": "2024-11-18T16:08:37Z",
+      "closedAt": "2024-11-18T16:08:37Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "the old issues are  split into individual issues #58 #59 #60 ",
+          "createdAt": "2024-11-18T12:51:17Z",
+          "updatedAt": "2024-11-18T12:51:17Z"
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "id": "I_kwDOLlGZlc6fDRz3",
+      "title": "Scope description",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/58",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "> What is meant with the scope per host and per subscriber (what role is subscriber in the IETF terms)? Is there a target to define the traffic flow granularity (even per application level)..?\r\n",
+      "createdAt": "2024-11-18T12:48:49Z",
+      "updatedAt": "2024-11-18T13:08:44Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Updated the text for better clarity. \r\n\r\nNote that we do already have:\r\n\r\n> The throughput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g., [Section 8.1.1](https://rfc-editor.org/rfc/rfc9330#section-8.1.1) of [[RFC9330](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC9330)] which states that \"there has never been a universal need to police the rate of individual application flows\".",
+          "createdAt": "2024-11-18T13:08:43Z",
+          "updatedAt": "2024-11-18T13:08:43Z"
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "id": "I_kwDOLlGZlc6fDSen",
+      "title": "details about means/validity, etc.",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/59",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "> Without knowing the actual means to deliver this Throughput Advice info to host (or app?) this might/or might not be relevant: There is not mentioned anything about the applicability of this Throughput Advice info: Is it valid until the further notice/updated policy (possible infinitively or 1 sec) or should there be defined some timing value in the throughput advice object (the policy valid for the next 20 sec or 30min..?)?\r\n",
+      "createdAt": "2024-11-18T12:50:04Z",
+      "updatedAt": "2024-11-18T12:50:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 60,
+      "id": "I_kwDOLlGZlc6fDSsF",
+      "title": "nit",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/60",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "> Minor typo in line 123: \u201c\u2026how various combinations of Committed Information Rate (EIR),..\u201d, the abbreviation not correct (should be CIR?).",
+      "createdAt": "2024-11-18T12:50:28Z",
+      "updatedAt": "2024-11-18T13:33:23Z",
+      "closedAt": "2024-11-18T13:33:23Z",
+      "comments": []
+    },
+    {
+      "number": 61,
+      "id": "I_kwDOLlGZlc6fDT7w",
+      "title": "What is committed? ",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/61",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "\r\n> -\tWhat is committed? In Scone charter there is no commitment from any party involved, right? Let\u2019s not create GBR, MBR discussion here.\r\n",
+      "createdAt": "2024-11-18T12:52:33Z",
+      "updatedAt": "2024-11-18T13:17:19Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "We are using IETF existing terms here.",
+          "createdAt": "2024-11-18T13:17:18Z",
+          "updatedAt": "2024-11-18T13:17:18Z"
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "I_kwDOLlGZlc6fDUtf",
+      "title": "EBS/PBS Intended Use for specific traffic category",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/62",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "> It is not clear from the draft if Excess Burst or Peak Burst is needed or how those can be used for a specific category of traffic.\r\n\r\n",
+      "createdAt": "2024-11-18T12:53:58Z",
+      "updatedAt": "2024-11-18T13:15:48Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "The text says these are optional. The text cites examples where these helps the outbound policy to maintain in-profile traffic.\r\n\r\nThe current text says these are bound to the traffic category.",
+          "createdAt": "2024-11-18T13:15:46Z",
+          "updatedAt": "2024-11-18T13:15:46Z"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "I_kwDOLlGZlc6fDVMa",
+      "title": "Level of details",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/63",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "> Also I am not sure I understand the complexity of providing such detailed information from the network to the client, we even have hard time providing just the bitrate information. How would the network provide and maintain the commitments its making to burst information and peak rate information. - Moreover, I think the authors should be able to provide enough experimental information to justify the need for such detailed information from the network to the client.",
+      "createdAt": "2024-11-18T12:54:51Z",
+      "updatedAt": "2024-11-18T13:19:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "The text provides pointers to examples where these parameters are already shared with customers: \r\n\r\n> These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., \"A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver\" [[RFC8466](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC8466)]).",
+          "createdAt": "2024-11-18T13:19:36Z",
+          "updatedAt": "2024-11-18T13:19:36Z"
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "id": "I_kwDOLlGZlc6fDuFD",
+      "title": "Define few traffic categories",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/69",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "sridharangirish91"
+      ],
+      "labels": [
+        "Blob",
+        "revive_future_revision"
+      ],
+      "body": "Should we leverage categories such as those defined in https://www.gsma.com/newsroom/wp-content/uploads/NG.135-v1.0-1.pdf",
+      "createdAt": "2024-11-18T13:24:41Z",
+      "updatedAt": "2024-11-18T15:26:14Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I could move the traffic categories to the appendix and quote the above doc. We could stick with the existing ones but leave it extendable for future?",
+          "createdAt": "2024-11-18T15:19:30Z",
+          "updatedAt": "2024-11-18T15:19:30Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "The current PR removed all values except 0 (\"any\") from the draft but leaves 1-63 for future assignments.\r\n\r\nI think it is better for -00. We can prepare text for future versions.",
+          "createdAt": "2024-11-18T15:26:13Z",
+          "updatedAt": "2024-11-18T15:26:13Z"
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "I_kwDOLlGZlc6fFNPK",
+      "title": "per-flow scope",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/71",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Manageability",
+        "Blob"
+      ],
+      "body": "Rate-limit are usually not on per-app basis (net-neutrality, etc.)\r\n\r\nFor example, RFC9330 says: \r\n\r\n> \r\n> \" However, there has never been a\r\n>    universal need to police the rate of individual application flows --\"\r\n\r\nPer-flow rate-limits induces also deployment concerns as to how resources can be partitioned, how the partition is bound to a specific volatile flow without? etc.",
+      "createdAt": "2024-11-18T15:33:17Z",
+      "updatedAt": "2024-11-18T15:34:01Z",
       "closedAt": null,
       "comments": []
     }
@@ -2604,6 +2913,394 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOLlGZlc6CKo6q",
+      "title": "add text for need/use of reliability flag",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/53",
+      "state": "MERGED",
+      "author": "sridharangirish91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-17T18:55:16Z",
+      "updatedAt": "2024-11-18T09:27:12Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "2aa84f69ac6b78e17f8b2f84ce6ca03a845cf5a0",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "sridharanr",
+      "headRefOid": "2883b527f02e7260e954ff937080671cce20d658",
+      "closedAt": "2024-11-18T09:27:11Z",
+      "mergedAt": "2024-11-18T09:27:11Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RijUF",
+          "commit": {
+            "abbreviatedOid": "8863845"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-18T07:43:21Z",
+          "updatedAt": "2024-11-18T07:43:22Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n* Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.\r\n```",
+              "createdAt": "2024-11-18T07:43:21Z",
+              "updatedAt": "2024-11-18T07:43:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6Rijfd",
+          "commit": {
+            "abbreviatedOid": "8863845"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T07:43:47Z",
+          "updatedAt": "2024-11-18T07:43:47Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6RjXMF",
+          "commit": {
+            "abbreviatedOid": "2883b52"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T09:22:44Z",
+          "updatedAt": "2024-11-18T09:22:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDOLlGZlc6CNSzu",
+      "title": "Change Y/N to TBC",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/54",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Analysis"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T08:12:07Z",
+      "updatedAt": "2024-11-18T08:17:42Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "2aa84f69ac6b78e17f8b2f84ce6ca03a845cf5a0",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Change-Y/N-to-TBC",
+      "headRefOid": "05acba53862920e85a48d60dc1018bbd5f354d05",
+      "closedAt": "2024-11-18T08:17:41Z",
+      "mergedAt": "2024-11-18T08:17:41Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "9dc49ed41cfda36bf556fd928625c2f704e476db"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RiyGX",
+          "commit": {
+            "abbreviatedOid": "05acba5"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T08:15:22Z",
+          "updatedAt": "2024-11-18T08:15:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "id": "PR_kwDOLlGZlc6CPnXL",
+      "title": "nit",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/64",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T12:56:57Z",
+      "updatedAt": "2024-11-18T13:33:24Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "nit",
+      "headRefOid": "954edb97e99211849d69fb32f30e67bff5f77048",
+      "closedAt": "2024-11-18T13:33:22Z",
+      "mergedAt": "2024-11-18T13:33:22Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "3e7c940fc7c23e549bc96e28a50fac4b1daff46e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 65,
+      "id": "PR_kwDOLlGZlc6CPpNJ",
+      "title": "simplify abstract",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/65",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T13:00:33Z",
+      "updatedAt": "2024-11-18T16:08:37Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "simplify-abstract",
+      "headRefOid": "86aa11a6721694513105c8fbb086c02a04297214",
+      "closedAt": "2024-11-18T16:08:36Z",
+      "mergedAt": "2024-11-18T16:08:36Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "622417cc5f5fbf952b4845bfc1b3293fc970bfc7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RndfD",
+          "commit": {
+            "abbreviatedOid": "86aa11a"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T15:51:48Z",
+          "updatedAt": "2024-11-18T15:51:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6Rnmr3",
+          "commit": {
+            "abbreviatedOid": "86aa11a"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T16:06:22Z",
+          "updatedAt": "2024-11-18T16:06:22Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "id": "PR_kwDOLlGZlc6CPqZw",
+      "title": "categories",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/66",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T13:02:52Z",
+      "updatedAt": "2024-11-18T15:27:34Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "categories",
+      "headRefOid": "29b3bce0438866b2e127067becdb9784af7f6918",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RnHof",
+          "commit": {
+            "abbreviatedOid": "29b3bce"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T15:27:34Z",
+          "updatedAt": "2024-11-18T15:27:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "id": "PR_kwDOLlGZlc6CPskK",
+      "title": "scope",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/67",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T13:07:04Z",
+      "updatedAt": "2024-11-18T16:20:34Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "72847e642e451fd595cb1d8fc5807e4ce72a6a40",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "scope",
+      "headRefOid": "7f98dccd3ddb8544af1fd7069c121df6f7aa4403",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RnuZ0",
+          "commit": {
+            "abbreviatedOid": "7f98dcc"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T16:19:13Z",
+          "updatedAt": "2024-11-18T16:19:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6RnvMV",
+          "commit": {
+            "abbreviatedOid": "7f98dcc"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T16:20:34Z",
+          "updatedAt": "2024-11-18T16:20:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOLlGZlc6CPvcm",
+      "title": "expiry/refresh",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/68",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T13:12:43Z",
+      "updatedAt": "2024-11-18T16:21:49Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "expiry/refresh-out-of-scope",
+      "headRefOid": "34b7a86d461857ef0d0ede3f23e68acec7223891",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6RnuF7",
+          "commit": {
+            "abbreviatedOid": "34b7a86"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T16:18:41Z",
+          "updatedAt": "2024-11-18T16:18:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6RnwBR",
+          "commit": {
+            "abbreviatedOid": "34b7a86"
+          },
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-18T16:21:49Z",
+          "updatedAt": "2024-11-18T16:21:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOLlGZlc6CP479",
+      "title": "bearer considerations",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/70",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "",
+      "createdAt": "2024-11-18T13:30:51Z",
+      "updatedAt": "2024-11-18T13:53:11Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "bearer-considerations",
+      "headRefOid": "2570a42fd1ed0cb57889e41019c9ffea542c7c29",
+      "closedAt": "2024-11-18T13:53:11Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
