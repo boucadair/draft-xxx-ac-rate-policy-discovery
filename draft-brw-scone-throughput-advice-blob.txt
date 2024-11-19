@@ -221,6 +221,9 @@ Table of Contents
 
    *  How the throughput advice is computed/set.
 
+   *  The protocol machinery for validating, refreshing, detecting
+      stale, and flushing out received advices.
+
    *  How applications running over a host can learn the bitrates
       associated with a network attachment.  Typically, this can be
       achieved by invoking a dedicated API.  However, the exact details
