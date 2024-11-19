@@ -76,7 +76,7 @@ other (internal) hosts. The identification of these hosts is hidden from the net
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
 on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).
 
-> {{ac}} does not show the interconnection with other networks for the sake of simplicity.
+> For the sake of simplicity, {{ac}} does not show the interconnection with other networks or multi-homed CEs.
 
 ~~~~aasvg
                                                         Hosts
@@ -113,9 +113,9 @@ configured in (ingress) nodes. These rate-limits can be shared with customers wh
 
 This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are returned in a throughput advice is deployment specific. All these combinations are supported in this document.
+Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.
 
-Also, one more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
+Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
 
 The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
 of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
@@ -171,6 +171,8 @@ Better Local Services:
 
 A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adhere to the structure defined in {{sec-ins-structure}}.
 
+Throughput advice objects are bound to the network interface over which the advice applies.
+
 The throughput advice object is described in CDDL {{!RFC8610}} format shown in {{cddl}}. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.
 
 ~~~~ CDDL
@@ -191,8 +193,8 @@ throughput-instance =  {
 ; excess and peak rates.
 ; Settting these parameters to false means that excess and
 ; peak parameters are not supplied in the policy.
-; These control bits may not be required for protocols
-; with built-in mechanisms to parse objects even with
+; These control bits may not be required for protocols with
+; built-in mechanisms to parse objects even with
 ; optional/variable fields.
 
 opf =  {
@@ -200,8 +202,7 @@ opf =  {
   ? peak: bool .default false
 }
 
-; ff indicates scope (per host or per subscriber), traffic
-; direction, and reliability type (reliable or unreliable).
+; ff indicates scope, traffic direction, and reliability type.
 ; Default value for scope is per subscriber policy.
 ; Default value for direction is network-to-host direction.
 ; Default value for reliability is false (i.e., the policy is
@@ -408,12 +409,13 @@ It is out of scope of this document to make recommendations about how the advice
 * Applications can send/receive data at a rate beyond the CIR up to the PIR when the network is not congested. If network feedback (e.g., packet loss or delay) indicates congestion, the application can scale back to the CIR. Otherwise, it can use the PIR for temporary throughput boosts.
 * Applications can send/receive short-term bursts of data that exceed the committed burst size CBS up to the PBS if there is no congestion. This is useful for scenarios where short, high-throughput bursts are needed.
 * Applications can ensure that their sending rate never exceeds the PIR and that their short-term bursts of traffic never exceeds PBS.
-* The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
 * Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
+* The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
+
 
 # Security Considerations
 
-As discussed in {{sec-uc}}, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
+As discussed in {{sec-uc}}, sharing a throughout advice assists networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms should be enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
 
 An attacker who has the ability to change the throughput advice objects exchanged over a network attachment may:
 
@@ -430,11 +432,11 @@ Delete or remove the advice:
 
 ## Rate-Limit Policy Objects Registry Group {#sec-iana-rlp}
 
-This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".
+This document requests IANA to create a new registry group entitled "SCONE Rate-Limit Policy Objects".
 
 ## Optional Parameter Flags Registry {#sec-iana-opf}
 
-This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-op-flags}}.
 
@@ -449,23 +451,22 @@ The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !R
 
 ## Flow Flags Registry {#sec-iana-ff}
 
-This document requests IANA to create a new registry entitled "Flow flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+This document requests IANA to create a new registry entitled "Flow flags" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-flow-flags}}.
 
 |Bit Position|     Description|     Reference|
 |1| Scope (S) Flag|This-Document|
-|2| Direction (D) Flag|This-Document|
-|3-4| Reliability (R) Flags|This-Document|
-|5| Unassigned| |
-|6| Unassigned| |
+|2-3| Direction (D) Flag|This-Document|
+|4-5| Reliability (R) Flags|This-Document|
+|6-8| Unassigned| |
 {: #iana-flow-flags title="Flow flags"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
 ## Traffic Category Registry {#sec-iana-tc}
 
-This document requests IANA to create a new registry entitled "Traffic Category Types" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+This document requests IANA to create a new registry entitled "Traffic Category Types" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-tc}}.
 
