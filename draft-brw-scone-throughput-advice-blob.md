@@ -82,7 +82,7 @@ The bearer can be a physical or logical link that connects a customer device to 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).
+in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).
 
 > For the sake of simplicity, {{ac}} does not show the interconnection with other networks or multi-homed CEs.
 
@@ -109,7 +109,7 @@ Customer terminating points are provided with a set of information (e.g., IP add
 able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
 the PE-side of a network attachment is specified in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
-The required set of parameters to provision a network attachment is a function of the service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.
+The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.
 
 As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network devices occurs
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
@@ -162,8 +162,8 @@ Rate-limit:
 Some deployment use cases for throughput advice discovery are provided below:
 
 Adaptive Application Behavior:
-: Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will thus used the information to adjust their behavior.
-: Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types would adjust each flow type to be consistent with the specific policy for the relevant traffic category.
+: Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.
+: Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category.
 : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
 Network Assisted Offload:
@@ -171,7 +171,7 @@ Network Assisted Offload:
 : The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
 
 Better Local Services:
-: A user may configure policies on the CE such as securing some resources to a specific internal host used for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
+: A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
 
 # Throughput Advice Object {#sec-blob}
 
@@ -378,15 +378,11 @@ The advice conveyed in {{ex-2}} is similar to the advice in {{ex}}. The only dif
     "throughput-advice": [
         {
             "direction": 0,
-            "scope": false,
-            "tc": 0,
             "cir": 50,
             "cbs": 10000
         },
         {
             "direction": 1,
-            "scope": false,
-            "tc": 0,
             "cir": 30,
             "cbs": 8000
         }
