@@ -106,11 +106,10 @@ The required set of parameters to provision a network attachment is a function o
 As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network devices occurs
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
-or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation).
+or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
+configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" {{?RFC8466}}).
 
-Rate-limits are usually configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver" {{?RFC8466}}).
-
-{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: throughput Advice. The set of parameters are independent of the address family.
+{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.
 
 This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
@@ -215,7 +214,7 @@ ff =  {
   ? reliability: &reliability-values .default any
 }
 
-scope-values = (subscriber: 0, host: 1)
+scope-values = (subscriber: 0, host: 1, flow: 2)
 direction-values = (n2h: 0, h2n: 1, bidir: 2)
 reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
@@ -263,7 +262,8 @@ Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
 
     S (Scope):
-    : Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
+    : Indicates the granularity of enforcing policies.
+    : This parameter specifies whether the policy is a per-host, per-subscriber, or per-flow policy.
 
     D (Direction):
     : Indicates the direction on which to apply the enclosed policy.
@@ -411,10 +411,6 @@ It is out of scope of this document to make recommendations about how the advice
 * Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
 
 # Security Considerations
-
-The throughtput advice is bound to a subscriber, a host, and traffic category, not individual flows. This is consistent with, e.g.,
-{{Section 8.1.1 of ?RFC9330}} which states that "there has never been a universal need to police the rate of individual application flows".
-The rate-limits are set for various reasons (e.g., guards against resource abuse, fairness, etc.).
 
 As discussed in {{sec-uc}}, the throughout advice assist networks to soften overloads during DDoS attacks, in paricular. Of course, other mechanisms are enabled by networks to protect against overload (e.g., DDoS mitigation {{?RFC8811}}).
 
