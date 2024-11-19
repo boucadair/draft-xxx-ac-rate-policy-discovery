@@ -289,10 +289,7 @@ TC (Traffic Category):
 : The following values are supported:
 
   + "0": All traffic. This is the default value.
-  + "1": Streaming
-  + "2": Real-time
-  + "3": Bulk traffic
-  + 4-63: Unassigned values. See {{sec-iana-tc}}.
+  + 1-63: Unassigned values. See {{sec-iana-tc}}.
 
 Committed Information Rate (CIR) (Mbps):
 : Specifies the maximum number of bits that a network can receive or
@@ -477,10 +474,7 @@ The initial values of this registry is provided in {{iana-tc}}.
 
 |Value|     Description|     Reference|
 |0| All traffic|This-Document|
-|1| Streaming|This-Document|
-|2| Real-time|This-Document|
-|3| Bulk traffic| |
-|4-63| Unassigned| |
+|1-63| Unassigned| |
 {: #iana-tc title="Traffic Category Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
