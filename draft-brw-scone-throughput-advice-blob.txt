@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 22 May 2025                                Cloud Software Group
+Expires: 23 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        18 November 2024
+                                                        19 November 2024
 
 
                    Throughput Advice Object for SCONE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2025.
+   This Internet-Draft will expire on 23 May 2025.
 
 Copyright Notice
 
@@ -436,13 +436,7 @@ Table of Contents
 
       *  "0": All traffic.  This is the default value.
 
-      *  "1": Streaming
-
-      *  "2": Real-time
-
-      *  "3": Bulk traffic
-
-      *  4-63: Unassigned values.  See Section 9.4.
+      *  1-63: Unassigned values.  See Section 9.4.
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
       number of bits that a network can receive or send during one
@@ -694,21 +688,15 @@ Table of Contents
 
    The initial values of this registry is provided in Table 3.
 
-                 +=======+==============+===============+
-                 | Value | Description  | Reference     |
-                 +=======+==============+===============+
-                 | 0     | All traffic  | This-Document |
-                 +-------+--------------+---------------+
-                 | 1     | Streaming    | This-Document |
-                 +-------+--------------+---------------+
-                 | 2     | Real-time    | This-Document |
-                 +-------+--------------+---------------+
-                 | 3     | Bulk traffic |               |
-                 +-------+--------------+---------------+
-                 | 4-63  | Unassigned   |               |
-                 +-------+--------------+---------------+
+                  +=======+=============+===============+
+                  | Value | Description | Reference     |
+                  +=======+=============+===============+
+                  | 0     | All traffic | This-Document |
+                  +-------+-------------+---------------+
+                  | 1-63  | Unassigned  |               |
+                  +-------+-------------+---------------+
 
-                     Table 3: Traffic Category Values
+                      Table 3: Traffic Category Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
