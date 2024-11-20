@@ -109,7 +109,7 @@ As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network d
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
-configured in (ingress) nodes (e.g., {{VPP}}). These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" {{?RFC8466}}).
+configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" {{?RFC8466}}).
 
 {{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.
 
@@ -170,6 +170,8 @@ of how various combinations of Committed Information Rate (CIR), Committed Burst
 
 * A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
 * A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
+
+An implementation example of these variants (and others) can be found at {{VPP}}.
 
 ## Overall Object Structure
 
