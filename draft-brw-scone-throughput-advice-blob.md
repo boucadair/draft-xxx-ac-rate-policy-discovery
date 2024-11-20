@@ -80,9 +80,7 @@ The bearer can be a physical or logical link that connects a customer device to 
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).
-
-> For the sake of simplicity, {{ac}} does not show the interconnection with other networks or multi-homed CEs.
+in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2). For the sake of simplicity, {{ac}} does not show the interconnection with other networks or multi-homed CEs.
 
 ~~~~aasvg
                                                         Hosts
@@ -104,10 +102,8 @@ in the network on that /56 not the individual /64s that will be used by internal
 {: #ac title="Sample Network Attachments" artwork-align="center"}
 
 Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
+able to send and receive traffic over a network attachment. The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services. A comprehensive list of provisioning parameters that are available on
 the PE-side of a network attachment is specified in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
-
-The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.
 
 As discussed, e.g., in {{Section 4.2 of ?RFC7567}}, packet dropping by network devices occurs
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
@@ -121,15 +117,9 @@ This document does not assume nor preclude any specific signaling protocol to sh
 
 Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.
 
-Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.
+Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.
 
-The document leverages existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
-of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
-
-* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
-* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
-
-Sample uses of the advice are listed in {{sec-samples}}.
+Sample uses of the advice by applications are listed in {{sec-samples}}.
 
 In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
 
@@ -173,9 +163,17 @@ Better Local Services:
 
 # Throughput Advice Object {#sec-blob}
 
+## Throughput Parameters
+
+The throughput advice parameters leverage existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
+of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
+
+* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
+* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
+
 ## Overall Object Structure
 
-A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adheres to the structure defined in {{sec-ins-structure}}.
+A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these instances adheres to the structure defined in {{sec-ins-structure}}.
 
 Throughput advice objects are bound to the network interface over which the advice was received.
 
@@ -248,7 +246,7 @@ rate-limit =  {
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
 
-## Structure of a Throughput Advice Instance {#sec-ins-structure}
+## Throughput Advice Instance Attributes {#sec-ins-structure}
 
 This section defines the set of attributes that are included in a throughput advice instance:
 
@@ -335,7 +333,7 @@ Peak Burst Size (PBS) (bytes):
 : MUST be greater than zero, if present.
 : This parameter is optional.
 
-# Examples
+# Examples {#sec-ex}
 
 For the sake of illustration, {{ex}} exemplifies the content of a throughput advice using JSON notations. The advice
 includes one rate-limit instance that covers network-to-host traffic direction and is applicable to all traffic destined to any host of a subscriber.
