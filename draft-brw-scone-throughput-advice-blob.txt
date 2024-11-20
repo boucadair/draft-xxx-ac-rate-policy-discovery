@@ -181,9 +181,8 @@ Table of Contents
    combinations are supported in this document.
 
    Also, one or more throughput advice instances may be returned for a
-   given traffic direction.  Each of these instances may cover a
-   specific traffic category.  Examples of such instances are discussed
-   in Section 6.
+   given traffic direction.  Examples of such instances are discussed in
+   Section 6.
 
    Sample uses of the advice by applications are listed in Section 7.
 
