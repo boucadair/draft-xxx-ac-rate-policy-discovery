@@ -596,10 +596,9 @@ Table of Contents
 
 8.  Security Considerations
 
-   As discussed in Section 4, sharing a throughout advice assists
-   networks to soften overloads during DDoS attacks, in paricular.  Of
-   course, other mechanisms should be enabled by networks to protect
-   against overload (e.g., DDoS mitigation [RFC8811]).
+   As discussed in Section 4, sharing a throughput advice helps networks
+   mitigate overloads, particularly during periods of high traffic
+   volume.
 
    An attacker who has the ability to change the throughput advice
    objects exchanged over a network attachment may:
@@ -811,11 +810,6 @@ Table of Contents
               Data Model for Layer 2 Virtual Private Network (L2VPN)
               Service Delivery", RFC 8466, DOI 10.17487/RFC8466, October
               2018, <https://www.rfc-editor.org/rfc/rfc8466>.
-
-   [RFC8811]  Mortensen, A., Ed., Reddy.K, T., Ed., Andreasen, F.,
-              Teague, N., and R. Compton, "DDoS Open Threat Signaling
-              (DOTS) Architecture", RFC 8811, DOI 10.17487/RFC8811,
-              August 2020, <https://www.rfc-editor.org/rfc/rfc8811>.
 
    [RFC9002]  Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
