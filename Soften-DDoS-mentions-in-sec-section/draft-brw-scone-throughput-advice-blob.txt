@@ -601,8 +601,9 @@ Table of Contents
 
 8.  Security Considerations
 
-   As discussed in Section 4, sharing a throughout advice assists
-   networks to soften overloads during DDoS attacks, in paricular.
+   As discussed in Section 4, sharing a throughput advice helps networks
+   mitigate overloads, particularly during periods of high traffic
+   volume.
 
    An attacker who has the ability to change the throughput advice
    objects exchanged over a network attachment may:
