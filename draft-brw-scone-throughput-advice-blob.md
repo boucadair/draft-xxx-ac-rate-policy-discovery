@@ -328,7 +328,7 @@ Excess Burst Size (EBS) (bytes):
 Peak Information Rate (PIR) (Mbps):
 : MUST be present if P flag is set to '1'.
 : Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.
-: The PIR value MUST be greater than or equal to 0, if present.
+: The PIR MUST be equal to or greater than the CIR, if present.
 : This parameter is optional.
 
 Peak Burst Size (PBS) (bytes):
