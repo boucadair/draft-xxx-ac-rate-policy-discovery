@@ -488,7 +488,7 @@ Table of Contents
       That is, traffic that exceeds the CIR and the CBS is metered to
       the PIR.
 
-      The PIR value MUST be greater than or equal to 0, if present.
+      The PIR MUST be equal to or greater than the CIR, if present.
 
       This parameter is optional.
 
