@@ -243,11 +243,7 @@ Table of Contents
 
       Concretely, applications are supposed to have access to all
       throughput advice instances and would, thus, adjust their behavior
-      as a function of scope and traffic category indicated in a
-      throughput policy (all traffic, streaming, etc.).  An application
-      that couples multiple flow types will adjust each flow type to be
-      consistent with the specific policy for the relevant traffic
-      category.
+      as a function of the parameters indicated in a throughput policy.
 
       Likewise, a host with multiple network attachments may use the
       discovered throughput advice instances over each network
