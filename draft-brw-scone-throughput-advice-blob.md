@@ -298,8 +298,9 @@ TC (Traffic Category):
   + 1-63: Unassigned values. See {{sec-iana-tc}}.
 
 Committed Information Rate (CIR) (Mbps):
-: Specifies the maximum number of bits that a network can
+: An average rate that specifies the maximum number of bits that a network can
   send (or receive) during one second over a network attachment.
+: The CIR value MUST be greater than or equal to 0.
 : If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.
 : This parameter is mandatory.
 
@@ -310,9 +311,10 @@ Committed Burst Size (CBS) (bytes):
 
 Excess Information Rate (EIR) (Mbps):
 : MUST be present if the E flag is set to '1'.
-: Specifies the maximum number of bits that a network can receive or
-  send during one second over a network attachment for a
+: An avertage rate that specifies the maximum number of bits that a network can
+  send (or receive) during one second over a network attachment for a
   traffic that is out of profile.
+: The EIR value MUST be greater than or equal to 0, if present.
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
@@ -324,6 +326,7 @@ Excess Burst Size (EBS) (bytes):
 Peak Information Rate (PIR) (Mbps):
 : MUST be present if P flag is set to '1'.
 : Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.
+: The PIR value MUST be greater than or equal to 0, if present.
 : This parameter is optional.
 
 Peak Burst Size (PBS) (bytes):
