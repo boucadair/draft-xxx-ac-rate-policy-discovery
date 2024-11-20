@@ -441,8 +441,8 @@ Table of Contents
       *  1-63: Unassigned values.  See Section 9.4.
 
    Committed Information Rate (CIR) (Mbps):  Specifies the maximum
-      number of bits that a network can receive or send during one
-      second over a network attachment for a traffic category.
+      number of bits that a network can send (or receive) during one
+      second over a network attachment.
 
       If set to 0 (or a very low value), this indicates to the host that
       alternate paths (if any) should be preferred over this one.
@@ -461,7 +461,7 @@ Table of Contents
 
       Specifies the maximum number of bits that a network can receive or
       send during one second over a network attachment for a traffic
-      category that is out of profile.
+      that is out of profile.
 
       This parameter is optional.
 
