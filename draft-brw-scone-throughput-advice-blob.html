@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Boucadair, et al.</td>
-<td class="center">Expires 23 May 2025</td>
+<td class="center">Expires 24 May 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-brw-scone-throughput-advice-blob-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-19" class="published">19 November 2024</time>
+<time datetime="2024-11-20" class="published">20 November 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-23">23 May 2025</time></dd>
+<dd class="expires"><time datetime="2025-05-24">24 May 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ passed to applications that might adjust their behaviors accordingly.<a href="#s
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1178,10 +1178,13 @@ passed to applications that might adjust their behaviors accordingly.<a href="#s
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-throughput-advice-object" class="internal xref">Throughput Advice Object</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-overall-object-structure" class="internal xref">Overall Object Structure</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-throughput-parameters" class="internal xref">Throughput Parameters</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-structure-of-a-throughput-a" class="internal xref">Structure of a Throughput Advice Instance</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-overall-object-structure" class="internal xref">Overall Object Structure</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-throughput-advice-instance-" class="internal xref">Throughput Advice Instance Attributes</a></p>
 </li>
             </ul>
 </li>
@@ -1253,16 +1256,11 @@ while the underlying link is referred to as "bearers".<a href="#section-1-1" cla
 <p id="section-1-3"><a href="#ac" class="auto internal xref">Figure 1</a> shows an example of a network that connects CEs and hosts (UE, for example). These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for a network attachment are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2).<a href="#section-1-3" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1-4.1">
-          <p id="section-1-4.1.1">For the sake of simplicity, <a href="#ac" class="auto internal xref">Figure 1</a> does not show the interconnection with other networks or multi-homed CEs.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+in the network on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple network attachments (e.g., CE#2). For the sake of simplicity, <a href="#ac" class="auto internal xref">Figure 1</a> does not show the interconnection with other networks or multi-homed CEs.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <span id="name-sample-network-attachments"></span><div id="ac">
 <figure id="figure-1">
-        <div id="section-1-5.1">
-          <div class="alignCenter art-svg artwork" id="section-1-5.1.1">
+        <div id="section-1-4.1">
+          <div class="alignCenter art-svg artwork" id="section-1-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="512" viewBox="0 0 512 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 8,80 L 8,128" fill="none" stroke="black"></path>
               <path d="M 8,160 L 8,208" fill="none" stroke="black"></path>
@@ -1325,38 +1323,27 @@ in the network on that /56 not the individual /64s that will be used by internal
                 <text x="40" y="260">Hosts</text>
                 <text x="480" y="260">Hosts</text>
               </g>
-            </svg><a href="#section-1-5.1.1" class="pilcrow">¶</a>
+            </svg><a href="#section-1-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-sample-network-attachments" class="selfRef">Sample Network Attachments</a>
         </figcaption></figure>
 </div>
-<p id="section-1-6">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over a network attachment. A comprehensive list of provisioning parameters that are available on
-the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">As discussed, e.g., in <span><a href="https://rfc-editor.org/rfc/rfc7567#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7567" class="cite xref">RFC7567</a>]</span>, packet dropping by network devices occurs
+<p id="section-1-5">Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
+able to send and receive traffic over a network attachment. The required set of parameters to provision a network attachment is a function of the connectivity service offering. For example, a very limited set of parameters is required for mass-market service offering while a more elaborated set is required for Enterprise services. A comprehensive list of provisioning parameters that are available on
+the PE-side of a network attachment is specified in <span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">As discussed, e.g., in <span><a href="https://rfc-editor.org/rfc/rfc7567#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7567" class="cite xref">RFC7567</a>]</span>, packet dropping by network devices occurs
 mainly to protect the network (e.g., congestion-unresponsive flows) and also to ensure fairness over a shared link. These policies may be intentional policies (e.g., enforced as part of the activation
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
-configured in (ingress) nodes (e.g., <span>[<a href="#VPP" class="cite xref">VPP</a>]</span>). These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p id="section-1-10">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-10" class="pilcrow">¶</a></p>
-<p id="section-1-11">Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-11" class="pilcrow">¶</a></p>
-<p id="section-1-12">Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category.<a href="#section-1-12" class="pilcrow">¶</a></p>
-<p id="section-1-13">The document leverages existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
-of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-1-13" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-14.1">
-          <p id="section-1-14.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-1-14.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-1-14.2">
-          <p id="section-1-14.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-1-14.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-1-15">Sample uses of the advice are listed in <a href="#sec-samples" class="auto internal xref">Section 7</a>.<a href="#section-1-15" class="pilcrow">¶</a></p>
-<p id="section-1-16">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-16" class="pilcrow">¶</a></p>
+configured in (ingress) nodes (e.g., <span>[<a href="#VPP" class="cite xref">VPP</a>]</span>). These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in <a href="#sec-ex" class="auto internal xref">Section 6</a>.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">Sample uses of the advice by applications are listed in <a href="#sec-samples" class="auto internal xref">Section 7</a>.<a href="#section-1-11" class="pilcrow">¶</a></p>
+<p id="section-1-12">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="whats-out">
@@ -1459,17 +1446,34 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
       <h2 id="name-throughput-advice-object">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-throughput-advice-object" class="section-name selfRef">Throughput Advice Object</a>
       </h2>
-<div id="overall-object-structure">
+<div id="throughput-parameters">
 <section id="section-5.1">
-        <h3 id="name-overall-object-structure">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-overall-object-structure" class="section-name selfRef">Overall Object Structure</a>
+        <h3 id="name-throughput-parameters">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-throughput-parameters" class="section-name selfRef">Throughput Parameters</a>
         </h3>
-<p id="section-5.1-1">A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these adheres to the structure defined in <a href="#sec-ins-structure" class="auto internal xref">Section 5.2</a>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">Throughput advice objects are bound to the network interface over which the advice was received.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">The throughput advice object is described in CDDL <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> format shown in <a href="#cddl" class="auto internal xref">Figure 2</a>. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">The throughput advice parameters leverage existing technologies for configuring policies in provider networks. <a href="#sec-overview" class="auto internal xref">Appendix A</a> provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span>, <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span>, and <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for examples
+of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-2.1">
+            <p id="section-5.1-2.1.1">A Single-Rate, Three-Color Marker <span>[<a href="#RFC2697" class="cite xref">RFC2697</a>]</span> uses CIR, CBS, and EBS.<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-2.2">
+            <p id="section-5.1-2.2.1">A Dual-Rate, Three-Color Marker <span>[<a href="#RFC2698" class="cite xref">RFC2698</a>]</span> uses CIR, CBS, PIR, and PBS. Note that when implemented with <span>[<a href="#RFC4115" class="cite xref">RFC4115</a>]</span>, it allows for a better handling of in-profile traffic (refer to <span><a href="https://rfc-editor.org/rfc/rfc4115#section-1" class="relref">Section 1</a> of [<a href="#RFC4115" class="cite xref">RFC4115</a>]</span> for more details).<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="overall-object-structure">
+<section id="section-5.2">
+        <h3 id="name-overall-object-structure">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-overall-object-structure" class="section-name selfRef">Overall Object Structure</a>
+        </h3>
+<p id="section-5.2-1">A throughput advice object may include multiple throughput advices (referred to as "throughput advice instances"), each covering a specific match criteria. Each of these instances adheres to the structure defined in <a href="#sec-ins-structure" class="auto internal xref">Section 5.3</a>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Throughput advice objects are bound to the network interface over which the advice was received.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">The throughput advice object is described in CDDL <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> format shown in <a href="#cddl" class="auto internal xref">Figure 2</a>. This format is meant to ease mapping with encoding specifics of a given discovery channel that supplies the throughput advice.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <span id="name-throughput-advice-object-fo"></span><div id="cddl">
 <figure id="figure-2">
-          <div class="breakable lang-CDDL sourcecode" id="section-5.1-4.1">
+          <div class="breakable lang-CDDL sourcecode" id="section-5.2-4.1">
 <pre>
 ; Provides information about the rate-limit policy that is
 ; enforced for a network attachment.
@@ -1543,234 +1547,234 @@ rate-limit =  {
 </section>
 </div>
 <div id="sec-ins-structure">
-<section id="section-5.2">
-        <h3 id="name-structure-of-a-throughput-a">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-structure-of-a-throughput-a" class="section-name selfRef">Structure of a Throughput Advice Instance</a>
+<section id="section-5.3">
+        <h3 id="name-throughput-advice-instance-">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-throughput-advice-instance-" class="section-name selfRef">Throughput Advice Instance Attributes</a>
         </h3>
-<p id="section-5.2-1">This section defines the set of attributes that are included in a throughput advice instance:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5.2-2">
-          <dt id="section-5.2-2.1">Optional Parameter Flags (OPF):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.2">
-            <p id="section-5.2-2.2.1">These flags indicate the presence of some optional parameters. The following flags are defined:<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5.2-2.2.2">
-              <dt id="section-5.2-2.2.2.1">E:</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.2">
-                <p id="section-5.2-2.2.2.2.1">When set to "1", this flag indicates the presence of Excess Information Rate (EIR).<a href="#section-5.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">This section defines the set of attributes that are included in a throughput advice instance:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.3-2">
+          <dt id="section-5.3-2.1">Optional Parameter Flags (OPF):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.2">
+            <p id="section-5.3-2.2.1">These flags indicate the presence of some optional parameters. The following flags are defined:<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.3-2.2.2">
+              <dt id="section-5.3-2.2.2.1">E:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.2">
+                <p id="section-5.3-2.2.2.2.1">When set to "1", this flag indicates the presence of Excess Information Rate (EIR).<a href="#section-5.3-2.2.2.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.2.2.3"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.4">
-                <p id="section-5.2-2.2.2.4.1">When set to "0", this flag indicates that EIR is not present.<a href="#section-5.2-2.2.2.4.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.2.2.3"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.4">
+                <p id="section-5.3-2.2.2.4.1">When set to "0", this flag indicates that EIR is not present.<a href="#section-5.3-2.2.2.4.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.2.2.5">P:</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.6">
-                <p id="section-5.2-2.2.2.6.1">When set to "1", this flag indicates the presence of Peak Information Rate (PIR).<a href="#section-5.2-2.2.2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.2.2.5">P:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.6">
+                <p id="section-5.3-2.2.2.6.1">When set to "1", this flag indicates the presence of Peak Information Rate (PIR).<a href="#section-5.3-2.2.2.6.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.2.2.7"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.8">
-                <p id="section-5.2-2.2.2.8.1">When set to "0", this flag indicates that PIR is not present.<a href="#section-5.2-2.2.2.8.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.2.2.7"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.8">
+                <p id="section-5.3-2.2.2.8.1">When set to "0", this flag indicates that PIR is not present.<a href="#section-5.3-2.2.2.8.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.2.2.9">U:</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.2.2.10">
-                <p id="section-5.2-2.2.2.10.1">Unassigned bits. See <a href="#sec-iana-opf" class="auto internal xref">Section 9.2</a>.<a href="#section-5.2-2.2.2.10.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.2.2.9">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.10">
+                <p id="section-5.3-2.2.2.10.1">Unassigned bits. See <a href="#sec-iana-opf" class="auto internal xref">Section 9.2</a>.<a href="#section-5.3-2.2.2.10.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.3">Flow flags (FF):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.4">
-            <p id="section-5.2-2.4.1">These flags are used to express some generic properties of the flow. The following flags are defined:<a href="#section-5.2-2.4.1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5.2-2.4.2">
-              <dt id="section-5.2-2.4.2.1">S (Scope):</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.2">
-                <p id="section-5.2-2.4.2.2.1">Indicates the granularity of enforcing policies.<a href="#section-5.2-2.4.2.2.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.3">Flow flags (FF):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.4">
+            <p id="section-5.3-2.4.1">These flags are used to express some generic properties of the flow. The following flags are defined:<a href="#section-5.3-2.4.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.3-2.4.2">
+              <dt id="section-5.3-2.4.2.1">S (Scope):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.2">
+                <p id="section-5.3-2.4.2.2.1">Indicates the granularity of enforcing policies.<a href="#section-5.3-2.4.2.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.3"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.4">
-                <p id="section-5.2-2.4.2.4.1">This parameter specifies whether the policy is a per-host, per-subscriber, or per-flow policy.<a href="#section-5.2-2.4.2.4.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.3"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.4">
+                <p id="section-5.3-2.4.2.4.1">This parameter specifies whether the policy is a per-host, per-subscriber, or per-flow policy.<a href="#section-5.3-2.4.2.4.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.5">D (Direction):</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.6">
-                <p id="section-5.2-2.4.2.6.1">Indicates the direction on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.5">D (Direction):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.6">
+                <p id="section-5.3-2.4.2.6.1">Indicates the direction on which to apply the enclosed policy.<a href="#section-5.3-2.4.2.6.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.7"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.8">
-                <p id="section-5.2-2.4.2.8.1">When set to "00b", this flag indicates that this policy is for
-network-to-host direction.<a href="#section-5.2-2.4.2.8.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.7"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.8">
+                <p id="section-5.3-2.4.2.8.1">When set to "00b", this flag indicates that this policy is for
+network-to-host direction.<a href="#section-5.3-2.4.2.8.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.9"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.10">
-                <p id="section-5.2-2.4.2.10.1">When set to "01b", this flag indicates that this policy is for
-host-to-network direction.<a href="#section-5.2-2.4.2.10.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.9"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.10">
+                <p id="section-5.3-2.4.2.10.1">When set to "01b", this flag indicates that this policy is for
+host-to-network direction.<a href="#section-5.3-2.4.2.10.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.11"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.12">
-                <p id="section-5.2-2.4.2.12.1">When set to "10b", this flag indicates that this policy is for
-both network-to-host and host-to-network directions.<a href="#section-5.2-2.4.2.12.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.11"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.12">
+                <p id="section-5.3-2.4.2.12.1">When set to "10b", this flag indicates that this policy is for
+both network-to-host and host-to-network directions.<a href="#section-5.3-2.4.2.12.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.13">R (Reliablity):</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.14">
-                <p id="section-5.2-2.4.2.14.1">Indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.2-2.4.2.14.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.13">R (Reliablity):</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.14">
+                <p id="section-5.3-2.4.2.14.1">Indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.3-2.4.2.14.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.15"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.16">
-                <p id="section-5.2-2.4.2.16.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.2-2.4.2.16.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.15"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.16">
+                <p id="section-5.3-2.4.2.16.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.3-2.4.2.16.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.17"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.18">
-                <p id="section-5.2-2.4.2.18.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.2-2.4.2.18.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.17"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.18">
+                <p id="section-5.3-2.4.2.18.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.3-2.4.2.18.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.19"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.20">
-                <p id="section-5.2-2.4.2.20.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.2-2.4.2.20.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.19"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.20">
+                <p id="section-5.3-2.4.2.20.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.3-2.4.2.20.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.21"></dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.22">
-                <p id="section-5.2-2.4.2.22.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.2-2.4.2.22.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.21"></dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.22">
+                <p id="section-5.3-2.4.2.22.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.3-2.4.2.22.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2-2.4.2.23">U:</dt>
-              <dd style="margin-left: 1.5em" id="section-5.2-2.4.2.24">
-                <p id="section-5.2-2.4.2.24.1">Unassigned flags. See <a href="#sec-iana-ff" class="auto internal xref">Section 9.3</a>.<a href="#section-5.2-2.4.2.24.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.4.2.23">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.24">
+                <p id="section-5.3-2.4.2.24.1">Unassigned flags. See <a href="#sec-iana-ff" class="auto internal xref">Section 9.3</a>.<a href="#section-5.3-2.4.2.24.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.5">TC (Traffic Category):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.6">
-            <p id="section-5.2-2.6.1">Specifies a traffic category to which this policy applies.<a href="#section-5.2-2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.5">TC (Traffic Category):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.6">
+            <p id="section-5.3-2.6.1">Specifies a traffic category to which this policy applies.<a href="#section-5.3-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.7"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.8">
-            <p id="section-5.2-2.8.1">The following values are supported:<a href="#section-5.2-2.8.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.7"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.8">
+            <p id="section-5.3-2.8.1">The following values are supported:<a href="#section-5.3-2.8.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-2.8.2.1">
-                <p id="section-5.2-2.8.2.1.1">"0": All traffic. This is the default value.<a href="#section-5.2-2.8.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3-2.8.2.1">
+                <p id="section-5.3-2.8.2.1.1">"0": All traffic. This is the default value.<a href="#section-5.3-2.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-5.2-2.8.2.2">
-                <p id="section-5.2-2.8.2.2.1">1-63: Unassigned values. See <a href="#sec-iana-tc" class="auto internal xref">Section 9.4</a>.<a href="#section-5.2-2.8.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.3-2.8.2.2">
+                <p id="section-5.3-2.8.2.2.1">1-63: Unassigned values. See <a href="#sec-iana-tc" class="auto internal xref">Section 9.4</a>.<a href="#section-5.3-2.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.9">Committed Information Rate (CIR) (Mbps):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.10">
-            <p id="section-5.2-2.10.1">Specifies the maximum number of bits that a network can receive or
+<dt id="section-5.3-2.9">Committed Information Rate (CIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.10">
+            <p id="section-5.3-2.10.1">Specifies the maximum number of bits that a network can receive or
 send during one second over a network attachment for a
-traffic category.<a href="#section-5.2-2.10.1" class="pilcrow">¶</a></p>
+traffic category.<a href="#section-5.3-2.10.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.11"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.12">
-            <p id="section-5.2-2.12.1">If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.<a href="#section-5.2-2.12.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.11"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.12">
+            <p id="section-5.3-2.12.1">If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.<a href="#section-5.3-2.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.13"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.14">
-            <p id="section-5.2-2.14.1">This parameter is mandatory.<a href="#section-5.2-2.14.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.13"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.14">
+            <p id="section-5.3-2.14.1">This parameter is mandatory.<a href="#section-5.3-2.14.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.15">Committed Burst Size (CBS) (bytes):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.16">
-            <p id="section-5.2-2.16.1">Specifies the maximum burst size that can be transmitted at CIR.<a href="#section-5.2-2.16.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.15">Committed Burst Size (CBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.16">
+            <p id="section-5.3-2.16.1">Specifies the maximum burst size that can be transmitted at CIR.<a href="#section-5.3-2.16.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.17"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.18">
-            <p id="section-5.2-2.18.1"><span class="bcp14">MUST</span> be greater than zero.<a href="#section-5.2-2.18.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.17"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.18">
+            <p id="section-5.3-2.18.1"><span class="bcp14">MUST</span> be greater than zero.<a href="#section-5.3-2.18.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.19"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.20">
-            <p id="section-5.2-2.20.1">This parameter is mandatory.<a href="#section-5.2-2.20.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.19"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.20">
+            <p id="section-5.3-2.20.1">This parameter is mandatory.<a href="#section-5.3-2.20.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.21">Excess Information Rate (EIR) (Mbps):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.22">
-            <p id="section-5.2-2.22.1"><span class="bcp14">MUST</span> be present only if the E flag is set to '1'.<a href="#section-5.2-2.22.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.21">Excess Information Rate (EIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.22">
+            <p id="section-5.3-2.22.1"><span class="bcp14">MUST</span> be present only if the E flag is set to '1'.<a href="#section-5.3-2.22.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.23"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.24">
-            <p id="section-5.2-2.24.1">Specifies the maximum number of bits that a network can receive or
+<dt id="section-5.3-2.23"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.24">
+            <p id="section-5.3-2.24.1">Specifies the maximum number of bits that a network can receive or
 send during one second over a network attachment for a
-traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pilcrow">¶</a></p>
+traffic category that is out of profile.<a href="#section-5.3-2.24.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.25"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.26">
-            <p id="section-5.2-2.26.1">This parameter is optional.<a href="#section-5.2-2.26.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.25"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.26">
+            <p id="section-5.3-2.26.1">This parameter is optional.<a href="#section-5.3-2.26.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.27">Excess Burst Size (EBS) (bytes):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.28">
-            <p id="section-5.2-2.28.1"><span class="bcp14">MUST</span> be present only if EIR is also present.<a href="#section-5.2-2.28.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.27">Excess Burst Size (EBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.28">
+            <p id="section-5.3-2.28.1"><span class="bcp14">MUST</span> be present only if EIR is also present.<a href="#section-5.3-2.28.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.29"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.30">
-            <p id="section-5.2-2.30.1">Indicates the maximum excess burst size that is allowed while not complying with the CIR.<a href="#section-5.2-2.30.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.29"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.30">
+            <p id="section-5.3-2.30.1">Indicates the maximum excess burst size that is allowed while not complying with the CIR.<a href="#section-5.3-2.30.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.31"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.32">
-            <p id="section-5.2-2.32.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.2-2.32.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.31"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.32">
+            <p id="section-5.3-2.32.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.32.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.33"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.34">
-            <p id="section-5.2-2.34.1">This parameter is optional.<a href="#section-5.2-2.34.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.33"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.34">
+            <p id="section-5.3-2.34.1">This parameter is optional.<a href="#section-5.3-2.34.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.35">Peak Information Rate (PIR) (Mbps):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.36">
-            <p id="section-5.2-2.36.1"><span class="bcp14">MUST</span> be present only if P flag is set to '1'.<a href="#section-5.2-2.36.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.35">Peak Information Rate (PIR) (Mbps):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.36">
+            <p id="section-5.3-2.36.1"><span class="bcp14">MUST</span> be present only if P flag is set to '1'.<a href="#section-5.3-2.36.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.37"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.38">
-            <p id="section-5.2-2.38.1">Traffic that exceeds the CIR and the CBS is metered to the PIR.<a href="#section-5.2-2.38.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.37"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.38">
+            <p id="section-5.3-2.38.1">Traffic that exceeds the CIR and the CBS is metered to the PIR.<a href="#section-5.3-2.38.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.39"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.40">
-            <p id="section-5.2-2.40.1">This parameter is optional.<a href="#section-5.2-2.40.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.39"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.40">
+            <p id="section-5.3-2.40.1">This parameter is optional.<a href="#section-5.3-2.40.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.41">Peak Burst Size (PBS) (bytes):</dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.42">
-            <p id="section-5.2-2.42.1"><span class="bcp14">MUST</span> be present only if PIR is also present.<a href="#section-5.2-2.42.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.41">Peak Burst Size (PBS) (bytes):</dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.42">
+            <p id="section-5.3-2.42.1"><span class="bcp14">MUST</span> be present only if PIR is also present.<a href="#section-5.3-2.42.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.43"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.44">
-            <p id="section-5.2-2.44.1">Specifies the maximum burst size that can be transmitted at PIR.<a href="#section-5.2-2.44.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.43"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.44">
+            <p id="section-5.3-2.44.1">Specifies the maximum burst size that can be transmitted at PIR.<a href="#section-5.3-2.44.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.45"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.46">
-            <p id="section-5.2-2.46.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.2-2.46.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.45"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.46">
+            <p id="section-5.3-2.46.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.46.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.2-2.47"></dt>
-          <dd style="margin-left: 1.5em" id="section-5.2-2.48">
-            <p id="section-5.2-2.48.1">This parameter is optional.<a href="#section-5.2-2.48.1" class="pilcrow">¶</a></p>
+<dt id="section-5.3-2.47"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.48">
+            <p id="section-5.3-2.48.1">This parameter is optional.<a href="#section-5.3-2.48.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1778,7 +1782,7 @@ traffic category that is out of profile.<a href="#section-5.2-2.24.1" class="pil
 </div>
 </section>
 </div>
-<div id="examples">
+<div id="sec-ex">
 <section id="section-6">
       <h2 id="name-examples">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
