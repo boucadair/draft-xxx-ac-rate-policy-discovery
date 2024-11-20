@@ -117,7 +117,7 @@ This document does not assume nor preclude any specific signaling protocol to sh
 
 Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.
 
-Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.
+Also, one or more throughput advice instances may be returned for a given traffic direction. Examples of such instances are discussed in {{sec-ex}}.
 
 Sample uses of the advice by applications are listed in {{sec-samples}}.
 
