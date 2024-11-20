@@ -310,25 +310,25 @@ Committed Burst Size (CBS) (bytes):
 : This parameter is mandatory.
 
 Excess Information Rate (EIR) (Mbps):
-: MUST be present only if the E flag is set to '1'.
+: MUST be present if the E flag is set to '1'.
 : Specifies the maximum number of bits that a network can receive or
   send during one second over a network attachment for a
   traffic category that is out of profile.
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
-: MUST be present only if EIR is also present.
+: MUST be present if EIR is also present.
 : Indicates the maximum excess burst size that is allowed while not complying with the CIR.
 : MUST be greater than zero, if present.
 : This parameter is optional.
 
 Peak Information Rate (PIR) (Mbps):
-: MUST be present only if P flag is set to '1'.
-: Traffic that exceeds the CIR and the CBS is metered to the PIR.
+: MUST be present if P flag is set to '1'.
+: Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.
 : This parameter is optional.
 
 Peak Burst Size (PBS) (bytes):
-: MUST be present only if PIR is also present.
+: MUST be present if PIR is also present.
 : Specifies the maximum burst size that can be transmitted at PIR.
 : MUST be greater than zero, if present.
 : This parameter is optional.
