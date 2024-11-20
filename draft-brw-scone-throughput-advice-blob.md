@@ -298,9 +298,8 @@ TC (Traffic Category):
   + 1-63: Unassigned values. See {{sec-iana-tc}}.
 
 Committed Information Rate (CIR) (Mbps):
-: Specifies the maximum number of bits that a network can receive or
-  send during one second over a network attachment for a
-  traffic category.
+: Specifies the maximum number of bits that a network can
+  send (or receive) during one second over a network attachment.
 : If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.
 : This parameter is mandatory.
 
@@ -313,7 +312,7 @@ Excess Information Rate (EIR) (Mbps):
 : MUST be present if the E flag is set to '1'.
 : Specifies the maximum number of bits that a network can receive or
   send during one second over a network attachment for a
-  traffic category that is out of profile.
+  traffic that is out of profile.
 : This parameter is optional.
 
 Excess Burst Size (EBS) (bytes):
