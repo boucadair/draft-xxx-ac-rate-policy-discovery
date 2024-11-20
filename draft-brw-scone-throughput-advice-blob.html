@@ -1675,105 +1675,120 @@ both network-to-host and host-to-network directions.<a href="#section-5.3-2.4.2.
           <dd class="break"></dd>
 <dt id="section-5.3-2.9">Committed Information Rate (CIR) (Mbps):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.10">
-            <p id="section-5.3-2.10.1">Specifies the maximum number of bits that a network can
+            <p id="section-5.3-2.10.1">An average rate that specifies the maximum number of bits that a network can
 send (or receive) during one second over a network attachment.<a href="#section-5.3-2.10.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.11"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.12">
-            <p id="section-5.3-2.12.1">If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.<a href="#section-5.3-2.12.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.12.1">The CIR value <span class="bcp14">MUST</span> be greater than or equal to 0.<a href="#section-5.3-2.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.13"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.14">
-            <p id="section-5.3-2.14.1">This parameter is mandatory.<a href="#section-5.3-2.14.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.14.1">If set to 0 (or a very low value), this indicates to the host that alternate paths (if any) should be preferred over this one.<a href="#section-5.3-2.14.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.15">Committed Burst Size (CBS) (bytes):</dt>
+<dt id="section-5.3-2.15"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.16">
-            <p id="section-5.3-2.16.1">Specifies the maximum burst size that can be transmitted at CIR.<a href="#section-5.3-2.16.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.16.1">This parameter is mandatory.<a href="#section-5.3-2.16.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.17"></dt>
+<dt id="section-5.3-2.17">Committed Burst Size (CBS) (bytes):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.18">
-            <p id="section-5.3-2.18.1"><span class="bcp14">MUST</span> be greater than zero.<a href="#section-5.3-2.18.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.18.1">Specifies the maximum burst size that can be transmitted at CIR.<a href="#section-5.3-2.18.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.19"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.20">
-            <p id="section-5.3-2.20.1">This parameter is mandatory.<a href="#section-5.3-2.20.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.20.1"><span class="bcp14">MUST</span> be greater than zero.<a href="#section-5.3-2.20.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.21">Excess Information Rate (EIR) (Mbps):</dt>
+<dt id="section-5.3-2.21"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.22">
-            <p id="section-5.3-2.22.1"><span class="bcp14">MUST</span> be present if the E flag is set to '1'.<a href="#section-5.3-2.22.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.22.1">This parameter is mandatory.<a href="#section-5.3-2.22.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.23"></dt>
+<dt id="section-5.3-2.23">Excess Information Rate (EIR) (Mbps):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.24">
-            <p id="section-5.3-2.24.1">Specifies the maximum number of bits that a network can receive or
-send during one second over a network attachment for a
-traffic that is out of profile.<a href="#section-5.3-2.24.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.24.1"><span class="bcp14">MUST</span> be present if the E flag is set to '1'.<a href="#section-5.3-2.24.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.25"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.26">
-            <p id="section-5.3-2.26.1">This parameter is optional.<a href="#section-5.3-2.26.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.26.1">An avertage rate that specifies the maximum number of bits that a network can
+send (or receive) during one second over a network attachment for a
+traffic that is out of profile.<a href="#section-5.3-2.26.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.27">Excess Burst Size (EBS) (bytes):</dt>
+<dt id="section-5.3-2.27"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.28">
-            <p id="section-5.3-2.28.1"><span class="bcp14">MUST</span> be present if EIR is also present.<a href="#section-5.3-2.28.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.28.1">The EIR value <span class="bcp14">MUST</span> be greater than or equal to 0, if present.<a href="#section-5.3-2.28.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.29"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.30">
-            <p id="section-5.3-2.30.1">Indicates the maximum excess burst size that is allowed while not complying with the CIR.<a href="#section-5.3-2.30.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.30.1">This parameter is optional.<a href="#section-5.3-2.30.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.31"></dt>
+<dt id="section-5.3-2.31">Excess Burst Size (EBS) (bytes):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.32">
-            <p id="section-5.3-2.32.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.32.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.32.1"><span class="bcp14">MUST</span> be present if EIR is also present.<a href="#section-5.3-2.32.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.33"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.34">
-            <p id="section-5.3-2.34.1">This parameter is optional.<a href="#section-5.3-2.34.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.34.1">Indicates the maximum excess burst size that is allowed while not complying with the CIR.<a href="#section-5.3-2.34.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.35">Peak Information Rate (PIR) (Mbps):</dt>
+<dt id="section-5.3-2.35"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.36">
-            <p id="section-5.3-2.36.1"><span class="bcp14">MUST</span> be present if P flag is set to '1'.<a href="#section-5.3-2.36.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.36.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.36.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.37"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.38">
-            <p id="section-5.3-2.38.1">Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.<a href="#section-5.3-2.38.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.38.1">This parameter is optional.<a href="#section-5.3-2.38.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.39"></dt>
+<dt id="section-5.3-2.39">Peak Information Rate (PIR) (Mbps):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.40">
-            <p id="section-5.3-2.40.1">This parameter is optional.<a href="#section-5.3-2.40.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.40.1"><span class="bcp14">MUST</span> be present if P flag is set to '1'.<a href="#section-5.3-2.40.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.41">Peak Burst Size (PBS) (bytes):</dt>
+<dt id="section-5.3-2.41"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.42">
-            <p id="section-5.3-2.42.1"><span class="bcp14">MUST</span> be present if PIR is also present.<a href="#section-5.3-2.42.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.42.1">Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.<a href="#section-5.3-2.42.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.43"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.44">
-            <p id="section-5.3-2.44.1">Specifies the maximum burst size that can be transmitted at PIR.<a href="#section-5.3-2.44.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.44.1">The PIR value <span class="bcp14">MUST</span> be greater than or equal to 0, if present.<a href="#section-5.3-2.44.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.3-2.45"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.46">
-            <p id="section-5.3-2.46.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.46.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.46.1">This parameter is optional.<a href="#section-5.3-2.46.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-5.3-2.47"></dt>
+<dt id="section-5.3-2.47">Peak Burst Size (PBS) (bytes):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.48">
-            <p id="section-5.3-2.48.1">This parameter is optional.<a href="#section-5.3-2.48.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.48.1"><span class="bcp14">MUST</span> be present if PIR is also present.<a href="#section-5.3-2.48.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.3-2.49"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.50">
+            <p id="section-5.3-2.50.1">Specifies the maximum burst size that can be transmitted at PIR.<a href="#section-5.3-2.50.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.3-2.51"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.52">
+            <p id="section-5.3-2.52.1"><span class="bcp14">MUST</span> be greater than zero, if present.<a href="#section-5.3-2.52.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.3-2.53"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.3-2.54">
+            <p id="section-5.3-2.54.1">This parameter is optional.<a href="#section-5.3-2.54.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
