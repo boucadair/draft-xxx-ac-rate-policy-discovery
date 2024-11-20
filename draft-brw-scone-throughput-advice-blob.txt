@@ -161,10 +161,9 @@ Table of Contents
    typically agreed upon service subscription) or be reactive policies
    (e.g., enforced temporarily to manage an overload or during a DDoS
    attack mitigation).  Rate-limits are usually configured in (ingress)
-   nodes (e.g., [VPP]).  These rate-limits can be shared with customers
-   when subscribing to a connectivity service (e.g., "A YANG Data Model
-   for Layer 2 Virtual Private Network (L2VPN) Service Delivery"
-   [RFC8466]).
+   nodes.  These rate-limits can be shared with customers when
+   subscribing to a connectivity service (e.g., "A YANG Data Model for
+   Layer 2 Virtual Private Network (L2VPN) Service Delivery" [RFC8466]).
 
    Section 5 defines a set parameters that can be used by networks to
    share the rate-limit policies applied on a network attachment:
@@ -292,6 +291,9 @@ Table of Contents
       PBS.  Note that when implemented with [RFC4115], it allows for a
       better handling of in-profile traffic (refer to Section 1 of
       [RFC4115] for more details).
+
+   An implementation example of these variants (and others) can be found
+   at [VPP].
 
 5.2.  Overall Object Structure
 
