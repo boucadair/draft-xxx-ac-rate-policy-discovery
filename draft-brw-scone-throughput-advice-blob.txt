@@ -512,7 +512,7 @@ Table of Contents
        "throughput-advice": [
            {
                "direction": 0,
-               "scope": false,
+               "scope": 0,
                "tc": 0,
                "cir": 50,
                "cbs": 10000
