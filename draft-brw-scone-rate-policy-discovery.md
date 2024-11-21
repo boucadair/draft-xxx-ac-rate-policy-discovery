@@ -173,8 +173,6 @@ while the underlying link is referred to as "bearers".
 
 The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
 
-> Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
-
 {{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
 other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
 for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
@@ -230,7 +228,7 @@ Encrypted DNS option {{?RFC9463}}:
 
 These options are called: Network Rate-Limit Policy (NRLP).
 
-In order to ensure consistent design for both IPv4 and IPv6 ACs, {{sec-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where ND/DHCP/PvD are not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
+In order to ensure consistent design for both IPv4 and IPv6 ACs, {{!I-D.brw-scone-throughput-advice-blob}} groups the set of NRLP parameters that are returned independent of the address family. This blob can be leveraged in networks where ND/DHCP/PvD are not used and ease the mapping with specific protocols used in these networks. For example, ***a Protocol Configuration Option (PCO) {{TS-24.008}} NRLP Information Element can be defined in 3GPP***.
 
 Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document.
 
@@ -247,9 +245,7 @@ Applications will have access to all these NRLPs and will, thus, adjust their be
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
-This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to {{sec-alt}} for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.
-
-## Design Motivation & Rationale
+This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to I-D.brw-scone-manageability for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.
 
 The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
 
@@ -260,171 +256,12 @@ The main motivations for the use of ND for such a discovery are listed in {{Sect
 
 The solution specified in the document is designed to **ease integration with network management tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing {{?RFC9543}}; see the example depicted in Appendix B.5 of {{?I-D.ietf-teas-ietf-network-slice-nbi-yang}}.
 
-The solution defined in this document:
-
-* **Does not require any data plane change**.
-* **Applicable to any transport protocol**.
-* **Does not impact the connection setup delay**.
-* **Does not require to reveal the identity of the target server or the application itself** to consume the signal.
-* **Supports cascaded environments** where multiple levels to enforce rate-limiting polices is required (e.g., WAN and LAN shown in {{ac-casc}}). NRLP signals can be coupled or decoupled as a function of the local policy.
-* **Supports signaling policies bound to one or both traffic directions**.
-* Is able to **signal whether a policy applies to a specific host or all hosts of a given subscriber**.
-
-~~~~aasvg
-.------.                      .--------------------.
-| Host +---+     .---.        |                    |
-|  #1  |   |     |   |        |                    |
-'------'   +-----+ C |        |                    |
-         nrlp#2  | P +--------+      Network       |
-.------.   .-----+ E | nrlp#1 |                    |
-| Host |   |     |   |        |                    |
-|  #2  +---'     '---'        |                    |
-'------' nrlp#3               |                    |
-                              '--------------------'
-~~~~
-{: #ac-casc title="Example of Cascaded NRLPs" artwork-align="center"}
-
-Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
-
-* **Does not impact the MTU tweaking**: No packet overhead is required.
-* **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes. Such issues are encountered, e.g., with the tunneled mode or long header packets in the forwarded QUIC proxy mode {{?I-D.ietf-masque-quic-proxy}}.
-* **Does not suffer from nested congestion control** for tunneled proxy mode.
-* **Does not incur multiple round-trips** in the forwarding mode for the client to start sending Short Header packets.
-* **Does not incur the overhead of unauthenticated re-encryption of QUIC packets** in the scramble transform of the forwarding mode.
-* **Does not impact the forwarding peformance of network nodes**. For example, the proxy forwarded mode {{?I-D.ietf-masque-quic-proxy}} requires rewriting connection identifiers; that is, the performance degradation will be at least equivalent to NAT.
-* **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
-* **Does not suffer from penalizing the proxy** which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).
-* **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
-* **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
-
-
-## Sample Deployment Cases
-
-Some deployment use cases for NRLP are provided below:
-
-* A network may advertize an NRLP when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example). The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
-
-* Discovery of intentional policy applied on ACs (peering links, CE-PE links, etc.) when such information is not made available during the service activation or when network upgrades are performed.
-
-* A user may configure policies on the CPE such as securing some resources to a specific internal host used for gaming or video streaming. The CPE can use the NRLP option to share these rate-limit policies to connected hosts to adjust their forwarding behavior.
-
-Deployment incentives are described in {{sec-inc}}.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-This document uses the terms defined in {{Section 2 of ?I-D.ietf-opsawg-ntw-attachment-circuit}} and {{?RFC9473}}.
-
-Also, this document makes use fo the following terms:
-
-Reactive policy:
-:  Treatment given to a flow when an exceptional event
-   occurs, such as diminished throughput to the host caused by radio
-   interference or weak radio signal, congestion on the network
-   caused by other users or other applications on the same host.
-
-Intentional policy:
-:  Configured bandwidth, pps, or similar throughput
-   constraints applied to a flow, application, host, or subscriber.
-
-Rate-limit:
-: Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
-: It can be used with or without any traffic classification.
-
-# NRLP Blob {#sec-blob}
-
-This section defines the set of attributes that are included in an NRLP blob:
-
-Optional Parameter Flags (OPF):
-: These flags indicate the presence of some optional parameters. The following flags are defined (from MSB to LSB):
-
-    E:
-    : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
-    : When set to "0", this flag indicates that EIR is not present.
-
-    P:
-    : When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
-    : When set to "0", this flag indicates that PIR is not present.
-
-    U:
-    : Unassigned bits. See {{sec-iana-opf}}.
-    : Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-Flow flags (FF):
-: These flags are used to express some generic properties of the flow. The following flags are defined (from MSB to LSB):
-
-    S (Scope):
-    : 1-bit field which specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0).
-
-    D (Direction):
-    : 1-bit flag which indicates the direction on which to apply the enclosed policy.
-    : When set to "1", this flag indicates that this policy is for
-      network-to-host direction.
-    : When set to "0", this flag indicates that this policy is for
-      host-to-network direction.
-
-    R (Reliablity):
-    : 2-bit flag which indicates the reliability type of traffic on which to apply the enclosed policy.
-    : When set to "00b", this flag indicates that this policy is for unreliable traffic.
-    : When set to "01b", this flag indicates that this policy is for reliable traffic.
-    : When set to "10b", this flag indicates that this policy is for both reliable and unreliable traffic.
-    : No meaning is associated with setting the field to "11b". Such value MUST be silently ignored by the receiver.
-
-    U:
-    : Unassigned bits. See {{sec-iana-ff}}.
-    :  Unassigned bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-TC (Traffic Category):
-: 6-bit field which specifies a traffic category to which this policy applies.
-: The following values are supported:
-
-  + "0": All traffic. This is the default value.
-  + "1": Streaming
-  + "2": Real-time
-  + "3": Bulk traffic
-  + 4-63: Unassigned values
-
-Committed Information Rate (CIR) (Mbps):
-: Specifies the maximum number of bits that a network can receive or
-  send during one second over an AC for a
-  traffic category.
-: If set to 0, this indicates to the host that an alternate path (if any) should be preferred over this one.
-: This parameter is mandatory.
-
-Committed Burst Size (CBS) (bytes):
-: Specifies the maximum burst size that can be transmitted at CIR.
-: MUST be greater than zero.
-: This parameter is mandatory.
-
-Excess Information Rate (EIR) (Mbps):
-: MUST be present only if the E flag is set to '1'.
-: Specifies the maximum number of bits that a network can receive or
-  send during one second over an AC for a
-  traffic category that is out of profile.
-: This parameter is optional.
-
-Excess Burst Size (EBS) (bytes):
-: MUST be present only if EIR is also present.
-: Indicates the maximum excess burst size that is allowed while not complying with the CIR.
-: MUST be greater than zero, if present.
-: This parameter is optional.
-
-Peak Information Rate (PIR) (Mbps):
-: MUST be present only if P flag is set to '1'.
-: Traffic that exceeds the CIR and the CBS is metered to the PIR.
-: This parameter is optional.
-
-Peak Burst Size (PBS) (bytes):
-: MUST be present only if PIR is also present.
-: Specifies the maximum burst size that can be transmitted at PIR.
-: MUST be greater than zero, if present.
-
-The reader should refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
-of how various combinations of CIR/CBS/EIR/EBS/PIR/PBS are used for policing. Typically:
-
-* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
-* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
+This document uses the terms defined in {{!I-D.brw-scone-throughput-advice-blob}}.
 
 # IPv6 RA NRLP Option {#sec-nd}
 
@@ -480,34 +317,32 @@ Length:
 
 OPF (Optional Parameter Flags):
 : 4-bit flags which indicates the presence of some optional inforamtion in the option.
-: See {{sec-blob}} for the structure of this field.
-: See {{iana-op-flags}} for current assigned flags.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
 
 FF (Flow flags):
 : 6-bit flags used to express some generic properties of the flow.
-: See {{sec-blob}} for the structure of this field.
-: See {{iana-flow-flags}} for current assigned flags.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
 
 TC:
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Committed Information Rate (CIR) (Mbps):
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Committed Burst Size (CBS) (bytes):
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Excess Information Rate (EIR) (Mbps):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Excess Burst Size (EBS) (bytes):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Peak Information Rate (PIR) (Mbps):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Peak Burst Size (PBS) (bytes):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 ## IPv6 Host Behavior
 
@@ -624,34 +459,32 @@ NRLP Instance Data Length:
 
 OPF (Optional Parameter Flags):
 : 4-bit flags which indicates the presence of some optional inforamtion in the option.
-: See {{sec-blob}} for the structure of this field.
-: See {{iana-op-flags}} for current assigned flags.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
 
 FF (Flow flags):
 : 6-bit flags used to express some generic properties of the flow.
-: See {{sec-blob}} for the structure of this field.
-: See {{iana-flow-flags}} for current assigned flags.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
 
 TC:
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Committed Information Rate (CIR) (Mbps):
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Committed Burst Size (CBS) (bytes):
-: See {{sec-blob}}.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 
 Excess Information Rate (EIR) (Mbps):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Excess Burst Size (EBS) (bytes):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Peak Information Rate (PIR) (Mbps):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 Peak Burst Size (PBS) (bytes):
-: See {{sec-blob}}. This is an optional field.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism specified in {{!RFC3396}} MUST be used if OPTION_V4_NRLP exceeds the maximum DHCP option size of 255 octets.
 
@@ -676,8 +509,8 @@ are to be returned for distinct traffic categories.
 {
    "nrlp":[
       {
-         "direction":1,
-         "scope":1,
+         "direction":0,
+         "scope":0,
          "tc":0,
          "cir":50,
          "cbs":10000,
@@ -687,63 +520,6 @@ are to be returned for distinct traffic categories.
 }
 ~~~~~
 {: #pvd-ex title="NRLP Example with PvD"}
-
-# Deployment Incentives {#sec-inc}
-
-## Networks
-
-There are a set of tradeoffs for networks to deploy NRLP discovery:
-
-* Cost vs. benefit
-* Impact on operations vs incentive to deploy
-* Enhanced experience vs. impacts on nominal mode
-
-The procedure defined in the document provides a mechanism to assist networks managing the load at the source and, thus, contribute to better handle network overloads and optimize the use
-of resources under non nominal conditions. The mechanism also allows to enhance the quality of experience at the LAN by providing a simple tool to communicate local policies to hosts. A minimal change is required to that aim.
-
-With the OS support, the following benefits might be considered by networks:
-
-Improved Network Performance:
-: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
-
-Cost Efficiency:
-: By managing network usage based on known rate limits, the OS can help reduce network-related costs. However, this is difficult to assess.
-
-Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
-
-## Applications {#sec-app-inc}
-
-Some applications support some forms of bandwidth measurements (e.g., {{app-measurement}}) which feed
-how the content is accessed to using ABR. Complementing or replacing these measurements with explicit signals
-depends upon:
-
-* The extra cost that is required to support both mechanisms at the application layer.
-* The complexity balance between performing the measurements vs. consuming the signal.
-* Whether the measurements ("assessed property" per {{?RFC9473}}) reflect actual network conditions or severely diverge.
-* The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
-* The host support may be variable.
-
-Applications that don't support (embedded) bandwidth measurement schemes will be enriched with the NRLP signals as this will be exposed by an OS API.
-
-## Host OS
-
-API to facilitate Application Development:
-: An OS can provide more accurate available bandwidth to applications through the API (as mentioned in {{sec-app-inc}}), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
-
-Prevent Abuse:
-: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
-
-Better Resource Management:
-: OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
-
-Enhanced Security:
-: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
-
-Improved User Experience:
-: By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
-
-Improved Application Development Efficiency:
-: OS providing rate limits through an API (as mentioned in {{sec-app-inc}}) can provide the above listed benefits at per application level.
 
 # Security Considerations
 
@@ -787,49 +563,14 @@ The above mechanisms would ensure that the endpoint receives the correct NRLP in
 
 # IANA Considerations
 
-## Rate-Limit Policy Objects Registry Group {#sec-iana-rlp}
-
-This document requests IANA to create a new registry group entitled "Rate-Limit Policy Objects".
-
-## Optional Parameter Flags Registry {#sec-iana-opf}
-
-This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
-
-The initial values of this registry is provided in {{iana-op-flags}}.
-
-|Bit Position|     Description|     Reference|
-|1| E-flag|This-Document|
-|2| P-flag|This-Document|
-|3| Unassigned| |
-|4| Unassigned| |
-{: #iana-op-flags title="Optional Parameter Flags"}
-
-The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
-
-## Flow Flags Registry {#sec-iana-ff}
-
-This document requests IANA to create a new registry entitled "Flow flags" under the "Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
-
-The initial values of this registry is provided in {{iana-flow-flags}}.
-
-|Bit Position|     Description|     Reference|
-|1| Scope (S) Flag|This-Document|
-|2| Direction (D) Flag|This-Document|
-|3-4| Reliability (R) Flags|This-Document|
-|5| Unassigned| |
-|6| Unassigned| |
-{: #iana-flow-flags title="Flow flags"}
-
-The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
-
 ## Neighbor Discovery Option {#sec-iana-ra}
 
 This document requests IANA to assign the following new IPv6 Neighbor Discovery Option
 type in the "IPv6 Neighbor Discovery Option Formats" sub-registry under the "Internet Control Message Protocol version 6 (ICMPv6)
 Parameters" registry maintained at {{IANA-ND}}.
 
-|Type|     Description|     Reference|
-|TBD1|  NRLP Option|This-Document|
+|Type| Description| Reference    |
+|TBD1| NRLP Option| This-Document|
 {: #iana-new-op title="Neighbor Discovery NRLP Option"}
 
 > Note to the RFC Editor: Please replace all "TBD1" occurrences with the assigned value.
@@ -838,8 +579,8 @@ Parameters" registry maintained at {{IANA-ND}}.
 
 This document requests IANA to assign the following new DHCP Option Code in the "BOOTP Vendor Extensions and DHCP Options" registry maintained at {{IANA-BOOTP}}.
 
-|Tag|     Name|     Data Length|     Meaning|Reference|
-|TBD2|OPTION_V4_NRLP|N|NRLP Option|This-Document|
+|Tag |     Name     | Data Length| Meaning   |Reference    |
+|TBD2|OPTION_V4_NRLP|N           |NRLP Option|This-Document|
 {: #iana-new-dhcp title="DHCP NRLP Option"}
 
 > Note to the RFC Editor: Please replace all "TBD2" occurrences with the assigned value.
@@ -848,7 +589,7 @@ This document requests IANA to assign the following new DHCP Option Code in the 
 
 This document requests IANA to add the following DHCP Option Code to the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute" registry maintained at {{IANA-BOOTP}}.
 
-|Tag|     Name|    |Reference|
+|Tag |     Name     |    Reference|
 |TBD2|OPTION_V4_NRLP|This-Document|
 {: #iana-radius-dhcp title="New DHCP Option Permitted in the RADIUS DHCPv4-Options Attribute Registry"}
 
@@ -872,17 +613,18 @@ Example:
    {
       "nrlp":[
          {
-            "direction":1,
-            "scope":1,
+            "direction":0,
+            "scope":0,
             "tc":0,
-            "cir":50
+            "cir":50,
+            "cbs": 10000
          }
       ]
    }
 ~~~~
 
 Reference:
-: This_Document
+: This-Document
 
 ## New PvD Network Rate-Limit Policies (NRLPs) Registry
 
@@ -894,7 +636,7 @@ The initial contents of this registry are as follows:
 | JSON key   | Description           | Type    | Example         | Reference |
 |direction   |Indicates the traffic direction to which a policy applies. When set to "1", this parameter indicates that this policy is for network-to-host direction. When set to "0", this parameter indicates that this policy is for host-to-network direction.|Boolean|1 |This-Document|
 |scope|Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0)|Boolean|1 |This-Document|
-|tc|Specifies a traffic category to which this policy applies. Values are taken from the Rate-Limit Policy Objects Registry {{sec-iana-rlp}}|Integer|0|This-Document|
+|tc|Specifies a traffic category to which this policy applies. Values are taken from the Rate-Limit Policy Objects Registry created in {{!I-D.brw-scone-throughput-advice-blob}}|Integer|0|This-Document|
 |cir|Specifies the maximum number of bits that a network can receive or send during one second over an AC for a traffic category.|Integer|50|This-Document|
 | xxx   | xxx           | xxx    | xx         | This-Document |
 {: #iana-pvd-initial title="Initial PvD Network Rate-Limit Policies (NRLPs) Registry Content"}
@@ -939,58 +681,6 @@ This example assumes that the Network Access Server (NAS) embeds both Remote Aut
                      DHCP                    RADIUS
 ~~~~~
 {: #radius-ex title="An Example of RADIUS NRLP Exchanges"}
-
-# Alternative/Complementary Mechanisms {#sec-alt}
-
-In the event of bottlenecks in a network, there are other mechanisms that provide information or help to reserve resources. These can be used within the bottleneck network or, in some cases, across network boundaries. The following sections give examples of such mechanisms and provide background information.
-
-## L4S {#L4S}
-
-Low Latency, Low Loss, and Scalable Throughput (L4S) is an architecture defined in {{?RFC9330}} to avoid queuing at bottlenecks by capacity-seeking congestion controllers of senders. L4S support addresses the investigated use case of this document, which considers rate limiting, which typically involves queuing discipline at the rate limiting bottleneck. If all involved elements (UE, network, and service) support L4S, the use of Explicit Congestion Notification (ECN) provides the measure used to inform the network protocol and/or service endpoints in use of impending congestion. Congestion detection and reaction may require a few RTTs to adjust to the network forwarding conditions.
-
-As of 3GPP Rel. 18 (5G Advanced, {{TS-23.501}}), L4S is also defined for the 5G system (5GS) and can be used by UE and its services, and for external parties of the 5GS by exposure of congestion information.
-
-## Network Slicing {#ns}
-
-One measure for guaranteeing resources in networks is network slicing. This is achieved by configuring certain resources like adequate QoS setup for communication streams, which are taken into account in packet schedulers along the transport path. e.g., the RAN air interface.
-
-Network slicing is considered by 3GPP for 5G {{TS-23.501}} (an equivalent can be achieved in 4G by configuring QFI values), by IETF {{?RFC9543}} for transport networks, and by BBF {{TR-470}} for wireline access. A realization model in transport networks is detailed in {{?I-D.ietf-teas-5g-ns-ip-mpls}}.
-
-L4S {{L4S}} can be used for the realization of a network slice. Network slices properties (e.g., throughput) can be retrieved from an operator network or configured by third parties via a network API {{network_api}} (e.g., 3GPP NEF).
-
-## 3GPP UE Route Selection Policy {#ursp}
-
-UE Route Selection Policy (URSP) is a feature specified in 3GPP to match and forward traffic based upon a selection descriptor and a route descriptor as further detailed in {{TS-23.503}}.
-
-
-Specified traffic descriptors may be:
-
-* Application
-* IP
-* Domain
-* Non-IP
-* DNN
-* Connection Capabilities
-* Connectivity Group ID
-
-Specified route selection descriptors: must contain PDU Session Type Selection (e.g., IPv4v6 or IPv6) and may contain the following:
-
-
-* SSC Mode
-* Network Slice
-* DNN
-* Non-Seamless Offload indication
-* Access Type preference
-
-URSP rules that contain both descriptors can be announced from the provider network to a UE or preconfigured in the UE, possibly subscription-based. These rules can be used to identify services in the UE and to provide routes with explicit  characteristics. URSP rules might also be triggered by the usage of network APIs {{network_api}} and combined with network slicing {{ns}}, for example.
-
-## Network APIs {#network_api}
-
-Network APIs are the interface between the operator network and third-party providers. With 4G, the first methods were introduced to make network capabilities available, which has been greatly improved with the introduction of 5G. To this end, the new Network Exposure Function (NEF) is responsible for 5G, which is specified in {{TS-29.522}}, which defines a huge list of network capabilites for monitoring and configuration for external consumption.
-
-For integration into external services, initiatives such as the CAMARA Alliance and GSMA Open Gateway provide abstractions of these exposed network capabilities into service APIs for easy integration by developers.
-
-The CAMARA API "Network Slice Booking", which is currently under development, would be a way for a service provider to configure the necessary resources in the operator network. In the background, 5G features such as network slicing {{ns}} , URSP {{ursp}} and, if necessary, L4S {{L4S}} could then ensure implementation in the operator network.
 
 # Acknowledgments
 {:numbered="false"}
