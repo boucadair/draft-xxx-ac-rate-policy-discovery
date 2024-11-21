@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-19T01:16:21.990367+00:00",
+  "timestamp": "2024-11-21T01:15:39.793849+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -625,7 +625,7 @@
       "id": "I_kwDOLlGZlc6fDH8z",
       "title": "Need to classify catgeories",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/56",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -636,8 +636,8 @@
       ],
       "body": "-\tI don't think there is need to classify categories of traffic now, this would definitely create some confusion, specially how it is done in the draft. For example, what does real-time mean? Is this p2p conversational media? Or does live streaming also fall into that category?  Another would be Bulk traffic , what does that even mean? Are you doing more that Diff serv or mimicking that?",
       "createdAt": "2024-11-18T12:31:17Z",
-      "updatedAt": "2024-11-18T15:18:35Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-19T06:14:14Z",
+      "closedAt": "2024-11-19T06:14:14Z",
       "comments": [
         {
           "author": "boucadair",
@@ -693,7 +693,7 @@
       "id": "I_kwDOLlGZlc6fDRz3",
       "title": "Scope description",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/58",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -702,8 +702,8 @@
       ],
       "body": "> What is meant with the scope per host and per subscriber (what role is subscriber in the IETF terms)? Is there a target to define the traffic flow granularity (even per application level)..?\r\n",
       "createdAt": "2024-11-18T12:48:49Z",
-      "updatedAt": "2024-11-18T13:08:44Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-19T06:22:06Z",
+      "closedAt": "2024-11-19T06:22:06Z",
       "comments": [
         {
           "author": "boucadair",
@@ -719,7 +719,7 @@
       "id": "I_kwDOLlGZlc6fDSen",
       "title": "details about means/validity, etc.",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/59",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -728,8 +728,8 @@
       ],
       "body": "> Without knowing the actual means to deliver this Throughput Advice info to host (or app?) this might/or might not be relevant: There is not mentioned anything about the applicability of this Throughput Advice info: Is it valid until the further notice/updated policy (possible infinitively or 1 sec) or should there be defined some timing value in the throughput advice object (the policy valid for the next 20 sec or 30min..?)?\r\n",
       "createdAt": "2024-11-18T12:50:04Z",
-      "updatedAt": "2024-11-18T12:50:04Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-19T06:22:18Z",
+      "closedAt": "2024-11-19T06:22:18Z",
       "comments": []
     },
     {
@@ -781,7 +781,7 @@
       "id": "I_kwDOLlGZlc6fDUtf",
       "title": "EBS/PBS Intended Use for specific traffic category",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/62",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -790,8 +790,8 @@
       ],
       "body": "> It is not clear from the draft if Excess Burst or Peak Burst is needed or how those can be used for a specific category of traffic.\r\n\r\n",
       "createdAt": "2024-11-18T12:53:58Z",
-      "updatedAt": "2024-11-18T13:15:48Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-20T10:22:04Z",
+      "closedAt": "2024-11-20T10:22:04Z",
       "comments": [
         {
           "author": "boucadair",
@@ -807,7 +807,7 @@
       "id": "I_kwDOLlGZlc6fDVMa",
       "title": "Level of details",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/63",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -816,8 +816,8 @@
       ],
       "body": "> Also I am not sure I understand the complexity of providing such detailed information from the network to the client, we even have hard time providing just the bitrate information. How would the network provide and maintain the commitments its making to burst information and peak rate information. - Moreover, I think the authors should be able to provide enough experimental information to justify the need for such detailed information from the network to the client.",
       "createdAt": "2024-11-18T12:54:51Z",
-      "updatedAt": "2024-11-18T13:19:38Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-20T10:21:48Z",
+      "closedAt": "2024-11-20T10:21:48Z",
       "comments": [
         {
           "author": "boucadair",
@@ -825,6 +825,13 @@
           "body": "The text provides pointers to examples where these parameters are already shared with customers: \r\n\r\n> These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., \"A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Deliver\" [[RFC8466](https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#RFC8466)]).",
           "createdAt": "2024-11-18T13:19:36Z",
           "updatedAt": "2024-11-18T13:19:36Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "This text covers the reasoning for having the various parameters: https://boucadair.github.io/draft-xxx-ac-rate-policy-discovery/draft-brw-scone-throughput-advice-blob.html#name-throughput-parameters",
+          "createdAt": "2024-11-20T10:21:48Z",
+          "updatedAt": "2024-11-20T10:21:48Z"
         }
       ]
     },
@@ -879,9 +886,92 @@
       ],
       "body": "Rate-limit are usually not on per-app basis (net-neutrality, etc.)\r\n\r\nFor example, RFC9330 says: \r\n\r\n> \r\n> \" However, there has never been a\r\n>    universal need to police the rate of individual application flows --\"\r\n\r\nPer-flow rate-limits induces also deployment concerns as to how resources can be partitioned, how the partition is bound to a specific volatile flow without? etc.",
       "createdAt": "2024-11-18T15:33:17Z",
-      "updatedAt": "2024-11-18T15:34:01Z",
+      "updatedAt": "2024-11-20T19:32:55Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also, is there a way/need to introduce specific limits without knowing the identity of the flow? If so, it is a breach of privacy. If not, it is based on the traffic category (if at all signaled), and we can defer it to future?",
+          "createdAt": "2024-11-20T19:32:53Z",
+          "updatedAt": "2024-11-20T19:32:53Z"
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "id": "I_kwDOLlGZlc6fcI_Z",
+      "title": "Comments",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/72",
+      "state": "OPEN",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "1. Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.\r\n\r\nComment> Is this line required (now that the draft does not discuss multiple traffic categories) ?\r\n\r\n2. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n\r\nComment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n\r\n3. The services or applications that are delivered over a network attachment. Whether one or multiple services are bound to the same network attachment is deployment specific.\r\n\r\nComment> I don't get how the above line is relevant for this draft. What is the use case for a single service being bound to a network attachment ? \r\n\r\nThe network has no clue whether it is a single or multiple applications with QUIC (and TLS ECH).\r\n\r\n4. Adaptive Application Behavior: : Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior. : Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.\r\n\r\nComment> I see the discussion on traffic category (which can be avoided for now).\r\n\r\n5. I don't see a need for \"Security Considerations\" Section to focus on DDoS.",
+      "createdAt": "2024-11-20T08:39:36Z",
+      "updatedAt": "2024-11-20T19:20:57Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> 1. Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.\r\n> \r\n> Comment> Is this line required (now that the draft does not discuss multiple traffic categories) ?\r\n\r\nIt is as it can include an advice for traffic direction (even with tc=any).",
+          "createdAt": "2024-11-20T09:00:57Z",
+          "updatedAt": "2024-11-20T09:00:57Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> 3\\. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n> \r\n> Comment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n\r\nI'm not sure about this claim for MASQUE/etc. Please refer to https://datatracker.ietf.org/doc/draft-eddy-scone-api/",
+          "createdAt": "2024-11-20T09:03:03Z",
+          "updatedAt": "2024-11-20T09:03:03Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> 5\\. The services or applications that are delivered over a network attachment. Whether one or multiple services are bound to the same network attachment is deployment specific.\r\n> \r\n> Comment> I don't get how the above line is relevant for this draft. What is the use case for a single service being bound to a network attachment ?\r\n\r\nA single flow may multiplex multiple types (audio, video, interactive, sharing file, etc.). The initial point was that it is up to the application to the bind the rate limit policy per packet. However, this is too subtle for -00. We can delete that part.",
+          "createdAt": "2024-11-20T09:05:12Z",
+          "updatedAt": "2024-11-20T09:05:12Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> 5\\. I don't see a need for \"Security Considerations\" Section to focus on DDoS.\r\n\r\nDDoS is provided as an example to illustrate the use of rate limit + mention that other mechanisms can be used. This is a sec cons section. Anyway,  soften these mentions at https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/commit/2962238d34031cb4f3b2756a48ae04e5ba5e8e79.",
+          "createdAt": "2024-11-20T09:09:53Z",
+          "updatedAt": "2024-11-20T09:15:06Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> 7\\. Adaptive Application Behavior: : Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior. : Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.\r\n> \r\n> Comment> I see the discussion on traffic category (which can be avoided for now).\r\n\r\nOK, done at https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/73/files#diff-ab358ab0ffa13e672eedeaa457634187ee628bbab438b0bafd7df2d648ef7e4b",
+          "createdAt": "2024-11-20T09:14:41Z",
+          "updatedAt": "2024-11-20T09:14:41Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > 1. Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.\r\n> > \r\n> > Comment> Is this line required (now that the draft does not discuss multiple traffic categories) ?\r\n> \r\n> It is as it can include an advice for traffic direction (even with tc=any).\r\n\r\nYes, but the draft does not define a \"specific traffic category\". The following line can be removed: \r\nEach of these instances may cover a specific traffic category. ",
+          "createdAt": "2024-11-20T09:35:26Z",
+          "updatedAt": "2024-11-20T09:35:26Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> Yes, but the draft does not define a \"specific traffic category\". The following line can be removed:\r\n> Each of these instances may cover a specific traffic category.\r\n\r\nACK. See #75 ",
+          "createdAt": "2024-11-20T10:13:39Z",
+          "updatedAt": "2024-11-20T10:13:39Z"
+        },
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > 3. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n> > Comment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n> \r\n> I'm not sure about this claim for MASQUE/etc. Please refer to https://datatracker.ietf.org/doc/draft-eddy-scone-api/\r\n\r\nI agree an API (framework) would be required but doesn't that delve into implementation details and is that needed in a blob definition draft though?",
+          "createdAt": "2024-11-20T19:20:57Z",
+          "updatedAt": "2024-11-20T19:20:57Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3127,7 +3217,7 @@
       "id": "PR_kwDOLlGZlc6CPqZw",
       "title": "categories",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/66",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -3136,17 +3226,19 @@
       ],
       "body": "",
       "createdAt": "2024-11-18T13:02:52Z",
-      "updatedAt": "2024-11-18T15:27:34Z",
+      "updatedAt": "2024-11-19T06:14:14Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "categories",
       "headRefOid": "29b3bce0438866b2e127067becdb9784af7f6918",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-19T06:14:13Z",
+      "mergedAt": "2024-11-19T06:14:13Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "23cc02de161ebde10d21b4d01c08fe8f83ef4b5b"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3169,7 +3261,7 @@
       "id": "PR_kwDOLlGZlc6CPskK",
       "title": "scope",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/67",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -3178,17 +3270,19 @@
       ],
       "body": "",
       "createdAt": "2024-11-18T13:07:04Z",
-      "updatedAt": "2024-11-18T16:20:34Z",
+      "updatedAt": "2024-11-19T06:22:07Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
-      "baseRefOid": "72847e642e451fd595cb1d8fc5807e4ce72a6a40",
+      "baseRefOid": "23cc02de161ebde10d21b4d01c08fe8f83ef4b5b",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "scope",
-      "headRefOid": "7f98dccd3ddb8544af1fd7069c121df6f7aa4403",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "aab27fa159bdc8e06f7a9822e6136fc3c619cae8",
+      "closedAt": "2024-11-19T06:22:05Z",
+      "mergedAt": "2024-11-19T06:22:05Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "baa5abb3c13ddd05d87d438aa1e571fae88e1979"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3224,7 +3318,7 @@
       "id": "PR_kwDOLlGZlc6CPvcm",
       "title": "expiry/refresh",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/68",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -3233,17 +3327,19 @@
       ],
       "body": "",
       "createdAt": "2024-11-18T13:12:43Z",
-      "updatedAt": "2024-11-18T16:21:49Z",
+      "updatedAt": "2024-11-19T06:22:19Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "aa958506ed8d491c7e6ba8446caef70bec51c4bb",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "expiry/refresh-out-of-scope",
       "headRefOid": "34b7a86d461857ef0d0ede3f23e68acec7223891",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-19T06:22:17Z",
+      "mergedAt": "2024-11-19T06:22:17Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "58a23321d2709a66d5ca69c0c9802468eed71029"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3301,6 +3397,165 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOLlGZlc6Cf5BU",
+      "title": "remove app with muxed types in single flow",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/73",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "#72 ",
+      "createdAt": "2024-11-20T09:06:30Z",
+      "updatedAt": "2024-11-20T09:39:29Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "3a43b4ace6d1e39c0c214ef2ba446bf6e244c554",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "app-with-muxed-types-in-single-flow",
+      "headRefOid": "83b41136577bad67a54b8b1c412094ff77b9269c",
+      "closedAt": "2024-11-20T09:39:27Z",
+      "mergedAt": "2024-11-20T09:39:27Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "60a92dfa6ce4ddc0736b887b9d9d44b2884828e4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6R6pCB",
+          "commit": {
+            "abbreviatedOid": "83b4113"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-20T09:38:36Z",
+          "updatedAt": "2024-11-20T09:38:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 74,
+      "id": "PR_kwDOLlGZlc6Cf75v",
+      "title": "Soften DDoS mentions in sec section",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/74",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "#72",
+      "createdAt": "2024-11-20T09:11:05Z",
+      "updatedAt": "2024-11-20T13:40:40Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "3a43b4ace6d1e39c0c214ef2ba446bf6e244c554",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Soften-DDoS-mentions-in-sec-section",
+      "headRefOid": "f24cb6a0c76d099fa4ecf20c46e3b6930289dd9a",
+      "closedAt": "2024-11-20T13:40:38Z",
+      "mergedAt": "2024-11-20T13:40:38Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "0aed1325b5cf401eab41432729440da937ea9cec"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6R7E4w",
+          "commit": {
+            "abbreviatedOid": "2962238"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I don't see a need to explicitly say \"DDoS\". ",
+          "createdAt": "2024-11-20T10:22:52Z",
+          "updatedAt": "2024-11-20T10:27:44Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "As discussed in {{sec-uc}}, sharing throughput advice helps networks mitigate overloads, particularly during periods of high traffic.",
+              "createdAt": "2024-11-20T10:22:52Z",
+              "updatedAt": "2024-11-20T10:27:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6R7JdJ",
+          "commit": {
+            "abbreviatedOid": "2962238"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-20T10:30:48Z",
+          "updatedAt": "2024-11-20T10:30:49Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "see [commit](https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/74/files#diff-ab358ab0ffa13e672eedeaa457634187ee628bbab438b0bafd7df2d648ef7e4b). Happy? :-)",
+              "createdAt": "2024-11-20T10:30:48Z",
+              "updatedAt": "2024-11-20T10:30:49Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "id": "PR_kwDOLlGZlc6CghpB",
+      "title": "remove specific traffic category",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/75",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Blob"
+      ],
+      "body": "\"Each of these instances may cover a specific traffic category.\"",
+      "createdAt": "2024-11-20T10:12:59Z",
+      "updatedAt": "2024-11-20T10:20:50Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "60a92dfa6ce4ddc0736b887b9d9d44b2884828e4",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "remove-\"specific-traffic-category.\"",
+      "headRefOid": "1d8898d90f0252ae5b27231d040fe34f41282edf",
+      "closedAt": "2024-11-20T10:20:48Z",
+      "mergedAt": "2024-11-20T10:20:48Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "eb711427d698179014327a0036ae7cf97cf27895"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6R7Di5",
+          "commit": {
+            "abbreviatedOid": "1d8898d"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-20T10:20:41Z",
+          "updatedAt": "2024-11-20T10:20:41Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
