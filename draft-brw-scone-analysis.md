@@ -88,9 +88,13 @@ Security (Sec):
 : Indicates whether this impacts security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (e.g., as that is likely to be ignored).
 
 Deployability (Dep):
-: Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.
+: Captures criteria that are important for unlocking the deployment of a solution at both network and host sides.
 : A deployability hurdle would be typically the misalignment of incentives
 between those receiving the benefit vs. those bearing the cost of providing the benefit ({{Section 3.3 of ?I-D.narten-radir-problem-statement}}). For example, the sender of the advice should see (immediate) benefits.
+: Some other deployability criteria are as follows:
+
+   + Fate sharing: reflects whether the mechanism used to advertise the throughput advice shares the fate of the rest of the network configuration on the host.
+   + Atomic configuration: characterizes whether the throughput advice can be learned using very few packets and whether any change of the policy would require to full policy to be shared or only the relevant instance.
 
 Performance (Per):
 : May impact the performance of the network device that enables the solution and/or the performance of the flow.
@@ -101,6 +105,10 @@ Service Interference (Int):
 
 Functional (Fun):
 : Characterizes the functional capabilities offered by activating a solution.
+: Some examples of functional criteria are as follows:
+
+   + Updatability: indicates whether a solution allows to update hosts with policy changes at any time.
+   + Path coupled signaling/Path decoupled signaling: Indicates whether solution allows for the entity to share the advice be on-path or off-path. This criterion is also meant to assess the deployment flexibility offered by a solution.
 
 A criterion may belong to one or more categories.
 
@@ -119,8 +127,8 @@ A criterion may belong to one or more categories.
 | Require an OS API                             |     |  X  |     |     |     |
 | Requires PvD                                  |     |  X  |     |     |     |
 | Support cascaded environments                 |     |     |     |     |  X  |
-| Path coupled signaling                        |     |     |     |     |  X  |
-| Path decoupled signaling                      |     |     |     |     |  X  |
+| Path coupled signaling                        |     |  X  |     |     |  X  |
+| Path decoupled signaling                      |     |  X  |     |     |  X  |
 | Traffic direction (h2n, n2h, both)            |     |     |     |     |  X  |
 | Per-host policies                             |     |     |     |     |  X  |
 | Per-subscriber policies                       |     |     |     |     |  X  |
@@ -159,7 +167,7 @@ A criterion may belong to one or more categories.
 | Applicable to QUIC                            |TBC   |  Y   |TBC   |  TBC |
 | Applicable to any application                 |TBC   |  Y   |TBC   |  TBC |
 | Require an OS API                             |TBC   |  Y   |TBC   |  TBC |
-| Requires PvD                                  |TBC   | Y(*) |TBC   |  TBC |
+| Requires PvD                                  |TBC   |  Y/N |TBC   |  TBC |
 | Support cascaded environments                 |TBC   |  Y   |TBC   |  TBC |
 | Path coupled signaling                        |TBC   |  Y   |TBC   |  TBC |
 | Path decoupled signaling                      |TBC   |  Y   |TBC   |  TBC |
@@ -228,7 +236,7 @@ Given that NRLP advices are shared during the establishment of a network attachm
 * Applicable to QUIC
 * Applicable to any application
 
-To that aim aim, NRLP:
+To that aim, NRLP:
 
 * Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
 accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.
@@ -243,7 +251,7 @@ One of NRLP flavors:
 
 NRLP does not restrict the deployment options as providers can deploy distributed or centralized DHCP servers, use relays, enable NRLP RA in access routers, etc. Similar to other network configuration purposes, NRLP has the following capabilities:
 
-* Support cascaded environments. The throuput advice can even be correlated with local conditions or policies as shown, e.g., in {{ac-casc}}.
+* Support cascaded environments. The throughput advice can even be correlated with local conditions or policies as shown, e.g., in {{ac-casc}}.
 * Path coupled signaling
 * Path decoupled signaling
 
@@ -290,7 +298,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * Overhead of unauthenticated re-encryption
 * Forwarding performance impact
 * IP address sharing issues: NRLP does not require changing the source IP address used by a host.
-* Penalize any network node (a proxy, typically) which could serve bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
+* Penalize any network node (a proxy, typically) which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).
 
 ### Main Expected Gains
 
