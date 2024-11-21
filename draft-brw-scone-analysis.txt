@@ -128,7 +128,7 @@ Table of Contents
       also have implications on the efficiency of sharing an advice
       (e.g., as that is likely to be ignored).
 
-   Deployability (Dep):  Captures a criteria that is important for
+   Deployability (Dep):  Captures criteria that are important for
       unlocking the deployment of a solution at both network and host
       sides.
 
@@ -137,6 +137,17 @@ Table of Contents
       the cost of providing the benefit (Section 3.3 of
       [I-D.narten-radir-problem-statement]).  For example, the sender of
       the advice should see (immediate) benefits.
+
+      Some other deployability criteria are as follows:
+
+      *  Fate sharing: reflects whether the mechanism used to advertise
+         the throughput advice shares the fate of the rest of the
+         network configuration on the host.
+
+      *  Atomic configuration: characterizes whether the throughput
+         advice can be learned using very few packets and whether any
+         change of the policy would require to full policy to be shared
+         or only the relevant instance.
 
    Performance (Per):  May impact the performance of the network device
       that enables the solution and/or the performance of the flow.
@@ -154,6 +165,16 @@ Table of Contents
 
    Functional (Fun):  Characterizes the functional capabilities offered
       by activating a solution.
+
+      Some examples of functional criteria are as follows:
+
+      *  Updatability: indicates whether a solution allows to update
+         hosts with policy changes at any time.
+
+      *  Path coupled signaling/Path decoupled signaling: Indicates
+         whether solution allows for the entity to share the advice be
+         on-path or off-path.  This criterion is also meant to assess
+         the deployment flexibility offered by a solution.
 
    A criterion may belong to one or more categories.
 
@@ -194,9 +215,9 @@ Table of Contents
        |            Support cascaded |     |     |     |     |  X  |
        |                environments |     |     |     |     |     |
        +-----------------------------+-----+-----+-----+-----+-----+
-       |      Path coupled signaling |     |     |     |     |  X  |
+       |      Path coupled signaling |     |  X  |     |     |  X  |
        +-----------------------------+-----+-----+-----+-----+-----+
-       |    Path decoupled signaling |     |     |     |     |  X  |
+       |    Path decoupled signaling |     |  X  |     |     |  X  |
        +-----------------------------+-----+-----+-----+-----+-----+
        |     Traffic direction (h2n, |     |     |     |     |  X  |
        |                  n2h, both) |     |     |     |     |     |
@@ -287,7 +308,7 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |           Require an OS API |  TBC   |  Y   |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
-      |                Requires PvD |  TBC   | Y(*) |  TBC  |  TBC  |
+      |                Requires PvD |  TBC   | Y/N  |  TBC  |  TBC  |
       +-----------------------------+--------+------+-------+-------+
       |            Support cascaded |  TBC   |  Y   |  TBC  |  TBC  |
       |                environments |        |      |       |       |
@@ -416,7 +437,7 @@ Table of Contents
 
    *  Applicable to any application
 
-   To that aim aim, NRLP:
+   To that aim, NRLP:
 
    *  Requires an OS API to expose the signal to applications, and
       ensure application fairness: An OS can provide more accurate
@@ -440,7 +461,7 @@ Table of Contents
    in access routers, etc.  Similar to other network configuration
    purposes, NRLP has the following capabilities:
 
-   *  Support cascaded environments.  The throuput advice can even be
+   *  Support cascaded environments.  The throughput advice can even be
       correlated with local conditions or policies as shown, e.g., in
       Figure 1.
 
@@ -523,7 +544,7 @@ Table of Contents
       source IP address used by a host.
 
    *  Penalize any network node (a proxy, typically) which could serve
-      bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
+      both good and bad clients (e.g., launching Layer 7 DDoS attacks).
 
 3.3.3.  Main Expected Gains
 
