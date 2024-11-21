@@ -30,7 +30,7 @@ Let's consider the example of this advice:
     "throughput-advice": [
         {
             "direction": 0,
-            "scope": false,
+            "scope": 0,
             "tc": 0,
             "cir": 50,
             "cbs": 10000
