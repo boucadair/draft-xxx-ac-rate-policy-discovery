@@ -55,13 +55,13 @@ informative:
 
 --- abstract
 
-This document provides an analysis of various SCONE solutions.
+This document provides an analysis of various SCONE solutions to share the throughput advice.
 
 --- middle
 
 # Introduction
 
-The document provides an analysis of proposed SCONE solutions. The currently analyzed solutions (listed in alphabetic order)
+The document provides an analysis of proposed SCONE solutions to share the throughput advice. The currently analyzed solutions (listed in alphabetic order)
 are as follows:
 
 MASQUE:
