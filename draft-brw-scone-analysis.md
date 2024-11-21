@@ -136,6 +136,7 @@ A criterion may belong to one or more categories.
 | Require data plane upgrade/change             |     |  X  |     |     |     |
 | Require transport payload inspection (network)|     |  X  |     |     |     |
 | Require transport payload inspection (host)   |     |  X  |     |     |     |
+| Require flow inspection and tracking (network)|  X  |     |     |     |     |
 | Require steering policies on the host         |     |  X  |     |     |     |
 | Depend on the server to consume the signal    |     |  X  |     |     |     |
 | Impact the connection setup delay             |     |     |     |     |  X  |
@@ -178,6 +179,7 @@ A criterion may belong to one or more categories.
 | Require data plane upgrade/change             |TBC   |  N   |TBC   |  TBC |
 | Require transport payload inspection (network)|TBC   |  N   |TBC   |  TBC |
 | Require transport payload inspection (host)   |TBC   |  N   |TBC   |  TBC |
+| Require flow inspection and tracking (network)|TBC   |  N   |TBC   | TBC  |
 | Require steering policies on the host         |TBC   |  N   |TBC   |  TBC |
 | Depend on the server to consume the signal    |TBC   |  N   |TBC   |  TBC |
 | Impact the connection setup delay             |TBC   |  N   |TBC   |  TBC |
@@ -281,6 +283,7 @@ Given that NRLP leverages existing control plane mechanisms, NRLP does not:
 * Require data plane upgrade/change
 * Require transport payload inspection (network)
 * Require transport payload inspection (host)
+* Require flow inspection and tracking (network)
 
 Also, given that NRLP signals are exchanged before connection establishment, NRLP does not:
 
