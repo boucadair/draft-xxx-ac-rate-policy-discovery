@@ -29,9 +29,9 @@ Let's consider the example of this advice:
 {
     "throughput-advice": [
         {
-            "direction": 0,
-            "scope": 0,
-            "tc": 0,
+            "direction": 0,  <=== network to host direction
+            "scope": 0,  <======= per-subscriber policy
+            "tc": 0, <=========== applies to any trafic  
             "cir": 50,
             "cbs": 10000
         }
