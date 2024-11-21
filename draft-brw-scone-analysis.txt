@@ -238,6 +238,9 @@ Table of Contents
        |   Require transport payload |     |  X  |     |     |     |
        |           inspection (host) |     |     |     |     |     |
        +-----------------------------+-----+-----+-----+-----+-----+
+       | Require flow inspection and |  X  |     |     |     |     |
+       |          tracking (network) |     |     |     |     |     |
+       +-----------------------------+-----+-----+-----+-----+-----+
        |   Require steering policies |     |  X  |     |     |     |
        |                 on the host |     |     |     |     |     |
        +-----------------------------+-----+-----+-----+-----+-----+
@@ -335,6 +338,9 @@ Table of Contents
       +-----------------------------+--------+------+-------+-------+
       |   Require transport payload |  TBC   |  N   |  TBC  |  TBC  |
       |           inspection (host) |        |      |       |       |
+      +-----------------------------+--------+------+-------+-------+
+      | Require flow inspection and |  TBC   |  N   |  TBC  |  TBC  |
+      |          tracking (network) |        |      |       |       |
       +-----------------------------+--------+------+-------+-------+
       |   Require steering policies |  TBC   |  N   |  TBC  |  TBC  |
       |                 on the host |        |      |       |       |
@@ -508,6 +514,8 @@ Table of Contents
    *  Require transport payload inspection (network)
 
    *  Require transport payload inspection (host)
+
+   *  Require flow inspection and tracking (network)
 
    Also, given that NRLP signals are exchanged before connection
    establishment, NRLP does not:
