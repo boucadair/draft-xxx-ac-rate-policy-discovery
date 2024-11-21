@@ -121,6 +121,8 @@ Also, one or more throughput advice instances may be returned for a given traffi
 
 Sample uses of the advice by applications are listed in {{sec-samples}}.
 
+As one can infer from the name, a throughput advice is advisory in nature. The advice is provided solely as a hint.
+
 In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
 
 # What's Out?
