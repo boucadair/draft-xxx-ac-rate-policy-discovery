@@ -89,7 +89,7 @@ Security/Privacy (Sec):
 : Some security/privacy criteria are as follows:
 
   + Zero-trust security: Only authorized network elements must provide the throughput advice.
-  + Privacy: Indicates whether a solution does not reveal any details about the app and server identity.
+  + Privacy: Indicates whether a solution does not reveal any details about the app or server identity.
   + Mobility:  Indicates whether a solution support guards where a malicious app keeps changing the 5-tuple to evade rate-limit enforcement by the network.
 
 Deployability (Dep):
