@@ -1824,14 +1824,14 @@ between those receiving the benefit vs. those bearing the cost of providing the 
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require an OS API</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
-              <td class="text-center" rowspan="1" colspan="1">Y</td>
+              <td class="text-center" rowspan="1" colspan="1">Y/N(p)</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Requires PvD</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">Y(p)/N</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
@@ -1992,6 +1992,12 @@ between those receiving the benefit vs. those bearing the cost of providing the 
           </tbody>
         </table>
 </div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-3.1-2.1">
+            <p id="section-3.1-2.1.1">Notes:
+(p) indicates the assessment when PvD is used as NRLP mechanism.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="sec-masque">
@@ -2093,11 +2099,14 @@ among different processes, with NRLP signals, ensuring that no single process mo
               <p id="section-3.3.2-8.3.1">Applicable to any application<a href="#section-3.3.2-8.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.3.2-9">To that aim, NRLP:<a href="#section-3.3.2-9" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-9">To that aim:<a href="#section-3.3.2-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3.2-10.1">
-              <p id="section-3.3.2-10.1.1">Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
+              <p id="section-3.3.2-10.1.1">RA/DHCP NRLP requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
 accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.<a href="#section-3.3.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-10.2">
+              <p id="section-3.3.2-10.2.1">If PvD is used, an app only needs to learn the PvD ID from the OS (which is not specific to NRLP) and the PvD additional information can be retrieved by the app itself (without any dependency on the OS).<a href="#section-3.3.2-10.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-3.3.2-11">NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies (<span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>). Also, NRLP leverages AAA mechanisms (e.g., <span>[<a href="#RFC9445" class="cite xref">RFC9445</a>]</span>). Therefore, NRLP eases:<a href="#section-3.3.2-11" class="pilcrow">¶</a></p>
