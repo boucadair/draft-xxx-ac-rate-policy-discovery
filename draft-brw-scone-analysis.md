@@ -176,8 +176,8 @@ A criterion may belong to one or more categories.
 | Integration with network management tools     |TBC   |  Y   |TBC   |  TBC |
 | Applicable to QUIC                            |TBC   |  Y   |TBC   |  TBC |
 | Applicable to any application                 |TBC   |  Y   |TBC   |  TBC |
-| Require an OS API                             |TBC   |  Y   |TBC   |  TBC |
-| Requires PvD                                  |TBC   |  Y/N |TBC   |  TBC |
+| Require an OS API                             |TBC   |Y/N(p)|TBC   |  TBC |
+| Requires PvD                                  |TBC   |Y(p)/N|TBC   |  TBC |
 | Support cascaded environments                 |TBC   |  Y   |TBC   |  TBC |
 | Path coupled signaling                        |TBC   |  Y   |TBC   |  TBC |
 | Path decoupled signaling                      |TBC   |  Y   |TBC   |  TBC |
@@ -201,6 +201,9 @@ A criterion may belong to one or more categories.
 | IP address sharing issues                     |TBC   |  N   |TBC   |  TBC |
 | Penalizing the proxy                          |TBC   |  N   |TBC   |  TBC |
 {: #sol-sum title="Analysis Summary"}
+
+> Notes:
+> (p) indicates the assessment when PvD is used as NRLP mechanism.
 
 ## MASQUE (to be completed by the authors of MASQUE) {#sec-masque}
 
@@ -247,10 +250,12 @@ Given that NRLP advices are shared during the establishment of a network attachm
 * Applicable to QUIC
 * Applicable to any application
 
-To that aim, NRLP:
+To that aim:
 
-* Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
+* RA/DHCP NRLP requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
 accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.
+
+* If PvD is used, an app only needs to learn the PvD ID from the OS (which is not specific to NRLP) and the PvD additional information can be retrieved by the app itself (without any dependency on the OS).
 
 NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies ({{?I-D.ietf-opsawg-ntw-attachment-circuit}}). Also, NRLP leverages AAA mechanisms (e.g., {{?RFC9445}}). Therefore, NRLP eases:
 
