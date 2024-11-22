@@ -4,7 +4,7 @@
 
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
-Intended status: Standards Track                                 D. Wing
+Intended status: Informational                                   D. Wing
 Expires: 26 May 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
@@ -477,10 +477,7 @@ Table of Contents
    To that aim:
 
    *  RA/DHCP NRLP requires an OS API to expose the signal to
-      applications, and ensure application fairness: An OS can provide
-      more accurate available bandwidth to applications through the API,
-      making implementation easier for applications that don't require
-      dedicated bandwidth measurement.
+      applications, and ensure application fairness.
 
    *  If PvD is used, an app only needs to learn the PvD ID from the OS
       (which is not specific to NRLP) and the PvD additional information
