@@ -90,7 +90,7 @@ Security/Privacy (Sec):
 
   + Zero-trust security: Only authorized network elements must provide the throughput advice.
   + Privacy: Indicates whether a solution does not reveal any details about the app or server identity.
-  + Mobility:  Indicates whether a solution support guards where a malicious app keeps changing the 5-tuple to evade rate-limit enforcement by the network.
+  + Mobility:  Indicates whether a solution supports guards against a malicious app that keeps changing the 5-tuple to evade rate-limit enforcement by the network.
 
 Deployability (Dep):
 : Captures criteria that are important for unlocking the deployment of a solution at both network and host sides.
