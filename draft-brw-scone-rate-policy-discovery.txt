@@ -26,16 +26,15 @@ Abstract
 
    This document specifies mechanims for hosts to dynamically discover
    Network Rate-Limit Policies (NRLPs).  This information is then passed
-   to applicaitons that might adjust their behaviors accordingly.
+   to applications that might adjust their behaviors accordingly.
 
    Networks already support mechanisms to advertize a set of network
-   properties to hosts using Neighbor Discovery options (e.g., link MTU
-   (RFC 4861) and PREFIX64 (RFC 8781)).  This document complements these
-   tools and specifies a Neighbor Discovery option to be used in Router
-   Advertisements (RAs) to communicate NRLPs to hosts.  For address
-   family parity, a new DHCP option is also defined.  The document also
-   discusses how Provisioning Domains (PvD) can be used to notify hosts
-   with NRLPs.
+   properties to hosts (e.g., link MTU (RFC 4861) and PREFIX64 (RFC
+   8781)).  This document complements these tools and specifies a
+   Neighbor Discovery option to be used in Router Advertisements (RAs)
+   to communicate NRLPs to hosts.  For address family parity, a new DHCP
+   option is also defined.  The document also discusses how Provisioning
+   Domains (PvD) can be used to notify hosts with NRLPs.
 
 Discussion Venues
 
@@ -107,8 +106,8 @@ Table of Contents
 1.  Introduction
 
    To optimally deliver connectivity services via a network attachment,
-   networks also advertize a set of network properties [RFC9473] to
-   connected hosts such as:
+   networks advertize a set of network properties [RFC9473] to connected
+   hosts such as:
 
    Link Maximum Transmission Unit (MTU):  For example, the 3GPP
       [TS-23.501] specifies that "the link MTU size for IPv4 is sent to
@@ -169,24 +168,20 @@ Table of Contents
 
    Applications will have access to all available NRLPs and will, thus,
    adjust their behavior as a function of scope and traffic category
-   indicated in a policy (all traffic, for example).  An application
-   that couples multiple flow types will adjust each flow type to be
-   consistent with the specific policy for the relevant traffic
-   category.  Likewise, a host with multiple network attachments may use
-   the discovered NRLPs to decide how to distribute its flows over these
-   etwork attachments (prefer an etwork attachment to place an
-   application session, migrate connection, etc.).  That's said, this
-   document does not make any recommendation about how a receiving host
-   uses the discovered policy.
+   indicated in a policy.  Likewise, a host with multiple network
+   attachments may use the discovered NRLPs to decide how to distribute
+   its flows over these network attachments (prefer a network attachment
+   to place an application session, migrate connection, etc.).  That's
+   said, this document does not make any recommendation about how a
+   receiving host uses the discovered policies.
 
    Networks that advertize NLRPs are likely to maintain the policing in
    place within the network because of the trust model (hosts are not
    considered as trusted devices).  Per-subscriber rate-limit policies
    are generally recommended to protect nodes against Denial of Service
-   (DoS) attacks (e.g., Section 9.3 of [RFC8803] or Section 8 of
-   [I-D.ietf-masque-quic-proxy]).  Discussion about conditions under
-   which such a trust model can be relaxed is out of scope of this
-   document.
+   (DoS) attacks (e.g., Section 9.3 of [RFC8803]).  Discussion about
+   conditions under which such a trust model can be relaxed is out of
+   scope of this document.
 
    This document does not assume nor preclude that other mechanisms,
    e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
@@ -255,17 +250,37 @@ Table of Contents
    Length:  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) is in units of 8 octets.
 
-   OPF (Optional Parameter Flags):  4-bit flags which indicates the
-      presence of some optional inforamtion in the option.
+   OPF (Optional Parameter Flags):  4-bit flags (Figure 3) which
+      indicates the presence of some optional inforamtion in the option.
 
       See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      structure of this field.
+      meaning of the P/E flags.
 
-   FF (Flow flags):  6-bit flags used to express some generic properties
-      of the flow.
+      U are unassigned bits.  These bits MUST be set to zero by senders
+      and MUST be ignored by receivers.
+
+                                  0 1 2 3
+                                 +-+-+-+-+
+                                 |U|U|P|E|
+                                 +-+-+-+-+
+
+                  Figure 3: Optional Parameter Flags Field
+
+   FF (Flow flags):  6-bit flags (Figure 4) used to express some generic
+      properties of the flow.
 
       See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      structure of this field.
+      meaning of the R/D/S flags.
+
+      U are unassigned bits.  These bits MUST be set to zero by senders
+      and MUST be ignored by receivers.
+
+                                0 1 2 3 4 5
+                               +-+-+-+-+-+-+
+                               |U|R|R|D|D|S|
+                               +-+-+-+-+-+-+
+
+                         Figure 4: Flow flags Field
 
    TC:  See Section 5 of [I-D.brw-scone-throughput-advice-blob].
 
@@ -329,7 +344,7 @@ Table of Contents
 
 4.1.  Option Format
 
-   The format of the DHCP NRLP option is illustrated in Figure 3.
+   The format of the DHCP NRLP option is illustrated in Figure 5.
 
                  0                   1
                  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -343,9 +358,9 @@ Table of Contents
                 ~      NRLP Instance Data #n    ~    |
                 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   ---
 
-                     Figure 3: NRLP DHCP Option Format
+                     Figure 5: NRLP DHCP Option Format
 
-   The fields of the option shown in Figure 3 are as follows:
+   The fields of the option shown in Figure 5 are as follows:
 
    Code:  OPTION_V4_NRLP (TBD2).  (see Section 7.2).
 
@@ -353,7 +368,7 @@ Table of Contents
 
    NRLP Instance Data:  Includes a network rate-limit policy.  The
       format of this field with only mandatory parameters is shown in
-      Figure 4.
+      Figure 6.
 
       When several NRLPs are to be included, the "NRLP Instance Data"
       field is repeated.
@@ -372,10 +387,10 @@ Table of Contents
                      |                               |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-         Figure 4: NRLP Instance Data Format with Mandatory Fields
+         Figure 6: NRLP Instance Data Format with Mandatory Fields
 
    The format of this field, with optional parameters included, is shown
-   in Figure 4.
+   in Figure 6.
 
                     0                   1
                     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -403,25 +418,31 @@ Table of Contents
                    |                               |  |
                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
 
-     Figure 5: NRLP Instance Data Format with Optional Fields Included
+     Figure 7: NRLP Instance Data Format with Optional Fields Included
 
-   The fields shown in Figure 5 are as follows:
+   The fields shown in Figure 7 are as follows:
 
    NRLP Instance Data Length:  Length of all following data in octets.
       This field is set to '8' when only the nominal bitrate is provided
       for an NLRP instance.
 
-   OPF (Optional Parameter Flags):  4-bit flags which indicates the
-      presence of some optional inforamtion in the option.
+   OPF (Optional Parameter Flags):  4-bit flags (Figure 3) which
+      indicates the presence of some optional inforamtion in the option.
 
       See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      structure of this field.
+      meaning of the flags.
 
-   FF (Flow flags):  6-bit flags used to express some generic properties
-      of the flow.
+      U are unassigned bits.  These bits MUST be set to zero by senders
+      and MUST be ignored by receivers.
+
+   FF (Flow flags):  6-bit flags (Figure 4) used to express some generic
+      properties of the flow.
 
       See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      structure of this field.
+      meaning of the flags.
+
+      U are unassigned bits.  These bits MUST be set to zero by senders
+      and MUST be ignored by receivers.
 
    TC:  See Section 5 of [I-D.brw-scone-throughput-advice-blob].
 
@@ -465,7 +486,7 @@ Table of Contents
    network will configured to set the H-flag so clients can request PvD
    Additional Information (Section 4.1 of [RFC8801]).
 
-   Figure 6 provides an example of the returned "application/pvd+json"
+   Figure 8 provides an example of the returned "application/pvd+json"
    to indicate a network-to-host NRLP for all subscriber traffic.  The
    NRLP list may include multiple instances if distinct policies are to
    be returned for distinct traffic categories.
@@ -483,7 +504,7 @@ Table of Contents
       ]
    }
 
-                      Figure 6: NRLP Example with PvD
+                      Figure 8: NRLP Example with PvD
 
 6.  Security Considerations
 
@@ -738,13 +759,6 @@ Table of Contents
               <https://www.fcc.gov/document/fcc-restores-net-neutrality-
               0>.
 
-   [I-D.ietf-masque-quic-proxy]
-              Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
-              Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-04, 18 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-04>.
-
    [IANA-BOOTP]
               IANA, "BOOTP Vendor Extensions and DHCP Options",
               <https://www.iana.org/assignments/bootp-dhcp-parameters/>.
@@ -839,7 +853,7 @@ Table of Contents
 Appendix A.  Example of Authentication, Authorization, and Accounting
              (AAA)
 
-   Figure 7 provides an example of the exchanges that might occur
+   Figure 9 provides an example of the exchanges that might occur
    between a DHCP server and an Authentication, Authorization, and
    Accounting (AAA) server to retrieve the per-subscriber NRLPs.
 
@@ -870,7 +884,7 @@ Appendix A.  Example of Authentication, Authorization, and Accounting
 
                         DHCP                    RADIUS
 
-               Figure 7: An Example of RADIUS NRLP Exchanges
+               Figure 9: An Example of RADIUS NRLP Exchanges
 
 Acknowledgments
 
