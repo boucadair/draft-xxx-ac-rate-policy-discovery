@@ -114,7 +114,7 @@ Functional (Fun):
 
    + Updatability: indicates whether a solution allows to update hosts with policy changes at any time.
    + Path coupled signaling/Path decoupled signaling: Indicates whether solution allows for the entity to share the advice be on-path or off-path. This criterion is also meant to assess the deployment flexibility offered by a solution.
-   + Support cascaded environments: For example rate-limits may be enabled at several levels in the path (e.g., the local network and the upstream network, tethering device and upstream network). This criterion indicates whether such setups are also supported.
+   + Support cascaded environments: Rate-limits may be enabled at several levels. For example, rate-limits may be enforced on the CPE in the home network for the endpoints attached to it and in the provider network to rate-limit the traffic from the subscriber. This criterion indicates whether such setups are supported.
 
 A criterion may belong to one or more categories.
 
