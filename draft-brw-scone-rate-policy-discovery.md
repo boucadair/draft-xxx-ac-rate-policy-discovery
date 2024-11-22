@@ -151,15 +151,15 @@ informative:
 
 --- abstract
 
-This document specifies mechanims for hosts to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then passed to applicaitons that might adjust their behaviors accordingly.
+This document specifies mechanims for hosts to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then passed to applications that might adjust their behaviors accordingly.
 
-Networks already support mechanisms to advertize a set of network properties to hosts using Neighbor Discovery options (e.g., link MTU (RFC 4861) and PREFIX64 (RFC 8781)). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate NRLPs to hosts. For address family parity, a new DHCP option is also defined. The document also discusses how Provisioning Domains (PvD) can be used to notify hosts with NRLPs.
+Networks already support mechanisms to advertize a set of network properties to hosts (e.g., link MTU (RFC 4861) and PREFIX64 (RFC 8781)). This document complements these tools and specifies a Neighbor Discovery option to be used in Router Advertisements (RAs) to communicate NRLPs to hosts. For address family parity, a new DHCP option is also defined. The document also discusses how Provisioning Domains (PvD) can be used to notify hosts with NRLPs.
 
 --- middle
 
 # Introduction
 
-To optimally deliver connectivity services via a network attachment, networks also advertize a set of network properties {{?RFC9473}} to connected hosts such as:
+To optimally deliver connectivity services via a network attachment, networks advertize a set of network properties {{?RFC9473}} to connected hosts such as:
 
 Link Maximum Transmission Unit (MTU):
 : For example, the 3GPP {{TS-23.501}} specifies that "the link MTU size for IPv4 is sent to the UE by including it in the PCO (see TS 24.501). The link MTU size for IPv6 is sent to the UE by including it in the IPv6 Router Advertisement message (see RFC 4861)".
@@ -186,9 +186,9 @@ These options are called: Network Rate-Limit Policy (NRLP).
 
 Whether host-to-network, network-to-host, or both policies are returned in an NRLP is deployment specific. All these combinations are supported in this document. Also, the design supports returning one more NRLP instances for a given traffic direction.
 
-Applications will have access to all available NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, for example). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple network attachments may use the discovered NRLPs to decide how to distribute its flows over these etwork attachments (prefer an etwork attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
+Applications will have access to all available NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy. Likewise, a host with multiple network attachments may use the discovered NRLPs to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policies.
 
-Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
+Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
 This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to I-D.brw-scone-manageability for a list of relevant mechanisms.
 
@@ -200,7 +200,7 @@ This document uses the terms defined in {{!I-D.brw-scone-throughput-advice-blob}
 
 # IPv6 RA NRLP Option {#sec-nd}
 
-## Option Format
+## Option Format {#sec-ndf}
 
 The format of the IPv6 RA NRLP option, with only mandatory fields included, is illustrated in {{opt-m-format}}.
 
@@ -251,12 +251,30 @@ Length:
   the Type and Length fields) is in units of 8 octets.
 
 OPF (Optional Parameter Flags):
-: 4-bit flags which indicates the presence of some optional inforamtion in the option.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
+: 4-bit flags ({{opt-format-opf}}) which indicates the presence of some optional inforamtion in the option.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the P/E flags.
+: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
+
+~~~~
+ 0 1 2 3
++-+-+-+-+
+|U|U|P|E|
++-+-+-+-+
+~~~~
+{: #opt-format-opf title="Optional Parameter Flags Field" artwork-align="center"}
 
 FF (Flow flags):
-: 6-bit flags used to express some generic properties of the flow.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
+: 6-bit flags ({{opt-format-ff}}) used to express some generic properties of the flow.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the R/D/S flags.
+: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
+
+~~~~
+ 0 1 2 3 4 5
++-+-+-+-+-+-+
+|U|R|R|D|D|S|
++-+-+-+-+-+-+
+~~~~
+{: #opt-format-ff title="Flow flags Field" artwork-align="center"}
 
 TC:
 : See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
@@ -393,12 +411,14 @@ NRLP Instance Data Length:
 : Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
 
 OPF (Optional Parameter Flags):
-: 4-bit flags which indicates the presence of some optional inforamtion in the option.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
+: 4-bit flags ({{opt-format-opf}}) which indicates the presence of some optional inforamtion in the option.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the flags.
+: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 FF (Flow flags):
-: 6-bit flags used to express some generic properties of the flow.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the structure of this field.
+: 6-bit flags  ({{opt-format-ff}}) used to express some generic properties of the flow.
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the flags.
+: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
 
 TC:
 : See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
