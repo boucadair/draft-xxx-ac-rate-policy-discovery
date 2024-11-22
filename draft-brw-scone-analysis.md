@@ -1,7 +1,7 @@
 ---
 title: "SCONE Solution Analysis"
 abbrev: "Solution Analysis"
-category: std
+category: info
 
 docname: draft-brw-scone-analysis-latest
 submissiontype: IETF
@@ -252,9 +252,7 @@ Given that NRLP advices are shared during the establishment of a network attachm
 
 To that aim:
 
-* RA/DHCP NRLP requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
-accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.
-
+* RA/DHCP NRLP requires an OS API to expose the signal to applications, and ensure application fairness.
 * If PvD is used, an app only needs to learn the PvD ID from the OS (which is not specific to NRLP) and the PvD additional information can be retrieved by the app itself (without any dependency on the OS).
 
 NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies ({{?I-D.ietf-opsawg-ntw-attachment-circuit}}). Also, NRLP leverages AAA mechanisms (e.g., {{?RFC9445}}). Therefore, NRLP eases:
