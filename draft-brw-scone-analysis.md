@@ -84,8 +84,13 @@ TRAIN:
 
 The following categories are used to classify the various criteria:
 
-Security (Sec):
+Security/Privacy (Sec):
 : Indicates whether this impacts security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (e.g., as that is likely to be ignored).
+: Some security/privacy criteria are as follows:
+
+  + Zero-trust security: Only authorized network elements must provide the throughput advice.
+  + Privacy: Indicates whether a solution does not reveal any details about the app or server identity.
+  + Mobility:  Indicates whether a solution supports guards against a malicious app that keeps changing the 5-tuple to evade rate-limit enforcement by the network.
 
 Deployability (Dep):
 : Captures criteria that are important for unlocking the deployment of a solution at both network and host sides.
@@ -94,7 +99,7 @@ between those receiving the benefit vs. those bearing the cost of providing the 
 : Some other deployability criteria are as follows:
 
    + Fate sharing: reflects whether the mechanism used to advertise the throughput advice shares the fate of the rest of the network configuration on the host.
-   + Atomic configuration: characterizes whether the throughput advice can be learned using very few packets and whether any change of the policy would require to full policy to be shared or only the relevant instance.
+   + Atomic configuration: Indicates whether the throughput advice can be learned using very few packets and whether changes to the policy require sharing the entire policy or just the relevant part.
 
 Performance (Per):
 : May impact the performance of the network device that enables the solution and/or the performance of the flow.
@@ -109,19 +114,22 @@ Functional (Fun):
 
    + Updatability: indicates whether a solution allows to update hosts with policy changes at any time.
    + Path coupled signaling/Path decoupled signaling: Indicates whether solution allows for the entity to share the advice be on-path or off-path. This criterion is also meant to assess the deployment flexibility offered by a solution.
+   + Support cascaded environments: Rate-limits may be enabled at several levels. For example, rate-limits may be enforced on the CPE in the home network for the endpoints attached to it and in the provider network to rate-limit the traffic from the subscriber. This criterion indicates whether such setups are supported.
 
 A criterion may belong to one or more categories.
 
 | Criteria                                      | Sec | Dep | Per | Int | Fun |
 |----------------------------------------------:|:---:|:---:|:---:|:---:|:---:|
-| Guard against random advice injection         |X    |     |     |     |     |
+| Protocol ossification                         |     |     |     |     |  X  |
+| Zero-trust security                           |X    |     |     |     |     |
+| Privacy                                       |X    |     |     |     |     |
+| Guard against random advice injection by an on-path attacker         |X    |     |     |     |     |
 | Mobility (guard against changing 5-tuple)     |X    |     |     |     |  X  |
 | Require guards against app abuse              |X    |     |     |     |  X  |
 | Fate sharing                                  |     |  X  |     |     |     |
 | Atomic configuration                          |     |  X  |     |     |     |
-| Updatability/Proactive signalling             |     |     |     |     |  X  |
+| Updatability                                  |     |     |     |     |  X  |
 | Integration with network management tools     |     |  X  |     |     |     |
-| Applicable to any transport protocol          |     |     |     |     |  X  |
 | Applicable to QUIC                            |     |     |     |     |  X  |
 | Applicable to any application                 |     |     |     |     |  X  |
 | Require an OS API                             |     |  X  |     |     |     |
@@ -145,7 +153,6 @@ A criterion may belong to one or more categories.
 | Incur multi-layer encryption                  |     |  X  |  X  |     |     |
 | Incur nested congestion control               |     |  X  |  X  |     |     |
 | Incur multiple round-trips                    |     |  X  |  X  |     |     |
-| Overhead of unauthenticated re-encryption     |     |  X  |  X  |     |     |
 | Forwarding peformance impact                  |     |  X  |  X  |  X  |     |
 | IP address sharing issues                     |     |  X  |     |  X  |     |
 | Penalizing the proxy                          |     |  X  |     |  X  |     |
@@ -157,14 +164,16 @@ A criterion may belong to one or more categories.
 
 | Criteria                                      |MASQUE| NRLP |SCONE |TRAIN |
 |----------------------------------------------:|:----:|:----:|:----:|:----:|
-| Guard against random advice injection         |TBC   |  Y   |TBC   |  TBC |
+| Protocol ossification                         |TBC   |  N   |TBC   |  TBC |
+| Zero-trust security                           |TBC   |  Y   |TBC   |  TBC |
+| Privacy                                       |TBC   |  Y   |TBC   |  TBC |
+| Guard against random advice injection by an on-path attacker         |TBC   |  Y   |TBC   |  TBC |
 | Mobility (guard against changing 5-tuple)     |TBC   |  Y   |TBC   |  TBC |
 | Require guards against app abuse              |TBC   |  Y   |TBC   |  TBC |
 | Fate sharing                                  |TBC   |  Y   |TBC   |  TBC |
 | Atomic configuration                          |TBC   |  Y   |TBC   |  TBC |
-| Updatability/Proactive signalling             |TBC   |  Y   |TBC   |  TBC |
+| Updatability                                  |TBC   |  Y   |TBC   |  TBC |
 | Integration with network management tools     |TBC   |  Y   |TBC   |  TBC |
-| Applicable to any transport protocol          |TBC   |  Y   |TBC   |  TBC |
 | Applicable to QUIC                            |TBC   |  Y   |TBC   |  TBC |
 | Applicable to any application                 |TBC   |  Y   |TBC   |  TBC |
 | Require an OS API                             |TBC   |  Y   |TBC   |  TBC |
@@ -188,7 +197,6 @@ A criterion may belong to one or more categories.
 | Incur multi-layer encryption                  |TBC   |  N   |TBC   |  TBC |
 | Incur nested congestion control               |TBC   |  N   |TBC   |  TBC |
 | Incur multiple round-trips                    |TBC   |  N   |TBC   |  TBC |
-| Overhead of unauthenticated re-encryption     |TBC   |  N   |TBC   |  TBC |
 | Forwarding peformance impact                  |TBC   |  N   |TBC   |  TBC |
 | IP address sharing issues                     |TBC   |  N   |TBC   |  TBC |
 | Penalizing the proxy                          |TBC   |  N   |TBC   |  TBC |
@@ -217,6 +225,7 @@ Also, NRLP does not introduce additional dependency that would hinder having the
 
 Only network elements that are entitled to send DHCP/RA/PvD configuration are allowed to share the throughput advices. As such, NRLP has built-in:
 
+* zero-trust model
 * Guard against random advice injection
 
 Taking into account that NRLP advices are bound to a traffic category, NLRP relies upon the OS to enforce the received policies
@@ -280,6 +289,7 @@ The same generic blob is used in NRLP independent of the signaling mechanism. Th
 
 Given that NRLP leverages existing control plane mechanisms, NRLP does not:
 
+* Suffer from protocol ossification issues
 * Require data plane upgrade/change
 * Require transport payload inspection (network)
 * Require transport payload inspection (host)
