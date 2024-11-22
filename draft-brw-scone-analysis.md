@@ -89,7 +89,8 @@ Security/Privacy (Sec):
 : Some security/privacy criteria are as follows:
 
   + Zero-trust security: Only authorized network elements must provide the throughput advice.
-  + Privacy: Indicate whether a solution does not reveal any details about the app and server identity.
+  + Privacy: Indicates whether a solution does not reveal any details about the app and server identity.
+  + Mobility:  Indicates whether a solution support guards where a malicious app keeps changing the 5-tuple to evade rate-limit enforcement by the network.
 
 Deployability (Dep):
 : Captures criteria that are important for unlocking the deployment of a solution at both network and host sides.
@@ -113,6 +114,7 @@ Functional (Fun):
 
    + Updatability: indicates whether a solution allows to update hosts with policy changes at any time.
    + Path coupled signaling/Path decoupled signaling: Indicates whether solution allows for the entity to share the advice be on-path or off-path. This criterion is also meant to assess the deployment flexibility offered by a solution.
+   + Support cascaded environments: For example rate-limits may be enabled at several levels in the path (e.g., the local network and the upstream network, tethering device and upstream network). This criterion indicates whether such setups are also supported.
 
 A criterion may belong to one or more categories.
 
