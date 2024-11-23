@@ -91,64 +91,6 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
 
-     TS-23.503:
-        title: "TS 23.503: Policy and charging control framework for the 5G System (5GS)"
-        date: 2024
-        author:
-        -
-          org: 3GPP
-        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3334
-
-     TS-29.522:
-        title: "TS 29.522: 5G System; Network Exposure Function Northbound APIs"
-        date: 2024
-        author:
-        -
-          org: 3GPP
-        target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3437
-
-     app-measurement:
-        title: "Bandwidth measurement for QUIC"
-        date: 2024
-        author:
-        -
-          fullname: Zafer Gurel
-        -
-          fullname: Ali C. Begen
-        target: https://datatracker.ietf.org/doc/slides-119-moq-bandwidth-measurement-for-quic/
-
-     TS-24.008:
-        title: "Technical Specification Group Core Network and Terminals; Mobile radio interface Layer 3 specification; Core network protocols; Stage 3 (Release 18)"
-        date: 2024
-        author:
-        -
-          org: 3GPP
-        target: https://www.3gpp.org/DynaReport/24008.htm
-
-     BEREC:
-        title: "All you need to know about Net Neutrality rules in the EU"
-        date: false
-        author:
-        -
-          org: BEREC
-        target: https://www.berec.europa.eu/en/all-you-need-to-know-about-net-neutrality-rules-in-the-eu-0
-
-     FCC:
-        title: "FCC Restores Net Neutrality"
-        date: false
-        author:
-        -
-          org: FCC
-        target: https://www.fcc.gov/document/fcc-restores-net-neutrality-0
-
-     TR-470:
-        title: "5G Wireless Wireline Convergence Architecture - Issue 2"
-        date: false
-        author:
-        -
-          org: BBF
-        target: https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf
-
 --- abstract
 
 This document specifies mechanims for hosts to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then passed to applications that might adjust their behaviors accordingly.
@@ -197,6 +139,69 @@ This document does not assume nor preclude that other mechanisms, e.g., Low Late
 {::boilerplate bcp14-tagged}
 
 This document uses the terms defined in {{!I-D.brw-scone-throughput-advice-blob}}.
+
+# Common NLRP Parameters {#sec-common}
+
+The following common fields are present in all NRLP options:
+
+## Optional Parameter Flags (OPF)
+
+The format of this 4-bit flags is shown in {{opt-format-opf}}. This field indicates the presence of some optional inforamtion in the option.
+
+~~~~
+ 0 1 2 3
++-+-+-+-+
+|U|U|P|E|
++-+-+-+-+
+~~~~
+{: #opt-format-opf title="Optional Parameter Flags Field" artwork-align="center"}
+
+See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the P/E flags.
+
+U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
+
+##  Flow flags (FF)
+
+The format of this 6-bit flags is shown in {{opt-format-ff}}. This field is used to express some generic properties of the flow.
+
+~~~~
+ 0 1 2 3 4 5
++-+-+-+-+-+-+
+|U|R|R|D|D|S|
++-+-+-+-+-+-+
+~~~~
+{: #opt-format-ff title="Flow flags Field" artwork-align="center"}
+
+See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the R/D/S flags.
+
+U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
+
+## Traffic Category (TC) & Throughput Parameters
+
+The following parameters are used:
+
+TC:
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
+
+Committed Information Rate (CIR) (Mbps):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
+: This is a mandatory parameter.
+
+Committed Burst Size (CBS) (bytes):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
+: This is a mandatory parameter.
+
+Excess Information Rate (EIR) (Mbps):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
+
+Excess Burst Size (EBS) (bytes):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
+
+Peak Information Rate (PIR) (Mbps):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
+
+Peak Burst Size (PBS) (bytes):
+: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
 
 # IPv6 RA NRLP Option {#sec-nd}
 
@@ -250,52 +255,7 @@ Length:
 : 8-bit unsigned integer.  The length of the option (including
   the Type and Length fields) is in units of 8 octets.
 
-OPF (Optional Parameter Flags):
-: 4-bit flags ({{opt-format-opf}}) which indicates the presence of some optional inforamtion in the option.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the P/E flags.
-: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-~~~~
- 0 1 2 3
-+-+-+-+-+
-|U|U|P|E|
-+-+-+-+-+
-~~~~
-{: #opt-format-opf title="Optional Parameter Flags Field" artwork-align="center"}
-
-FF (Flow flags):
-: 6-bit flags ({{opt-format-ff}}) used to express some generic properties of the flow.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the R/D/S flags.
-: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-~~~~
- 0 1 2 3 4 5
-+-+-+-+-+-+-+
-|U|R|R|D|D|S|
-+-+-+-+-+-+-+
-~~~~
-{: #opt-format-ff title="Flow flags Field" artwork-align="center"}
-
-TC:
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Committed Information Rate (CIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Committed Burst Size (CBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Excess Information Rate (EIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Excess Burst Size (EBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Information Rate (PIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Burst Size (PBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
+Refer to {{sec-common}} for the meaning of the other parameters.
 
 ## IPv6 Host Behavior
 
@@ -410,36 +370,7 @@ The fields shown in {{nrlp-format}} are as follows:
 NRLP Instance Data Length:
 : Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
 
-OPF (Optional Parameter Flags):
-: 4-bit flags ({{opt-format-opf}}) which indicates the presence of some optional inforamtion in the option.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the flags.
-: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-FF (Flow flags):
-: 6-bit flags  ({{opt-format-ff}}) used to express some generic properties of the flow.
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the flags.
-: U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-TC:
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Committed Information Rate (CIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Committed Burst Size (CBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
-
-Excess Information Rate (EIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Excess Burst Size (EBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Information Rate (PIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Burst Size (PBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
+Refer to {{sec-common}} for the meaning of the other parameters.
 
 OPTION_V4_NRLP is a concatenation-requiring option. As such, the mechanism specified in {{!RFC3396}} MUST be used if OPTION_V4_NRLP exceeds the maximum DHCP option size of 255 octets.
 
