@@ -517,20 +517,23 @@ Reference:
 IANA is requested to create a new registry "PvD Rate-Limit Policies (NRLPs)" registry,
 within the "Provisioning Domains (PvDs)" registry group.
 
-The initial contents of this registry are as follows:
+The initial contents of this registry are provided in {{iana-pvd-initial}}.
 
 | JSON key   | Description           | Type    | Example         | Reference |
-|direction   |Indicates the traffic direction to which a policy applies. When set to "1", this parameter indicates that this policy is for network-to-host direction. When set to "0", this parameter indicates that this policy is for host-to-network direction.|Boolean|1 |This-Document|
+|direction   |Indicates the traffic direction to which a policy applies|integer|1 |This-Document|
 |scope|Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0)|Boolean|1 |This-Document|
-|tc|Specifies a traffic category to which this policy applies. Values are taken from the Rate-Limit Policy Objects Registry created in {{!I-D.brw-scone-throughput-advice-blob}}|Integer|0|This-Document|
-|cir|Specifies the maximum number of bits that a network can receive or send during one second over an AC for a traffic category.|Integer|50|This-Document|
-| xxx   | xxx           | xxx    | xx         | This-Document |
+|tc|Specifies a traffic category to which this policy applies|Integer|0|This-Document|
+|cir|Committed Information Rate (CIR)|Integer|50|This-Document|
+|cbs|Committed Burst Size (CBS)|Integer|10000|This-Document|
+|eir|Excess Information Rate (EIR)|Integer|30|This-Document|
+|ebs|Excess  Burst Size (EBS)|Integer|5000|This-Document|
+|pir|Peak Information Rate (PIR)|Integer|70|This-Document|
+|pbs|Peak  Burst Size (PBS)|Integer|20000|This-Document|
 {: #iana-pvd-initial title="Initial PvD Network Rate-Limit Policies (NRLPs) Registry Content"}
 
-New assignments in the "PvD Network Rate-Limit Policies (NRLPs)" registry
-will be administered by IANA through Expert Review policy {{!RFC8126}}.
-Experts are requested to ensure that defined keys do not overlap in names
-or semantics.
+Assignments must not be added directly to the "PvD Network Rate-Limit Policies (NRLPs)" registry.
+When a new attribute is added to the "SCONE Rate-Limit Policy Objects" Registry Group created by {{!I-D.brw-scone-throughput-advice-blob}},
+a new JSON key is mirrored in the "PvD Network Rate-Limit Policies (NRLPs)" registry.
 
 --- back
 
