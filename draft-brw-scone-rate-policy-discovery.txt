@@ -78,26 +78,30 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  IPv6 RA NRLP Option
-     3.1.  Option Format
-     3.2.  IPv6 Host Behavior
-   4.  DHCP NRLP Option
+   3.  Common NLRP Parameters
+     3.1.  Optional Parameter Flags (OPF)
+     3.2.  Flow flags (FF)
+     3.3.  Traffic Category (TC) & Throughput Parameters
+   4.  IPv6 RA NRLP Option
      4.1.  Option Format
-     4.2.  DHCPv4 Client Behavior
-   5.  Provisioning Domains
-   6.  Security Considerations
-     6.1.  ND
-     6.2.  DHCP
-   7.  IANA Considerations
-     7.1.  Neighbor Discovery Option
-     7.2.  DHCP Option
-     7.3.  DHCP Options Permitted in the RADIUS DHCPv4-Options
+     4.2.  IPv6 Host Behavior
+   5.  DHCP NRLP Option
+     5.1.  Option Format
+     5.2.  DHCPv4 Client Behavior
+   6.  Provisioning Domains
+   7.  Security Considerations
+     7.1.  ND
+     7.2.  DHCP
+   8.  IANA Considerations
+     8.1.  Neighbor Discovery Option
+     8.2.  DHCP Option
+     8.3.  DHCP Options Permitted in the RADIUS DHCPv4-Options
            Attribute
-     7.4.  Provisioning Domains Split DNS Additional Information
-     7.5.  New PvD Network Rate-Limit Policies (NRLPs) Registry
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+     8.4.  Provisioning Domains Split DNS Additional Information
+     8.5.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Example of Authentication, Authorization, and
            Accounting (AAA)
    Acknowledgments
@@ -143,7 +147,7 @@ Table of Contents
    Given that all IPv6 hosts and networks are required to support
    Neighbor Discovery [RFC4861], this document specifies a Neighbor
    Discovery option to be used in Router Advertisements (RAs) to
-   communicate rate-limit policies to hosts (Section 3).  The main
+   communicate rate-limit policies to hosts (Section 4).  The main
    motivations for the use of ND for such a discovery are listed in
    Section 3 of [RFC8781]:
 
@@ -156,7 +160,7 @@ Table of Contents
    *  Deployability
 
    For address family parity, a DHCP option [RFC2132] is also defined
-   for IPv4 in Section 4.  Section 5 describes a discovery approach
+   for IPv4 in Section 5.  Section 6 describes a discovery approach
    using Provisioning Domains (PvDs) [RFC8801].
 
    These options are called: Network Rate-Limit Policy (NRLP).
@@ -199,12 +203,80 @@ Table of Contents
    This document uses the terms defined in
    [I-D.brw-scone-throughput-advice-blob].
 
-3.  IPv6 RA NRLP Option
+3.  Common NLRP Parameters
 
-3.1.  Option Format
+   The following common fields are present in all NRLP options:
+
+3.1.  Optional Parameter Flags (OPF)
+
+   The format of this 4-bit flags is shown in Figure 1.  This field
+   indicates the presence of some optional inforamtion in the option.
+
+                                  0 1 2 3
+                                 +-+-+-+-+
+                                 |U|U|P|E|
+                                 +-+-+-+-+
+
+                  Figure 1: Optional Parameter Flags Field
+
+   See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
+   meaning of the P/E flags.
+
+   U are unassigned bits.  These bits MUST be set to zero by senders and
+   MUST be ignored by receivers.
+
+3.2.  Flow flags (FF)
+
+   The format of this 6-bit flags is shown in Figure 2.  This field is
+   used to express some generic properties of the flow.
+
+                                0 1 2 3 4 5
+                               +-+-+-+-+-+-+
+                               |U|R|R|D|D|S|
+                               +-+-+-+-+-+-+
+
+                         Figure 2: Flow flags Field
+
+   See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
+   meaning of the R/D/S flags.
+
+   U are unassigned bits.  These bits MUST be set to zero by senders and
+   MUST be ignored by receivers.
+
+3.3.  Traffic Category (TC) & Throughput Parameters
+
+   The following parameters are used:
+
+   TC:  See Section 5 of [I-D.brw-scone-throughput-advice-blob].
+
+   Committed Information Rate (CIR) (Mbps):  See Section 5 of [I-D.brw-s
+      cone-throughput-advice-blob].
+
+      This is a mandatory parameter.
+
+   Committed Burst Size (CBS) (bytes):  See Section 5 of [I-D.brw-scone-
+      throughput-advice-blob].
+
+      This is a mandatory parameter.
+
+   Excess Information Rate (EIR) (Mbps):  See Section 5 of [I-D.brw-scon
+      e-throughput-advice-blob].  This is an optional field.
+
+   Excess Burst Size (EBS) (bytes):  See Section 5 of [I-D.brw-scone-thr
+      oughput-advice-blob].  This is an optional field.
+
+   Peak Information Rate (PIR) (Mbps):  See Section 5 of [I-D.brw-scone-
+      throughput-advice-blob].  This is an optional field.
+
+   Peak Burst Size (PBS) (bytes):  See Section 5 of [I-D.brw-scone-throu
+      ghput-advice-blob].  This is an optional field.
+
+4.  IPv6 RA NRLP Option
+
+4.1.  Option Format
 
    The format of the IPv6 RA NRLP option, with only mandatory fields
-   included, is illustrated in Figure 1.
+   included, is illustrated in Figure 3.
 
      MSB                                                          LSB
       0                   1                   2                   3
@@ -217,10 +289,10 @@ Table of Contents
      |                  Committed Burst Size (CBS)                   |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 1: NRLP Option Format with Mandatory Fields
+             Figure 3: NRLP Option Format with Mandatory Fields
 
    The format of the IPv6 RA NRLP option, with optional fields included,
-   is illustrated in Figure 1.
+   is illustrated in Figure 3.
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -240,69 +312,19 @@ Table of Contents
      |                  Peak Burst Size (PBS) (Optional)             |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 2: NRLP Option Format with Optional Fields
+             Figure 4: NRLP Option Format with Optional Fields
 
-   The fields of the option shown in Figure 2 are as follows:
+   The fields of the option shown in Figure 4 are as follows:
 
    Type:  8-bit identifier of the NRLP option as assigned by IANA (TBD1)
-      (see Section 7.1).
+      (see Section 8.1).
 
    Length:  8-bit unsigned integer.  The length of the option (including
       the Type and Length fields) is in units of 8 octets.
 
-   OPF (Optional Parameter Flags):  4-bit flags (Figure 3) which
-      indicates the presence of some optional inforamtion in the option.
+   Refer to Section 3 for the meaning of the other parameters.
 
-      See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      meaning of the P/E flags.
-
-      U are unassigned bits.  These bits MUST be set to zero by senders
-      and MUST be ignored by receivers.
-
-                                  0 1 2 3
-                                 +-+-+-+-+
-                                 |U|U|P|E|
-                                 +-+-+-+-+
-
-                  Figure 3: Optional Parameter Flags Field
-
-   FF (Flow flags):  6-bit flags (Figure 4) used to express some generic
-      properties of the flow.
-
-      See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      meaning of the R/D/S flags.
-
-      U are unassigned bits.  These bits MUST be set to zero by senders
-      and MUST be ignored by receivers.
-
-                                0 1 2 3 4 5
-                               +-+-+-+-+-+-+
-                               |U|R|R|D|D|S|
-                               +-+-+-+-+-+-+
-
-                         Figure 4: Flow flags Field
-
-   TC:  See Section 5 of [I-D.brw-scone-throughput-advice-blob].
-
-   Committed Information Rate (CIR) (Mbps):  See Section 5 of [I-D.brw-s
-      cone-throughput-advice-blob].
-
-   Committed Burst Size (CBS) (bytes):  See Section 5 of [I-D.brw-scone-
-      throughput-advice-blob].
-
-   Excess Information Rate (EIR) (Mbps):  See Section 5 of [I-D.brw-scon
-      e-throughput-advice-blob].  This is an optional field.
-
-   Excess Burst Size (EBS) (bytes):  See Section 5 of [I-D.brw-scone-thr
-      oughput-advice-blob].  This is an optional field.
-
-   Peak Information Rate (PIR) (Mbps):  See Section 5 of [I-D.brw-scone-
-      throughput-advice-blob].  This is an optional field.
-
-   Peak Burst Size (PBS) (bytes):  See Section 5 of [I-D.brw-scone-throu
-      ghput-advice-blob].  This is an optional field.
-
-3.2.  IPv6 Host Behavior
+4.2.  IPv6 Host Behavior
 
    The procedure for rate-limit configuration is the same as it is with
    any other Neighbor Discovery option [RFC4861].
@@ -333,7 +355,7 @@ Table of Contents
    details of the API is OS-specific and, thus, out of scope of this
    document.
 
-4.  DHCP NRLP Option
+5.  DHCP NRLP Option
 
       Note that the base DHCP can only signal a rate policy change when
       the client first joins the network or renews its lease, whereas
@@ -342,7 +364,7 @@ Table of Contents
       individual hosts without suffering from the limitations of the
       FORCERENEW design in [RFC3203].
 
-4.1.  Option Format
+5.1.  Option Format
 
    The format of the DHCP NRLP option is illustrated in Figure 5.
 
@@ -362,7 +384,7 @@ Table of Contents
 
    The fields of the option shown in Figure 5 are as follows:
 
-   Code:  OPTION_V4_NRLP (TBD2).  (see Section 7.2).
+   Code:  OPTION_V4_NRLP (TBD2).  (see Section 8.2).
 
    Length:  Indicates the length of the enclosed data in octets.
 
@@ -426,43 +448,7 @@ Table of Contents
       This field is set to '8' when only the nominal bitrate is provided
       for an NLRP instance.
 
-   OPF (Optional Parameter Flags):  4-bit flags (Figure 3) which
-      indicates the presence of some optional inforamtion in the option.
-
-      See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      meaning of the flags.
-
-      U are unassigned bits.  These bits MUST be set to zero by senders
-      and MUST be ignored by receivers.
-
-   FF (Flow flags):  6-bit flags (Figure 4) used to express some generic
-      properties of the flow.
-
-      See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-      meaning of the flags.
-
-      U are unassigned bits.  These bits MUST be set to zero by senders
-      and MUST be ignored by receivers.
-
-   TC:  See Section 5 of [I-D.brw-scone-throughput-advice-blob].
-
-   Committed Information Rate (CIR) (Mbps):  See Section 5 of [I-D.brw-s
-      cone-throughput-advice-blob].
-
-   Committed Burst Size (CBS) (bytes):  See Section 5 of [I-D.brw-scone-
-      throughput-advice-blob].
-
-   Excess Information Rate (EIR) (Mbps):  See Section 5 of [I-D.brw-scon
-      e-throughput-advice-blob].  This is an optional field.
-
-   Excess Burst Size (EBS) (bytes):  See Section 5 of [I-D.brw-scone-thr
-      oughput-advice-blob].  This is an optional field.
-
-   Peak Information Rate (PIR) (Mbps):  See Section 5 of [I-D.brw-scone-
-      throughput-advice-blob].  This is an optional field.
-
-   Peak Burst Size (PBS) (bytes):  See Section 5 of [I-D.brw-scone-throu
-      ghput-advice-blob].  This is an optional field.
+   Refer to Section 3 for the meaning of the other parameters.
 
    OPTION_V4_NRLP is a concatenation-requiring option.  As such, the
    mechanism specified in [RFC3396] MUST be used if OPTION_V4_NRLP
@@ -471,7 +457,7 @@ Table of Contents
    OPTION_V4_NRLP is permitted to be included in the RADIUS
    DHCPv4-Options Attribute [RFC9445].
 
-4.2.  DHCPv4 Client Behavior
+5.2.  DHCPv4 Client Behavior
 
    To discover a network rate-limit policy, the DHCP client includes
    OPTION_V4_NRLP in a Parameter Request List option [RFC2132].
@@ -480,7 +466,7 @@ Table of Contents
    Data" field entries in the OPTION_V4_NRLP option; each instance is to
    be treated as a separate network rate-limit policy.
 
-5.  Provisioning Domains
+6.  Provisioning Domains
 
    PvD may also be used as a mechanism to discover NRLP.  Typically, the
    network will configured to set the H-flag so clients can request PvD
@@ -506,7 +492,7 @@ Table of Contents
 
                       Figure 8: NRLP Example with PvD
 
-6.  Security Considerations
+7.  Security Considerations
 
    The techniques discussed in the document offer the following security
    benefit: An OS can identify the type of application (background,
@@ -516,7 +502,7 @@ Table of Contents
    limiting by changing its 5-tuple or creating multiple flows, the OS
    can detect this and manage the application's traffic accordingly.
 
-6.1.  ND
+7.1.  ND
 
    As discussed in [RFC8781], because RAs are required in all IPv6
    configuration scenarios, RAs must already be secured, e.g., by
@@ -544,7 +530,7 @@ Table of Contents
    Inject fake RAs:  The implications are similar to the impacts of
       tweaking the values of a legitimate RA.
 
-6.2.  DHCP
+7.2.  DHCP
 
    An attacker who has access to the DHCP exchanged over an AC may do a
    lot of harm (e.g., prevent access to the network).
@@ -565,9 +551,9 @@ Table of Contents
    information about the DHCP server or the entity hosting the DHCP
    server.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
-7.1.  Neighbor Discovery Option
+8.1.  Neighbor Discovery Option
 
    This document requests IANA to assign the following new IPv6 Neighbor
    Discovery Option type in the "IPv6 Neighbor Discovery Option Formats"
@@ -586,7 +572,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD1" occurrences with
       the assigned value.
 
-7.2.  DHCP Option
+8.2.  DHCP Option
 
    This document requests IANA to assign the following new DHCP Option
    Code in the "BOOTP Vendor Extensions and DHCP Options" registry
@@ -604,7 +590,7 @@ Table of Contents
       Note to the RFC Editor: Please replace all "TBD2" occurrences with
       the assigned value.
 
-7.3.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
+8.3.  DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute
 
    This document requests IANA to add the following DHCP Option Code to
    the "DHCP Options Permitted in the RADIUS DHCPv4-Options Attribute"
@@ -620,7 +606,7 @@ Table of Contents
                     the RADIUS DHCPv4-Options Attribute
                                   Registry
 
-7.4.  Provisioning Domains Split DNS Additional Information
+8.4.  Provisioning Domains Split DNS Additional Information
 
    IANA is requested to add the following entry to the "Additional
    Information PvD Keys" registry under the "Provisioning Domains
@@ -648,7 +634,7 @@ Table of Contents
 
    Reference:  This-Document
 
-7.5.  New PvD Network Rate-Limit Policies (NRLPs) Registry
+8.5.  New PvD Network Rate-Limit Policies (NRLPs) Registry
 
    IANA is requested to create a new registry "PvD Rate-Limit Policies
    (NRLPs)" registry, within the "Provisioning Domains (PvDs)" registry
@@ -694,9 +680,9 @@ Table of Contents
    [RFC8126].  Experts are requested to ensure that defined keys do not
    overlap in names or semantics.
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [I-D.brw-scone-throughput-advice-blob]
               Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S., and
@@ -744,20 +730,7 @@ Table of Contents
               DOI 10.17487/RFC9445, August 2023,
               <https://www.rfc-editor.org/rfc/rfc9445>.
 
-8.2.  Informative References
-
-   [app-measurement]
-              Gurel, Z. and A. C. Begen, "Bandwidth measurement for
-              QUIC", 2024, <https://datatracker.ietf.org/doc/slides-119-
-              moq-bandwidth-measurement-for-quic/>.
-
-   [BEREC]    BEREC, "All you need to know about Net Neutrality rules in
-              the EU", <https://www.berec.europa.eu/en/all-you-need-to-
-              know-about-net-neutrality-rules-in-the-eu-0>.
-
-   [FCC]      FCC, "FCC Restores Net Neutrality",
-              <https://www.fcc.gov/document/fcc-restores-net-neutrality-
-              0>.
+9.2.  Informative References
 
    [IANA-BOOTP]
               IANA, "BOOTP Vendor Extensions and DHCP Options",
@@ -822,33 +795,11 @@ Table of Contents
               Properties", RFC 9473, DOI 10.17487/RFC9473, September
               2023, <https://www.rfc-editor.org/rfc/rfc9473>.
 
-   [TR-470]   BBF, "5G Wireless Wireline Convergence Architecture -
-              Issue 2",
-              <https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf>.
-
    [TS-23.501]
               3GPP, "TS 23.501: System architecture for the 5G System
               (5GS)", 2024,
               <https://portal.3gpp.org/desktopmodules/Specifications/
               SpecificationDetails.aspx?specificationId=3144>.
-
-   [TS-23.503]
-              3GPP, "TS 23.503: Policy and charging control framework
-              for the 5G System (5GS)", 2024,
-              <https://portal.3gpp.org/desktopmodules/Specifications/
-              SpecificationDetails.aspx?specificationId=3334>.
-
-   [TS-24.008]
-              3GPP, "Technical Specification Group Core Network and
-              Terminals; Mobile radio interface Layer 3 specification;
-              Core network protocols; Stage 3 (Release 18)", 2024,
-              <https://www.3gpp.org/DynaReport/24008.htm>.
-
-   [TS-29.522]
-              3GPP, "TS 29.522: 5G System; Network Exposure Function
-              Northbound APIs", 2024,
-              <https://portal.3gpp.org/desktopmodules/Specifications/
-              SpecificationDetails.aspx?specificationId=3437>.
 
 Appendix A.  Example of Authentication, Authorization, and Accounting
              (AAA)
