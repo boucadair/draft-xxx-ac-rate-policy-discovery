@@ -1962,7 +1962,7 @@ registry under the "Provisioning Domains (PvDs)" registry group <span>[<a href="
         </h3>
 <p id="section-8.5-1">IANA is requested to create a new registry "PvD Rate-Limit Policies (NRLPs)" registry,
 within the "Provisioning Domains (PvDs)" registry group.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
-<p id="section-8.5-2">The initial contents of this registry are as follows:<a href="#section-8.5-2" class="pilcrow">¶</a></p>
+<p id="section-8.5-2">The initial contents of this registry are provided in <a href="#iana-pvd-initial" class="auto internal xref">Table 4</a>.<a href="#section-8.5-2" class="pilcrow">¶</a></p>
 <span id="name-initial-pvd-network-rate-li"></span><div id="iana-pvd-initial">
 <table class="center" id="table-4">
           <caption>
@@ -1981,8 +1981,8 @@ within the "Provisioning Domains (PvDs)" registry group.<a href="#section-8.5-1"
           <tbody>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">direction</td>
-              <td class="text-left" rowspan="1" colspan="1">Indicates the traffic direction to which a policy applies. When set to "1", this parameter indicates that this policy is for network-to-host direction. When set to "0", this parameter indicates that this policy is for host-to-network direction.</td>
-              <td class="text-left" rowspan="1" colspan="1">Boolean</td>
+              <td class="text-left" rowspan="1" colspan="1">Indicates the traffic direction to which a policy applies</td>
+              <td class="text-left" rowspan="1" colspan="1">integer</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">This-Document</td>
             </tr>
@@ -1995,33 +1995,59 @@ within the "Provisioning Domains (PvDs)" registry group.<a href="#section-8.5-1"
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">tc</td>
-              <td class="text-left" rowspan="1" colspan="1">Specifies a traffic category to which this policy applies. Values are taken from the Rate-Limit Policy Objects Registry created in <span>[<a href="#I-D.brw-scone-throughput-advice-blob" class="cite xref">I-D.brw-scone-throughput-advice-blob</a>]</span>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">Specifies a traffic category to which this policy applies</td>
               <td class="text-left" rowspan="1" colspan="1">Integer</td>
               <td class="text-left" rowspan="1" colspan="1">0</td>
               <td class="text-left" rowspan="1" colspan="1">This-Document</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">cir</td>
-              <td class="text-left" rowspan="1" colspan="1">Specifies the maximum number of bits that a network can receive or send during one second over an AC for a traffic category.</td>
+              <td class="text-left" rowspan="1" colspan="1">Committed Information Rate (CIR)</td>
               <td class="text-left" rowspan="1" colspan="1">Integer</td>
               <td class="text-left" rowspan="1" colspan="1">50</td>
               <td class="text-left" rowspan="1" colspan="1">This-Document</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">xxx</td>
-              <td class="text-left" rowspan="1" colspan="1">xxx</td>
-              <td class="text-left" rowspan="1" colspan="1">xxx</td>
-              <td class="text-left" rowspan="1" colspan="1">xx</td>
+              <td class="text-left" rowspan="1" colspan="1">cbs</td>
+              <td class="text-left" rowspan="1" colspan="1">Committed Burst Size (CBS)</td>
+              <td class="text-left" rowspan="1" colspan="1">Integer</td>
+              <td class="text-left" rowspan="1" colspan="1">10000</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">eir</td>
+              <td class="text-left" rowspan="1" colspan="1">Excess Information Rate (EIR)</td>
+              <td class="text-left" rowspan="1" colspan="1">Integer</td>
+              <td class="text-left" rowspan="1" colspan="1">30</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">ebs</td>
+              <td class="text-left" rowspan="1" colspan="1">Excess  Burst Size (EBS)</td>
+              <td class="text-left" rowspan="1" colspan="1">Integer</td>
+              <td class="text-left" rowspan="1" colspan="1">5000</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">pir</td>
+              <td class="text-left" rowspan="1" colspan="1">Peak Information Rate (PIR)</td>
+              <td class="text-left" rowspan="1" colspan="1">Integer</td>
+              <td class="text-left" rowspan="1" colspan="1">70</td>
+              <td class="text-left" rowspan="1" colspan="1">This-Document</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">pbs</td>
+              <td class="text-left" rowspan="1" colspan="1">Peak  Burst Size (PBS)</td>
+              <td class="text-left" rowspan="1" colspan="1">Integer</td>
+              <td class="text-left" rowspan="1" colspan="1">20000</td>
               <td class="text-left" rowspan="1" colspan="1">This-Document</td>
             </tr>
           </tbody>
         </table>
 </div>
-<p id="section-8.5-4">New assignments in the "PvD Network Rate-Limit Policies (NRLPs)" registry
-will be administered by IANA through Expert Review policy <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>.
-Experts are requested to ensure that defined keys do not overlap in names
-or semantics.<a href="#section-8.5-4" class="pilcrow">¶</a></p>
+<p id="section-8.5-4">Assignments must not be added directly to the "PvD Network Rate-Limit Policies (NRLPs)" registry.
+When a new attribute is added to the "SCONE Rate-Limit Policy Objects" Registry Group created by <span>[<a href="#I-D.brw-scone-throughput-advice-blob" class="cite xref">I-D.brw-scone-throughput-advice-blob</a>]</span>,
+a new JSON key is mirrored in the "PvD Network Rate-Limit Policies (NRLPs)" registry.<a href="#section-8.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2056,10 +2082,6 @@ or semantics.<a href="#section-8.5-4" class="pilcrow">¶</a></p>
 <dt id="RFC4861">[RFC4861]</dt>
         <dd>
 <span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8126">[RFC8126]</dt>
-        <dd>
-<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>

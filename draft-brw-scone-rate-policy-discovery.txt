@@ -640,45 +640,59 @@ Table of Contents
    (NRLPs)" registry, within the "Provisioning Domains (PvDs)" registry
    group.
 
-   The initial contents of this registry are as follows:
+   The initial contents of this registry are provided in Table 4.
 
-   +=========+======================================+=======+=======+=========+
-   |JSON key |Description                           |Type   |Example|Reference|
-   +=========+======================================+=======+=======+=========+
-   |direction|Indicates the traffic direction to    |Boolean|1      |This-    |
-   |         |which a policy applies.  When set to  |       |       |Document |
-   |         |"1", this parameter indicates that    |       |       |         |
-   |         |this policy is for network-to-host    |       |       |         |
-   |         |direction.  When set to "0", this     |       |       |         |
-   |         |parameter indicates that this policy  |       |       |         |
-   |         |is for host-to-network direction.     |       |       |         |
-   +---------+--------------------------------------+-------+-------+---------+
-   |scope    |Specifies whether the policy is per   |Boolean|1      |This-    |
-   |         |host (when set to "1") or per         |       |       |Document |
-   |         |subscriber (when set to "0)           |       |       |         |
-   +---------+--------------------------------------+-------+-------+---------+
-   |tc       |Specifies a traffic category to which |Integer|0      |This-    |
-   |         |this policy applies.  Values are taken|       |       |Document |
-   |         |from the Rate-Limit Policy Objects    |       |       |         |
-   |         |Registry created in                   |       |       |         |
-   |         |[I-D.brw-scone-throughput-advice-blob]|       |       |         |
-   +---------+--------------------------------------+-------+-------+---------+
-   |cir      |Specifies the maximum number of bits  |Integer|50     |This-    |
-   |         |that a network can receive or send    |       |       |Document |
-   |         |during one second over an AC for a    |       |       |         |
-   |         |traffic category.                     |       |       |         |
-   +---------+--------------------------------------+-------+-------+---------+
-   |xxx      |xxx                                   |xxx    |xx     |This-    |
-   |         |                                      |       |       |Document |
-   +---------+--------------------------------------+-------+-------+---------+
+   +===========+===================+=========+=========+===============+
+   | JSON key  | Description       | Type    | Example | Reference     |
+   +===========+===================+=========+=========+===============+
+   | direction | Indicates the     | integer | 1       | This-Document |
+   |           | traffic           |         |         |               |
+   |           | direction to      |         |         |               |
+   |           | which a policy    |         |         |               |
+   |           | applies           |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | scope     | Specifies         | Boolean | 1       | This-Document |
+   |           | whether the       |         |         |               |
+   |           | policy is per     |         |         |               |
+   |           | host (when set    |         |         |               |
+   |           | to "1") or per    |         |         |               |
+   |           | subscriber (when  |         |         |               |
+   |           | set to "0)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | tc        | Specifies a       | Integer | 0       | This-Document |
+   |           | traffic category  |         |         |               |
+   |           | to which this     |         |         |               |
+   |           | policy applies    |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | cir       | Committed         | Integer | 50      | This-Document |
+   |           | Information Rate  |         |         |               |
+   |           | (CIR)             |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | cbs       | Committed Burst   | Integer | 10000   | This-Document |
+   |           | Size (CBS)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | eir       | Excess            | Integer | 30      | This-Document |
+   |           | Information Rate  |         |         |               |
+   |           | (EIR)             |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | ebs       | Excess Burst      | Integer | 5000    | This-Document |
+   |           | Size (EBS)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | pir       | Peak Information  | Integer | 70      | This-Document |
+   |           | Rate (PIR)        |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
+   | pbs       | Peak Burst Size   | Integer | 20000   | This-Document |
+   |           | (PBS)             |         |         |               |
+   +-----------+-------------------+---------+---------+---------------+
 
      Table 4: Initial PvD Network Rate-Limit Policies (NRLPs) Registry
                                   Content
 
-   New assignments in the "PvD Network Rate-Limit Policies (NRLPs)"
-   registry will be administered by IANA through Expert Review policy
-   [RFC8126].  Experts are requested to ensure that defined keys do not
-   overlap in names or semantics.
+   Assignments must not be added directly to the "PvD Network Rate-Limit
+   Policies (NRLPs)" registry.  When a new attribute is added to the
+   "SCONE Rate-Limit Policy Objects" Registry Group created by
+   [I-D.brw-scone-throughput-advice-blob], a new JSON key is mirrored in
+   the "PvD Network Rate-Limit Policies (NRLPs)" registry.
 
 9.  References
 
@@ -710,11 +724,6 @@ Table of Contents
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
               DOI 10.17487/RFC4861, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4861>.
-
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/rfc/rfc8126>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
