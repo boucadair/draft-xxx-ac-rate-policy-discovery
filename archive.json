@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-21T01:15:39.793849+00:00",
+  "timestamp": "2024-11-24T01:20:41.421970+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -202,7 +202,7 @@
       "id": "I_kwDOLlGZlc6F14Vb",
       "title": "fairness to users",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -211,8 +211,8 @@
       "labels": [],
       "body": "https://datatracker.ietf.org/doc/html/rfc8517#section-3.10\r\n\r\ncareful wording: wastage of data. Sending data that won't be consumed.",
       "createdAt": "2024-04-16T08:49:55Z",
-      "updatedAt": "2024-05-22T08:03:00Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-23T15:33:13Z",
+      "closedAt": "2024-11-23T15:33:13Z",
       "comments": [
         {
           "author": "luismcontreras",
@@ -596,7 +596,7 @@
     {
       "number": 55,
       "id": "I_kwDOLlGZlc6fAFnA",
-      "title": "Use EIR, EBS, PIR and PBS",
+      "title": "Define groups: (C*+E*) or (C*+P*)",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/55",
       "state": "OPEN",
       "author": "tireddy2",
@@ -608,7 +608,7 @@
       ],
       "body": "My understanding is if EIR, EBS are conveyed in the metadata, PIR and PBS must not be signaled and vice-versa. we will have re-define the CDDL in the following way:\r\n\r\nrate-limit = (\r\n  group-a / group-b\r\n)\r\n\r\ngroup-a = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? eir: uint,        ; Mbps\r\n  ? ebs: uint .gt 0   ; bytes\r\n}\r\n\r\ngroup-b = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? pir: uint,        ; Mbps\r\n  ? pbs: uint .gt 0   ; bytes\r\n}\r\n\r\n",
       "createdAt": "2024-11-18T08:17:05Z",
-      "updatedAt": "2024-11-18T15:17:18Z",
+      "updatedAt": "2024-11-23T20:08:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -617,6 +617,27 @@
           "body": "I couldn't find RFCs to refer but in practical deployments, can there be a case where a packet exceeds CBS but is within PBS, so is EBS used in that case to have a more lenient window (like packets > CBS but < EBS to be treated with lower(lowest) priority and drop the ones that exceed PBS? ",
           "createdAt": "2024-11-18T15:17:16Z",
           "updatedAt": "2024-11-18T15:17:16Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "my understanding is (EIR, EBS) and (PIR and PBS) are mutually exclusive. ",
+          "createdAt": "2024-11-23T06:34:59Z",
+          "updatedAt": "2024-11-23T06:34:59Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Tiru is right. As indicated in the blob ID, typical combinations are these in https://s3-docs.fd.io/vpp/23.06/developer/corefeatures/policer.html. \r\n\r\nOther implems (Juniper) can be seen here as well: https://www.juniper.net/documentation/us/en/software/junos/cos/topics/task/cos-configuring-tricolor-marking-policers.html or https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/policer-overview.html",
+          "createdAt": "2024-11-23T09:48:08Z",
+          "updatedAt": "2024-11-23T09:50:14Z"
+        },
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's very helpful, thanks a lot Med :) ",
+          "createdAt": "2024-11-23T20:08:03Z",
+          "updatedAt": "2024-11-23T20:08:03Z"
         }
       ]
     },
@@ -755,7 +776,7 @@
       "id": "I_kwDOLlGZlc6fDT7w",
       "title": "What is committed? ",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/61",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -764,8 +785,8 @@
       ],
       "body": "\r\n> -\tWhat is committed? In Scone charter there is no commitment from any party involved, right? Let\u2019s not create GBR, MBR discussion here.\r\n",
       "createdAt": "2024-11-18T12:52:33Z",
-      "updatedAt": "2024-11-18T13:17:19Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-21T07:55:17Z",
+      "closedAt": "2024-11-21T07:55:17Z",
       "comments": [
         {
           "author": "boucadair",
@@ -773,6 +794,13 @@
           "body": "We are using IETF existing terms here.",
           "createdAt": "2024-11-18T13:17:18Z",
           "updatedAt": "2024-11-18T13:17:18Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/commit/61469eee3aed8ca1604e2a1c4ce044e3ea4d02de",
+          "createdAt": "2024-11-21T07:55:17Z",
+          "updatedAt": "2024-11-21T07:55:17Z"
         }
       ]
     },
@@ -886,7 +914,7 @@
       ],
       "body": "Rate-limit are usually not on per-app basis (net-neutrality, etc.)\r\n\r\nFor example, RFC9330 says: \r\n\r\n> \r\n> \" However, there has never been a\r\n>    universal need to police the rate of individual application flows --\"\r\n\r\nPer-flow rate-limits induces also deployment concerns as to how resources can be partitioned, how the partition is bound to a specific volatile flow without? etc.",
       "createdAt": "2024-11-18T15:33:17Z",
-      "updatedAt": "2024-11-20T19:32:55Z",
+      "updatedAt": "2024-11-22T13:57:41Z",
       "closedAt": null,
       "comments": [
         {
@@ -895,6 +923,13 @@
           "body": "Also, is there a way/need to introduce specific limits without knowing the identity of the flow? If so, it is a breach of privacy. If not, it is based on the traffic category (if at all signaled), and we can defer it to future?",
           "createdAt": "2024-11-20T19:32:53Z",
           "updatedAt": "2024-11-20T19:32:53Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "From Vasilenko Eduard <vasilenko.eduard@huawei.com>\r\n\r\n> \r\n> Hi Experts,\r\n> IMHO: you are missing the critical parameter in the SCONE specification: the number of sessions on the bottleneck scheduler (it looks like the scheduler is called \u201cflow policy\u201d in the draft).\r\n> \r\n> Per-flow performance is not possible for hardware routers and switches \u2013 it is too expensive, hardware routers are 3x cheaper, switches are 5x cheaper compared to flow-based devices (FW, IPS, DPI, LB, etc).\r\n> \r\n> Per-scheduler performance (possible for routers and switches) is useless without knowing how many flows are sharing it. It is a divider to understand what is possible to push for the particular flow on the host.\r\n> \r\n> Of course, it is a big challenge to how hardware routers or switches would calculate the number of sessions. But better to push the problem out of SCOPE territory.\r\n> It would be possible to say: \u201cSCOPE will be ready when the hardware router would be ready\u201d. (if ever)\r\n> \r\n> IMHO: it is better to include \u201cthe number of sessions\u201d in the SCOPE specification.\r\n> \r\n> PS: Software routers are typically multi-functional our days (IPS, DPI, and everything else on board), flow-based forwarding is possible.\r\n> Moreover, all 3GPP wireless IP forwarding is based on software only \u2013 no acceleration has been done for 3GPP.\r\n> Unfortunately, fixed broadband is based on BRAS/BNG which is actually a hardware router \u2013 it could not be flow-based.\r\n",
+          "createdAt": "2024-11-22T13:57:40Z",
+          "updatedAt": "2024-11-22T13:57:40Z"
         }
       ]
     },
@@ -903,7 +938,7 @@
       "id": "I_kwDOLlGZlc6fcI_Z",
       "title": "Comments",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/72",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -912,8 +947,8 @@
       ],
       "body": "1. Also, one or more throughput advice instances may be returned for a given traffic direction. Each of these instances may cover a specific traffic category. Examples of such instances are discussed in {{sec-ex}}.\r\n\r\nComment> Is this line required (now that the draft does not discuss multiple traffic categories) ?\r\n\r\n2. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n\r\nComment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n\r\n3. The services or applications that are delivered over a network attachment. Whether one or multiple services are bound to the same network attachment is deployment specific.\r\n\r\nComment> I don't get how the above line is relevant for this draft. What is the use case for a single service being bound to a network attachment ? \r\n\r\nThe network has no clue whether it is a single or multiple applications with QUIC (and TLS ECH).\r\n\r\n4. Adaptive Application Behavior: : Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior. : Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of scope and traffic category indicated in a throughput policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.\r\n\r\nComment> I see the discussion on traffic category (which can be avoided for now).\r\n\r\n5. I don't see a need for \"Security Considerations\" Section to focus on DDoS.",
       "createdAt": "2024-11-20T08:39:36Z",
-      "updatedAt": "2024-11-20T19:20:57Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-21T18:12:55Z",
+      "closedAt": "2024-11-21T18:12:55Z",
       "comments": [
         {
           "author": "boucadair",
@@ -970,6 +1005,83 @@
           "body": "> > 3. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n> > Comment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n> \r\n> I'm not sure about this claim for MASQUE/etc. Please refer to https://datatracker.ietf.org/doc/draft-eddy-scone-api/\r\n\r\nI agree an API (framework) would be required but doesn't that delve into implementation details and is that needed in a blob definition draft though?",
           "createdAt": "2024-11-20T19:20:57Z",
           "updatedAt": "2024-11-20T19:20:57Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> > > 3. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n> > >    Comment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n> > \r\n> > \r\n> > I'm not sure about this claim for MASQUE/etc. Please refer to https://datatracker.ietf.org/doc/draft-eddy-scone-api/\r\n> \r\n> I agree an API (framework) would be required but doesn't that delve into implementation details and is that needed in a blob definition draft though?\r\n\r\nThis is typically why the current text says this is out of scope. ",
+          "createdAt": "2024-11-21T07:47:14Z",
+          "updatedAt": "2024-11-21T07:47:14Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > > > 3. How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n> > > >    Comment> It is not clear whether OS-specific APIs are required not. I would remove the last line. MASQUE and QUIC based proposals don't require OS-specific API.\r\n> > > \r\n> > > \r\n> > > I'm not sure about this claim for MASQUE/etc. Please refer to https://datatracker.ietf.org/doc/draft-eddy-scone-api/\r\n> > \r\n> > \r\n> > I agree an API (framework) would be required but doesn't that delve into implementation details and is that needed in a blob definition draft though?\r\n> \r\n> This is typically why the current text says this is out of scope.\r\n\r\nI prefer to remove the the bullet: How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.\r\n\r\nIt is an unnecessary distraction not relevant to the draft. The WG may adopt a solution like TRAIN which does not require any OS-specific API. I don't see how this bullet is useful to progress the draft.\r\n\r\n",
+          "createdAt": "2024-11-21T08:17:04Z",
+          "updatedAt": "2024-11-21T08:17:04Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> The WG may adopt a solution like TRAIN which does not require any OS-specific API.\r\n\r\nEven TRAIN has the following: \r\n\r\n\"A signal that is sent for a specific\r\n   flow is likely enforced at a different scope.  The extent of that\r\n   scope is not carried in the signal.\"\r\n\r\nI will keep  the sentence for -00. If this triggers discussion, that's good to have. Thanks.",
+          "createdAt": "2024-11-21T08:46:41Z",
+          "updatedAt": "2024-11-21T08:46:41Z"
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "id": "I_kwDOLlGZlc6f5I4i",
+      "title": "Comments on SCONE Analysis",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/76",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "Analysis"
+      ],
+      "body": "1.\r\n\r\nAtomic configuration: characterizes whether the throughput advice can be learned using very few packets and whether any change of the policy would require to full policy to be shared or only the relevant instance.\r\n\r\nComment> I can't parse the last part of the line. I suggest the following text:\r\n\r\nAtomic configuration: Indicates whether the throughput advice can be learned using very few packets and whether changes to the policy require sharing the entire policy or just the relevant part.\r\n\r\n2. Replace \"Guard against random advice injection\" with \"Guard against random advice injection by an on-path attacker\".\r\n\r\n3. We will have to elaborate \"Mobility (guard against changing 5-tuple)\". please elaborate the attack.\r\n   I presume you are referring to a scenario where an malicious app keeps changing the 5-tuple to evade rate-limit enforcement by the   \r\n   network.\r\n\r\n4. what is meant by \"proactive signaling\" ?\r\n\r\n5. Applicable to any transport protocol => I suggest to remove it, the charter is specific to QUIC, I don't think a solution will be selected solely on the basis that it is applicable for other transport.\r\n\r\n6. We may want to explain the meaning of \"cascaded environments\"\r\n\r\n7. Require flow inspection and tracking (network)\r\n\r\nComment> How does inspecting the QUIC flow impact security and how is tracking possible ?\r\n\r\n8. What do you mean \"Require steering policies on the host\" ?\r\n\r\n9. I would change \"Overhead of unauthenticated re-encryption\" to \"Overhead of double encryption\"\r\n   The status of https://datatracker.ietf.org/doc/draft-ietf-masque-quic-proxy/ is experimental, It also discusses \"identity\" mode which  \r\n   does not modify the packet in any way.\r\n\r\n10. we should also include protocol ossification, zero-trust security (authorized network element must provide the throughput advice), privacy (does not reveal any details about the app and server identity).",
+      "createdAt": "2024-11-22T09:28:37Z",
+      "updatedAt": "2024-11-22T13:00:22Z",
+      "closedAt": "2024-11-22T13:00:22Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> Atomic configuration: characterizes whether the throughput advice can be learned using very few packets and whether any change of the policy would require to full policy to be shared or only the relevant instance.\r\n> \r\n> Comment> I can't parse the last part of the line. I suggest the following text:\r\n> \r\n> Atomic configuration: Indicates whether the throughput advice can be learned using very few packets and whether changes to the policy require sharing the entire policy or just the relevant part.\r\n> \r\n\r\nACK.\r\n\r\n> 2. Replace \"Guard against random advice injection\" with \"Guard against random advice injection by an on-path attacker\".\r\n\r\nACK\r\n\r\n> 3. We will have to elaborate \"Mobility (guard against changing 5-tuple)\". please elaborate the attack.\r\n>    I presume you are referring to a scenario where an malicious app keeps changing the 5-tuple to evade rate-limit enforcement by the\r\n>    network.\r\n\r\nACK\r\n\r\n> 4. what is meant by \"proactive signaling\" ?\r\n\r\ndescribed under updatability bullet. The network can update the advice at any time, without requiring an action from the host\r\n\r\n> 5. Applicable to any transport protocol => I suggest to remove it, the charter is specific to QUIC, I don't think a solution will be selected solely on the basis that it is applicable for other transport.\r\n\r\nACK.\r\n\r\n> 6. We may want to explain the meaning of \"cascaded environments\"\r\n\r\nAdded new text \r\n\r\n> 7. Require flow inspection and tracking (network)\r\n> \r\n> Comment> How does inspecting the QUIC flow impact security and how is tracking possible ?\r\n> \r\n\r\nThat's up to the solutions to explain how. some of the solutions require detecting the initial packet, etc.\r\n\r\n> 8. What do you mean \"Require steering policies on the host\" ?\r\n\r\nFor MASQUE for example, a host need to decide which flows will need to be steered over the tunnel (sic).\r\n\r\n> 9. I would change \"Overhead of unauthenticated re-encryption\" to \"Overhead of double encryption\"\r\n>    The status of https://datatracker.ietf.org/doc/draft-ietf-masque-quic-proxy/ is experimental, It also discusses \"identity\" mode which\r\n>    does not modify the packet in any way.\r\n\r\nRemoved it as we do have multiple encryption item.\r\n\r\n> 10. we should also include protocol ossification, zero-trust security (authorized network element must provide the throughput advice), privacy (does not reveal any details about the app and server identity).\r\n\r\nGood points. Please check the PR\r\n",
+          "createdAt": "2024-11-22T09:57:48Z",
+          "updatedAt": "2024-11-22T09:57:48Z"
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "id": "I_kwDOLlGZlc6f7Qn5",
+      "title": "Another comment on the Analysis",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/78",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "Analysis"
+      ],
+      "body": "1. \r\nTo that aim, NRLP:\r\n\r\n    Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.\r\n\r\nComment> It will be considered as an disadvantage of NRLP. If PvD is used, the app just needs to learn the PVD ID from OS (which is not specific to NRLP) and the PvD additional information can be retrieved by the app itself (without any dependency on OS). I prefer a solution where OS is involved, but that does not mean NRLP cannot be deployed without any support from OS.",
+      "createdAt": "2024-11-22T12:56:44Z",
+      "updatedAt": "2024-11-22T13:25:24Z",
+      "closedAt": "2024-11-22T13:25:24Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "fair comment. fixed in #79 ",
+          "createdAt": "2024-11-22T13:25:24Z",
+          "updatedAt": "2024-11-22T13:25:24Z"
         }
       ]
     }
@@ -3556,6 +3668,120 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 77,
+      "id": "PR_kwDOLlGZlc6CyqGW",
+      "title": "Comments from Tiru",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/77",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Analysis"
+      ],
+      "body": "",
+      "createdAt": "2024-11-22T09:48:39Z",
+      "updatedAt": "2024-11-22T13:00:22Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "8cc1c39f1fe834a771e8f6857119afc026a95949",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Tiru's-comments",
+      "headRefOid": "ce8f7913976fb9aef2719126755fd5ac02db713f",
+      "closedAt": "2024-11-22T13:00:21Z",
+      "mergedAt": "2024-11-22T13:00:21Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "e6627e9c8d89eaf56a0d9fa2db4c56749c9311f4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6SSo4l",
+          "commit": {
+            "abbreviatedOid": "3f1f7ae"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T12:43:55Z",
+          "updatedAt": "2024-11-22T12:43:55Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "I don't know if tethering is a compelling use case. I would refer to an use case where rate-limiting is enforced on the CPE in the home network for the endpoints attached to it and in the ISP to rate-limit the traffic from the subscriber.",
+              "createdAt": "2024-11-22T12:43:55Z",
+              "updatedAt": "2024-11-22T12:43:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6SSpbh",
+          "commit": {
+            "abbreviatedOid": "aaae74c"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Most of the changes look good.",
+          "createdAt": "2024-11-22T12:45:06Z",
+          "updatedAt": "2024-11-22T12:45:06Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6SSxAO",
+          "commit": {
+            "abbreviatedOid": "3f1f7ae"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T13:00:12Z",
+          "updatedAt": "2024-11-22T13:00:12Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Removed the tethering case for now.",
+              "createdAt": "2024-11-22T13:00:12Z",
+              "updatedAt": "2024-11-22T13:00:12Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "id": "PR_kwDOLlGZlc6C0EgU",
+      "title": "PvD ID use",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/79",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "Analysis"
+      ],
+      "body": "",
+      "createdAt": "2024-11-22T13:10:41Z",
+      "updatedAt": "2024-11-22T13:25:36Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "e6627e9c8d89eaf56a0d9fa2db4c56749c9311f4",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "PvD-ID-use",
+      "headRefOid": "d999f1cf9ee7450338c13a72fdc849553f292acb",
+      "closedAt": "2024-11-22T13:25:34Z",
+      "mergedAt": "2024-11-22T13:25:34Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "6c08ed7d09203d5f8927da2e9ec3905909d6749c"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
