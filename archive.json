@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-24T01:20:41.421970+00:00",
+  "timestamp": "2024-11-26T01:16:38.803299+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -603,12 +603,11 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "Blob",
-        "revive_future_revision"
+        "Blob"
       ],
       "body": "My understanding is if EIR, EBS are conveyed in the metadata, PIR and PBS must not be signaled and vice-versa. we will have re-define the CDDL in the following way:\r\n\r\nrate-limit = (\r\n  group-a / group-b\r\n)\r\n\r\ngroup-a = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? eir: uint,        ; Mbps\r\n  ? ebs: uint .gt 0   ; bytes\r\n}\r\n\r\ngroup-b = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? pir: uint,        ; Mbps\r\n  ? pbs: uint .gt 0   ; bytes\r\n}\r\n\r\n",
       "createdAt": "2024-11-18T08:17:05Z",
-      "updatedAt": "2024-11-23T20:08:04Z",
+      "updatedAt": "2024-11-24T12:10:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -914,7 +913,7 @@
       ],
       "body": "Rate-limit are usually not on per-app basis (net-neutrality, etc.)\r\n\r\nFor example, RFC9330 says: \r\n\r\n> \r\n> \" However, there has never been a\r\n>    universal need to police the rate of individual application flows --\"\r\n\r\nPer-flow rate-limits induces also deployment concerns as to how resources can be partitioned, how the partition is bound to a specific volatile flow without? etc.",
       "createdAt": "2024-11-18T15:33:17Z",
-      "updatedAt": "2024-11-22T13:57:41Z",
+      "updatedAt": "2024-11-25T17:59:51Z",
       "closedAt": null,
       "comments": [
         {
@@ -930,6 +929,13 @@
           "body": "From Vasilenko Eduard <vasilenko.eduard@huawei.com>\r\n\r\n> \r\n> Hi Experts,\r\n> IMHO: you are missing the critical parameter in the SCONE specification: the number of sessions on the bottleneck scheduler (it looks like the scheduler is called \u201cflow policy\u201d in the draft).\r\n> \r\n> Per-flow performance is not possible for hardware routers and switches \u2013 it is too expensive, hardware routers are 3x cheaper, switches are 5x cheaper compared to flow-based devices (FW, IPS, DPI, LB, etc).\r\n> \r\n> Per-scheduler performance (possible for routers and switches) is useless without knowing how many flows are sharing it. It is a divider to understand what is possible to push for the particular flow on the host.\r\n> \r\n> Of course, it is a big challenge to how hardware routers or switches would calculate the number of sessions. But better to push the problem out of SCOPE territory.\r\n> It would be possible to say: \u201cSCOPE will be ready when the hardware router would be ready\u201d. (if ever)\r\n> \r\n> IMHO: it is better to include \u201cthe number of sessions\u201d in the SCOPE specification.\r\n> \r\n> PS: Software routers are typically multi-functional our days (IPS, DPI, and everything else on board), flow-based forwarding is possible.\r\n> Moreover, all 3GPP wireless IP forwarding is based on software only \u2013 no acceleration has been done for 3GPP.\r\n> Unfortunately, fixed broadband is based on BRAS/BNG which is actually a hardware router \u2013 it could not be flow-based.\r\n",
           "createdAt": "2024-11-22T13:57:40Z",
           "updatedAt": "2024-11-22T13:57:40Z"
+        },
+        {
+          "author": "sridharangirish91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If my understanding of it is correct, this would be a signal from routers about the congestion in their AQM. In that case, this could potentially be a signal that really doesn't need to identify the flow but just send to all the flows going through that device, be it a CPE or a shaper. Might be worth including since it doesn't need to id specificities of the flow. But what are we signaling here? Queuing latency so that it can be added to cc rtt? Can't the router just set the ECN bit instead of signaling something so dynamic?",
+          "createdAt": "2024-11-25T17:59:50Z",
+          "updatedAt": "2024-11-25T17:59:50Z"
         }
       ]
     },
