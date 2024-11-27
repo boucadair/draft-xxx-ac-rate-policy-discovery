@@ -143,7 +143,7 @@ are bound to the same network attachment is deployment specific.
 This document makes use fo the following term:
 
 Rate-limit:
-: Used as a generic term to refer to a policy to restrict the maximum bitrate of a flow.
+: Used as a generic term to refer to a policy to restrict the maximum bitrate over a network attachment.
 : It can be used with or without any traffic classification.
 : A rate-limit can involve limiting the rate and/or burst size.
 
@@ -236,14 +236,24 @@ category =  {
   ? tc: uint .default 0
 }
 
-; Indicates various rates (committed, excess, and peak).
+; Indicates the rate and burst limits.
 ; Only CIR/CBS are mandatory to include.
+; A rate-limit may also include an excess or peack limits.
 
-rate-limit =  {
+rate-limit = (
+  group-a / group-b
+)
+
+group-a = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? eir: uint,        ; Mbps
   ? ebs: uint .gt 0,  ; bytes
+}
+
+group-b = {
+  cir: uint,          ; Mbps
+  cbs: uint .gt 0,    ; bytes
   ? pir: uint,        ; Mbps
   ? pbs: uint .gt 0,  ; bytes
 }
@@ -258,15 +268,15 @@ Optional Parameter Flags (OPF):
 : These flags indicate the presence of some optional parameters. The following flags are defined:
 
     E:
-    : When set to "1", this flag indicates the presence of Excess Information Rate (EIR).
-    : When set to "0", this flag indicates that EIR is not present.
+    : When set to "1", this flag indicates the presence of excess information.
+    : When set to "0", this flag indicates that excess information is not present.
 
     P:
-    : When set to "1", this flag indicates the presence of Peak Information Rate (PIR).
-    : When set to "0", this flag indicates that PIR is not present.
+    : When set to "1", this flag indicates the presence of peak information.
+    : When set to "0", this flag indicates that peak information is not present.
 
     U:
-    : Unassigned bits. See {{sec-iana-opf}}.
+    : Unassigned values. See {{sec-iana-opf}}.
 
 Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined:
