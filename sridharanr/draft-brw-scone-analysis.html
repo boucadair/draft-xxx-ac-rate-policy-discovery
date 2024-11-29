@@ -11,7 +11,7 @@
 <meta content="Sridharan Rajagopalan" name="author">
 <meta content="Luis M. Contreras" name="author">
 <meta content="
-       This document provides an analysis of various SCONE solutions. 
+       This document provides an analysis of various SCONE solutions to share the throughput advice. 
     " name="description">
 <meta content="xml2rfc 3.24.0" name="generator">
 <meta content="collaborative networking" name="keyword">
@@ -283,6 +283,12 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
   font-weight: 680;
@@ -314,6 +320,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -391,25 +398,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -417,38 +425,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -512,6 +521,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -566,6 +576,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -580,6 +591,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -610,9 +631,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -652,26 +675,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -682,9 +707,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -692,53 +714,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-@media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
   }
 }
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
-}
-
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -746,21 +763,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -782,6 +811,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -792,7 +822,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -803,9 +857,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -818,17 +869,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -839,14 +890,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -854,11 +904,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -887,20 +937,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -943,9 +985,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -968,82 +1007,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1086,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Boucadair, et al.</td>
-<td class="center">Expires 22 May 2025</td>
+<td class="center">Expires 2 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1099,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-brw-scone-analysis-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-18" class="published">18 November 2024</time>
+<time datetime="2024-11-29" class="published">29 November 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Standards Track</dd>
+<dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-22">22 May 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-02">2 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1096,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">SCONE Solution Analysis</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document provides an analysis of various SCONE solutions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document provides an analysis of various SCONE solutions to share the throughput advice.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1162,7 +1125,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1302,7 +1265,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The document provides an analysis of proposed SCONE solutions. The currently analyzed solutions (listed in alphabetic order)
+<p id="section-1-1">The document provides an analysis of proposed SCONE solutions to share the throughput advice. The currently analyzed solutions (listed in alphabetic order)
 are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-1-2">
         <dt id="section-1-2.1">MASQUE:</dt>
@@ -1355,40 +1318,85 @@ are as follows:<a href="#section-1-1" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-2-1">The following categories are used to classify the various criteria:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2-2">
-        <dt id="section-2-2.1">Security (Sec):</dt>
+        <dt id="section-2-2.1">Security/Privacy (Sec):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.2">
           <p id="section-2-2.2.1">Indicates whether this impacts security/privacy. Some of the criteria that are classified as security-related may also have implications on the efficiency of sharing an advice (e.g., as that is likely to be ignored).<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.3">Deployability (Dep):</dt>
+<dt id="section-2-2.3"></dt>
         <dd style="margin-left: 1.5em" id="section-2-2.4">
-          <p id="section-2-2.4.1">Captures a criteria that is important for unlocking the deployment of a solution at both network and host sides.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.4.1">Some security/privacy criteria are as follows:<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.4.2.1">
+              <p id="section-2-2.4.2.1.1">Zero-trust security: Only authorized network elements must provide the throughput advice.<a href="#section-2-2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-2-2.4.2.2">
+              <p id="section-2-2.4.2.2.1">Privacy: Indicates whether a solution does not reveal any details about the app or server identity.<a href="#section-2-2.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-2-2.4.2.3">
+              <p id="section-2-2.4.2.3.1">Mobility:  Indicates whether a solution supports guards against a malicious app that keeps changing the 5-tuple to evade rate-limit enforcement by the network.<a href="#section-2-2.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.5"></dt>
+<dt id="section-2-2.5">Deployability (Dep):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.6">
-          <p id="section-2-2.6.1">A deployability hurdle would be typically the misalignment of incentives
-between those receiving the benefit vs. those bearing the cost of providing the benefit (<span><a href="https://datatracker.ietf.org/doc/html/draft-narten-radir-problem-statement-05#section-3.3" class="relref">Section 3.3</a> of [<a href="#I-D.narten-radir-problem-statement" class="cite xref">I-D.narten-radir-problem-statement</a>]</span>). For example, the sender of the advice should see (immediate) benefits.<a href="#section-2-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.6.1">Captures criteria that are important for unlocking the deployment of a solution at both network and host sides.<a href="#section-2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.7">Performance (Per):</dt>
+<dt id="section-2-2.7"></dt>
         <dd style="margin-left: 1.5em" id="section-2-2.8">
-          <p id="section-2-2.8.1">May impact the performance of the network device that enables the solution and/or the performance of the flow.<a href="#section-2-2.8.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.8.1">A deployability hurdle would be typically the misalignment of incentives
+between those receiving the benefit vs. those bearing the cost of providing the benefit (<span><a href="https://datatracker.ietf.org/doc/html/draft-narten-radir-problem-statement-05#section-3.3" class="relref">Section 3.3</a> of [<a href="#I-D.narten-radir-problem-statement" class="cite xref">I-D.narten-radir-problem-statement</a>]</span>). For example, the sender of the advice should see (immediate) benefits.<a href="#section-2-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.9">Service Interference (Int):</dt>
+<dt id="section-2-2.9"></dt>
         <dd style="margin-left: 1.5em" id="section-2-2.10">
-          <p id="section-2-2.10.1">Captures implications on other services (e.g., side effects).<a href="#section-2-2.10.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.10.1">Some other deployability criteria are as follows:<a href="#section-2-2.10.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.10.2.1">
+              <p id="section-2-2.10.2.1.1">Fate sharing: reflects whether the mechanism used to advertise the throughput advice shares the fate of the rest of the network configuration on the host.<a href="#section-2-2.10.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-2-2.10.2.2">
+              <p id="section-2-2.10.2.2.1">Atomic configuration: Indicates whether the throughput advice can be learned using very few packets and whether changes to the policy require sharing the entire policy or just the relevant part.<a href="#section-2-2.10.2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.11"></dt>
+<dt id="section-2-2.11">Performance (Per):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.12">
-          <p id="section-2-2.12.1">For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in <span>[<a href="#RFC6269" class="cite xref">RFC6269</a>]</span>. Also, relying upon an explicit proxy would penalize the proxy which could serve both good and 'bad' clients (e.g., launching Layer 7 DDoS attacks).<a href="#section-2-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.12.1">May impact the performance of the network device that enables the solution and/or the performance of the flow.<a href="#section-2-2.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-2.13">Functional (Fun):</dt>
+<dt id="section-2-2.13">Service Interference (Int):</dt>
         <dd style="margin-left: 1.5em" id="section-2-2.14">
-          <p id="section-2-2.14.1">Characterizes the functional capabilities offered by activating a solution.<a href="#section-2-2.14.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.14.1">Captures implications on other services (e.g., side effects).<a href="#section-2-2.14.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-2-2.15"></dt>
+        <dd style="margin-left: 1.5em" id="section-2-2.16">
+          <p id="section-2-2.16.1">For example, tweaking MTU may have an implication on all the flows that share the same network attachment, not only those that consumes an advice. Likewise, requiring address sharing has a plenty of issues that are discussed in <span>[<a href="#RFC6269" class="cite xref">RFC6269</a>]</span>. Also, relying upon an explicit proxy would penalize the proxy which could serve both good and 'bad' clients (e.g., launching Layer 7 DDoS attacks).<a href="#section-2-2.16.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-2-2.17">Functional (Fun):</dt>
+        <dd style="margin-left: 1.5em" id="section-2-2.18">
+          <p id="section-2-2.18.1">Characterizes the functional capabilities offered by activating a solution.<a href="#section-2-2.18.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-2-2.19"></dt>
+        <dd style="margin-left: 1.5em" id="section-2-2.20">
+          <p id="section-2-2.20.1">Some examples of functional criteria are as follows:<a href="#section-2-2.20.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-2.20.2.1">
+              <p id="section-2-2.20.2.1.1">Updatability: indicates whether a solution allows to update hosts with policy changes at any time.<a href="#section-2-2.20.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-2-2.20.2.2">
+              <p id="section-2-2.20.2.2.1">Path coupled signaling/Path decoupled signaling: Indicates whether solution allows for the entity to share the advice be on-path or off-path. This criterion is also meant to assess the deployment flexibility offered by a solution.<a href="#section-2-2.20.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-2-2.20.2.3">
+              <p id="section-2-2.20.2.3.1">Support cascaded environments: Rate-limits may be enabled at several levels. For example, rate-limits may be enforced on the CPE in the home network for the endpoints attached to it and in the provider network to rate-limit the traffic from the subscriber. This criterion indicates whether such setups are supported.<a href="#section-2-2.20.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1411,7 +1419,31 @@ between those receiving the benefit vs. those bearing the cost of providing the 
         </thead>
         <tbody>
           <tr>
-            <td class="text-right" rowspan="1" colspan="1">Guard against random advice injection</td>
+            <td class="text-right" rowspan="1" colspan="1">Protocol ossification</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
+          </tr>
+          <tr>
+            <td class="text-right" rowspan="1" colspan="1">Zero-trust security</td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-right" rowspan="1" colspan="1">Privacy</td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-right" rowspan="1" colspan="1">Guard against random advice injection by an on-path attacker</td>
             <td class="text-center" rowspan="1" colspan="1">X</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
@@ -1451,7 +1483,7 @@ between those receiving the benefit vs. those bearing the cost of providing the 
             <td class="text-center" rowspan="1" colspan="1"> </td>
           </tr>
           <tr>
-            <td class="text-right" rowspan="1" colspan="1">Updatability/Proactive signalling</td>
+            <td class="text-right" rowspan="1" colspan="1">Updatability</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
@@ -1465,14 +1497,6 @@ between those receiving the benefit vs. those bearing the cost of providing the 
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
-          </tr>
-          <tr>
-            <td class="text-right" rowspan="1" colspan="1">Applicable to any transport protocol</td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1">X</td>
           </tr>
           <tr>
             <td class="text-right" rowspan="1" colspan="1">Applicable to QUIC</td>
@@ -1517,7 +1541,7 @@ between those receiving the benefit vs. those bearing the cost of providing the 
           <tr>
             <td class="text-right" rowspan="1" colspan="1">Path coupled signaling</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1">X</td>
@@ -1525,7 +1549,7 @@ between those receiving the benefit vs. those bearing the cost of providing the 
           <tr>
             <td class="text-right" rowspan="1" colspan="1">Path decoupled signaling</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1">X</td>
@@ -1582,6 +1606,14 @@ between those receiving the benefit vs. those bearing the cost of providing the 
             <td class="text-right" rowspan="1" colspan="1">Require transport payload inspection (host)</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1">X</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
+          </tr>
+          <tr>
+            <td class="text-right" rowspan="1" colspan="1">Require flow inspection and tracking (network)</td>
+            <td class="text-center" rowspan="1" colspan="1">X</td>
+            <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
@@ -1651,14 +1683,6 @@ between those receiving the benefit vs. those bearing the cost of providing the 
             <td class="text-center" rowspan="1" colspan="1"> </td>
           </tr>
           <tr>
-            <td class="text-right" rowspan="1" colspan="1">Overhead of unauthenticated re-encryption</td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1">X</td>
-            <td class="text-center" rowspan="1" colspan="1">X</td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-            <td class="text-center" rowspan="1" colspan="1"> </td>
-          </tr>
-          <tr>
             <td class="text-right" rowspan="1" colspan="1">Forwarding peformance impact</td>
             <td class="text-center" rowspan="1" colspan="1"> </td>
             <td class="text-center" rowspan="1" colspan="1">X</td>
@@ -1714,246 +1738,266 @@ between those receiving the benefit vs. those bearing the cost of providing the 
           </thead>
           <tbody>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">Guard against random advice injection</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-right" rowspan="1" colspan="1">Protocol ossification</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">Zero-trust security</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">Privacy</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">Y</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">Guard against random advice injection by an on-path attacker</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">Y</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Mobility (guard against changing 5-tuple)</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require guards against app abuse</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Fate sharing</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Atomic configuration</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">Updatability/Proactive signalling</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-right" rowspan="1" colspan="1">Updatability</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Integration with network management tools</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">Applicable to any transport protocol</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Applicable to QUIC</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Applicable to any application</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require an OS API</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">Y/N(p)</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Requires PvD</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y(*)</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">Y(p)/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Support cascaded environments</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Path coupled signaling</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Path decoupled signaling</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Traffic direction (h2n, n2h, both)</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Per-host policies</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Per-subscriber policies</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Extendable</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">Y</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require data plane upgrade/change</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require transport payload inspection (network)</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require transport payload inspection (host)</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">Require flow inspection and tracking (network)</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require steering policies on the host</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Depend on the server to consume the signal</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Impact the connection setup delay</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require the identity of the target server</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Require MTU tweaking</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Incur multi-layer encryption</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Incur nested congestion control</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Incur multiple round-trips</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">Overhead of unauthenticated re-encryption</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Forwarding peformance impact</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">IP address sharing issues</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">Penalizing the proxy</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
               <td class="text-center" rowspan="1" colspan="1">N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
-              <td class="text-center" rowspan="1" colspan="1">Y/N</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
+              <td class="text-center" rowspan="1" colspan="1">TBC</td>
             </tr>
           </tbody>
         </table>
 </div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-3.1-2.1">
+            <p id="section-3.1-2.1.1">Notes:
+(p) indicates the assessment when PvD is used as NRLP mechanism.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="sec-masque">
@@ -2014,7 +2058,10 @@ The same generic blob is used independent of the signaling mechanism. NRLP opera
 <p id="section-3.3.2-1">Only network elements that are entitled to send DHCP/RA/PvD configuration are allowed to share the throughput advices. As such, NRLP has built-in:<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3.2-2.1">
-              <p id="section-3.3.2-2.1.1">Guard against random advice injection<a href="#section-3.3.2-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-2.1.1">zero-trust model<a href="#section-3.3.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-2.2">
+              <p id="section-3.3.2-2.2.1">Guard against random advice injection<a href="#section-3.3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-3.3.2-3">Taking into account that NRLP advices are bound to a traffic category, NLRP relies upon the OS to enforce the received policies
@@ -2052,11 +2099,13 @@ among different processes, with NRLP signals, ensuring that no single process mo
               <p id="section-3.3.2-8.3.1">Applicable to any application<a href="#section-3.3.2-8.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.3.2-9">To that aim aim, NRLP:<a href="#section-3.3.2-9" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-9">To that aim:<a href="#section-3.3.2-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3.2-10.1">
-              <p id="section-3.3.2-10.1.1">Requires an OS API to expose the signal to applications, and ensure application fairness: An OS can provide more
-accurate available bandwidth to applications through the API, making implementation easier for applications that don't require dedicated bandwidth measurement.<a href="#section-3.3.2-10.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-10.1.1">RA/DHCP NRLP requires an OS API to expose the signal to applications, and ensure application fairness.<a href="#section-3.3.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-10.2">
+              <p id="section-3.3.2-10.2.1">If PvD is used, an app only needs to learn the PvD ID from the OS (which is not specific to NRLP) and the PvD additional information can be retrieved by the app itself (without any dependency on the OS).<a href="#section-3.3.2-10.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-3.3.2-11">NRLP leverages existing mechanisms for the provisioning of network attachments, including supply of the various policies (<span>[<a href="#I-D.ietf-opsawg-ntw-attachment-circuit" class="cite xref">I-D.ietf-opsawg-ntw-attachment-circuit</a>]</span>). Also, NRLP leverages AAA mechanisms (e.g., <span>[<a href="#RFC9445" class="cite xref">RFC9445</a>]</span>). Therefore, NRLP eases:<a href="#section-3.3.2-11" class="pilcrow">¶</a></p>
@@ -2074,7 +2123,7 @@ accurate available bandwidth to applications through the API, making implementat
 <p id="section-3.3.2-15">NRLP does not restrict the deployment options as providers can deploy distributed or centralized DHCP servers, use relays, enable NRLP RA in access routers, etc. Similar to other network configuration purposes, NRLP has the following capabilities:<a href="#section-3.3.2-15" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3.2-16.1">
-              <p id="section-3.3.2-16.1.1">Support cascaded environments. The throuput advice can even be correlated with local conditions or policies as shown, e.g., in <a href="#ac-casc" class="auto internal xref">Figure 1</a>.<a href="#section-3.3.2-16.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-16.1.1">Support cascaded environments. The throughput advice can even be correlated with local conditions or policies as shown, e.g., in <a href="#ac-casc" class="auto internal xref">Figure 1</a>.<a href="#section-3.3.2-16.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.3.2-16.2">
               <p id="section-3.3.2-16.2.1">Path coupled signaling<a href="#section-3.3.2-16.2.1" class="pilcrow">¶</a></p>
@@ -2149,13 +2198,19 @@ accurate available bandwidth to applications through the API, making implementat
 <p id="section-3.3.2-20">Given that NRLP leverages existing control plane mechanisms, NRLP does not:<a href="#section-3.3.2-20" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3.2-21.1">
-              <p id="section-3.3.2-21.1.1">Require data plane upgrade/change<a href="#section-3.3.2-21.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-21.1.1">Suffer from protocol ossification issues<a href="#section-3.3.2-21.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.3.2-21.2">
-              <p id="section-3.3.2-21.2.1">Require transport payload inspection (network)<a href="#section-3.3.2-21.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-21.2.1">Require data plane upgrade/change<a href="#section-3.3.2-21.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.3.2-21.3">
-              <p id="section-3.3.2-21.3.1">Require transport payload inspection (host)<a href="#section-3.3.2-21.3.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-21.3.1">Require transport payload inspection (network)<a href="#section-3.3.2-21.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-21.4">
+              <p id="section-3.3.2-21.4.1">Require transport payload inspection (host)<a href="#section-3.3.2-21.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-21.5">
+              <p id="section-3.3.2-21.5.1">Require flow inspection and tracking (network)<a href="#section-3.3.2-21.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-3.3.2-22">Also, given that NRLP signals are exchanged before connection establishment, NRLP does not:<a href="#section-3.3.2-22" class="pilcrow">¶</a></p>
@@ -2197,7 +2252,7 @@ accurate available bandwidth to applications through the API, making implementat
               <p id="section-3.3.2-25.9.1">IP address sharing issues: NRLP does not require changing the source IP address used by a host.<a href="#section-3.3.2-25.9.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.3.2-25.10">
-              <p id="section-3.3.2-25.10.1">Penalize any network node (a proxy, typically) which could serve bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).<a href="#section-3.3.2-25.10.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.2-25.10.1">Penalize any network node (a proxy, typically) which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).<a href="#section-3.3.2-25.10.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2239,7 +2294,7 @@ accurate available bandwidth to applications through the API, making implementat
               <p id="section-3.3.4-1.3.1">A minor change to the network is required for NRLP RA: upgrade configuration of PE nodes with new Neighbor Discovery option. Note that all IPv6 hosts and networks are already required to support Neighbor Discovery <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span>.<a href="#section-3.3.4-1.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.3.4-1.4">
-              <p id="section-3.3.4-1.4.1">An API needs to be exposed on the host to share the advice with applications (e.g., scutil on MacOS).<a href="#section-3.3.4-1.4.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.4-1.4.1">An API needs to be exposed on the host to share the advice with applications (e.g., scutil on MacOS). No additional API is needed if PvD is used.<a href="#section-3.3.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>

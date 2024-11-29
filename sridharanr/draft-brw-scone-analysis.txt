@@ -4,15 +4,15 @@
 
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
-Intended status: Standards Track                                 D. Wing
-Expires: 22 May 2025                                Cloud Software Group
+Intended status: Informational                                   D. Wing
+Expires: 2 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        18 November 2024
+                                                        29 November 2024
 
 
                         SCONE Solution Analysis
@@ -20,7 +20,8 @@ Expires: 22 May 2025                                Cloud Software Group
 
 Abstract
 
-   This document provides an analysis of various SCONE solutions.
+   This document provides an analysis of various SCONE solutions to
+   share the throughput advice.
 
 Discussion Venues
 
@@ -44,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2025.
+   This Internet-Draft will expire on 2 June 2025.
 
 Copyright Notice
 
@@ -95,9 +96,9 @@ Table of Contents
 
 1.  Introduction
 
-   The document provides an analysis of proposed SCONE solutions.  The
-   currently analyzed solutions (listed in alphabetic order) are as
-   follows:
+   The document provides an analysis of proposed SCONE solutions to
+   share the throughput advice.  The currently analyzed solutions
+   (listed in alphabetic order) are as follows:
 
    MASQUE:  "MASQUE extension for signaling throughput advice"
       [I-D.ihlar-scone-masque-mediabitrate]
@@ -123,12 +124,24 @@ Table of Contents
 
    The following categories are used to classify the various criteria:
 
-   Security (Sec):  Indicates whether this impacts security/privacy.
-      Some of the criteria that are classified as security-related may
-      also have implications on the efficiency of sharing an advice
-      (e.g., as that is likely to be ignored).
+   Security/Privacy (Sec):  Indicates whether this impacts security/
+      privacy.  Some of the criteria that are classified as security-
+      related may also have implications on the efficiency of sharing an
+      advice (e.g., as that is likely to be ignored).
 
-   Deployability (Dep):  Captures a criteria that is important for
+      Some security/privacy criteria are as follows:
+
+      *  Zero-trust security: Only authorized network elements must
+         provide the throughput advice.
+
+      *  Privacy: Indicates whether a solution does not reveal any
+         details about the app or server identity.
+
+      *  Mobility: Indicates whether a solution supports guards against
+         a malicious app that keeps changing the 5-tuple to evade rate-
+         limit enforcement by the network.
+
+   Deployability (Dep):  Captures criteria that are important for
       unlocking the deployment of a solution at both network and host
       sides.
 
@@ -137,6 +150,17 @@ Table of Contents
       the cost of providing the benefit (Section 3.3 of
       [I-D.narten-radir-problem-statement]).  For example, the sender of
       the advice should see (immediate) benefits.
+
+      Some other deployability criteria are as follows:
+
+      *  Fate sharing: reflects whether the mechanism used to advertise
+         the throughput advice shares the fate of the rest of the
+         network configuration on the host.
+
+      *  Atomic configuration: Indicates whether the throughput advice
+         can be learned using very few packets and whether changes to
+         the policy require sharing the entire policy or just the
+         relevant part.
 
    Performance (Per):  May impact the performance of the network device
       that enables the solution and/or the performance of the flow.
@@ -155,199 +179,231 @@ Table of Contents
    Functional (Fun):  Characterizes the functional capabilities offered
       by activating a solution.
 
+      Some examples of functional criteria are as follows:
+
+      *  Updatability: indicates whether a solution allows to update
+         hosts with policy changes at any time.
+
+      *  Path coupled signaling/Path decoupled signaling: Indicates
+         whether solution allows for the entity to share the advice be
+         on-path or off-path.  This criterion is also meant to assess
+         the deployment flexibility offered by a solution.
+
+      *  Support cascaded environments: Rate-limits may be enabled at
+         several levels.  For example, rate-limits may be enforced on
+         the CPE in the home network for the endpoints attached to it
+         and in the provider network to rate-limit the traffic from the
+         subscriber.  This criterion indicates whether such setups are
+         supported.
+
    A criterion may belong to one or more categories.
 
-       +=============================+=====+=====+=====+=====+=====+
-       |                    Criteria | Sec | Dep | Per | Int | Fun |
-       +=============================+=====+=====+=====+=====+=====+
-       | Guard against random advice |  X  |     |     |     |     |
-       |                   injection |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |     Mobility (guard against |  X  |     |     |     |  X  |
-       |           changing 5-tuple) |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |  Require guards against app |  X  |     |     |     |  X  |
-       |                       abuse |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |                Fate sharing |     |  X  |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |        Atomic configuration |     |  X  |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |      Updatability/Proactive |     |     |     |     |  X  |
-       |                  signalling |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |    Integration with network |     |  X  |     |     |     |
-       |            management tools |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       | Applicable to any transport |     |     |     |     |  X  |
-       |                    protocol |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |          Applicable to QUIC |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |           Applicable to any |     |     |     |     |  X  |
-       |                 application |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |           Require an OS API |     |  X  |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |                Requires PvD |     |  X  |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |            Support cascaded |     |     |     |     |  X  |
-       |                environments |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |      Path coupled signaling |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |    Path decoupled signaling |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |     Traffic direction (h2n, |     |     |     |     |  X  |
-       |                  n2h, both) |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |           Per-host policies |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |     Per-subscriber policies |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |                  Extendable |     |     |     |     |  X  |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       | Require data plane upgrade/ |     |  X  |     |     |     |
-       |                      change |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |   Require transport payload |     |  X  |     |     |     |
-       |        inspection (network) |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |   Require transport payload |     |  X  |     |     |     |
-       |           inspection (host) |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |   Require steering policies |     |  X  |     |     |     |
-       |                 on the host |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |     Depend on the server to |     |  X  |     |     |     |
-       |          consume the signal |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       | Impact the connection setup |     |     |     |     |  X  |
-       |                       delay |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       | Require the identity of the |  X  |     |     |     |  X  |
-       |               target server |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |        Require MTU tweaking |     |  X  |     |  X  |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |           Incur multi-layer |     |  X  |  X  |     |     |
-       |                  encryption |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |     Incur nested congestion |     |  X  |  X  |     |     |
-       |                     control |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |  Incur multiple round-trips |     |  X  |  X  |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       | Overhead of unauthenticated |     |  X  |  X  |     |     |
-       |               re-encryption |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |       Forwarding peformance |     |  X  |  X  |  X  |     |
-       |                      impact |     |     |     |     |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |   IP address sharing issues |     |  X  |     |  X  |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
-       |        Penalizing the proxy |     |  X  |     |  X  |     |
-       +-----------------------------+-----+-----+-----+-----+-----+
+    +==================================+=====+=====+=====+=====+=====+
+    |                         Criteria | Sec | Dep | Per | Int | Fun |
+    +==================================+=====+=====+=====+=====+=====+
+    |            Protocol ossification |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |              Zero-trust security |  X  |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                          Privacy |  X  |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |      Guard against random advice |  X  |     |     |     |     |
+    | injection by an on-path attacker |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    | Mobility (guard against changing |  X  |     |     |     |  X  |
+    |                         5-tuple) |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    | Require guards against app abuse |  X  |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                     Fate sharing |     |  X  |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |             Atomic configuration |     |  X  |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                     Updatability |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |         Integration with network |     |  X  |     |     |     |
+    |                 management tools |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |               Applicable to QUIC |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |    Applicable to any application |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                Require an OS API |     |  X  |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                     Requires PvD |     |  X  |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |    Support cascaded environments |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |           Path coupled signaling |     |  X  |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |         Path decoupled signaling |     |  X  |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |     Traffic direction (h2n, n2h, |     |     |     |     |  X  |
+    |                            both) |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                Per-host policies |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |          Per-subscriber policies |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |                       Extendable |     |     |     |     |  X  |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |      Require data plane upgrade/ |     |  X  |     |     |     |
+    |                           change |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |        Require transport payload |     |  X  |     |     |     |
+    |             inspection (network) |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |        Require transport payload |     |  X  |     |     |     |
+    |                inspection (host) |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |      Require flow inspection and |  X  |     |     |     |     |
+    |               tracking (network) |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    | Require steering policies on the |     |  X  |     |     |     |
+    |                             host |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |  Depend on the server to consume |     |  X  |     |     |     |
+    |                       the signal |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |      Impact the connection setup |     |     |     |     |  X  |
+    |                            delay |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |      Require the identity of the |  X  |     |     |     |  X  |
+    |                    target server |     |     |     |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |             Require MTU tweaking |     |  X  |     |  X  |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |     Incur multi-layer encryption |     |  X  |  X  |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |  Incur nested congestion control |     |  X  |  X  |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |       Incur multiple round-trips |     |  X  |  X  |     |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |     Forwarding peformance impact |     |  X  |  X  |  X  |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |        IP address sharing issues |     |  X  |     |  X  |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
+    |             Penalizing the proxy |     |  X  |     |  X  |     |
+    +----------------------------------+-----+-----+-----+-----+-----+
 
-                      Table 1: Criteria Classification
+                     Table 1: Criteria Classification
 
 3.  Detailed Analysis
 
 3.1.  Summary
 
-      +=============================+========+======+=======+=======+
-      |                    Criteria | MASQUE | NRLP | SCONE | TRAIN |
-      +=============================+========+======+=======+=======+
-      | Guard against random advice |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                   injection |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |     Mobility (guard against |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |           changing 5-tuple) |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |  Require guards against app |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                       abuse |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |                Fate sharing |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |        Atomic configuration |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |      Updatability/Proactive |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                  signalling |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |    Integration with network |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |            management tools |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      | Applicable to any transport |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                    protocol |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |          Applicable to QUIC |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |           Applicable to any |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                 application |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |           Require an OS API |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |                Requires PvD |  Y/N   | Y(*) |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |            Support cascaded |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                environments |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |      Path coupled signaling |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |    Path decoupled signaling |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |     Traffic direction (h2n, |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      |                  n2h, both) |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |           Per-host policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |     Per-subscriber policies |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |                  Extendable |  Y/N   |  Y   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      | Require data plane upgrade/ |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                      change |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |   Require transport payload |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |        inspection (network) |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |   Require transport payload |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |           inspection (host) |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |   Require steering policies |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                 on the host |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |     Depend on the server to |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |          consume the signal |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      | Impact the connection setup |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                       delay |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      | Require the identity of the |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |               target server |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |        Require MTU tweaking |  Y/N   |  N   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |           Incur multi-layer |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                  encryption |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |     Incur nested congestion |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                     control |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |  Incur multiple round-trips |  Y/N   |  N   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      | Overhead of unauthenticated |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |               re-encryption |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |       Forwarding peformance |  Y/N   |  N   |  Y/N  |  Y/N  |
-      |                      impact |        |      |       |       |
-      +-----------------------------+--------+------+-------+-------+
-      |   IP address sharing issues |  Y/N   |  N   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
-      |        Penalizing the proxy |  Y/N   |  N   |  Y/N  |  Y/N  |
-      +-----------------------------+--------+------+-------+-------+
+        +======================+========+========+=======+=======+
+        |             Criteria | MASQUE |  NRLP  | SCONE | TRAIN |
+        +======================+========+========+=======+=======+
+        |             Protocol |  TBC   |   N    |  TBC  |  TBC  |
+        |         ossification |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |  Zero-trust security |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |              Privacy |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        | Guard against random |  TBC   |   Y    |  TBC  |  TBC  |
+        |  advice injection by |        |        |       |       |
+        |  an on-path attacker |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |      Mobility (guard |  TBC   |   Y    |  TBC  |  TBC  |
+        |     against changing |        |        |       |       |
+        |             5-tuple) |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |       Require guards |  TBC   |   Y    |  TBC  |  TBC  |
+        |    against app abuse |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |         Fate sharing |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        | Atomic configuration |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |         Updatability |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |     Integration with |  TBC   |   Y    |  TBC  |  TBC  |
+        |   network management |        |        |       |       |
+        |                tools |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |   Applicable to QUIC |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |    Applicable to any |  TBC   |   Y    |  TBC  |  TBC  |
+        |          application |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |    Require an OS API |  TBC   | Y/N(p) |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |         Requires PvD |  TBC   | Y(p)/N |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |     Support cascaded |  TBC   |   Y    |  TBC  |  TBC  |
+        |         environments |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |         Path coupled |  TBC   |   Y    |  TBC  |  TBC  |
+        |            signaling |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |       Path decoupled |  TBC   |   Y    |  TBC  |  TBC  |
+        |            signaling |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |    Traffic direction |  TBC   |   Y    |  TBC  |  TBC  |
+        |     (h2n, n2h, both) |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |    Per-host policies |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |       Per-subscriber |  TBC   |   Y    |  TBC  |  TBC  |
+        |             policies |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |           Extendable |  TBC   |   Y    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |   Require data plane |  TBC   |   N    |  TBC  |  TBC  |
+        |       upgrade/change |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |    Require transport |  TBC   |   N    |  TBC  |  TBC  |
+        |   payload inspection |        |        |       |       |
+        |            (network) |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |    Require transport |  TBC   |   N    |  TBC  |  TBC  |
+        |   payload inspection |        |        |       |       |
+        |               (host) |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |         Require flow |  TBC   |   N    |  TBC  |  TBC  |
+        |       inspection and |        |        |       |       |
+        |   tracking (network) |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |     Require steering |  TBC   |   N    |  TBC  |  TBC  |
+        | policies on the host |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        | Depend on the server |  TBC   |   N    |  TBC  |  TBC  |
+        |       to consume the |        |        |       |       |
+        |               signal |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |           Impact the |  TBC   |   N    |  TBC  |  TBC  |
+        |     connection setup |        |        |       |       |
+        |                delay |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        | Require the identity |  TBC   |   N    |  TBC  |  TBC  |
+        | of the target server |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        | Require MTU tweaking |  TBC   |   N    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
+        |    Incur multi-layer |  TBC   |   N    |  TBC  |  TBC  |
+        |           encryption |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |         Incur nested |  TBC   |   N    |  TBC  |  TBC  |
+        |   congestion control |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |       Incur multiple |  TBC   |   N    |  TBC  |  TBC  |
+        |          round-trips |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |           Forwarding |  TBC   |   N    |  TBC  |  TBC  |
+        |    peformance impact |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        |   IP address sharing |  TBC   |   N    |  TBC  |  TBC  |
+        |               issues |        |        |       |       |
+        +----------------------+--------+--------+-------+-------+
+        | Penalizing the proxy |  TBC   |   N    |  TBC  |  TBC  |
+        +----------------------+--------+--------+-------+-------+
 
-                         Table 2: Analysis Summary
+                        Table 2: Analysis Summary
+
+      Notes: (p) indicates the assessment when PvD is used as NRLP
+      mechanism.
 
 3.2.  MASQUE (to be completed by the authors of MASQUE)
 
@@ -376,6 +432,8 @@ Table of Contents
    Only network elements that are entitled to send DHCP/RA/PvD
    configuration are allowed to share the throughput advices.  As such,
    NRLP has built-in:
+
+   *  zero-trust model
 
    *  Guard against random advice injection
 
@@ -416,13 +474,15 @@ Table of Contents
 
    *  Applicable to any application
 
-   To that aim aim, NRLP:
+   To that aim:
 
-   *  Requires an OS API to expose the signal to applications, and
-      ensure application fairness: An OS can provide more accurate
-      available bandwidth to applications through the API, making
-      implementation easier for applications that don't require
-      dedicated bandwidth measurement.
+   *  RA/DHCP NRLP requires an OS API to expose the signal to
+      applications, and ensure application fairness.
+
+   *  If PvD is used, an app only needs to learn the PvD ID from the OS
+      (which is not specific to NRLP) and the PvD additional information
+      can be retrieved by the app itself (without any dependency on the
+      OS).
 
    NRLP leverages existing mechanisms for the provisioning of network
    attachments, including supply of the various policies
@@ -440,7 +500,7 @@ Table of Contents
    in access routers, etc.  Similar to other network configuration
    purposes, NRLP has the following capabilities:
 
-   *  Support cascaded environments.  The throuput advice can even be
+   *  Support cascaded environments.  The throughput advice can even be
       correlated with local conditions or policies as shown, e.g., in
       Figure 1.
 
@@ -481,11 +541,15 @@ Table of Contents
    Given that NRLP leverages existing control plane mechanisms, NRLP
    does not:
 
+   *  Suffer from protocol ossification issues
+
    *  Require data plane upgrade/change
 
    *  Require transport payload inspection (network)
 
    *  Require transport payload inspection (host)
+
+   *  Require flow inspection and tracking (network)
 
    Also, given that NRLP signals are exchanged before connection
    establishment, NRLP does not:
@@ -523,7 +587,7 @@ Table of Contents
       source IP address used by a host.
 
    *  Penalize any network node (a proxy, typically) which could serve
-      bothgood and bad clients (e.g., launching Layer 7 DDoS attacks).
+      both good and bad clients (e.g., launching Layer 7 DDoS attacks).
 
 3.3.3.  Main Expected Gains
 
@@ -556,7 +620,8 @@ Table of Contents
       support Neighbor Discovery [RFC4861].
 
    *  An API needs to be exposed on the host to share the advice with
-      applications (e.g., scutil on MacOS).
+      applications (e.g., scutil on MacOS).  No additional API is needed
+      if PvD is used.
 
 3.4.  SCONE (to be completed by the authors of SCONE)
 

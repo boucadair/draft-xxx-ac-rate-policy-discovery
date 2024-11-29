@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 22 May 2025                                Cloud Software Group
+Expires: 2 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        18 November 2024
+                                                        29 November 2024
 
 
                    Throughput Advice Object for SCONE
@@ -21,17 +21,14 @@ Expires: 22 May 2025                                Cloud Software Group
 Abstract
 
    Traffic exchanged over a network may be subject to rate-limit
-   policies.  These policies may be intentional policies (e.g., enforced
-   as part of the activation of the network attachment and typically
-   agreed upon service subscription) or be reactive policies (e.g.,
-   enforced temporarily to manage an overload or during a DDoS attack
-   mitigation).
-
-   This document specifies a generic object that can be used by
-   mechanims for hosts to dynamically discover network rate-limit
+   policies for various operational reasons.  This document specifies a
+   generic object (called, Throughput Advice) that can be used by
+   mechanims for hosts to dynamically discover these network rate-limit
    policies.  This information is then passed to applications that might
-   adjust their behaviors accordingly.  The design of the object is
-   independent of the discovery channel (protocol, API, etc.).
+   adjust their behaviors accordingly.
+
+   The design of the throughput advice object is independent of the
+   discovery channel (protocol, API, etc.).
 
 Discussion Venues
 
@@ -55,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2025.
+   This Internet-Draft will expire on 2 June 2025.
 
 Copyright Notice
 
@@ -78,8 +75,9 @@ Table of Contents
    3.  Conventions and Definitions
    4.  Sample Deployment Cases
    5.  Throughput Advice Object
-     5.1.  Overall Object Structure
-     5.2.  Structure of a Throuput Advice Instance
+     5.1.  Throughput Parameters
+     5.2.  Overall Object Structure
+     5.3.  Throughput Advice Instance Attributes
    6.  Examples
    7.  Sample Uses of the Advice
    8.  Security Considerations
@@ -88,6 +86,7 @@ Table of Contents
      9.2.  Optional Parameter Flags Registry
      9.3.  Flow Flags Registry
      9.4.  Traffic Category Registry
+     9.5.  Rate Parameters Registry
    10. References
      10.1.  Normative References
      10.2.  Informative References
@@ -113,22 +112,17 @@ Table of Contents
    establish the bearer (e.g., WLAN or cellular) to graft customer
    terminating points to a network.
 
-      Network attachment is also known as "Attachment Circuit (AC)"
-      which is an established concept in the industry and also in the
-      IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
-
    Figure 1 shows an example of a network that connects CEs and hosts
    (UE, for example).  These CEs are servicing other (internal) hosts.
    The identification of these hosts is hidden from the network.  The
    policies enforced at the network for a network attachment are per-
    subscriber, not per-host.  Typically, if a CE is provided with a /56
-   IPv6 prefix, policies are enforced on that /56 not the individual
-   /64s that will be used by internal hosts.  A customer terminating
-   point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or
-   multiple network attachments (e.g., CE#2).
-
-      Figure 1 does not show the interconnection with other networks for
-      the sake of simplicity.
+   IPv6 prefix, policies are enforced in the network on that /56 not the
+   individual /64s that will be used by internal hosts.  A customer
+   terminating point may be serviced with one (e.g., UE#1, CE#1, and
+   CE#3) or multiple network attachments (e.g., CE#2).  For the sake of
+   simplicity, Figure 1 does not show the interconnection with other
+   networks or multi-homed CEs.
 
                                                               Hosts
                                                               O O O
@@ -150,60 +144,49 @@ Table of Contents
 
    Customer terminating points are provided with a set of information
    (e.g., IP address/prefix) to successfully be able to send and receive
-   traffic over a network attachment.  A comprehensive list of
+   traffic over a network attachment.  The required set of parameters to
+   provision a network attachment is a function of the connectivity
+   service offering.  For example, a very limited set of parameters is
+   required for mass-market service offering while a more elaborated set
+   is required for Enterprise services.  A comprehensive list of
    provisioning parameters that are available on the PE-side of a
    network attachment is specified in
    [I-D.ietf-opsawg-ntw-attachment-circuit].
 
-   The required set of parameters to provision a network attachment is a
-   function of the service offering.  For example, a very limited set of
-   parameters is required for mass-market service offering while a more
-   elaborated set is required for Enterprise services.
-
    As discussed, e.g., in Section 4.2 of [RFC7567], packet dropping by
    network devices occurs mainly to protect the network (e.g.,
    congestion-unresponsive flows) and also to ensure fairness over a
-   shared link.  Rate-limits are usually configured in (ingress) nodes.
-   These rate-limits can be shared with customers when subscribing to a
-   connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual
-   Private Network (L2VPN) Service Deliver" [RFC8466]).
+   shared link.  These policies may be intentional policies (e.g.,
+   enforced as part of the activation of the network attachment and
+   typically agreed upon service subscription) or be reactive policies
+   (e.g., enforced temporarily to manage an overload or during a DDoS
+   attack mitigation).  Rate-limits are usually configured in (ingress)
+   nodes.  These rate-limits can be shared with customers when
+   subscribing to a connectivity service (e.g., "A YANG Data Model for
+   Layer 2 Virtual Private Network (L2VPN) Service Delivery" [RFC8466]).
 
    Section 5 defines a set parameters that can be used by networks to
    share the rate-limit policies applied on a network attachment:
-   Throuput Advice.  The set of parameters are independent of the
+   Throughput Advice.  The set of parameters are independent of the
    address family.
 
    This document does not assume nor preclude any specific signaling
-   protocol to share the throuput advices.  These parameters are
+   protocol to share the throughput advices.  These parameters are
    independent of the channel that is used by hosts to discover such
    policies.
 
    Whether host-to-network, network-to-host, or both policies are
-   returned in a throuput advice is deployment specific.  All these
+   included in a throughput advice is deployment specific.  All these
    combinations are supported in this document.
 
-   Also, one more throuput advice instances may be returned for a given
-   traffic direction.  Each of these instances may cover a specific
-   traffic category.
+   Also, one or more throughput advice instances may be returned for a
+   given traffic direction.  Examples of such instances are discussed in
+   Section 6.
 
-   The document leverages existing technologies for configuring policies
-   in provider networks.  Appendix A provides a brief overview of how
-   inbound policies are enforced in ingress network nodes.  The reader
-   may refer to [RFC2697], [RFC2698], and [RFC4115] for examples of how
-   various combinations of Committed Information Rate (EIR), Committed
-   Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size
-   (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are
-   used for policing.  Typically:
+   Sample uses of the advice by applications are listed in Section 7.
 
-   *  A Single-Rate, Three-Color Marker [RFC2697] uses CIR, CBS, and
-      EBS.
-
-   *  A Dual-Rate, Three-Color Marker [RFC2698] uses CIR, CBS, PIR, and
-      PBS.  Note that when implemented with [RFC4115], it allows for a
-      better handling of in-profile traffic (refer to Section 1 of
-      [RFC4115] for more details).
-
-   Sample uses of the advice are listed in Section 7.
+   As one can infer from the name, a throughput advice is advisory in
+   nature.  The advice is provided solely as a hint.
 
    In order to ease mapping with specific signaling mechanims, allow for
    future extensions, and ensure consistent use of the advice, a new
@@ -222,6 +205,9 @@ Table of Contents
 
    *  How the throughput advice is computed/set.
 
+   *  The protocol machinery for validating, refreshing, detecting
+      stale, and flushing out received advices.
+
    *  How applications running over a host can learn the bitrates
       associated with a network attachment.  Typically, this can be
       achieved by invoking a dedicated API.  However, the exact details
@@ -239,7 +225,7 @@ Table of Contents
    This document makes use fo the following term:
 
    Rate-limit:  Used as a generic term to refer to a policy to restrict
-      the maximum bitrate of a flow.
+      the maximum bitrate over a network attachment.
 
       It can be used with or without any traffic classification.
 
@@ -247,57 +233,80 @@ Table of Contents
 
 4.  Sample Deployment Cases
 
-   Some deployment use cases for throuput advice discovery are provided
-   below:
+   Some deployment use cases for throughput advice discovery are
+   provided below:
 
    Adaptive Application Behavior:  Discovery of intentional policy
       applied on network attachements when such information is not made
       available during the service activation or when network upgrades
-      are performed.  Adaptive applications will thus used the
-      information to adjust their behavior.
+      are performed.  Adaptive applications will use the information to
+      adjust their behavior.
 
       Concretely, applications are supposed to have access to all
-      throuput advice instances and would, thus, adjust their behavior
-      as a function of scope and traffic category indicated in a
-      throughput policy (all traffic, streaming, etc.).  An application
-      that couples multiple flow types would adjust each flow type to be
-      consistent with the specific policy for the relevant traffic
-      category.
+      throughput advice instances and would, thus, adjust their behavior
+      as a function of the parameters indicated in a throughput policy.
 
       Likewise, a host with multiple network attachments may use the
-      discovered throuput advice instances over each network attachment
-      to decide how to distribute its flows over these network
-      attachments (prefer a network attachment to place an application
-      session, migrate connection, etc.).  That's said, this document
-      does not make any recommendation about how a receiving host uses
-      the discovered policy.
+      discovered throughput advice instances over each network
+      attachment to decide how to distribute its flows over these
+      network attachments (prefer a network attachment to place an
+      application session, migrate connection, etc.).  That's said, this
+      document does not make any recommendation about how a receiving
+      host uses the discovered policy.
 
-   Network Assisted Offload:  A network may advertize a throuput advice
-      when it is overloaded, including when it is under attack.  The
-      rate-limit policy is basically a reactive policy that is meant to
-      adjust the behavior of connected hosts to better control the load
-      during these exceptional events (issue with RAN resources, for
-      example).
+   Network Assisted Offload:  A network may advertize a throughput
+      advice when it is overloaded, including when it is under attack.
+      The rate-limit policy is basically a reactive policy that is meant
+      to adjust the behavior of connected hosts to better control the
+      load during these exceptional events (issue with RAN resources,
+      for example).
 
       The mechanism can also be used to enrich the tools that are
       already available to better handle attack traffic close to the
       source [RFC9066].
 
    Better Local Services:  A user may configure policies on the CE such
-      as securing some resources to a specific internal host used for
-      gaming or video streaming.  The CE can use the throuput advice to
-      share these rate-limit policies to connected hosts to adjust their
-      forwarding behavior.  Controling the load at the source will allow
-      to partition the resources between connected hosts.
+      as securing some resources to a specific internal host used, e.g.,
+      for gaming or video streaming.  The CE can use the throughput
+      advice to share these rate-limit policies to connected hosts to
+      adjust their forwarding behavior.  Controling the load at the
+      source will allow to partition the resources between connected
+      hosts.
 
 5.  Throughput Advice Object
 
-5.1.  Overall Object Structure
+5.1.  Throughput Parameters
 
-   A throuput advice object may include multiple throughput advices
+   The throughput advice parameters leverage existing technologies for
+   configuring policies in provider networks.  Appendix A provides a
+   brief overview of how inbound policies are enforced in ingress
+   network nodes.  The reader may refer to [RFC2697], [RFC2698], and
+   [RFC4115] for examples of how various combinations of Committed
+   Information Rate (CIR), Committed Burst Size (CBS), Excess
+   Information Rate (EIR), Excess Burst Size (EBS), Peak Information
+   Rate (PIR), and Peak Burst Size (PBS) are used for policing.
+   Typically:
+
+   *  A Single-Rate, Three-Color Marker [RFC2697] uses CIR, CBS, and
+      EBS.
+
+   *  A Dual-Rate, Three-Color Marker [RFC2698] uses CIR, CBS, PIR, and
+      PBS.  Note that when implemented with [RFC4115], it allows for a
+      better handling of in-profile traffic (refer to Section 1 of
+      [RFC4115] for more details).
+
+   An implementation example of these variants (and others) can be found
+   at [VPP].
+
+5.2.  Overall Object Structure
+
+   A throughput advice object may include multiple throughput advices
    (referred to as "throughput advice instances"), each covering a
-   specific match criteria.  Each of these adhere to the structure
-   defined in Section 5.2.
+   specific match criteria.  Each of these instances adheres to the
+   structure defined in Section 5.3.
+
+   Throughput advice objects are bound to the network interface over
+   which the advice was received.
 
    The throughput advice object is described in CDDL [RFC8610] format
    shown in Figure 2.  This format is meant to ease mapping with
@@ -317,12 +326,12 @@ Table of Contents
      throughput => rate-limit
    }
 
-   ; opf controls the presence of optional parameters such as
+   ; Controls the presence of optional parameters such as
    ; excess and peak rates.
    ; Settting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
-   ; These control bits may not be required for protocols
-   ; with built-in mechanisms to parse objects even with
+   ; These control bits may not be required for protocols with
+   ; built-in mechanisms to parse objects even with
    ; optional/variable fields.
 
    opf =  {
@@ -330,8 +339,7 @@ Table of Contents
      ? peak: bool .default false
    }
 
-   ; ff indicates scope (per host or per subscriber), traffic
-   ; direction, and reliability type (reliable or unreliable).
+   ; Indicates scope, traffic direction, and reliability type.
    ; Default value for scope is per subscriber policy.
    ; Default value for direction is network-to-host direction.
    ; Default value for reliability is false (i.e., the policy is
@@ -345,11 +353,11 @@ Table of Contents
      ? reliability: &reliability-values .default any
    }
 
-   scope-values = (subscriber: 0, host: 1)
+   scope-values = (subscriber: 0, host: 1, flow: 2)
    direction-values = (n2h: 0, h2n: 1, bidir: 2)
    reliability-values = (any: 0, reliable: 1, unreliable: 2)
 
-   ; category indicates traffic category to which the policy is bound.
+   ; Indicates traffic category to which the policy is bound.
    ; If the value is set to 0, this means that the policy is
    ; enforced for all traffic.
 
@@ -357,47 +365,59 @@ Table of Contents
      ? tc: uint .default 0
    }
 
-   ; rate-limit indicates various rates (committed, excess, and peak).
+   ; Indicates the rate and burst limits.
    ; Only CIR/CBS are mandatory to include.
+   ; A rate-limit may also include an excess or peack limits.
 
-   rate-limit =  {
+   rate-limit = (
+     group-a / group-b
+   )
+
+   group-a = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
      ? eir: uint,        ; Mbps
      ? ebs: uint .gt 0,  ; bytes
+   }
+
+   group-b = {
+     cir: uint,          ; Mbps
+     cbs: uint .gt 0,    ; bytes
      ? pir: uint,        ; Mbps
      ? pbs: uint .gt 0,  ; bytes
    }
 
              Figure 2: Throughput Advice Object Format in CDDL
 
-5.2.  Structure of a Throuput Advice Instance
+5.3.  Throughput Advice Instance Attributes
 
    This section defines the set of attributes that are included in a
-   throuput advice instance:
+   throughput advice instance:
 
    Optional Parameter Flags (OPF):  These flags indicate the presence of
-      some optional parameters.  The following flags are defined (from
-      MSB to LSB):
+      some optional parameters.  The following flags are defined:
 
-      E:  When set to "1", this flag indicates the presence of Excess
-         Information Rate (EIR).
+      E:  When set to "1", this flag indicates the presence of excess
+         information.
 
-         When set to "0", this flag indicates that EIR is not present.
+         When set to "0", this flag indicates that excess information is
+         not present.
 
-      P:  When set to "1", this flag indicates the presence of Peak
-         Information Rate (PIR).
+      P:  When set to "1", this flag indicates the presence of peak
+         information.
 
-         When set to "0", this flag indicates that PIR is not present.
+         When set to "0", this flag indicates that peak information is
+         not present.
 
-      U:  Unassigned bits.  See Section 9.2.
+      U:  Unassigned values.  See Section 9.2.
 
    Flow flags (FF):  These flags are used to express some generic
-      properties of the flow.  The following flags are defined (from MSB
-      to LSB):
+      properties of the flow.  The following flags are defined:
 
-      S (Scope):  Specifies whether the policy is per host (when set to
-         "1") or per subscriber (when set to "0).
+      S (Scope):  Indicates the granularity of enforcing policies.
+
+         This parameter specifies whether the policy is a per-host, per-
+         subscriber, or per-flow policy.
 
       D (Direction):  Indicates the direction on which to apply the
          enclosed policy.
@@ -435,20 +455,16 @@ Table of Contents
 
       *  "0": All traffic.  This is the default value.
 
-      *  "1": Streaming
+      *  1-63: Unassigned values.  See Section 9.4.
 
-      *  "2": Real-time
+   Committed Information Rate (CIR) (Mbps):  An average rate that
+      specifies the maximum number of bits that a network can send (or
+      receive) during one second over a network attachment.
 
-      *  "3": Bulk traffic
-
-      *  4-63: Unassigned values.  See Section 9.4.
-
-   Committed Information Rate (CIR) (Mbps):  Specifies the maximum
-      number of bits that a network can receive or send during one
-      second over a network attachment for a traffic category.
+      The CIR value MUST be greater than or equal to 0.
 
       If set to 0 (or a very low value), this indicates to the host that
-      an alternate path (if any) should be preferred over this one.
+      alternate paths (if any) should be preferred over this one.
 
       This parameter is mandatory.
 
@@ -459,16 +475,18 @@ Table of Contents
 
       This parameter is mandatory.
 
-   Excess Information Rate (EIR) (Mbps):  MUST be present only if the E
-      flag is set to '1'.
+   Excess Information Rate (EIR) (Mbps):  MUST be present if the E flag
+      is set to '1'.
 
-      Specifies the maximum number of bits that a network can receive or
-      send during one second over a network attachment for a traffic
-      category that is out of profile.
+      An avertage rate that specifies the maximum number of bits that a
+      network can send (or receive) during one second over a network
+      attachment for a traffic that is out of profile.
+
+      The EIR value MUST be greater than or equal to 0, if present.
 
       This parameter is optional.
 
-   Excess Burst Size (EBS) (bytes):  MUST be present only if EIR is also
+   Excess Burst Size (EBS) (bytes):  MUST be present if EIR is also
       present.
 
       Indicates the maximum excess burst size that is allowed while not
@@ -478,14 +496,18 @@ Table of Contents
 
       This parameter is optional.
 
-   Peak Information Rate (PIR) (Mbps):  MUST be present only if P flag
-      is set to '1'.
+   Peak Information Rate (PIR) (Mbps):  MUST be present if P flag is set
+      to '1'.
 
-      Traffic that exceeds the CIR and the CBS is metered to the PIR.
+      Indicates the allowed throughput when there is a peak in traffic.
+      That is, traffic that exceeds the CIR and the CBS is metered to
+      the PIR.
+
+      The PIR MUST be equal to or greater than the CIR, if present.
 
       This parameter is optional.
 
-   Peak Burst Size (PBS) (bytes):  MUST be present only if PIR is also
+   Peak Burst Size (PBS) (bytes):  MUST be present if PIR is also
       present.
 
       Specifies the maximum burst size that can be transmitted at PIR.
@@ -505,7 +527,7 @@ Table of Contents
        "throughput-advice": [
            {
                "direction": 0,
-               "scope": false,
+               "scope": 0,
                "tc": 0,
                "cir": 50,
                "cbs": 10000
@@ -536,15 +558,11 @@ Table of Contents
        "throughput-advice": [
            {
                "direction": 0,
-               "scope": false,
-               "tc": 0,
                "cir": 50,
                "cbs": 10000
            },
            {
                "direction": 1,
-               "scope": false,
-               "tc": 0,
                "cir": 30,
                "cbs": 8000
            }
@@ -588,10 +606,6 @@ Table of Contents
    *  Applications can ensure that their sending rate never exceeds the
       PIR and that their short-term bursts of traffic never exceeds PBS.
 
-   *  The throughput advice can feed mechanisms such as Section 4.4.2 of
-      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
-      size.
-
    *  Applications can send/receive data at different rates for reliable
       and unreliable traffic (reliable could map to Queue-Building (QB)
       and unreliable could map to Non-Queue-Building (NQB)) by mapping
@@ -599,22 +613,18 @@ Table of Contents
       reliability markings visible is by following, e.g., the
       considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
 
+   *  The throughput advice can feed mechanisms such as Section 4.4.2 of
+      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
+      size.
+
 8.  Security Considerations
 
-   The throughtput advice is bound to a subscriber, a host, and traffic
-   category, not individual flows.  This is consistent with, e.g.,
-   Section 8.1.1 of [RFC9330] which states that "there has never been a
-   universal need to police the rate of individual application flows".
-   The rate-limits are set for various reasons (e.g., guards against
-   resource abuse, fairness, etc.).
+   As discussed in Section 4, sharing a throughput advice helps networks
+   mitigate overloads, particularly during periods of high traffic
+   volume.
 
-   As discussed in Section 4, the throughout advice assist networks to
-   soften overloads during DDoS attacks, in paricular.  Of course, other
-   mechanisms are enabled by networks to protect against overload (e.g.,
-   DDoS mitigation [RFC8811]).
-
-   An attacker who has the ability to change the throuput advice objects
-   exchanged over a network attachment may:
+   An attacker who has the ability to change the throughput advice
+   objects exchanged over a network attachment may:
 
    Decrease the bitrate value:  This may lower the perceived QoS if the
       host aggressively lowers its transmission rate.
@@ -631,29 +641,31 @@ Table of Contents
 9.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
-   "Rate-Limit Policy Objects".
+   "SCONE Rate-Limit Policy Objects".
 
 9.2.  Optional Parameter Flags Registry
 
    This document requests IANA to create a new registry entitled
-   "Optional Parameter Flags" under the "Rate-Limit Policy Objects"
-   registry group (Section 9.1).
+   "Optional Parameter Flags" under the "SCONE Rate-Limit Policy
+   Objects" registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 1.
 
-              +==============+=============+===============+
-              | Bit Position | Description | Reference     |
-              +==============+=============+===============+
-              | 1            | E-flag      | This-Document |
-              +--------------+-------------+---------------+
-              | 2            | P-flag      | This-Document |
-              +--------------+-------------+---------------+
-              | 3            | Unassigned  |               |
-              +--------------+-------------+---------------+
-              | 4            | Unassigned  |               |
-              +--------------+-------------+---------------+
+      +==============+=======+======================+===============+
+      | Bit Position | Label | Description          | Reference     |
+      +==============+=======+======================+===============+
+      | 1            | E     | Indicates presence   | This-Document |
+      |              |       | of excess rate/burst |               |
+      +--------------+-------+----------------------+---------------+
+      | 2            | P     | Indicates presence   | This-Document |
+      |              |       | of peak rate/burst   |               |
+      +--------------+-------+----------------------+---------------+
+      | 3            |       | Unassigned           |               |
+      +--------------+-------+----------------------+---------------+
+      | 4            |       | Unassigned           |               |
+      +--------------+-------+----------------------+---------------+
 
-                    Table 1: Optional Parameter Flags
+                     Table 1: Optional Parameter Flags
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
@@ -661,24 +673,22 @@ Table of Contents
 9.3.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
-   flags" under the "Rate-Limit Policy Objects" registry group
+   flags" under the "SCONE Rate-Limit Policy Objects" registry group
    (Section 9.1).
 
    The initial values of this registry is provided in Table 2.
 
-         +==============+=======================+===============+
-         | Bit Position | Description           | Reference     |
-         +==============+=======================+===============+
-         | 1            | Scope (S) Flag        | This-Document |
-         +--------------+-----------------------+---------------+
-         | 2            | Direction (D) Flag    | This-Document |
-         +--------------+-----------------------+---------------+
-         | 3-4          | Reliability (R) Flags | This-Document |
-         +--------------+-----------------------+---------------+
-         | 5            | Unassigned            |               |
-         +--------------+-----------------------+---------------+
-         | 6            | Unassigned            |               |
-         +--------------+-----------------------+---------------+
+          +==============+=======+=============+===============+
+          | Bit Position | Label | Description | Reference     |
+          +==============+=======+=============+===============+
+          | 1            | S     | Scope       | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 2-3          | D     | Direction   | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 4-5          | R     | Reliability | This-Document |
+          +--------------+-------+-------------+---------------+
+          | 6-8          |       | Unassigned  |               |
+          +--------------+-------+-------------+---------------+
 
                            Table 2: Flow flags
 
@@ -688,26 +698,55 @@ Table of Contents
 9.4.  Traffic Category Registry
 
    This document requests IANA to create a new registry entitled
-   "Traffic Category Types" under the "Rate-Limit Policy Objects"
+   "Traffic Category Types" under the "SCONE Rate-Limit Policy Objects"
    registry group (Section 9.1).
 
    The initial values of this registry is provided in Table 3.
 
-                 +=======+==============+===============+
-                 | Value | Description  | Reference     |
-                 +=======+==============+===============+
-                 | 0     | All traffic  | This-Document |
-                 +-------+--------------+---------------+
-                 | 1     | Streaming    | This-Document |
-                 +-------+--------------+---------------+
-                 | 2     | Real-time    | This-Document |
-                 +-------+--------------+---------------+
-                 | 3     | Bulk traffic |               |
-                 +-------+--------------+---------------+
-                 | 4-63  | Unassigned   |               |
-                 +-------+--------------+---------------+
+                  +=======+=============+===============+
+                  | Value | Description | Reference     |
+                  +=======+=============+===============+
+                  | 0     | All traffic | This-Document |
+                  +-------+-------------+---------------+
+                  | 1-63  | Unassigned  |               |
+                  +-------+-------------+---------------+
 
-                     Table 3: Traffic Category Values
+                      Table 3: Traffic Category Values
+
+   The allocation policy of this new registry is "IETF Review"
+   (Section 4.8 of [RFC8126]).
+
+9.5.  Rate Parameters Registry
+
+   This document requests IANA to create a new registry entitled "Rate
+   Parameters" under the "SCONE Rate-Limit Policy Objects" registry
+   group (Section 9.1).
+
+   The initial values of this registry is provided in Table 4.
+
+     +===========+=======================+===========+===============+
+     | Parameter | Description           | Mandatory | Reference     |
+     |           |                       | (Y/N)     |               |
+     +===========+=======================+===========+===============+
+     | cir       | Committed Information | Y         | This-Document |
+     |           | Rate (CIR)            |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | cbs       | Committed Burst Size  | Y         | This-Document |
+     |           | (CBS)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | eir       | Excess Information    | N         | This-Document |
+     |           | Rate (EIR)            |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | ebs       | Excess Burst Size     | N         | This-Document |
+     |           | (EBS)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | pir       | Peak Information Rate | N         | This-Document |
+     |           | (PIR)                 |           |               |
+     +-----------+-----------------------+-----------+---------------+
+     | pbs       | Peak Burst Size (PBS) | N         | This-Document |
+     +-----------+-----------------------+-----------+---------------+
+
+               Table 4: Initial Rate Parameters Values Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
@@ -775,24 +814,10 @@ Table of Contents
               Marker", RFC 2698, DOI 10.17487/RFC2698, September 1999,
               <https://www.rfc-editor.org/rfc/rfc2698>.
 
-   [RFC4026]  Andersson, L. and T. Madsen, "Provider Provisioned Virtual
-              Private Network (VPN) Terminology", RFC 4026,
-              DOI 10.17487/RFC4026, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4026>.
-
    [RFC4115]  Aboul-Magd, O. and S. Rabie, "A Differentiated Service
               Two-Rate, Three-Color Marker with Efficient Handling of
               in-Profile Traffic", RFC 4115, DOI 10.17487/RFC4115, July
               2005, <https://www.rfc-editor.org/rfc/rfc4115>.
-
-   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
-              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
-              2006, <https://www.rfc-editor.org/rfc/rfc4364>.
-
-   [RFC4664]  Andersson, L., Ed. and E. Rosen, Ed., "Framework for Layer
-              2 Virtual Private Networks (L2VPNs)", RFC 4664,
-              DOI 10.17487/RFC4664, September 2006,
-              <https://www.rfc-editor.org/rfc/rfc4664>.
 
    [RFC7567]  Baker, F., Ed. and G. Fairhurst, Ed., "IETF
               Recommendations Regarding Active Queue Management",
@@ -809,11 +834,6 @@ Table of Contents
               Service Delivery", RFC 8466, DOI 10.17487/RFC8466, October
               2018, <https://www.rfc-editor.org/rfc/rfc8466>.
 
-   [RFC8811]  Mortensen, A., Ed., Reddy.K, T., Ed., Andreasen, F.,
-              Teague, N., and R. Compton, "DDoS Open Threat Signaling
-              (DOTS) Architecture", RFC 8811, DOI 10.17487/RFC8811,
-              August 2020, <https://www.rfc-editor.org/rfc/rfc8811>.
-
    [RFC9002]  Iyengar, J., Ed. and I. Swett, Ed., "QUIC Loss Detection
               and Congestion Control", RFC 9002, DOI 10.17487/RFC9002,
               May 2021, <https://www.rfc-editor.org/rfc/rfc9002>.
@@ -824,11 +844,8 @@ Table of Contents
               DOI 10.17487/RFC9066, December 2021,
               <https://www.rfc-editor.org/rfc/rfc9066>.
 
-   [RFC9330]  Briscoe, B., Ed., De Schepper, K., Bagnulo, M., and G.
-              White, "Low Latency, Low Loss, and Scalable Throughput
-              (L4S) Internet Service: Architecture", RFC 9330,
-              DOI 10.17487/RFC9330, January 2023,
-              <https://www.rfc-editor.org/rfc/rfc9330>.
+   [VPP]      Vector Packet Processor (VPP), "Policing", <https://s3-
+              docs.fd.io/vpp/23.06/developer/corefeatures/policer.html>.
 
 Appendix A.  Overview of Network Rate-Limit Policies
 
