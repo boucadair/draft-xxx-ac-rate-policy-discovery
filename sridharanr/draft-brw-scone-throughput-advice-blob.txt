@@ -23,7 +23,7 @@ Abstract
    Traffic exchanged over a network may be subject to rate-limit
    policies for various operational reasons.  This document specifies a
    generic object (called, Throughput Advice) that can be used by
-   mechanims for hosts to dynamically discover these network rate-limit
+   mechanisms for hosts to dynamically discover these network rate-limit
    policies.  This information is then passed to applications that might
    adjust their behaviors accordingly.
 
@@ -165,7 +165,7 @@ Table of Contents
    subscribing to a connectivity service (e.g., "A YANG Data Model for
    Layer 2 Virtual Private Network (L2VPN) Service Delivery" [RFC8466]).
 
-   Section 5 defines a set parameters that can be used by networks to
+   Section 5 defines a set of parameters that can be used by networks to
    share the rate-limit policies applied on a network attachment:
    Throughput Advice.  The set of parameters are independent of the
    address family.
@@ -176,7 +176,7 @@ Table of Contents
    policies.
 
    Whether host-to-network, network-to-host, or both policies are
-   included in a throughput advice is deployment specific.  All these
+   included in throughput advice is deployment specific.  All these
    combinations are supported in this document.
 
    Also, one or more throughput advice instances may be returned for a
@@ -188,15 +188,15 @@ Table of Contents
    As one can infer from the name, a throughput advice is advisory in
    nature.  The advice is provided solely as a hint.
 
-   In order to ease mapping with specific signaling mechanims, allow for
-   future extensions, and ensure consistent use of the advice, a new
+   In order to ease mapping with specific signaling mechanisms, allow
+   for future extensions, and ensure consistent use of the advice, a new
    IANA registry is created in Section 9.
 
 2.  What's Out?
 
    This document does not make any assumption about:
 
-   *  The type of the network (fixed, cellular, etc.) that terminates a
+   *  The type of network (fixed, cellular, etc.) that terminates a
       network attachment.
 
    *  The services or applications that are delivered over a network
@@ -211,7 +211,7 @@ Table of Contents
    *  How applications running over a host can learn the bitrates
       associated with a network attachment.  Typically, this can be
       achieved by invoking a dedicated API.  However, the exact details
-      of the API is OS-specific and, thus, out of scope of this
+      of the API(s) is OS-specific and, thus, out of scope of this
       document.
 
 3.  Conventions and Definitions
@@ -222,7 +222,7 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   This document makes use fo the following term:
+   This document makes use of the following term:
 
    Rate-limit:  Used as a generic term to refer to a policy to restrict
       the maximum bitrate over a network attachment.
@@ -237,7 +237,7 @@ Table of Contents
    provided below:
 
    Adaptive Application Behavior:  Discovery of intentional policy
-      applied on network attachements when such information is not made
+      applied on network attachments when such information is not made
       available during the service activation or when network upgrades
       are performed.  Adaptive applications will use the information to
       adjust their behavior.
@@ -269,7 +269,7 @@ Table of Contents
       as securing some resources to a specific internal host used, e.g.,
       for gaming or video streaming.  The CE can use the throughput
       advice to share these rate-limit policies to connected hosts to
-      adjust their forwarding behavior.  Controling the load at the
+      adjust their forwarding behavior.  Controlling the load at the
       source will allow to partition the resources between connected
       hosts.
 
@@ -328,7 +328,7 @@ Table of Contents
 
    ; Controls the presence of optional parameters such as
    ; excess and peak rates.
-   ; Settting these parameters to false means that excess and
+   ; Setting these parameters to false means that excess and
    ; peak parameters are not supplied in the policy.
    ; These control bits may not be required for protocols with
    ; built-in mechanisms to parse objects even with
@@ -367,20 +367,20 @@ Table of Contents
 
    ; Indicates the rate and burst limits.
    ; Only CIR/CBS are mandatory to include.
-   ; A rate-limit may also include an excess or peack limits.
+   ; A rate-limit may also include an excess or peak limits.
 
    rate-limit = (
-     group-a / group-b
+     group-1r3c / group-2r3c
    )
 
-   group-a = {
+   group-1r3c = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
      ? eir: uint,        ; Mbps
      ? ebs: uint .gt 0,  ; bytes
    }
 
-   group-b = {
+   group-2r3c = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
      ? pir: uint,        ; Mbps
@@ -431,7 +431,7 @@ Table of Contents
          When set to "10b", this flag indicates that this policy is for
          both network-to-host and host-to-network directions.
 
-      R (Reliablity):  Indicates the reliability type of traffic on
+      R (Reliability):  Indicates the reliability type of traffic on
          which to apply the enclosed policy.
 
          When set to "00b", this flag indicates that this policy is for
@@ -478,7 +478,7 @@ Table of Contents
    Excess Information Rate (EIR) (Mbps):  MUST be present if the E flag
       is set to '1'.
 
-      An avertage rate that specifies the maximum number of bits that a
+      An average rate that specifies the maximum number of bits that a
       network can send (or receive) during one second over a network
       attachment for a traffic that is out of profile.
 
@@ -856,7 +856,7 @@ Appendix A.  Overview of Network Rate-Limit Policies
    *  1r2c (single-rate two-color) rate limiter
 
       This is the most basic rate limiter, described in Section 2.3 of
-      [RFC2475].  It meters at an ingress intreface a traffic stream and
+      [RFC2475].  It meters at an ingress interface a traffic stream and
       marks its packets as in-profile (below CIR being enforced) or out-
       of-profile (above CIR being enforced).  In-profile packets are
       accepted and forwarded.  Out-of profile packets are either dropped

@@ -12,7 +12,7 @@
 <meta content="Luis M. Contreras" name="author">
 <meta content="
        Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
-This document specifies a generic object (called, Throughput Advice) that can be used by mechanims for hosts
+This document specifies a generic object (called, Throughput Advice) that can be used by mechanisms for hosts
 to dynamically discover these network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly. 
        The design of the throughput advice object is independent of the discovery channel (protocol, API, etc.). 
@@ -1101,7 +1101,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
-This document specifies a generic object (called, Throughput Advice) that can be used by mechanims for hosts
+This document specifies a generic object (called, Throughput Advice) that can be used by mechanisms for hosts
 to dynamically discover these network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">The design of the throughput advice object is independent of the discovery channel (protocol, API, etc.).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
@@ -1338,13 +1338,13 @@ mainly to protect the network (e.g., congestion-unresponsive flows) and also to 
 of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
 configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" <span>[<a href="#RFC8466" class="cite xref">RFC8466</a>]</span>).<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-7"><a href="#sec-blob" class="auto internal xref">Section 5</a> defines a set of parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-9">Whether host-to-network, network-to-host, or both policies are included in throughput advice is deployment specific. All these combinations are supported in this document.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <p id="section-1-10">Also, one or more throughput advice instances may be returned for a given traffic direction. Examples of such instances are discussed in <a href="#sec-ex" class="auto internal xref">Section 6</a>.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">Sample uses of the advice by applications are listed in <a href="#sec-samples" class="auto internal xref">Section 7</a>.<a href="#section-1-11" class="pilcrow">¶</a></p>
 <p id="section-1-12">As one can infer from the name, a throughput advice is advisory in nature. The advice is provided solely as a hint.<a href="#section-1-12" class="pilcrow">¶</a></p>
-<p id="section-1-13">In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-13" class="pilcrow">¶</a></p>
+<p id="section-1-13">In order to ease mapping with specific signaling mechanisms, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in <a href="#sec-iana" class="auto internal xref">Section 9</a>.<a href="#section-1-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="whats-out">
@@ -1355,7 +1355,7 @@ configured in (ingress) nodes. These rate-limits can be shared with customers wh
 <p id="section-2-1">This document does not make any assumption about:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-2.1">
-          <p id="section-2-2.1.1">The type of the network (fixed, cellular, etc.) that terminates a network attachment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.1.1">The type of network (fixed, cellular, etc.) that terminates a network attachment.<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.2">
           <p id="section-2-2.2.1">The services or applications that are delivered over a network attachment. Whether one or multiple services
@@ -1368,7 +1368,7 @@ are bound to the same network attachment is deployment specific.<a href="#sectio
           <p id="section-2-2.4.1">The protocol machinery for validating, refreshing, detecting stale, and flushing out received advices.<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-2-2.5">
-          <p id="section-2-2.5.1">How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
+          <p id="section-2-2.5.1">How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API(s) is OS-specific and, thus, out of scope of this document.<a href="#section-2-2.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1382,7 +1382,7 @@ are bound to the same network attachment is deployment specific.<a href="#sectio
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">This document makes use fo the following term:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">This document makes use of the following term:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3-3">
         <dt id="section-3-3.1">Rate-limit:</dt>
         <dd style="margin-left: 1.5em" id="section-3-3.2">
@@ -1411,7 +1411,7 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
 <span class="break"></span><dl class="dlParallel" id="section-4-2">
         <dt id="section-4-2.1">Adaptive Application Behavior:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.2">
-          <p id="section-4-2.2.1">Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.2.1">Discovery of intentional policy applied on network attachments when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-4-2.3"></dt>
@@ -1436,7 +1436,7 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
         <dd class="break"></dd>
 <dt id="section-4-2.11">Better Local Services:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.12">
-          <p id="section-4-2.12.1">A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-4-2.12.1">A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controlling the load at the source will allow to partition the resources between connected hosts.<a href="#section-4-2.12.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1492,7 +1492,7 @@ throughput-instance =  {
 
 ; Controls the presence of optional parameters such as
 ; excess and peak rates.
-; Settting these parameters to false means that excess and
+; Setting these parameters to false means that excess and
 ; peak parameters are not supplied in the policy.
 ; These control bits may not be required for protocols with
 ; built-in mechanisms to parse objects even with
@@ -1531,20 +1531,20 @@ category =  {
 
 ; Indicates the rate and burst limits.
 ; Only CIR/CBS are mandatory to include.
-; A rate-limit may also include an excess or peack limits.
+; A rate-limit may also include an excess or peak limits.
 
 rate-limit = (
-  group-a / group-b
+  group-1r3c / group-2r3c
 )
 
-group-a = {
+group-1r3c = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? eir: uint,        ; Mbps
   ? ebs: uint .gt 0,  ; bytes
 }
 
-group-b = {
+group-2r3c = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? pir: uint,        ; Mbps
@@ -1634,7 +1634,7 @@ host-to-network direction.<a href="#section-5.3-2.4.2.10.1" class="pilcrow">¶</
 both network-to-host and host-to-network directions.<a href="#section-5.3-2.4.2.12.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.3-2.4.2.13">R (Reliablity):</dt>
+<dt id="section-5.3-2.4.2.13">R (Reliability):</dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.4.2.14">
                 <p id="section-5.3-2.4.2.14.1">Indicates the reliability type of traffic on which to apply the enclosed policy.<a href="#section-5.3-2.4.2.14.1" class="pilcrow">¶</a></p>
 </dd>
@@ -1728,7 +1728,7 @@ send (or receive) during one second over a network attachment.<a href="#section-
           <dd class="break"></dd>
 <dt id="section-5.3-2.25"></dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.26">
-            <p id="section-5.3-2.26.1">An avertage rate that specifies the maximum number of bits that a network can
+            <p id="section-5.3-2.26.1">An average rate that specifies the maximum number of bits that a network can
 send (or receive) during one second over a network attachment for a
 traffic that is out of profile.<a href="#section-5.3-2.26.1" class="pilcrow">¶</a></p>
 </dd>
@@ -2278,7 +2278,7 @@ of following options:<a href="#appendix-A-1" class="pilcrow">¶</a></p>
           <p id="appendix-A-2.1.1">1r2c (single-rate two-color) rate limiter<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2.1.2">
 This is the most basic rate limiter, described in <span><a href="https://rfc-editor.org/rfc/rfc2475#section-2.3" class="relref">Section 2.3</a> of [<a href="#RFC2475" class="cite xref">RFC2475</a>]</span>.
-It meters at an ingress intreface a
+It meters at an ingress interface a
 traffic stream and marks its packets as in-profile
 (below CIR being enforced) or out-of-profile (above CIR being enforced).
 In-profile packets are accepted and forwarded.  Out-of profile
