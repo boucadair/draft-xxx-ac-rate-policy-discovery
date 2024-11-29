@@ -241,7 +241,7 @@ category =  {
 ; A rate-limit may also include an excess or peak limits.
 
 rate-limit = (
-  group-1r3c / group-2r3c
+  group-a/ group-b
 )
 
 group-1r3c = {
