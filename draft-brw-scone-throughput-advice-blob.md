@@ -244,7 +244,7 @@ rate-limit = (
   group-a/ group-b
 )
 
-group-1r3c = {
+group-a = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? eir: uint,        ; Mbps
