@@ -58,7 +58,7 @@ informative:
 --- abstract
 
 Traffic exchanged over a network may be subject to rate-limit policies for various operational reasons.
-This document specifies a generic object (called, Throughput Advice) that can be used by mechanims for hosts
+This document specifies a generic object (called, Throughput Advice) that can be used by mechanisms for hosts
 to dynamically discover these network rate-limit policies. This information is then
 passed to applications that might adjust their behaviors accordingly.
 
@@ -111,11 +111,11 @@ of the network attachment and typically agreed upon service subscription)
 or be reactive policies (e.g., enforced temporarily to manage an overload or during a DDoS attack mitigation). Rate-limits are usually
 configured in (ingress) nodes. These rate-limits can be shared with customers when subscribing to a connectivity service (e.g., "A YANG Data Model for Layer 2 Virtual Private Network (L2VPN) Service Delivery" {{?RFC8466}}).
 
-{{sec-blob}} defines a set parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.
+{{sec-blob}} defines a set of parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. The set of parameters are independent of the address family.
 
 This document does not assume nor preclude any specific signaling protocol to share the throughput advices. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Whether host-to-network, network-to-host, or both policies are included in a throughput advice is deployment specific. All these combinations are supported in this document.
+Whether host-to-network, network-to-host, or both policies are included in throughput advice is deployment specific. All these combinations are supported in this document.
 
 Also, one or more throughput advice instances may be returned for a given traffic direction. Examples of such instances are discussed in {{sec-ex}}.
 
@@ -123,24 +123,24 @@ Sample uses of the advice by applications are listed in {{sec-samples}}.
 
 As one can infer from the name, a throughput advice is advisory in nature. The advice is provided solely as a hint.
 
-In order to ease mapping with specific signaling mechanims, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
+In order to ease mapping with specific signaling mechanisms, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
 
 # What's Out?
 
 This document does not make any assumption about:
 
-* The type of the network (fixed, cellular, etc.) that terminates a network attachment.
+* The type of network (fixed, cellular, etc.) that terminates a network attachment.
 * The services or applications that are delivered over a network attachment. Whether one or multiple services
 are bound to the same network attachment is deployment specific.
 * How the throughput advice is computed/set.
 * The protocol machinery for validating, refreshing, detecting stale, and flushing out received advices.
-* How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API is OS-specific and, thus, out of scope of this document.
+* How applications running over a host can learn the bitrates associated with a network attachment. Typically, this can be achieved by invoking a dedicated API. However, the exact details of the API(s) is OS-specific and, thus, out of scope of this document.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-This document makes use fo the following term:
+This document makes use of the following term:
 
 Rate-limit:
 : Used as a generic term to refer to a policy to restrict the maximum bitrate over a network attachment.
@@ -152,7 +152,7 @@ Rate-limit:
 Some deployment use cases for throughput advice discovery are provided below:
 
 Adaptive Application Behavior:
-: Discovery of intentional policy applied on network attachements when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.
+: Discovery of intentional policy applied on network attachments when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.
 : Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of the parameters indicated in a throughput policy.
 : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
 
@@ -161,7 +161,7 @@ Network Assisted Offload:
 : The mechanism can also be used to enrich the tools that are already available to better handle attack traffic close to the source {{?RFC9066}}.
 
 Better Local Services:
-: A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controling the load at the source will allow to partition the resources between connected hosts.
+: A user may configure policies on the CE such as securing some resources to a specific internal host used, e.g., for gaming or video streaming. The CE can use the throughput advice to share these rate-limit policies to connected hosts to adjust their forwarding behavior. Controlling the load at the source will allow to partition the resources between connected hosts.
 
 # Throughput Advice Object {#sec-blob}
 
@@ -199,7 +199,7 @@ throughput-instance =  {
 
 ; Controls the presence of optional parameters such as
 ; excess and peak rates.
-; Settting these parameters to false means that excess and
+; Setting these parameters to false means that excess and
 ; peak parameters are not supplied in the policy.
 ; These control bits may not be required for protocols with
 ; built-in mechanisms to parse objects even with
@@ -238,20 +238,20 @@ category =  {
 
 ; Indicates the rate and burst limits.
 ; Only CIR/CBS are mandatory to include.
-; A rate-limit may also include an excess or peack limits.
+; A rate-limit may also include an excess or peak limits.
 
 rate-limit = (
-  group-a / group-b
+  group-1r3c / group-2r3c
 )
 
-group-a = {
+group-1r3c = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? eir: uint,        ; Mbps
   ? ebs: uint .gt 0,  ; bytes
 }
 
-group-b = {
+group-2r3c = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? pir: uint,        ; Mbps
@@ -294,7 +294,7 @@ Flow flags (FF):
     : When set to "10b", this flag indicates that this policy is for
       both network-to-host and host-to-network directions.
 
-    R (Reliablity):
+    R (Reliability):
     : Indicates the reliability type of traffic on which to apply the enclosed policy.
     : When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for unreliable traffic.
@@ -325,7 +325,7 @@ Committed Burst Size (CBS) (bytes):
 
 Excess Information Rate (EIR) (Mbps):
 : MUST be present if the E flag is set to '1'.
-: An avertage rate that specifies the maximum number of bits that a network can
+: An average rate that specifies the maximum number of bits that a network can
   send (or receive) during one second over a network attachment for a
   traffic that is out of profile.
 : The EIR value MUST be greater than or equal to 0, if present.
@@ -520,7 +520,7 @@ of following options:
    *  1r2c (single-rate two-color) rate limiter
 
       This is the most basic rate limiter, described in {{Section 2.3 of ?RFC2475}}.
-      It meters at an ingress intreface a
+      It meters at an ingress interface a
       traffic stream and marks its packets as in-profile
       (below CIR being enforced) or out-of-profile (above CIR being enforced).
       In-profile packets are accepted and forwarded.  Out-of profile
