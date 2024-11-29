@@ -251,7 +251,7 @@ group-a = {
   ? ebs: uint .gt 0,  ; bytes
 }
 
-group-2r3c = {
+group-b = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
   ? pir: uint,        ; Mbps
