@@ -370,17 +370,17 @@ Table of Contents
    ; A rate-limit may also include an excess or peak limits.
 
    rate-limit = (
-     group-1r3c / group-2r3c
+     group-a/ group-b
    )
 
-   group-1r3c = {
+   group-a = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
      ? eir: uint,        ; Mbps
      ? ebs: uint .gt 0,  ; bytes
    }
 
-   group-2r3c = {
+   group-b = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
      ? pir: uint,        ; Mbps
