@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-28T01:17:40.602279+00:00",
+  "timestamp": "2024-12-01T01:37:05.480539+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -598,7 +598,7 @@
       "id": "I_kwDOLlGZlc6fAFnA",
       "title": "Define groups: (C*+E*) or (C*+P*)",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/55",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tireddy2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -607,8 +607,8 @@
       ],
       "body": "My understanding is if EIR, EBS are conveyed in the metadata, PIR and PBS must not be signaled and vice-versa. we will have re-define the CDDL in the following way:\r\n\r\nrate-limit = (\r\n  group-a / group-b\r\n)\r\n\r\ngroup-a = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? eir: uint,        ; Mbps\r\n  ? ebs: uint .gt 0   ; bytes\r\n}\r\n\r\ngroup-b = {\r\n  cir: uint,          ; Mbps\r\n  cbs: uint .gt 0,    ; bytes\r\n  ? pir: uint,        ; Mbps\r\n  ? pbs: uint .gt 0   ; bytes\r\n}\r\n\r\n",
       "createdAt": "2024-11-18T08:17:05Z",
-      "updatedAt": "2024-11-24T12:10:32Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-28T05:46:11Z",
+      "closedAt": "2024-11-28T05:46:11Z",
       "comments": [
         {
           "author": "sridharangirish91",
@@ -3808,24 +3808,26 @@
       "id": "PR_kwDOLlGZlc6DUYnL",
       "title": "C/E or C/P groups",
       "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/80",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-11-27T10:38:13Z",
-      "updatedAt": "2024-11-27T11:13:58Z",
+      "updatedAt": "2024-11-28T05:46:12Z",
       "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "baseRefName": "main",
       "baseRefOid": "9de193d83794860a0e82a19ea01e887d338b36d3",
       "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
       "headRefName": "rate-groups",
       "headRefOid": "92e70a5905adebe31d0f360eae9e04ed63443ccf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-28T05:46:11Z",
+      "mergedAt": "2024-11-28T05:46:10Z",
+      "mergedBy": "tireddy2",
+      "mergeCommit": {
+        "oid": "0dddb49f736a6bb119327e7b83010c3bfc9da6c9"
+      },
       "comments": [],
       "reviews": [
         {
@@ -3839,6 +3841,86 @@
           "body": "",
           "createdAt": "2024-11-27T11:13:58Z",
           "updatedAt": "2024-11-27T11:13:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "id": "PR_kwDOLlGZlc6DhczI",
+      "title": "nits. reword group names to better reflect what it represents",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/81",
+      "state": "MERGED",
+      "author": "sridharangirish91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-29T02:57:12Z",
+      "updatedAt": "2024-11-29T06:37:36Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "0dddb49f736a6bb119327e7b83010c3bfc9da6c9",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "sridharanr",
+      "headRefOid": "4ab3831476a647fdbe6a8d9023c7f676e1db1b3e",
+      "closedAt": "2024-11-29T06:37:35Z",
+      "mergedAt": "2024-11-29T06:37:35Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "a8ebce6e244a0648eaa734189182b120c089799d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6TLHOX",
+          "commit": {
+            "abbreviatedOid": "ac2ac19"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-11-29T06:16:17Z",
+          "updatedAt": "2024-11-29T06:17:13Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "```suggestion\r\n  group-a/ group-b\r\n```",
+              "createdAt": "2024-11-29T06:16:18Z",
+              "updatedAt": "2024-11-29T06:17:13Z"
+            },
+            {
+              "originalPosition": 88,
+              "body": "as we also cover 1r2c",
+              "createdAt": "2024-11-29T06:16:40Z",
+              "updatedAt": "2024-11-29T06:17:13Z"
+            },
+            {
+              "originalPosition": 92,
+              "body": "```suggestion\r\ngroup-a = {\r\n```",
+              "createdAt": "2024-11-29T06:16:48Z",
+              "updatedAt": "2024-11-29T06:17:13Z"
+            },
+            {
+              "originalPosition": 100,
+              "body": "```suggestion\r\ngroup-b = {\r\n```",
+              "createdAt": "2024-11-29T06:17:05Z",
+              "updatedAt": "2024-11-29T06:17:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLlGZlc6TLNBM",
+          "commit": {
+            "abbreviatedOid": "4ab3831"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-29T06:37:30Z",
+          "updatedAt": "2024-11-29T06:37:30Z",
           "comments": []
         }
       ]
