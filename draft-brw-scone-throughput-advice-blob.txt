@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 2 June 2025                                Cloud Software Group
+Expires: 6 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        29 November 2024
+                                                         3 December 2024
 
 
                    Throughput Advice Object for SCONE
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 June 2025.
+   This Internet-Draft will expire on 6 June 2025.
 
 Copyright Notice
 
@@ -416,8 +416,8 @@ Table of Contents
 
       S (Scope):  Indicates the granularity of enforcing policies.
 
-         This parameter specifies whether the policy is a per-host, per-
-         subscriber, or per-flow policy.
+         This parameter specifies whether the policy is a per-
+         subscriber, per-host, or per-flow policy.
 
       D (Direction):  Indicates the direction on which to apply the
          enclosed policy.
@@ -891,7 +891,7 @@ Appendix A.  Overview of Network Rate-Limit Policies
 
 Acknowledgments
 
-   TBC.
+   Thanks to Eduard Vasilenko for the comments.
 
 Authors' Addresses
 
