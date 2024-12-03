@@ -132,6 +132,8 @@ Applications will have access to all available NRLPs and will, thus, adjust thei
 
 Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
 
+To enhance flexibility in applying rate-limiting policies and better accommodate diverse endpoint performance requirements, mechanisms such as solicited Router Advertisements (RAs) {{?RFC8273}} and endpoint-specific DHCP responses can be used. These unicast responses enable granular signaling of rate-limit policies to individual endpoints, facilitating differentiated rate-limit configurations. However, this document does not prescribe how resources should be partitioned within local networks, as such considerations fall outside its scope.
+
 This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to I-D.brw-scone-manageability for a list of relevant mechanisms.
 
 # Conventions and Definitions
