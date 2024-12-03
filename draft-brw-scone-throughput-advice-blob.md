@@ -283,7 +283,7 @@ Flow flags (FF):
 
     S (Scope):
     : Indicates the granularity of enforcing policies.
-    : This parameter specifies whether the policy is a per-host, per-subscriber, or per-flow policy.
+    : This parameter specifies whether the policy is a per-subscriber, per-host, or per-flow policy.
 
     D (Direction):
     : Indicates the direction on which to apply the enclosed policy.
@@ -555,4 +555,4 @@ of following options:
 # Acknowledgments
 {:numbered="false"}
 
-TBC.
+Thanks to Eduard Vasilenko for the comments.
