@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 6 June 2025                                Cloud Software Group
+Expires: 7 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 6 June 2025                                Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                         3 December 2024
+                                                         4 December 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 June 2025.
+   This Internet-Draft will expire on 7 June 2025.
 
 Copyright Notice
 
@@ -186,6 +186,15 @@ Table of Contents
    (DoS) attacks (e.g., Section 9.3 of [RFC8803]).  Discussion about
    conditions under which such a trust model can be relaxed is out of
    scope of this document.
+
+   To enhance flexibility in applying rate-limiting policies and better
+   accommodate diverse endpoint performance requirements, mechanisms
+   such as solicited Router Advertisements (RAs) [RFC8273] and endpoint-
+   specific DHCP responses can be used.  These unicast responses enable
+   granular signaling of rate-limit policies to individual endpoints,
+   facilitating differentiated rate-limit configurations.  However, this
+   document does not prescribe how resources should be partitioned
+   within local networks, as such considerations fall outside its scope.
 
    This document does not assume nor preclude that other mechanisms,
    e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
@@ -702,9 +711,9 @@ Table of Contents
               Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S., and
               L. M. Contreras, "Throughput Advice Object for SCONE",
               Work in Progress, Internet-Draft, draft-brw-scone-
-              throughput-advice-blob-00, 21 November 2024,
+              throughput-advice-blob-01, 3 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-brw-scone-
-              throughput-advice-blob-00>.
+              throughput-advice-blob-01>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -784,6 +793,10 @@ Table of Contents
               Protecting against Rogue DHCPv6 Servers", BCP 199,
               RFC 7610, DOI 10.17487/RFC7610, August 2015,
               <https://www.rfc-editor.org/rfc/rfc7610>.
+
+   [RFC8273]  Brzozowski, J. and G. Van de Velde, "Unique IPv6 Prefix
+              per Host", RFC 8273, DOI 10.17487/RFC8273, December 2017,
+              <https://www.rfc-editor.org/rfc/rfc8273>.
 
    [RFC8781]  Colitti, L. and J. Linkova, "Discovering PREF64 in Router
               Advertisements", RFC 8781, DOI 10.17487/RFC8781, April
