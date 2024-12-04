@@ -201,6 +201,8 @@ Table of Contents
    are enabled in a bottleneck link.  The reader may refer to I-D.brw-
    scone-manageability for a list of relevant mechanisms.
 
+   Refer to [NRLP-WIRE] for configuration examples to use NRLP.
+
 2.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -759,6 +761,11 @@ Table of Contents
 
    [IANA-PVD] IANA, "Provisioning Domains (PvDs)",
               <https://www.iana.org/assignments/pvds/>.
+
+   [NRLP-WIRE]
+              "Examples of Wire Format Options",
+              <https://github.com/boucadair/draft-xxx-ac-rate-policy-
+              discovery/blob/main/example-nrlp-wire-format.md>.
 
    [RFC2865]  Rigney, C., Willens, S., Rubens, A., and W. Simpson,
               "Remote Authentication Dial In User Service (RADIUS)",

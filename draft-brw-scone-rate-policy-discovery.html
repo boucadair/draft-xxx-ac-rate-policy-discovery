@@ -1323,6 +1323,7 @@ architecture uses extensive tunneling in its packet core network below the 3GPP 
 <p id="section-1-10">Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., <span><a href="https://rfc-editor.org/rfc/rfc8803#section-9.3" class="relref">Section 9.3</a> of [<a href="#RFC8803" class="cite xref">RFC8803</a>]</span>). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">To enhance flexibility in applying rate-limiting policies and better accommodate diverse endpoint performance requirements, mechanisms such as solicited Router Advertisements (RAs) <span>[<a href="#RFC8273" class="cite xref">RFC8273</a>]</span> and endpoint-specific DHCP responses can be used. These unicast responses enable granular signaling of rate-limit policies to individual endpoints, facilitating differentiated rate-limit configurations. However, this document does not prescribe how resources should be partitioned within local networks, as such considerations fall outside its scope.<a href="#section-1-11" class="pilcrow">¶</a></p>
 <p id="section-1-12">This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) <span>[<a href="#RFC9330" class="cite xref">RFC9330</a>]</span>, are enabled in a bottleneck link. The reader may refer to I-D.brw-scone-manageability for a list of relevant mechanisms.<a href="#section-1-12" class="pilcrow">¶</a></p>
+<p id="section-1-13">Refer to <span>[<a href="#NRLP-WIRE" class="cite xref">NRLP-WIRE</a>]</span> for configuration examples to use NRLP.<a href="#section-1-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -2116,6 +2117,10 @@ a new JSON key is mirrored in the "PvD Network Rate-Limit Policies (NRLPs)" regi
 <dt id="IANA-PVD">[IANA-PVD]</dt>
         <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"Provisioning Domains (PvDs)"</span>, <span>&lt;<a href="https://www.iana.org/assignments/pvds/">https://www.iana.org/assignments/pvds/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NRLP-WIRE">[NRLP-WIRE]</dt>
+        <dd>
+<span class="refTitle">"Examples of Wire Format Options"</span>, <span>&lt;<a href="https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/example-nrlp-wire-format.md">https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/example-nrlp-wire-format.md</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2865">[RFC2865]</dt>
         <dd>
