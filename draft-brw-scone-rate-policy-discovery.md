@@ -91,6 +91,11 @@ informative:
           org: 3GPP
         target: https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3144
 
+      NRLP-WIRE:
+        title: Examples of Wire Format Options
+        target: https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/blob/main/example-nrlp-wire-format.md
+        date: false
+
 --- abstract
 
 This document specifies mechanims for hosts to dynamically discover Network Rate-Limit Policies (NRLPs). This information is then passed to applications that might adjust their behaviors accordingly.
@@ -135,6 +140,8 @@ Networks that advertize NLRPs are likely to maintain the policing in place withi
 To enhance flexibility in applying rate-limiting policies and better accommodate diverse endpoint performance requirements, mechanisms such as solicited Router Advertisements (RAs) {{?RFC8273}} and endpoint-specific DHCP responses can be used. These unicast responses enable granular signaling of rate-limit policies to individual endpoints, facilitating differentiated rate-limit configurations. However, this document does not prescribe how resources should be partitioned within local networks, as such considerations fall outside its scope.
 
 This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to I-D.brw-scone-manageability for a list of relevant mechanisms.
+
+Refer to {{NRLP-WIRE}} for configuration examples to use NRLP.
 
 # Conventions and Definitions
 
