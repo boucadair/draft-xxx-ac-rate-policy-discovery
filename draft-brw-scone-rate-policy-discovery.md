@@ -508,8 +508,8 @@ Example:
    {
       "nrlp":[
          {
-            "direction":0,
             "scope":0,
+            "direction":0,
             "tc":0,
             "cir":50,
             "cbs": 10000
@@ -529,8 +529,9 @@ within the "Provisioning Domains (PvDs)" registry group.
 The initial contents of this registry are provided in {{iana-pvd-initial}}.
 
 | JSON key   | Description           | Type    | Example         | Reference |
-|direction   |Indicates the traffic direction to which a policy applies|integer|1 |This-Document|
 |scope|Specifies whether the policy is per host (when set to "1") or per subscriber (when set to "0)|Boolean|1 |This-Document|
+|direction   |Indicates the traffic direction to which a policy applies|integer|1 |This-Document|
+|reliability|Specifies whether the policy is for both reliable and unreliable traffic (when set to "0"), for reliable (when set to "1"), or for unreliable traffic (when set to "2")|integer|1 |This-Document|
 |tc|Specifies a traffic category to which this policy applies|Integer|0|This-Document|
 |cir|Committed Information Rate (CIR)|Integer|50|This-Document|
 |cbs|Committed Burst Size (CBS)|Integer|10000|This-Document|
