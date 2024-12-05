@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 7 June 2025                                Cloud Software Group
+Expires: 8 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 7 June 2025                                Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                         4 December 2024
+                                                         5 December 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 June 2025.
+   This Internet-Draft will expire on 8 June 2025.
 
 Copyright Notice
 
@@ -634,8 +634,8 @@ Table of Contents
       {
          "nrlp":[
             {
-               "direction":0,
                "scope":0,
+               "direction":0,
                "tc":0,
                "cir":50,
                "cbs": 10000
@@ -653,51 +653,69 @@ Table of Contents
 
    The initial contents of this registry are provided in Table 4.
 
-   +===========+===================+=========+=========+===============+
-   | JSON key  | Description       | Type    | Example | Reference     |
-   +===========+===================+=========+=========+===============+
-   | direction | Indicates the     | integer | 1       | This-Document |
-   |           | traffic           |         |         |               |
-   |           | direction to      |         |         |               |
-   |           | which a policy    |         |         |               |
-   |           | applies           |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | scope     | Specifies         | Boolean | 1       | This-Document |
-   |           | whether the       |         |         |               |
-   |           | policy is per     |         |         |               |
-   |           | host (when set    |         |         |               |
-   |           | to "1") or per    |         |         |               |
-   |           | subscriber (when  |         |         |               |
-   |           | set to "0)        |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | tc        | Specifies a       | Integer | 0       | This-Document |
-   |           | traffic category  |         |         |               |
-   |           | to which this     |         |         |               |
-   |           | policy applies    |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | cir       | Committed         | Integer | 50      | This-Document |
-   |           | Information Rate  |         |         |               |
-   |           | (CIR)             |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | cbs       | Committed Burst   | Integer | 10000   | This-Document |
-   |           | Size (CBS)        |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | eir       | Excess            | Integer | 30      | This-Document |
-   |           | Information Rate  |         |         |               |
-   |           | (EIR)             |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | ebs       | Excess Burst      | Integer | 5000    | This-Document |
-   |           | Size (EBS)        |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | pir       | Peak Information  | Integer | 70      | This-Document |
-   |           | Rate (PIR)        |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
-   | pbs       | Peak Burst Size   | Integer | 20000   | This-Document |
-   |           | (PBS)             |         |         |               |
-   +-----------+-------------------+---------+---------+---------------+
+   +=============+================+=========+=========+===============+
+   | JSON key    | Description    | Type    | Example | Reference     |
+   +=============+================+=========+=========+===============+
+   | scope       | Specifies      | Boolean | 1       | This-Document |
+   |             | whether the    |         |         |               |
+   |             | policy is per  |         |         |               |
+   |             | host (when set |         |         |               |
+   |             | to "1") or per |         |         |               |
+   |             | subscriber     |         |         |               |
+   |             | (when set to   |         |         |               |
+   |             | "0)            |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | direction   | Indicates the  | integer | 1       | This-Document |
+   |             | traffic        |         |         |               |
+   |             | direction to   |         |         |               |
+   |             | which a policy |         |         |               |
+   |             | applies        |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | reliability | Specifies      | integer | 1       | This-Document |
+   |             | whether the    |         |         |               |
+   |             | policy is for  |         |         |               |
+   |             | both reliable  |         |         |               |
+   |             | and unreliable |         |         |               |
+   |             | traffic (when  |         |         |               |
+   |             | set to "0"),   |         |         |               |
+   |             | for reliable   |         |         |               |
+   |             | (when set to   |         |         |               |
+   |             | "1"), or for   |         |         |               |
+   |             | unreliable     |         |         |               |
+   |             | traffic (when  |         |         |               |
+   |             | set to "2")    |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | tc          | Specifies a    | Integer | 0       | This-Document |
+   |             | traffic        |         |         |               |
+   |             | category to    |         |         |               |
+   |             | which this     |         |         |               |
+   |             | policy applies |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | cir         | Committed      | Integer | 50      | This-Document |
+   |             | Information    |         |         |               |
+   |             | Rate (CIR)     |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | cbs         | Committed      | Integer | 10000   | This-Document |
+   |             | Burst Size     |         |         |               |
+   |             | (CBS)          |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | eir         | Excess         | Integer | 30      | This-Document |
+   |             | Information    |         |         |               |
+   |             | Rate (EIR)     |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | ebs         | Excess Burst   | Integer | 5000    | This-Document |
+   |             | Size (EBS)     |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | pir         | Peak           | Integer | 70      | This-Document |
+   |             | Information    |         |         |               |
+   |             | Rate (PIR)     |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
+   | pbs         | Peak Burst     | Integer | 20000   | This-Document |
+   |             | Size (PBS)     |         |         |               |
+   +-------------+----------------+---------+---------+---------------+
 
-     Table 4: Initial PvD Network Rate-Limit Policies (NRLPs) Registry
-                                  Content
+         Table 4: Initial PvD Network Rate-Limit Policies (NRLPs)
+                             Registry Content
 
    Assignments must not be added directly to the "PvD Network Rate-Limit
    Policies (NRLPs)" registry.  When a new attribute is added to the
