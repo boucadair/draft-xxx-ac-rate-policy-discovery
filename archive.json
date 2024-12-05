@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:19:10.100579+00:00",
+  "timestamp": "2024-12-05T01:19:20.249245+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -1102,6 +1102,39 @@
           "body": "fair comment. fixed in #79 ",
           "createdAt": "2024-11-22T13:25:24Z",
           "updatedAt": "2024-11-22T13:25:24Z"
+        }
+      ]
+    },
+    {
+      "number": 82,
+      "id": "I_kwDOLlGZlc6hx1L6",
+      "title": "Subscriber specific rate-limit policies",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/issues/82",
+      "state": "CLOSED",
+      "author": "tireddy2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "NRLP"
+      ],
+      "body": "Each subscriber in a mobile network may have different QoS policies depending on their subscription plan. Similarly, in home networks, devices can be assigned different priorities, see https://www.tp-link.com/in/support/faq/1601/. Furthermore, Cisco routers support user-group-based QoS policies, enabling tailored traffic prioritization for user groups (https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/15-mt/iri-15-mt-book/iri-sgt-based-qos.pdf).\r\n\r\nThe NRLP draft should discuss mechanisms like solicited Router Advertisements (RAs) https://www.rfc-editor.org/rfc/rfc8273.txt and DHCP responses that enable unique rate-limit configurations per endpoint. Without addressing it, the scope of the draft will be restricted to applying a common rate-limit policy for all endpoints attached to the network.",
+      "createdAt": "2024-12-03T07:17:15Z",
+      "updatedAt": "2024-12-04T06:42:50Z",
+      "closedAt": "2024-12-04T06:42:50Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> Each subscriber in a mobile network may have different QoS policies depending on their subscription plan. Similarly, in home networks, devices can be assigned different priorities, see https://www.tp-link.com/in/support/faq/1601/. Furthermore, Cisco routers support user-group-based QoS policies, enabling tailored traffic prioritization for user groups (https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/15-mt/iri-15-mt-book/iri-sgt-based-qos.pdf).\r\n\r\nACK, I'm afraid this will introduce more complexity at this stage for the scone case.\r\n\r\nFWIW, the full structure of the rate-limit is per type (port, class, node, etc.) as defined in draft-ietf-opsawg-teas-attachment-circuit, for example:\r\n\r\n  ```\r\n            +--rw svc-pe-to-ce-bandwidth {vpn-common:inbound-bw}?\r\n              |  +--rw bandwidth* [bw-type]\r\n              |     +--rw bw-type      identityref\r\n              |     +--rw (type)?\r\n              |        +--:(per-cos)\r\n              |        |  +--rw cos* [cos-id]\r\n              |        |     +--rw cos-id    uint8\r\n              |        |     +--rw cir?      uint64\r\n              |        |     +--rw cbs?      uint64\r\n              |        |     +--rw eir?      uint64\r\n              |        |     +--rw ebs?      uint64\r\n              |        |     +--rw pir?      uint64\r\n              |        |     +--rw pbs?      uint64\r\n              |        +--:(other)\r\n              |           +--rw cir?   uint64\r\n              |           +--rw cbs?   uint64\r\n              |           +--rw eir?   uint64\r\n              |           +--rw ebs?   uint64\r\n              |           +--rw pir?   uint64\r\n              |           +--rw pbs?   uint64\r\n              +--rw svc-ce-to-pe-bandwidth {vpn-common:outbound-bw}?\r\n              |  +--rw bandwidth* [bw-type]\r\n              |     +--rw bw-type      identityref\r\n              |     +--rw (type)?\r\n              |        +--:(per-cos)\r\n              |        |  +--rw cos* [cos-id]\r\n              |        |     +--rw cos-id    uint8\r\n              |        |     +--rw cir?      uint64\r\n              |        |     +--rw cbs?      uint64\r\n              |        |     +--rw eir?      uint64\r\n              |        |     +--rw ebs?      uint64\r\n              |        |     +--rw pir?      uint64\r\n              |        |     +--rw pbs?      uint64\r\n              |        +--:(other)\r\n              |           +--rw cir?   uint64\r\n              |           +--rw cbs?   uint64\r\n              |           +--rw eir?   uint64\r\n              |           +--rw ebs?   uint64\r\n              |           +--rw pir?   uint64\r\n              |           +--rw pbs?   uint64\r\n```\r\n\r\n\r\n\r\n\r\n> The NRLP draft should discuss mechanisms like solicited Router Advertisements (RAs) https://www.rfc-editor.org/rfc/rfc8273.txt and DHCP responses that enable unique rate-limit configurations per endpoint. Without addressing it, the scope of the draft will be restricted to applying a common rate-limit policy for all endpoints attached to the network.\r\n\r\nThe network cannot mandate how resources will be partitioned within a local network because that's out of its administration scope. The signal that we are providing right now is a good progress: \"this is an aggregate that is shared with others\". \r\n\r\nAre there specific considerations you have in mind that we can better indicate?",
+          "createdAt": "2024-12-03T08:25:59Z",
+          "updatedAt": "2024-12-03T08:25:59Z"
+        },
+        {
+          "author": "tireddy2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > The NRLP draft should discuss mechanisms like solicited Router Advertisements (RAs) https://www.rfc-editor.org/rfc/rfc8273.txt and DHCP responses that enable unique rate-limit configurations per endpoint. Without addressing it, the scope of the draft will be restricted to applying a common rate-limit policy for all endpoints attached to the network.\r\n> \r\n> The network cannot mandate how resources will be partitioned within a local network because that's out of its administration scope. The signal that we are providing right now is a good progress: \"this is an aggregate that is shared with others\".\r\n> \r\n> Are there specific considerations you have in mind that we can better indicat\r\n\r\n\r\n\r\n> > Each subscriber in a mobile network may have different QoS policies depending on their subscription plan. Similarly, in home networks, devices can be assigned different priorities, see https://www.tp-link.com/in/support/faq/1601/. Furthermore, Cisco routers support user-group-based QoS policies, enabling tailored traffic prioritization for user groups (https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/15-mt/iri-15-mt-book/iri-sgt-based-qos.pdf).\r\n> \r\n> ACK, I'm afraid this will introduce more complexity at this stage for the scone case.\r\n> \r\n> FWIW, the full structure of the rate-limit is per type (port, class, node, etc.) as defined in draft-ietf-opsawg-teas-attachment-circuit, for example:\r\n> \r\n> ```\r\n>           +--rw svc-pe-to-ce-bandwidth {vpn-common:inbound-bw}?\r\n>             |  +--rw bandwidth* [bw-type]\r\n>             |     +--rw bw-type      identityref\r\n>             |     +--rw (type)?\r\n>             |        +--:(per-cos)\r\n>             |        |  +--rw cos* [cos-id]\r\n>             |        |     +--rw cos-id    uint8\r\n>             |        |     +--rw cir?      uint64\r\n>             |        |     +--rw cbs?      uint64\r\n>             |        |     +--rw eir?      uint64\r\n>             |        |     +--rw ebs?      uint64\r\n>             |        |     +--rw pir?      uint64\r\n>             |        |     +--rw pbs?      uint64\r\n>             |        +--:(other)\r\n>             |           +--rw cir?   uint64\r\n>             |           +--rw cbs?   uint64\r\n>             |           +--rw eir?   uint64\r\n>             |           +--rw ebs?   uint64\r\n>             |           +--rw pir?   uint64\r\n>             |           +--rw pbs?   uint64\r\n>             +--rw svc-ce-to-pe-bandwidth {vpn-common:outbound-bw}?\r\n>             |  +--rw bandwidth* [bw-type]\r\n>             |     +--rw bw-type      identityref\r\n>             |     +--rw (type)?\r\n>             |        +--:(per-cos)\r\n>             |        |  +--rw cos* [cos-id]\r\n>             |        |     +--rw cos-id    uint8\r\n>             |        |     +--rw cir?      uint64\r\n>             |        |     +--rw cbs?      uint64\r\n>             |        |     +--rw eir?      uint64\r\n>             |        |     +--rw ebs?      uint64\r\n>             |        |     +--rw pir?      uint64\r\n>             |        |     +--rw pbs?      uint64\r\n>             |        +--:(other)\r\n>             |           +--rw cir?   uint64\r\n>             |           +--rw cbs?   uint64\r\n>             |           +--rw eir?   uint64\r\n>             |           +--rw ebs?   uint64\r\n>             |           +--rw pir?   uint64\r\n>             |           +--rw pbs?   uint64\r\n> ```\r\n> \r\n> > The NRLP draft should discuss mechanisms like solicited Router Advertisements (RAs) https://www.rfc-editor.org/rfc/rfc8273.txt and DHCP responses that enable unique rate-limit configurations per endpoint. Without addressing it, the scope of the draft will be restricted to applying a common rate-limit policy for all endpoints attached to the network.\r\n> \r\n> The network cannot mandate how resources will be partitioned within a local network because that's out of its administration scope. The signal that we are providing right now is a good progress: \"this is an aggregate that is shared with others\".\r\n> \r\n> Are there specific considerations you have in mind that we can better indicate?\r\n\r\nIt will be helpful to explicitly mention how such endpoint-specific mechanism already supported by DHCP/RA will complement the current aggregate approach. I suggest adding text to say the proposed mechanism also works for endpoint-specific signaling which would provide additional granularity (similar to the way MASQUE and QUIC based solutions). I propose the following text:\r\n\r\nTo enhance flexibility in applying rate-limiting policies and better accommodate diverse endpoint QoS requirements, mechanisms such as solicited Router Advertisements (RAs) [RFC 8273] and endpoint-specific DHCP responses can be employed. These unicast responses enable granular signaling of rate-limit policies to individual endpoints, facilitating differentiated rate-limit configurations. However, this draft does not prescribe how resources should be partitioned within local networks, as such considerations fall outside its scope.",
+          "createdAt": "2024-12-03T12:42:56Z",
+          "updatedAt": "2024-12-03T12:42:56Z"
         }
       ]
     }
@@ -3924,6 +3957,36 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 83,
+      "id": "PR_kwDOLlGZlc6D5UBK",
+      "title": "granular policy",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/83",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "NRLP"
+      ],
+      "body": "",
+      "createdAt": "2024-12-03T13:41:52Z",
+      "updatedAt": "2024-12-04T06:42:51Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "23a4c3119879f0ac263622cc9398c15d320f705b",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "granular-policy",
+      "headRefOid": "cfc161b86b3babba59f45ba83b7201f0b01e3d3b",
+      "closedAt": "2024-12-04T06:42:49Z",
+      "mergedAt": "2024-12-04T06:42:49Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8b48c22cd294115bffce94fa6bc77d8585ae5954"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
