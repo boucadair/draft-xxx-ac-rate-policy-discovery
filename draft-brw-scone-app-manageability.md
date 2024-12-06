@@ -38,6 +38,18 @@ author:
     country: United States of America
     email: "sridharan.girish@gmail.com"
  -
+    fullname: Gyan Mishra
+    organization: Verizon Inc
+    country: United States of America
+    email: "gyan.s.mishra@verizon.com"
+ -
+    ins: M. Amend
+    name: Markus Amend
+    org: Deutsche Telekom
+    country: Germany
+    email: markus.amend@telekom.de
+
+ -
     ins: L. Contreras
     name: Luis M. Contreras
     org: Telefonica
@@ -145,135 +157,42 @@ TBC
 
 # Introduction
 
-## Context
+{{!I-D.brw-scone-throughput-advice-blob}} defines a set of parameters that can be used by networks to share the rate-limit policies applied on a network attachment: Throughput Advice. These parameters are independent of the channel that is used by hosts to discover such policies.
 
-Connectivity services are provided by networks to customers via
-dedicated terminating points, such as customer edges (CEs) or User Equipment (UE).
-To facilitate data transfer via the provider network, it is assumed that appropriate setup
-is provisioned over the links that connect customer terminating points and a provider network (usually via a Provider Edge (PE)),
-successfully allowing data exchange over these links. The required setup is referred to in this document as network attachments,
-while the underlying link is referred to as "bearers".
+Applications will have access to the Throughput Advices and will, thus,
+   adjust their behavior as a function of scope and traffic category
+   indicated in a policy (all traffic, etc.).
 
-The bearer can be a physical or logical link that connects a customer device to a provider network. A bearer can be a wireless or wired link. The same or multiple bearer technologies can be used to establish the bearer (e.g., WLAN, cellular) to graft customer terminating points to a network.
+{{!I-D.brw-scone-throughput-advice-blob}} does not assume nor preclude that other mechanisms,
+   e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}},
+   are enabled in a bottleneck link.  The reader may refer to {{sec-alt}}
+   for a list of relevant mechanisms.  Whether these mechanism as
+   alternative or complementary to explicit host/network signals is to
+   be further assessed.
 
-> Network attachment is also known as "Attachment Circuit (AC)" which is an established concept in the industry and also in the IETF ({{?RFC4026}}, {{?RFC4664}}, {{?RFC4364}}, etc.).
+This document discusses focuses on manageability and deployment considerations of Throughput Advice.
 
-{{ac}} shows an example of a network that connects CEs and hosts (UE, for example).These CEs are servicing
-other (internal) hosts. The identification of these hosts is hidden from the network. The policies enforced at the network
-for an AC are per-subscriber, not per-host. Typically, if a CE is provided with a /56 IPv6 prefix, policies are enforced
-on that /56 not the individual /64s that will be used by internal hosts. A customer terminating point may be serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g., CE#2).
-
-~~~~aasvg
-                                                        Hosts
-                                                        O O O
-                                                         \|/
-.------.                .--------------------.         .------.
-|      +------+         |                    +---AC----+      |
-| UE#1 |      |         |                    +---AC----+ CE#2 |
-'------'      +---AC----+                    |         '------'
-                        |     Network        |
-.------.      .---AC----+                    |
-|      |      |         |                    |         .------.
-| CE#1 +------'         |                    +---AC----+ CE#3 |
-'------'                |                    |         '------'
-   /|\                  '--------------------'            /|\
-  O O O                                                  O O O
-  Hosts                                                  Hosts
-~~~~
-{: #ac title="Sample Network Attachments" artwork-align="center"}
-
-Customer terminating points are provided with a set of information (e.g., IP address/prefix) to successfully be
-able to send and receive traffic over an AC. A comprehensive list of provisioning parameters that are available on
-the PE-side of an AC is documented in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
-
-The required set of parameters is a function of the service offering. For example, a very limited set of parameters is required for mass-market
-service offering while a more elaborated set is required for Enterprise services (e.g., Layer 2 VPN {{?RFC9291}} or Layer 3 VPN {{?RFC9182}}). This document
-**leverages access control, authorization, and authentication mechanisms that are already in place for the delivery of services over these ACs**.
-
-
-## What's Out?
-
-This document does not make any assumption about the type of the network (fixed, cellular, etc.) that terminates an AC.
-
-Likewise, the document does not make any assumption about the services or applications that are delivered over an AC. Whether one or multiple services
-are bound to the same AC is deployment specific.
-
-Applications will have access to all these NRLPs and will, thus, adjust their behavior as a function of scope and traffic category indicated in a policy (all traffic, streaming, etc.). An application that couples multiple flow types will adjust each flow type to be consistent with the specific policy for the relevant traffic category. Likewise, a host with multiple ACs may use the discovered NRLPs AC to decide how to distribute its flows over these ACs (prefer an AC to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
-
-Networks that advertize NLRPs are likely to maintain the policing in place within the network because of the trust model (hosts are not considered as trusted devices). Per-subscriber rate-limit policies are generally recommended to protect nodes against Denial of Service (DoS) attacks (e.g., {{Section 9.3 of ?RFC8803}} or {{Section 8 of ?I-D.ietf-masque-quic-proxy}}). Discussion about conditions under which such a trust model can be relaxed is out of scope of this document.
-
-This document does not assume nor preclude that other mechanisms, e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) {{?RFC9330}}, are enabled in a bottleneck link. The reader may refer to {{sec-alt}} for a list of relevant mechanisms. Whether these mechanism as alternative or complementary to explicit host/network signals is to be further assessed.
-
-## Design Motivation & Rationale
-
-The main motivations for the use of ND for such a discovery are listed in {{Section 3 of ?RFC8781}}:
-
-* Fate sharing
-* Atomic configuration
-* Updatability: change the policy at any time
-* Deployability
-
-The solution specified in the document is designed to **ease integration with network management tools** that are used to manage and expose policies. It does so by leveraging the policy structure defined in {{?I-D.ietf-opsawg-ntw-attachment-circuit}}. That same structure is also used in the context of service activation such as Network Slicing {{?RFC9543}}; see the example depicted in Appendix B.5 of {{?I-D.ietf-teas-ietf-network-slice-nbi-yang}}.
-
-The solution defined in this document:
-
-* **Does not require any data plane change**.
-* **Applicable to any transport protocol**.
-* **Does not impact the connection setup delay**.
-* **Does not require to reveal the identity of the target server or the application itself** to consume the signal.
-* **Supports cascaded environments** where multiple levels to enforce rate-limiting polices is required (e.g., WAN and LAN shown in {{ac-casc}}). NRLP signals can be coupled or decoupled as a function of the local policy.
-* **Supports signaling policies bound to one or both traffic directions**.
-* Is able to **signal whether a policy applies to a specific host or all hosts of a given subscriber**.
-
-~~~~aasvg
-.------.                      .--------------------.
-| Host +---+     .---.        |                    |
-|  #1  |   |     |   |        |                    |
-'------'   +-----+ C |        |                    |
-         nrlp#2  | P +--------+      Network       |
-.------.   .-----+ E | nrlp#1 |                    |
-| Host |   |     |   |        |                    |
-|  #2  +---'     '---'        |                    |
-'------' nrlp#3               |                    |
-                              '--------------------'
-~~~~
-{: #ac-casc title="Example of Cascaded NRLPs" artwork-align="center"}
-
-Compared to a proxy or an encapsulation-based proposal (e.g., {{?I-D.ihlar-masque-sconepro-mediabitrate}}), the solution defined in this document:
-
-* **Does not impact the MTU tweaking**: No packet overhead is required.
-* **Does not suffer from side effects of multi-layer encryption schemes** on the packet processing and overall performance of involved network nodes. Such issues are encountered, e.g., with the tunneled mode or long header packets in the forwarded QUIC proxy mode {{?I-D.ietf-masque-quic-proxy}}.
-* **Does not suffer from nested congestion control** for tunneled proxy mode.
-* **Does not incur multiple round-trips** in the forwarding mode for the client to start sending Short Header packets.
-* **Does not incur the overhead of unauthenticated re-encryption of QUIC packets** in the scramble transform of the forwarding mode.
-* **Does not impact the forwarding peformance of network nodes**. For example, the proxy forwarded mode {{?I-D.ietf-masque-quic-proxy}} requires rewriting connection identifiers; that is, the performance degradation will be at least equivalent to NAT.
-* **Does not suffer from the complications of IP address sharing {{?RFC6269}}**. Such issues are likely to be experienced for proxy-based solutions that multiplex internal connections using one or more external IP addresses.
-* **Does not suffer from penalizing the proxy** which could serve both good and bad clients (e.g., launching Layer 7 DDoS attacks).
-* **Does not require manipulating extra steering policies on the host** to decide which flows can be forwarded over or outside the proxy connection.
-* **Requires a minor change to the network**: For IPv6, upgrade PE nodes to support a new ND option. Note that all IPv6 hosts and networks are required to support Neighbor Discovery {{!RFC4861}}. For IPv4, configure DHCP servers to include a new DHCP option.
-
-# Conventions and Definitions
-
-{::boilerplate bcp14-tagged}
+Operational considerations are discussed in {{sec-ops}}, while
+   deployment incentives are described in {{sec-inc}}.
 
 # Operational Considerations {#sec-ops}
 
-## NRLP Is Complementary Not Replacement Solution
+## Throughput Advice Is Complementary Not Replacement Solution
 
-Sharing NRLP signals are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, NRLP signals can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
+Sharing Throughput Advice are not intended to replace usual actions to soften bottlenck issues (e.g., adequate network dimensioning and upgrades). However, given that such actions may not be always immediately possible or economically justified, Throughput Advices can be considered as complementary mitigations to soften these issues by introducing some collaboration between a host and
 its networks to adjust their behaviors.
 
 ## Provisionning Policies
 
-NRLP senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
+Throughput Advice senders should be configured with instructions about the type of network rate-limit policies to be shared with requesting hosts. These types can be provided using mechanisms such as {{?I-D.ietf-opsawg-ntw-attachment-circuit}}.
 
 ## Redundant vs. Useful Signal
 
-In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending NRLP signals over the AC may be redundant and should thus be disabled.
+In contexts where the bitrate policies are known during the establishment of the underlying bearer (e.g., GBR PDU Sessions), sending Throughput Advice over the AC may be redundant and should thus be disabled.
 
-In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending NRLP signals over the AC would allow control the load at the source.
+In contexts where the (average) bitrate policies provided during the establishment of a bearer cannot be refreshed to echo network-specific conditions (e.g., overload) using bearer-specific mechanisms, sending Throughput Advices over the AC would allow control the load at the source.
 
-When both bearer-specific policies and NRLP signals are communicated to a host, the NRLP signals takes precedence.
+When both bearer-specific policies and Throughput Advices are communicated to a host, the Throughput Advices takes precedence.
 
 ## Fairness
 
@@ -289,7 +208,6 @@ These regulatory frameworks align with the goals of this document.
 Approaches based on middleboxes are generally not recommended due to their inherent limitations, in terms of performance, scalability, redundancy, etc. Specifically, if the management and operation of such middleboxes remain unclear, that motivate operational issues and responsibilities.
 Furthermore, it is important to note that any middlebox could not necessarily cover an entire service end-to-end, thus **producing only partial observations which could not be sufficiently good at the time of generating appropriate signals**.
 
-The NRLP solution does not require such middleboxes but the consideration about partial observability applies. That concern can be softened by cascaded NLRP design. However, network integration of such appraoch is to be further elaborated.
 
 ## Service Considerations: Application Diversity & Realistic Assessment
 
@@ -319,7 +237,7 @@ The network is built on multiple layers. In some cases, different solutions targ
 
 ## Networks
 
-There are a set of tradeoffs for networks to deploy NRLP discovery:
+There are a set of tradeoffs for networks to deploy Throughput Advice discovery:
 
 * Cost vs. benefit
 * Impact on operations vs incentive to deploy
@@ -331,12 +249,12 @@ of resources under non nominal conditions. The mechanism also allows to enhance 
 With the OS support, the following benefits might be considered by networks:
 
 Improved Network Performance:
-: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with NRLP signals.
+: The OS can schedule network requests more efficiently, preventing network congestion, and improving overall stability and network performance with Throughput Advices.
 
 Cost Efficiency:
 : By managing network usage based on known rate limits, the OS can help reduce network-related costs. However, this is difficult to assess.
 
-Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share NRLP signals. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
+Networks that throttle bandwidth for reasons that are not compliant with local jurisdictions, not communicated to customers, etc. are unlikely to share Throughput Advices. If these signals are shared, it is unlikely that they will mirror the actual network configuration (e.g., application-specific policies).
 
 ## Applications {#sec-app-inc}
 
@@ -350,7 +268,7 @@ depends upon:
 * The availability of the network signals at the first place: it is unlikely that all networks will support sending the signals. Deployment incentives at the network may vary.
 * The host support may be variable.
 
-Applications that don't support (embedded) bandwidth measurement schemes will be enriched with the NRLP signals as this will be exposed by an OS API.
+Applications that don't support (embedded) bandwidth measurement schemes will be enriched with the Throughput Advices as this will be exposed by an OS API.
 
 ## Host OS
 
@@ -358,13 +276,13 @@ API to facilitate Application Development:
 : An OS can provide more accurate available bandwidth to applications through the API (as mentioned in {{sec-app-inc}}), making implementation easier for applications that don't requrie dedicated bandwidth measurement.
 
 Prevent Abuse:
-: The OS can allocate network resources more fairly among different processes, with NRLP signals, ensuring that no single process monopolizes the network.
+: The OS can allocate network resources more fairly among different processes, with Throughput Advices, ensuring that no single process monopolizes the network.
 
 Better Resource Management:
 : OS can also optimize resource allocation, by deprioritizing background/inactive applications in the event of high network utilization.
 
 Enhanced Security:
-: Awareness of NRLPs can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
+: Awareness of Throughput Advices can help the OS detect and mitigate network-related security threats, such as denial-of-service (DoS) attacks.
 
 Improved User Experience:
 : By avoiding network congestion and ensuring fair resource allocation, the OS can provide a smoother, more responsive user experience.
@@ -438,4 +356,4 @@ The CAMARA API "Network Slice Booking", which is currently under development, wo
 # Acknowledgments
 {:numbered="false"}
 
-Thanks to Tommy Pauly for the comment on PvD.
+TBC.
