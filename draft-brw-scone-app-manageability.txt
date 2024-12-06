@@ -5,14 +5,18 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 8 June 2025                                Cloud Software Group
+Expires: 9 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
+                                                               G. Mishra
+                                                             Verizon Inc
+                                                                M. Amend
+                                                        Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                         5 December 2024
+                                                         6 December 2024
 
 
                   SCONE Applicability & Manageability
@@ -44,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 June 2025.
+   This Internet-Draft will expire on 9 June 2025.
 
 Copyright Notice
 
@@ -63,30 +67,26 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  Context
-     1.2.  What's Out?
-     1.3.  Design Motivation & Rationale
-   2.  Conventions and Definitions
-   3.  Operational Considerations
-     3.1.  NRLP Is Complementary Not Replacement Solution
-     3.2.  Provisionning Policies
-     3.3.  Redundant vs. Useful Signal
-     3.4.  Fairness
-     3.5.  Architectural Considerations Matter
-     3.6.  Service Considerations: Application Diversity & Realistic
+   2.  Operational Considerations
+     2.1.  Throughput Advice Is Complementary Not Replacement Solution
+     2.2.  Provisionning Policies
+     2.3.  Redundant vs. Useful Signal
+     2.4.  Fairness
+     2.5.  Architectural Considerations Matter
+     2.6.  Service Considerations: Application Diversity & Realistic
            Assessment
-     3.7.  Operational Guidance for Signal Enforcement
-     3.8.  Signal Estimation
-     3.9.  Signal "Interference"
-   4.  Deployment Incentives
-     4.1.  Networks
-     4.2.  Applications
-     4.3.  Host OS
-   5.  Security Considerations
-   6.  IANA Considerations
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+     2.7.  Operational Guidance for Signal Enforcement
+     2.8.  Signal Estimation
+     2.9.  Signal "Interference"
+   3.  Deployment Incentives
+     3.1.  Networks
+     3.2.  Applications
+     3.3.  Host OS
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Appendix A.  Alternative/Complementary Mechanisms
      A.1.  L4S
      A.2.  Network Slicing
@@ -97,250 +97,65 @@ Table of Contents
 
 1.  Introduction
 
-1.1.  Context
+   [I-D.brw-scone-throughput-advice-blob] defines a set of parameters
+   that can be used by networks to share the rate-limit policies applied
+   on a network attachment: Throughput Advice.  These parameters are
+   independent of the channel that is used by hosts to discover such
+   policies.
 
-   Connectivity services are provided by networks to customers via
-   dedicated terminating points, such as customer edges (CEs) or User
-   Equipment (UE).  To facilitate data transfer via the provider
-   network, it is assumed that appropriate setup is provisioned over the
-   links that connect customer terminating points and a provider network
-   (usually via a Provider Edge (PE)), successfully allowing data
-   exchange over these links.  The required setup is referred to in this
-   document as network attachments, while the underlying link is
-   referred to as "bearers".
+   Applications will have access to the Throughput Advices and will,
+   thus, adjust their behavior as a function of scope and traffic
+   category indicated in a policy (all traffic, etc.).
 
-   The bearer can be a physical or logical link that connects a customer
-   device to a provider network.  A bearer can be a wireless or wired
-   link.  The same or multiple bearer technologies can be used to
-   establish the bearer (e.g., WLAN, cellular) to graft customer
-   terminating points to a network.
+   [I-D.brw-scone-throughput-advice-blob] does not assume nor preclude
+   that other mechanisms, e.g., Low Latency, Low Loss, and Scalable
+   Throughput (L4S) [RFC9330], are enabled in a bottleneck link.  The
+   reader may refer to Appendix A for a list of relevant mechanisms.
+   Whether these mechanism as alternative or complementary to explicit
+   host/network signals is to be further assessed.
 
-      Network attachment is also known as "Attachment Circuit (AC)"
-      which is an established concept in the industry and also in the
-      IETF ([RFC4026], [RFC4664], [RFC4364], etc.).
+   This document discusses focuses on manageability and deployment
+   considerations of Throughput Advice.
 
-   Figure 1 shows an example of a network that connects CEs and hosts
-   (UE, for example).These CEs are servicing other (internal) hosts.
-   The identification of these hosts is hidden from the network.  The
-   policies enforced at the network for an AC are per-subscriber, not
-   per-host.  Typically, if a CE is provided with a /56 IPv6 prefix,
-   policies are enforced on that /56 not the individual /64s that will
-   be used by internal hosts.  A customer terminating point may be
-   serviced with one (e.g., UE#1, CE#1, and CE#3) or multiple ACs (e.g.,
-   CE#2).
+   Operational considerations are discussed in Section 2, while
+   deployment incentives are described in Section 3.
 
-                                                              Hosts
-                                                              O O O
-                                                               \|/
-      .------.                .--------------------.         .------.
-      |      +------+         |                    +---AC----+      |
-      | UE#1 |      |         |                    +---AC----+ CE#2 |
-      '------'      +---AC----+                    |         '------'
-                              |     Network        |
-      .------.      .---AC----+                    |
-      |      |      |         |                    |         .------.
-      | CE#1 +------'         |                    +---AC----+ CE#3 |
-      '------'                |                    |         '------'
-         /|\                  '--------------------'            /|\
-        O O O                                                  O O O
-        Hosts                                                  Hosts
+2.  Operational Considerations
 
-                    Figure 1: Sample Network Attachments
+2.1.  Throughput Advice Is Complementary Not Replacement Solution
 
-   Customer terminating points are provided with a set of information
-   (e.g., IP address/prefix) to successfully be able to send and receive
-   traffic over an AC.  A comprehensive list of provisioning parameters
-   that are available on the PE-side of an AC is documented in
-   [I-D.ietf-opsawg-ntw-attachment-circuit].
-
-   The required set of parameters is a function of the service offering.
-   For example, a very limited set of parameters is required for mass-
-   market service offering while a more elaborated set is required for
-   Enterprise services (e.g., Layer 2 VPN [RFC9291] or Layer 3 VPN
-   [RFC9182]).  This document *leverages access control, authorization,
-   and authentication mechanisms that are already in place for the
-   delivery of services over these ACs*.
-
-1.2.  What's Out?
-
-   This document does not make any assumption about the type of the
-   network (fixed, cellular, etc.) that terminates an AC.
-
-   Likewise, the document does not make any assumption about the
-   services or applications that are delivered over an AC.  Whether one
-   or multiple services are bound to the same AC is deployment specific.
-
-   Applications will have access to all these NRLPs and will, thus,
-   adjust their behavior as a function of scope and traffic category
-   indicated in a policy (all traffic, streaming, etc.).  An application
-   that couples multiple flow types will adjust each flow type to be
-   consistent with the specific policy for the relevant traffic
-   category.  Likewise, a host with multiple ACs may use the discovered
-   NRLPs AC to decide how to distribute its flows over these ACs (prefer
-   an AC to place an application session, migrate connection, etc.).
-   That's said, this document does not make any recommendation about how
-   a receiving host uses the discovered policy.
-
-   Networks that advertize NLRPs are likely to maintain the policing in
-   place within the network because of the trust model (hosts are not
-   considered as trusted devices).  Per-subscriber rate-limit policies
-   are generally recommended to protect nodes against Denial of Service
-   (DoS) attacks (e.g., Section 9.3 of [RFC8803] or Section 8 of
-   [I-D.ietf-masque-quic-proxy]).  Discussion about conditions under
-   which such a trust model can be relaxed is out of scope of this
-   document.
-
-   This document does not assume nor preclude that other mechanisms,
-   e.g., Low Latency, Low Loss, and Scalable Throughput (L4S) [RFC9330],
-   are enabled in a bottleneck link.  The reader may refer to Appendix A
-   for a list of relevant mechanisms.  Whether these mechanism as
-   alternative or complementary to explicit host/network signals is to
-   be further assessed.
-
-1.3.  Design Motivation & Rationale
-
-   The main motivations for the use of ND for such a discovery are
-   listed in Section 3 of [RFC8781]:
-
-   *  Fate sharing
-
-   *  Atomic configuration
-
-   *  Updatability: change the policy at any time
-
-   *  Deployability
-
-   The solution specified in the document is designed to *ease
-   integration with network management tools* that are used to manage
-   and expose policies.  It does so by leveraging the policy structure
-   defined in [I-D.ietf-opsawg-ntw-attachment-circuit].  That same
-   structure is also used in the context of service activation such as
-   Network Slicing [RFC9543]; see the example depicted in Appendix B.5
-   of [I-D.ietf-teas-ietf-network-slice-nbi-yang].
-
-   The solution defined in this document:
-
-   *  *Does not require any data plane change*.
-
-   *  *Applicable to any transport protocol*.
-
-   *  *Does not impact the connection setup delay*.
-
-   *  *Does not require to reveal the identity of the target server or
-      the application itself* to consume the signal.
-
-   *  *Supports cascaded environments* where multiple levels to enforce
-      rate-limiting polices is required (e.g., WAN and LAN shown in
-      Figure 2).  NRLP signals can be coupled or decoupled as a function
-      of the local policy.
-
-   *  *Supports signaling policies bound to one or both traffic
-      directions*.
-
-   *  Is able to *signal whether a policy applies to a specific host or
-      all hosts of a given subscriber*.
-
-           .------.                      .--------------------.
-           | Host +---+     .---.        |                    |
-           |  #1  |   |     |   |        |                    |
-           '------'   +-----+ C |        |                    |
-                    nrlp#2  | P +--------+      Network       |
-           .------.   .-----+ E | nrlp#1 |                    |
-           | Host |   |     |   |        |                    |
-           |  #2  +---'     '---'        |                    |
-           '------' nrlp#3               |                    |
-                                         '--------------------'
-
-                    Figure 2: Example of Cascaded NRLPs
-
-   Compared to a proxy or an encapsulation-based proposal (e.g.,
-   [I-D.ihlar-masque-sconepro-mediabitrate]), the solution defined in
-   this document:
-
-   *  *Does not impact the MTU tweaking*: No packet overhead is
-      required.
-
-   *  *Does not suffer from side effects of multi-layer encryption
-      schemes* on the packet processing and overall performance of
-      involved network nodes.  Such issues are encountered, e.g., with
-      the tunneled mode or long header packets in the forwarded QUIC
-      proxy mode [I-D.ietf-masque-quic-proxy].
-
-   *  *Does not suffer from nested congestion control* for tunneled
-      proxy mode.
-
-   *  *Does not incur multiple round-trips* in the forwarding mode for
-      the client to start sending Short Header packets.
-
-   *  *Does not incur the overhead of unauthenticated re-encryption of
-      QUIC packets* in the scramble transform of the forwarding mode.
-
-   *  *Does not impact the forwarding peformance of network nodes*. For
-      example, the proxy forwarded mode [I-D.ietf-masque-quic-proxy]
-      requires rewriting connection identifiers; that is, the
-      performance degradation will be at least equivalent to NAT.
-
-   *  *Does not suffer from the complications of IP address sharing
-      [RFC6269]*. Such issues are likely to be experienced for proxy-
-      based solutions that multiplex internal connections using one or
-      more external IP addresses.
-
-   *  *Does not suffer from penalizing the proxy* which could serve both
-      good and bad clients (e.g., launching Layer 7 DDoS attacks).
-
-   *  *Does not require manipulating extra steering policies on the
-      host* to decide which flows can be forwarded over or outside the
-      proxy connection.
-
-   *  *Requires a minor change to the network*: For IPv6, upgrade PE
-      nodes to support a new ND option.  Note that all IPv6 hosts and
-      networks are required to support Neighbor Discovery [RFC4861].
-      For IPv4, configure DHCP servers to include a new DHCP option.
-
-2.  Conventions and Definitions
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
-3.  Operational Considerations
-
-3.1.  NRLP Is Complementary Not Replacement Solution
-
-   Sharing NRLP signals are not intended to replace usual actions to
-   soften bottlenck issues (e.g., adequate network dimensioning and
+   Sharing Throughput Advice are not intended to replace usual actions
+   to soften bottlenck issues (e.g., adequate network dimensioning and
    upgrades).  However, given that such actions may not be always
-   immediately possible or economically justified, NRLP signals can be
-   considered as complementary mitigations to soften these issues by
-   introducing some collaboration between a host and its networks to
+   immediately possible or economically justified, Throughput Advices
+   can be considered as complementary mitigations to soften these issues
+   by introducing some collaboration between a host and its networks to
    adjust their behaviors.
 
-3.2.  Provisionning Policies
+2.2.  Provisionning Policies
 
-   NRLP senders should be configured with instructions about the type of
-   network rate-limit policies to be shared with requesting hosts.
-   These types can be provided using mechanisms such as
-   [I-D.ietf-opsawg-ntw-attachment-circuit].
+   Throughput Advice senders should be configured with instructions
+   about the type of network rate-limit policies to be shared with
+   requesting hosts.  These types can be provided using mechanisms such
+   as [I-D.ietf-opsawg-ntw-attachment-circuit].
 
-3.3.  Redundant vs. Useful Signal
+2.3.  Redundant vs. Useful Signal
 
    In contexts where the bitrate policies are known during the
    establishment of the underlying bearer (e.g., GBR PDU Sessions),
-   sending NRLP signals over the AC may be redundant and should thus be
-   disabled.
+   sending Throughput Advice over the AC may be redundant and should
+   thus be disabled.
 
    In contexts where the (average) bitrate policies provided during the
    establishment of a bearer cannot be refreshed to echo network-
    specific conditions (e.g., overload) using bearer-specific
-   mechanisms, sending NRLP signals over the AC would allow control the
-   load at the source.
+   mechanisms, sending Throughput Advices over the AC would allow
+   control the load at the source.
 
-   When both bearer-specific policies and NRLP signals are communicated
-   to a host, the NRLP signals takes precedence.
+   When both bearer-specific policies and Throughput Advices are
+   communicated to a host, the Throughput Advices takes precedence.
 
-3.4.  Fairness
+2.4.  Fairness
 
    Rate-limit policies enforced at the network are assumed to be
    consistent with the local jurisdictions.  For example:
@@ -357,7 +172,7 @@ Table of Contents
 
    These regulatory frameworks align with the goals of this document.
 
-3.5.  Architectural Considerations Matter
+2.5.  Architectural Considerations Matter
 
    Approaches based on middleboxes are generally not recommended due to
    their inherent limitations, in terms of performance, scalability,
@@ -368,12 +183,7 @@ Table of Contents
    thus *producing only partial observations which could not be
    sufficiently good at the time of generating appropriate signals*.
 
-   The NRLP solution does not require such middleboxes but the
-   consideration about partial observability applies.  That concern can
-   be softened by cascaded NLRP design.  However, network integration of
-   such appraoch is to be further elaborated.
-
-3.6.  Service Considerations: Application Diversity & Realistic
+2.6.  Service Considerations: Application Diversity & Realistic
       Assessment
 
    Signals could be generated for multiple services and/or applications.
@@ -399,7 +209,7 @@ Table of Contents
    *assessed with more experimental results under realistic conditions
    (i.e., multiple users and multiple services in the network)*.
 
-3.7.  Operational Guidance for Signal Enforcement
+2.7.  Operational Guidance for Signal Enforcement
 
    Signals are conceived as indications from the network towards
    applications.  It is not clear the way of enforcing the application
@@ -419,7 +229,7 @@ Table of Contents
    *Elaborating more operational guidance on intended signal enforcment
    policy is key*.
 
-3.8.  Signal Estimation
+2.8.  Signal Estimation
 
    The validity of the estimation produced by a network might be
    questioned by the application.  Trust is required in a way that
@@ -434,7 +244,7 @@ Table of Contents
    that signals could not be of value because the self-adaptation nature
    of these applications.
 
-3.9.  Signal "Interference"
+2.9.  Signal "Interference"
 
    The network is built on multiple layers.  In some cases, different
    solutions targeting similar objectives (e.g., congestion control or
@@ -442,11 +252,12 @@ Table of Contents
    *assess the simultaneous coexistence of these solutions to avoid
    contradictory effects or "interferences"*.
 
-4.  Deployment Incentives
+3.  Deployment Incentives
 
-4.1.  Networks
+3.1.  Networks
 
-   There are a set of tradeoffs for networks to deploy NRLP discovery:
+   There are a set of tradeoffs for networks to deploy Throughput Advice
+   discovery:
 
    *  Cost vs. benefit
 
@@ -467,7 +278,7 @@ Table of Contents
 
    Improved Network Performance:  The OS can schedule network requests
       more efficiently, preventing network congestion, and improving
-      overall stability and network performance with NRLP signals.
+      overall stability and network performance with Throughput Advices.
 
    Cost Efficiency:  By managing network usage based on known rate
       limits, the OS can help reduce network-related costs.  However,
@@ -475,11 +286,11 @@ Table of Contents
 
    Networks that throttle bandwidth for reasons that are not compliant
    with local jurisdictions, not communicated to customers, etc. are
-   unlikely to share NRLP signals.  If these signals are shared, it is
-   unlikely that they will mirror the actual network configuration
+   unlikely to share Throughput Advices.  If these signals are shared,
+   it is unlikely that they will mirror the actual network configuration
    (e.g., application-specific policies).
 
-4.2.  Applications
+3.2.  Applications
 
    Some applications support some forms of bandwidth measurements (e.g.,
    [app-measurement]) which feed how the content is accessed to using
@@ -502,63 +313,57 @@ Table of Contents
    *  The host support may be variable.
 
    Applications that don't support (embedded) bandwidth measurement
-   schemes will be enriched with the NRLP signals as this will be
+   schemes will be enriched with the Throughput Advices as this will be
    exposed by an OS API.
 
-4.3.  Host OS
+3.3.  Host OS
 
    API to facilitate Application Development:  An OS can provide more
       accurate available bandwidth to applications through the API (as
-      mentioned in Section 4.2), making implementation easier for
+      mentioned in Section 3.2), making implementation easier for
       applications that don't requrie dedicated bandwidth measurement.
 
    Prevent Abuse:  The OS can allocate network resources more fairly
-      among different processes, with NRLP signals, ensuring that no
-      single process monopolizes the network.
+      among different processes, with Throughput Advices, ensuring that
+      no single process monopolizes the network.
 
    Better Resource Management:  OS can also optimize resource
       allocation, by deprioritizing background/inactive applications in
       the event of high network utilization.
 
-   Enhanced Security:  Awareness of NRLPs can help the OS detect and
-      mitigate network-related security threats, such as denial-of-
-      service (DoS) attacks.
+   Enhanced Security:  Awareness of Throughput Advices can help the OS
+      detect and mitigate network-related security threats, such as
+      denial-of-service (DoS) attacks.
 
    Improved User Experience:  By avoiding network congestion and
       ensuring fair resource allocation, the OS can provide a smoother,
       more responsive user experience.
 
    Improved Application Development Efficiency:  OS providing rate
-      limits through an API (as mentioned in Section 4.2) can provide
+      limits through an API (as mentioned in Section 3.2) can provide
       the above listed benefits at per application level.
 
-5.  Security Considerations
+4.  Security Considerations
 
    TBC.
 
-6.  IANA Considerations
+5.  IANA Considerations
 
    This document does not make any IANA request.
 
-7.  References
+6.  References
 
-7.1.  Normative References
+6.1.  Normative References
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
+   [I-D.brw-scone-throughput-advice-blob]
+              Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S., and
+              L. M. Contreras, "Throughput Advice Object for SCONE",
+              Work in Progress, Internet-Draft, draft-brw-scone-
+              throughput-advice-blob-01, 3 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-brw-scone-
+              throughput-advice-blob-01>.
 
-   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
-              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
-              DOI 10.17487/RFC4861, September 2007,
-              <https://www.rfc-editor.org/rfc/rfc4861>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-7.2.  Informative References
+6.2.  Informative References
 
    [app-measurement]
               Gurel, Z. and A. C. Begen, "Bandwidth measurement for
@@ -572,13 +377,6 @@ Table of Contents
    [FCC]      FCC, "FCC Restores Net Neutrality",
               <https://www.fcc.gov/document/fcc-restores-net-neutrality-
               0>.
-
-   [I-D.ietf-masque-quic-proxy]
-              Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
-              Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-04, 18 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-04>.
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
@@ -597,21 +395,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
               ns-ip-mpls-13>.
 
-   [I-D.ietf-teas-ietf-network-slice-nbi-yang]
-              Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
-              "A YANG Data Model for the RFC 9543 Network Slice
-              Service", Work in Progress, Internet-Draft, draft-ietf-
-              teas-ietf-network-slice-nbi-yang-16, 28 August 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              ietf-network-slice-nbi-yang-16>.
-
-   [I-D.ihlar-masque-sconepro-mediabitrate]
-              Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
-              signaling media bitrate", Work in Progress, Internet-
-              Draft, draft-ihlar-masque-sconepro-mediabitrate-00, 9
-              February 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ihlar-masque-sconepro-mediabitrate-00>.
-
    [IANA-BOOTP]
               IANA, "BOOTP Vendor Extensions and DHCP Options",
               <https://www.iana.org/assignments/bootp-dhcp-parameters/>.
@@ -621,44 +404,6 @@ Table of Contents
 
    [IANA-PVD] IANA, "Provisioning Domains (PvDs)",
               <https://www.iana.org/assignments/pvds/>.
-
-   [RFC4026]  Andersson, L. and T. Madsen, "Provider Provisioned Virtual
-              Private Network (VPN) Terminology", RFC 4026,
-              DOI 10.17487/RFC4026, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4026>.
-
-   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
-              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
-              2006, <https://www.rfc-editor.org/rfc/rfc4364>.
-
-   [RFC4664]  Andersson, L., Ed. and E. Rosen, Ed., "Framework for Layer
-              2 Virtual Private Networks (L2VPNs)", RFC 4664,
-              DOI 10.17487/RFC4664, September 2006,
-              <https://www.rfc-editor.org/rfc/rfc4664>.
-
-   [RFC6269]  Ford, M., Ed., Boucadair, M., Durand, A., Levis, P., and
-              P. Roberts, "Issues with IP Address Sharing", RFC 6269,
-              DOI 10.17487/RFC6269, June 2011,
-              <https://www.rfc-editor.org/rfc/rfc6269>.
-
-   [RFC8781]  Colitti, L. and J. Linkova, "Discovering PREF64 in Router
-              Advertisements", RFC 8781, DOI 10.17487/RFC8781, April
-              2020, <https://www.rfc-editor.org/rfc/rfc8781>.
-
-   [RFC8803]  Bonaventure, O., Ed., Boucadair, M., Ed., Gundavelli, S.,
-              Seo, S., and B. Hesmans, "0-RTT TCP Convert Protocol",
-              RFC 8803, DOI 10.17487/RFC8803, July 2020,
-              <https://www.rfc-editor.org/rfc/rfc8803>.
-
-   [RFC9182]  Barguil, S., Gonzalez de Dios, O., Ed., Boucadair, M.,
-              Ed., Munoz, L., and A. Aguado, "A YANG Network Data Model
-              for Layer 3 VPNs", RFC 9182, DOI 10.17487/RFC9182,
-              February 2022, <https://www.rfc-editor.org/rfc/rfc9182>.
-
-   [RFC9291]  Boucadair, M., Ed., Gonzalez de Dios, O., Ed., Barguil,
-              S., and L. Munoz, "A YANG Network Data Model for Layer 2
-              VPNs", RFC 9291, DOI 10.17487/RFC9291, September 2022,
-              <https://www.rfc-editor.org/rfc/rfc9291>.
 
    [RFC9330]  Briscoe, B., Ed., De Schepper, K., Bagnulo, M., and G.
               White, "Low Latency, Low Loss, and Scalable Throughput
@@ -817,7 +562,7 @@ A.4.  Network APIs
 
 Acknowledgments
 
-   Thanks to Tommy Pauly for the comment on PvD.
+   TBC.
 
 Authors' Addresses
 
@@ -842,6 +587,18 @@ Authors' Addresses
    Cloud Software Group Holdings, Inc.
    United States of America
    Email: sridharan.girish@gmail.com
+
+
+   Gyan Mishra
+   Verizon Inc
+   United States of America
+   Email: gyan.s.mishra@verizon.com
+
+
+   Markus Amend
+   Deutsche Telekom
+   Germany
+   Email: markus.amend@telekom.de
 
 
    Luis M. Contreras

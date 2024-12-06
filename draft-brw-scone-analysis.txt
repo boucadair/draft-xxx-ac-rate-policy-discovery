@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Informational                                   D. Wing
-Expires: 8 June 2025                                Cloud Software Group
+Expires: 9 June 2025                                Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                         5 December 2024
+                                                         6 December 2024
 
 
                         SCONE Solution Analysis
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 June 2025.
+   This Internet-Draft will expire on 9 June 2025.
 
 Copyright Notice
 
@@ -659,9 +659,9 @@ Table of Contents
               Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S.,
               Mishra, G. S., Amend, M., and L. M. Contreras, "Discovery
               of Network Rate-Limit Policies (NRLPs)", Work in Progress,
-              Internet-Draft, draft-brw-scone-rate-policy-discovery-00,
-              8 October 2024, <https://datatracker.ietf.org/doc/html/
-              draft-brw-scone-rate-policy-discovery-00>.
+              Internet-Draft, draft-brw-scone-rate-policy-discovery-01,
+              5 December 2024, <https://datatracker.ietf.org/doc/html/
+              draft-brw-scone-rate-policy-discovery-01>.
 
    [I-D.ihlar-scone-masque-mediabitrate]
               Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
