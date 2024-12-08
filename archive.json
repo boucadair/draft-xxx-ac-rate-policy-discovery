@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-05T01:19:20.249245+00:00",
+  "timestamp": "2024-12-08T01:24:39.719124+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -3984,6 +3984,34 @@
       "mergedBy": "boucadair",
       "mergeCommit": {
         "oid": "8b48c22cd294115bffce94fa6bc77d8585ae5954"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 84,
+      "id": "PR_kwDOLlGZlc6ENuGb",
+      "title": "change README's filename from sconepro to scone",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/84",
+      "state": "MERGED",
+      "author": "danwing",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-05T17:17:03Z",
+      "updatedAt": "2024-12-05T17:21:53Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "b6318d49bb34dd17a4209c79595546c9f7decfa6",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "readme_fix",
+      "headRefOid": "1eacfd2ca4b5b7dc77442d9f3027b2781c8f32eb",
+      "closedAt": "2024-12-05T17:21:51Z",
+      "mergedAt": "2024-12-05T17:21:51Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "5d6daa6ff8a5b9e3f7171c050e0a54bf16d09b3b"
       },
       "comments": [],
       "reviews": []
