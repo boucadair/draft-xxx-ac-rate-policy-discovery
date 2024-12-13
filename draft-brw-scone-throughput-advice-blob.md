@@ -256,6 +256,7 @@ Flow flags (FF):
 
     R (Reliability):
     : Indicates the reliability type of traffic on which to apply the enclosed policy.
+    : For example, Reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB). One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of !I-D.ietf-tsvwg-nqb}}.
     : When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for unreliable traffic.
     : When set to "10b", this flag indicates that this policy is for reliable traffic.
@@ -303,7 +304,7 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 ~~~~~
 {: #ex title="A JSON Example"}
 
-The advice conveyed in {{ex-2}} is similar to the advice in {{ex}}. The only difference is that default values are trimmed in {{ex-2}}.
+The advice conveyed in {{ex-2}} is similar to the advice in {{ex}}. The only difference is that default values are not explicitly signaled in {{ex-2}}.
 
 ~~~~~json
 {
@@ -315,7 +316,7 @@ The advice conveyed in {{ex-2}} is similar to the advice in {{ex}}. The only dif
     ]
 }
 ~~~~~
-{: #ex-2 title="A JSON Example with Default Values Trimmed"}
+{: #ex-2 title="A JSON Example with Default Values Not Explicitly Signaled"}
 
 {{ex-3}} shows the example of an advice that encloses two instances, each for one traffic direction.
 
