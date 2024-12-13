@@ -193,7 +193,7 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 throughput-advice =  [+ throughput-instance]
 
 throughput-instance =  {
-  ? flow-flags => ff,
+  ? instance-flags => flags,
   ? traffic-category => category,
   throughput => rate-limit
 }
@@ -206,7 +206,7 @@ throughput-instance =  {
 ; If any of these parameters is not present, this is equivalent
 ; to enclosing the parameter with its default value.
 
-ff =  {
+flags =  {
   ? scope: &scope-values .default subscriber,
   ? direction: &direction-values .default n2h,
   ? reliability: &reliability-values .default any
@@ -238,8 +238,8 @@ rate-limit = {
 
 This section defines the set of attributes that are included in a throughput advice instance:
 
-Flow flags (FF):
-: These flags are used to express some generic properties of the flow. The following flags are defined:
+Instance Flags (IF):
+: These flags are used to express some generic properties of the applicability of the instance. The following flags are defined:
 
     S (Scope):
     : Indicates the granularity of enforcing policies.
@@ -374,9 +374,9 @@ Delete or remove the advice:
 
 This document requests IANA to create a new registry group entitled "SCONE Rate-Limit Policy Objects".
 
-## Flow Flags Registry {#sec-iana-ff}
+## Instance Flags Registry {#sec-iana-ff}
 
-This document requests IANA to create a new registry entitled "Flow flags" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
+This document requests IANA to create a new registry entitled "Instance flags" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
 
 The initial values of this registry is provided in {{iana-flow-flags}}.
 
@@ -385,7 +385,7 @@ The initial values of this registry is provided in {{iana-flow-flags}}.
 |2-3         | D   | Direction         |This-Document|
 |4-5         | R   | Reliability       |This-Document|
 |6-8         |     | Unassigned        |             |
-{: #iana-flow-flags title="Flow flags"}
+{: #iana-flow-flags title="Instance Flags"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
