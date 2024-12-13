@@ -614,13 +614,6 @@ Table of Contents
 
 9.1.  Normative References
 
-   [I-D.ietf-tsvwg-nqb]
-              White, G., Fossati, T., and R. Geib, "A Non-Queue-Building
-              Per-Hop Behavior (NQB PHB) for Differentiated Services",
-              Work in Progress, Internet-Draft, draft-ietf-tsvwg-nqb-27,
-              8 November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tsvwg-nqb-27>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -659,6 +652,13 @@ Table of Contents
               13, 11 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
               ns-ip-mpls-13>.
+
+   [I-D.ietf-tsvwg-nqb]
+              White, G., Fossati, T., and R. Geib, "A Non-Queue-Building
+              Per-Hop Behavior (NQB PHB) for Differentiated Services",
+              Work in Progress, Internet-Draft, draft-ietf-tsvwg-nqb-27,
+              8 November 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tsvwg-nqb-27>.
 
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
