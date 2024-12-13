@@ -119,8 +119,6 @@ Whether host-to-network, network-to-host, or both policies are included in throu
 
 Also, one or more throughput advice instances may be returned for a given traffic direction. Examples of such instances are discussed in {{sec-ex}}.
 
-Sample uses of the advice by applications are listed in {{sec-samples}}.
-
 As one can infer from the name, a throughput advice is advisory in nature. The advice is provided solely as a hint.
 
 In order to ease mapping with specific signaling mechanisms, allow for future extensions, and ensure consistent use of the advice, a new IANA registry is created in {{sec-iana}}.
@@ -155,6 +153,7 @@ Adaptive Application Behavior:
 : Discovery of intentional policy applied on network attachments when such information is not made available during the service activation or when network upgrades are performed. Adaptive applications will use the information to adjust their behavior.
 : Concretely, applications are supposed to have access to all throughput advice instances and would, thus, adjust their behavior as a function of the parameters indicated in a throughput policy.
 : Likewise, a host with multiple network attachments may use the discovered throughput advice instances over each network attachment to decide how to distribute its flows over these network attachments (prefer a network attachment to place an application session, migrate connection, etc.). That's said, this document does not make any recommendation about how a receiving host uses the discovered policy.
+: The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
 
 Network Assisted Offload:
 : A network may advertize a throughput advice when it is overloaded, including when it is under attack. The rate-limit policy is basically a reactive policy that is meant to adjust the behavior of connected hosts to better control the load during these exceptional events (issue with RAN resources, for example).
@@ -167,13 +166,16 @@ Better Local Services:
 
 ## Throughput Parameters
 
-The throughput advice parameters leverage existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples
-of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
+The throughput advice parameters leverage existing technologies for configuring policies in provider networks. {{sec-overview}} provides a brief overview of how inbound policies are enforced in ingress network nodes. The reader may refer to {{?RFC2697}}, {{?RFC2698}}, and {{?RFC4115}} for examples of how various combinations of Committed Information Rate (CIR), Committed Burst Size (CBS), Excess Information Rate (EIR), Excess Burst Size (EBS), Peak Information Rate (PIR), and Peak Burst Size (PBS) are used for policing. Typically:
 
-* A Single-Rate, Three-Color Marker {{?RFC2697}} uses CIR, CBS, and EBS.
-* A Dual-Rate, Three-Color Marker {{?RFC2698}} uses CIR, CBS, PIR, and PBS. Note that when implemented with {{?RFC4115}}, it allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
+* A Single-Rate, Two-Color Marker (1r2c) uses CIR and CBS.
+* A Single-Rate, Three-Color Marker (1r3c) {{?RFC2697}} uses CIR, CBS, and EBS.
+* A Dual-Rate, Three-Color Marker (2r3c) {{?RFC2698}} uses CIR, CBS, PIR, and PBS.
+* 2r3c when implemented with {{?RFC4115}} uses CIR, CBS, EIR, and EBS. This mode allows for a better handling of in-profile traffic (refer to {{Section 1 of ?RFC4115}} for more details).
 
 An implementation example of these variants (and others) can be found at {{VPP}}.
+
+This version of the document uses the common denominator of all these policies: CIR/CBS.
 
 ## Overall Object Structure
 
@@ -191,23 +193,9 @@ The throughput advice object is described in CDDL {{!RFC8610}} format shown in {
 throughput-advice =  [+ throughput-instance]
 
 throughput-instance =  {
-  ? optional-parameter-flags => opf,
   ? flow-flags => ff,
   ? traffic-category => category,
   throughput => rate-limit
-}
-
-; Controls the presence of optional parameters such as
-; excess and peak rates.
-; Setting these parameters to false means that excess and
-; peak parameters are not supplied in the policy.
-; These control bits may not be required for protocols with
-; built-in mechanisms to parse objects even with
-; optional/variable fields.
-
-opf =  {
-  ? excess: bool .default false,
-  ? peak: bool .default false
 }
 
 ; Indicates scope, traffic direction, and reliability type.
@@ -238,24 +226,10 @@ category =  {
 
 ; Indicates the rate and burst limits.
 ; Only CIR/CBS are mandatory to include.
-; A rate-limit may also include an excess or peak limits.
 
-rate-limit = (
-  group-a/ group-b
-)
-
-group-a = {
+rate-limit = {
   cir: uint,          ; Mbps
   cbs: uint .gt 0,    ; bytes
-  ? eir: uint,        ; Mbps
-  ? ebs: uint .gt 0,  ; bytes
-}
-
-group-b = {
-  cir: uint,          ; Mbps
-  cbs: uint .gt 0,    ; bytes
-  ? pir: uint,        ; Mbps
-  ? pbs: uint .gt 0,  ; bytes
 }
 ~~~~
 {: #cddl title="Throughput Advice Object Format in CDDL"}
@@ -263,20 +237,6 @@ group-b = {
 ## Throughput Advice Instance Attributes {#sec-ins-structure}
 
 This section defines the set of attributes that are included in a throughput advice instance:
-
-Optional Parameter Flags (OPF):
-: These flags indicate the presence of some optional parameters. The following flags are defined:
-
-    E:
-    : When set to "1", this flag indicates the presence of excess information.
-    : When set to "0", this flag indicates that excess information is not present.
-
-    P:
-    : When set to "1", this flag indicates the presence of peak information.
-    : When set to "0", this flag indicates that peak information is not present.
-
-    U:
-    : Unassigned values. See {{sec-iana-opf}}.
 
 Flow flags (FF):
 : These flags are used to express some generic properties of the flow. The following flags are defined:
@@ -322,32 +282,6 @@ Committed Burst Size (CBS) (bytes):
 : Specifies the maximum burst size that can be transmitted at CIR.
 : MUST be greater than zero.
 : This parameter is mandatory.
-
-Excess Information Rate (EIR) (Mbps):
-: MUST be present if the E flag is set to '1'.
-: An average rate that specifies the maximum number of bits that a network can
-  send (or receive) during one second over a network attachment for a
-  traffic that is out of profile.
-: The EIR value MUST be greater than or equal to 0, if present.
-: This parameter is optional.
-
-Excess Burst Size (EBS) (bytes):
-: MUST be present if EIR is also present.
-: Indicates the maximum excess burst size that is allowed while not complying with the CIR.
-: MUST be greater than zero, if present.
-: This parameter is optional.
-
-Peak Information Rate (PIR) (Mbps):
-: MUST be present if P flag is set to '1'.
-: Indicates the allowed throughput when there is a peak in traffic. That is, traffic that exceeds the CIR and the CBS is metered to the PIR.
-: The PIR MUST be equal to or greater than the CIR, if present.
-: This parameter is optional.
-
-Peak Burst Size (PBS) (bytes):
-: MUST be present if PIR is also present.
-: Specifies the maximum burst size that can be transmitted at PIR.
-: MUST be greater than zero, if present.
-: This parameter is optional.
 
 # Examples {#sec-ex}
 
@@ -418,17 +352,6 @@ If both directions are covered by the same rate-limit policy, then the advice ca
 ~~~~~
 {: #ex-4 title="A JSON Example with Single Bidir Rate-Limit Policy"}
 
-# Sample Uses of the Advice {#sec-samples}
-
-It is out of scope of this document to make recommendations about how the advice is consumed by applications/OS/Hosts. A non-exhaustive list is provided hereafter for illustration purposes:
-
-* Applications can send/receive data at a rate beyond the CIR up to the PIR when the network is not congested. If network feedback (e.g., packet loss or delay) indicates congestion, the application can scale back to the CIR. Otherwise, it can use the PIR for temporary throughput boosts.
-* Applications can send/receive short-term bursts of data that exceed the committed burst size CBS up to the PBS if there is no congestion. This is useful for scenarios where short, high-throughput bursts are needed.
-* Applications can ensure that their sending rate never exceeds the PIR and that their short-term bursts of traffic never exceeds PBS.
-* Applications can send/receive data at different rates for reliable and unreliable traffic (reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB)) by mapping reliability flag. One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
-* The throughput advice can feed mechanisms such as {{Section 4.4.2 of ?RFC7661}} or {{Section 7.8 of ?RFC9002}} to control the maximum burst size.
-
-
 # Security Considerations
 
 As discussed in {{sec-uc}}, sharing a throughput advice helps networks mitigate overloads, particularly during periods of high traffic volume.
@@ -449,21 +372,6 @@ Delete or remove the advice:
 ## Rate-Limit Policy Objects Registry Group {#sec-iana-rlp}
 
 This document requests IANA to create a new registry group entitled "SCONE Rate-Limit Policy Objects".
-
-## Optional Parameter Flags Registry {#sec-iana-opf}
-
-This document requests IANA to create a new registry entitled "Optional Parameter Flags" under the "SCONE Rate-Limit Policy Objects" registry group ({{sec-iana-rlp}}).
-
-The initial values of this registry is provided in {{iana-op-flags}}.
-
-|Bit Position|Label|     Description                       |    Reference|
-|1           | E   |Indicates presence of excess rate/burst|This-Document|
-|2           | P   |Indicates presence of peak rate/burst  |This-Document|
-|3           |     | Unassigned                            |             |
-|4           |     | Unassigned                            |             |
-{: #iana-op-flags title="Optional Parameter Flags"}
-
-The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
 
 ## Flow Flags Registry {#sec-iana-ff}
 
@@ -501,11 +409,7 @@ The initial values of this registry is provided in {{iana-rate}}.
 
 |Parameter|     Description                 |Mandatory (Y/N)|     Reference|
 |cir      | Committed Information Rate (CIR)|Y              |This-Document |
-|cbs      | Committed Burst Size (CBS)      |Y              |This-Document|
-|eir      | Excess Information Rate (EIR)   |N              |This-Document|
-|ebs      | Excess Burst Size (EBS)         |N              |This-Document|
-|pir      | Peak Information Rate (PIR)     |N              |This-Document|
-|pbs      | Peak Burst Size (PBS)           |N              |This-Document|
+|cbs      | Committed Burst Size (CBS)      |Y              |This-Document |
 {: #iana-rate title="Initial Rate Parameters Values Values"}
 
 The allocation policy of this new registry is "IETF Review" ({{Section 4.8 of !RFC8126}}).
