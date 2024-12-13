@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 9 June 2025                                Cloud Software Group
+Expires: 16 June 2025                               Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                         6 December 2024
+                                                        13 December 2024
 
 
                    Throughput Advice Object for SCONE
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2025.
+   This Internet-Draft will expire on 16 June 2025.
 
 Copyright Notice
 
@@ -79,17 +79,15 @@ Table of Contents
      5.2.  Overall Object Structure
      5.3.  Throughput Advice Instance Attributes
    6.  Examples
-   7.  Sample Uses of the Advice
-   8.  Security Considerations
-   9.  IANA Considerations
-     9.1.  Rate-Limit Policy Objects Registry Group
-     9.2.  Optional Parameter Flags Registry
-     9.3.  Flow Flags Registry
-     9.4.  Traffic Category Registry
-     9.5.  Rate Parameters Registry
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   7.  Security Considerations
+   8.  IANA Considerations
+     8.1.  Rate-Limit Policy Objects Registry Group
+     8.2.  Flow Flags Registry
+     8.3.  Traffic Category Registry
+     8.4.  Rate Parameters Registry
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Overview of Network Rate-Limit Policies
    Acknowledgments
    Authors' Addresses
@@ -183,14 +181,12 @@ Table of Contents
    given traffic direction.  Examples of such instances are discussed in
    Section 6.
 
-   Sample uses of the advice by applications are listed in Section 7.
-
    As one can infer from the name, a throughput advice is advisory in
    nature.  The advice is provided solely as a hint.
 
    In order to ease mapping with specific signaling mechanisms, allow
    for future extensions, and ensure consistent use of the advice, a new
-   IANA registry is created in Section 9.
+   IANA registry is created in Section 8.
 
 2.  What's Out?
 
@@ -254,6 +250,10 @@ Table of Contents
       document does not make any recommendation about how a receiving
       host uses the discovered policy.
 
+      The throughput advice can feed mechanisms such as Section 4.4.2 of
+      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
+      size.
+
    Network Assisted Offload:  A network may advertize a throughput
       advice when it is overloaded, including when it is under attack.
       The rate-limit policy is basically a reactive policy that is meant
@@ -287,16 +287,23 @@ Table of Contents
    Rate (PIR), and Peak Burst Size (PBS) are used for policing.
    Typically:
 
-   *  A Single-Rate, Three-Color Marker [RFC2697] uses CIR, CBS, and
-      EBS.
+   *  A Single-Rate, Two-Color Marker (1r2c) uses CIR and CBS.
 
-   *  A Dual-Rate, Three-Color Marker [RFC2698] uses CIR, CBS, PIR, and
-      PBS.  Note that when implemented with [RFC4115], it allows for a
-      better handling of in-profile traffic (refer to Section 1 of
-      [RFC4115] for more details).
+   *  A Single-Rate, Three-Color Marker (1r3c) [RFC2697] uses CIR, CBS,
+      and EBS.
+
+   *  A Dual-Rate, Three-Color Marker (2r3c) [RFC2698] uses CIR, CBS,
+      PIR, and PBS.
+
+   *  2r3c when implemented with [RFC4115] uses CIR, CBS, EIR, and EBS.
+      This mode allows for a better handling of in-profile traffic
+      (refer to Section 1 of [RFC4115] for more details).
 
    An implementation example of these variants (and others) can be found
    at [VPP].
+
+   This version of the document uses the common denominator of all these
+   policies: CIR/CBS.
 
 5.2.  Overall Object Structure
 
@@ -320,23 +327,9 @@ Table of Contents
    throughput-advice =  [+ throughput-instance]
 
    throughput-instance =  {
-     ? optional-parameter-flags => opf,
      ? flow-flags => ff,
      ? traffic-category => category,
      throughput => rate-limit
-   }
-
-   ; Controls the presence of optional parameters such as
-   ; excess and peak rates.
-   ; Setting these parameters to false means that excess and
-   ; peak parameters are not supplied in the policy.
-   ; These control bits may not be required for protocols with
-   ; built-in mechanisms to parse objects even with
-   ; optional/variable fields.
-
-   opf =  {
-     ? excess: bool .default false,
-     ? peak: bool .default false
    }
 
    ; Indicates scope, traffic direction, and reliability type.
@@ -367,24 +360,10 @@ Table of Contents
 
    ; Indicates the rate and burst limits.
    ; Only CIR/CBS are mandatory to include.
-   ; A rate-limit may also include an excess or peak limits.
 
-   rate-limit = (
-     group-a/ group-b
-   )
-
-   group-a = {
+   rate-limit = {
      cir: uint,          ; Mbps
      cbs: uint .gt 0,    ; bytes
-     ? eir: uint,        ; Mbps
-     ? ebs: uint .gt 0,  ; bytes
-   }
-
-   group-b = {
-     cir: uint,          ; Mbps
-     cbs: uint .gt 0,    ; bytes
-     ? pir: uint,        ; Mbps
-     ? pbs: uint .gt 0,  ; bytes
    }
 
              Figure 2: Throughput Advice Object Format in CDDL
@@ -393,23 +372,6 @@ Table of Contents
 
    This section defines the set of attributes that are included in a
    throughput advice instance:
-
-   Optional Parameter Flags (OPF):  These flags indicate the presence of
-      some optional parameters.  The following flags are defined:
-
-      E:  When set to "1", this flag indicates the presence of excess
-         information.
-
-         When set to "0", this flag indicates that excess information is
-         not present.
-
-      P:  When set to "1", this flag indicates the presence of peak
-         information.
-
-         When set to "0", this flag indicates that peak information is
-         not present.
-
-      U:  Unassigned values.  See Section 9.2.
 
    Flow flags (FF):  These flags are used to express some generic
       properties of the flow.  The following flags are defined:
@@ -446,7 +408,7 @@ Table of Contents
          No meaning is associated with setting the field to "11b".  Such
          value MUST be silently ignored by the receiver.
 
-      U:  Unassigned flags.  See Section 9.3.
+      U:  Unassigned flags.  See Section 8.2.
 
    TC (Traffic Category):  Specifies a traffic category to which this
       policy applies.
@@ -455,7 +417,7 @@ Table of Contents
 
       *  "0": All traffic.  This is the default value.
 
-      *  1-63: Unassigned values.  See Section 9.4.
+      *  1-63: Unassigned values.  See Section 8.3.
 
    Committed Information Rate (CIR) (Mbps):  An average rate that
       specifies the maximum number of bits that a network can send (or
@@ -474,47 +436,6 @@ Table of Contents
       MUST be greater than zero.
 
       This parameter is mandatory.
-
-   Excess Information Rate (EIR) (Mbps):  MUST be present if the E flag
-      is set to '1'.
-
-      An average rate that specifies the maximum number of bits that a
-      network can send (or receive) during one second over a network
-      attachment for a traffic that is out of profile.
-
-      The EIR value MUST be greater than or equal to 0, if present.
-
-      This parameter is optional.
-
-   Excess Burst Size (EBS) (bytes):  MUST be present if EIR is also
-      present.
-
-      Indicates the maximum excess burst size that is allowed while not
-      complying with the CIR.
-
-      MUST be greater than zero, if present.
-
-      This parameter is optional.
-
-   Peak Information Rate (PIR) (Mbps):  MUST be present if P flag is set
-      to '1'.
-
-      Indicates the allowed throughput when there is a peak in traffic.
-      That is, traffic that exceeds the CIR and the CBS is metered to
-      the PIR.
-
-      The PIR MUST be equal to or greater than the CIR, if present.
-
-      This parameter is optional.
-
-   Peak Burst Size (PBS) (bytes):  MUST be present if PIR is also
-      present.
-
-      Specifies the maximum burst size that can be transmitted at PIR.
-
-      MUST be greater than zero, if present.
-
-      This parameter is optional.
 
 6.  Examples
 
@@ -586,38 +507,7 @@ Table of Contents
 
         Figure 6: A JSON Example with Single Bidir Rate-Limit Policy
 
-7.  Sample Uses of the Advice
-
-   It is out of scope of this document to make recommendations about how
-   the advice is consumed by applications/OS/Hosts.  A non-exhaustive
-   list is provided hereafter for illustration purposes:
-
-   *  Applications can send/receive data at a rate beyond the CIR up to
-      the PIR when the network is not congested.  If network feedback
-      (e.g., packet loss or delay) indicates congestion, the application
-      can scale back to the CIR.  Otherwise, it can use the PIR for
-      temporary throughput boosts.
-
-   *  Applications can send/receive short-term bursts of data that
-      exceed the committed burst size CBS up to the PBS if there is no
-      congestion.  This is useful for scenarios where short, high-
-      throughput bursts are needed.
-
-   *  Applications can ensure that their sending rate never exceeds the
-      PIR and that their short-term bursts of traffic never exceeds PBS.
-
-   *  Applications can send/receive data at different rates for reliable
-      and unreliable traffic (reliable could map to Queue-Building (QB)
-      and unreliable could map to Non-Queue-Building (NQB)) by mapping
-      reliability flag.  One of the ways for application to make
-      reliability markings visible is by following, e.g., the
-      considerations in Section 4 of [I-D.ietf-tsvwg-nqb].
-
-   *  The throughput advice can feed mechanisms such as Section 4.4.2 of
-      [RFC7661] or Section 7.8 of [RFC9002] to control the maximum burst
-      size.
-
-8.  Security Considerations
+7.  Security Considerations
 
    As discussed in Section 4, sharing a throughput advice helps networks
    mitigate overloads, particularly during periods of high traffic
@@ -636,47 +526,20 @@ Table of Contents
    Delete or remove the advice:  This is equivalent to deployments where
       the advice is not shared.
 
-9.  IANA Considerations
+8.  IANA Considerations
 
-9.1.  Rate-Limit Policy Objects Registry Group
+8.1.  Rate-Limit Policy Objects Registry Group
 
    This document requests IANA to create a new registry group entitled
    "SCONE Rate-Limit Policy Objects".
 
-9.2.  Optional Parameter Flags Registry
-
-   This document requests IANA to create a new registry entitled
-   "Optional Parameter Flags" under the "SCONE Rate-Limit Policy
-   Objects" registry group (Section 9.1).
-
-   The initial values of this registry is provided in Table 1.
-
-      +==============+=======+======================+===============+
-      | Bit Position | Label | Description          | Reference     |
-      +==============+=======+======================+===============+
-      | 1            | E     | Indicates presence   | This-Document |
-      |              |       | of excess rate/burst |               |
-      +--------------+-------+----------------------+---------------+
-      | 2            | P     | Indicates presence   | This-Document |
-      |              |       | of peak rate/burst   |               |
-      +--------------+-------+----------------------+---------------+
-      | 3            |       | Unassigned           |               |
-      +--------------+-------+----------------------+---------------+
-      | 4            |       | Unassigned           |               |
-      +--------------+-------+----------------------+---------------+
-
-                     Table 1: Optional Parameter Flags
-
-   The allocation policy of this new registry is "IETF Review"
-   (Section 4.8 of [RFC8126]).
-
-9.3.  Flow Flags Registry
+8.2.  Flow Flags Registry
 
    This document requests IANA to create a new registry entitled "Flow
    flags" under the "SCONE Rate-Limit Policy Objects" registry group
-   (Section 9.1).
+   (Section 8.1).
 
-   The initial values of this registry is provided in Table 2.
+   The initial values of this registry is provided in Table 1.
 
           +==============+=======+=============+===============+
           | Bit Position | Label | Description | Reference     |
@@ -690,18 +553,18 @@ Table of Contents
           | 6-8          |       | Unassigned  |               |
           +--------------+-------+-------------+---------------+
 
-                           Table 2: Flow flags
+                           Table 1: Flow flags
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.4.  Traffic Category Registry
+8.3.  Traffic Category Registry
 
    This document requests IANA to create a new registry entitled
    "Traffic Category Types" under the "SCONE Rate-Limit Policy Objects"
-   registry group (Section 9.1).
+   registry group (Section 8.1).
 
-   The initial values of this registry is provided in Table 3.
+   The initial values of this registry is provided in Table 2.
 
                   +=======+=============+===============+
                   | Value | Description | Reference     |
@@ -711,18 +574,18 @@ Table of Contents
                   | 1-63  | Unassigned  |               |
                   +-------+-------------+---------------+
 
-                      Table 3: Traffic Category Values
+                      Table 2: Traffic Category Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-9.5.  Rate Parameters Registry
+8.4.  Rate Parameters Registry
 
    This document requests IANA to create a new registry entitled "Rate
    Parameters" under the "SCONE Rate-Limit Policy Objects" registry
-   group (Section 9.1).
+   group (Section 8.1).
 
-   The initial values of this registry is provided in Table 4.
+   The initial values of this registry is provided in Table 3.
 
      +===========+=======================+===========+===============+
      | Parameter | Description           | Mandatory | Reference     |
@@ -734,26 +597,15 @@ Table of Contents
      | cbs       | Committed Burst Size  | Y         | This-Document |
      |           | (CBS)                 |           |               |
      +-----------+-----------------------+-----------+---------------+
-     | eir       | Excess Information    | N         | This-Document |
-     |           | Rate (EIR)            |           |               |
-     +-----------+-----------------------+-----------+---------------+
-     | ebs       | Excess Burst Size     | N         | This-Document |
-     |           | (EBS)                 |           |               |
-     +-----------+-----------------------+-----------+---------------+
-     | pir       | Peak Information Rate | N         | This-Document |
-     |           | (PIR)                 |           |               |
-     +-----------+-----------------------+-----------+---------------+
-     | pbs       | Peak Burst Size (PBS) | N         | This-Document |
-     +-----------+-----------------------+-----------+---------------+
 
-               Table 4: Initial Rate Parameters Values Values
+               Table 3: Initial Rate Parameters Values Values
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).
 
-10.  References
+9.  References
 
-10.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -775,7 +627,7 @@ Table of Contents
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [I-D.ietf-opsawg-ntw-attachment-circuit]
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
@@ -793,13 +645,6 @@ Table of Contents
               13, 11 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
               ns-ip-mpls-13>.
-
-   [I-D.ietf-tsvwg-nqb]
-              White, G., Fossati, T., and R. Geib, "A Non-Queue-Building
-              Per-Hop Behavior (NQB PHB) for Differentiated Services",
-              Work in Progress, Internet-Draft, draft-ietf-tsvwg-nqb-27,
-              8 November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tsvwg-nqb-27>.
 
    [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
               and W. Weiss, "An Architecture for Differentiated
