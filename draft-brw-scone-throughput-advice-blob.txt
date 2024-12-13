@@ -82,7 +82,7 @@ Table of Contents
    7.  Security Considerations
    8.  IANA Considerations
      8.1.  Rate-Limit Policy Objects Registry Group
-     8.2.  Flow Flags Registry
+     8.2.  Instance Flags Registry
      8.3.  Traffic Category Registry
      8.4.  Rate Parameters Registry
    9.  References
@@ -327,7 +327,7 @@ Table of Contents
    throughput-advice =  [+ throughput-instance]
 
    throughput-instance =  {
-     ? flow-flags => ff,
+     ? instance-flags => flags,
      ? traffic-category => category,
      throughput => rate-limit
    }
@@ -340,7 +340,7 @@ Table of Contents
    ; If any of these parameters is not present, this is equivalent
    ; to enclosing the parameter with its default value.
 
-   ff =  {
+   flags =  {
      ? scope: &scope-values .default subscriber,
      ? direction: &direction-values .default n2h,
      ? reliability: &reliability-values .default any
@@ -373,8 +373,9 @@ Table of Contents
    This section defines the set of attributes that are included in a
    throughput advice instance:
 
-   Flow flags (FF):  These flags are used to express some generic
-      properties of the flow.  The following flags are defined:
+   Instance Flags (IF):  These flags are used to express some generic
+      properties of the applicability of the instance.  The following
+      flags are defined:
 
       S (Scope):  Indicates the granularity of enforcing policies.
 
@@ -540,11 +541,11 @@ Table of Contents
    This document requests IANA to create a new registry group entitled
    "SCONE Rate-Limit Policy Objects".
 
-8.2.  Flow Flags Registry
+8.2.  Instance Flags Registry
 
-   This document requests IANA to create a new registry entitled "Flow
-   flags" under the "SCONE Rate-Limit Policy Objects" registry group
-   (Section 8.1).
+   This document requests IANA to create a new registry entitled
+   "Instance flags" under the "SCONE Rate-Limit Policy Objects" registry
+   group (Section 8.1).
 
    The initial values of this registry is provided in Table 1.
 
@@ -560,7 +561,7 @@ Table of Contents
           | 6-8          |       | Unassigned  |               |
           +--------------+-------+-------------+---------------+
 
-                           Table 1: Flow flags
+                         Table 1: Instance Flags
 
    The allocation policy of this new registry is "IETF Review"
    (Section 4.8 of [RFC8126]).

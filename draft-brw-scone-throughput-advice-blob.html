@@ -1205,7 +1205,7 @@ passed to applications that might adjust their behaviors accordingly.<a href="#s
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-rate-limit-policy-objects-r" class="internal xref">Rate-Limit Policy Objects Registry Group</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-flow-flags-registry" class="internal xref">Flow Flags Registry</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-instance-flags-registry" class="internal xref">Instance Flags Registry</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
                 <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-traffic-category-registry" class="internal xref">Traffic Category Registry</a></p>
@@ -1492,7 +1492,7 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
 throughput-advice =  [+ throughput-instance]
 
 throughput-instance =  {
-  ? flow-flags =&gt; ff,
+  ? instance-flags =&gt; flags,
   ? traffic-category =&gt; category,
   throughput =&gt; rate-limit
 }
@@ -1505,7 +1505,7 @@ throughput-instance =  {
 ; If any of these parameters is not present, this is equivalent
 ; to enclosing the parameter with its default value.
 
-ff =  {
+flags =  {
   ? scope: &amp;scope-values .default subscriber,
   ? direction: &amp;direction-values .default n2h,
   ? reliability: &amp;reliability-values .default any
@@ -1545,9 +1545,9 @@ rate-limit = {
         </h3>
 <p id="section-5.3-1">This section defines the set of attributes that are included in a throughput advice instance:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3-2">
-          <dt id="section-5.3-2.1">Flow flags (FF):</dt>
+          <dt id="section-5.3-2.1">Instance Flags (IF):</dt>
           <dd style="margin-left: 1.5em" id="section-5.3-2.2">
-            <p id="section-5.3-2.2.1">These flags are used to express some generic properties of the flow. The following flags are defined:<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.2.1">These flags are used to express some generic properties of the applicability of the instance. The following flags are defined:<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3-2.2.2">
               <dt id="section-5.3-2.2.2.1">S (Scope):</dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.2">
@@ -1814,16 +1814,16 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 </div>
 <div id="sec-iana-ff">
 <section id="section-8.2">
-        <h3 id="name-flow-flags-registry">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-flow-flags-registry" class="section-name selfRef">Flow Flags Registry</a>
+        <h3 id="name-instance-flags-registry">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-instance-flags-registry" class="section-name selfRef">Instance Flags Registry</a>
         </h3>
-<p id="section-8.2-1">This document requests IANA to create a new registry entitled "Flow flags" under the "SCONE Rate-Limit Policy Objects" registry group (<a href="#sec-iana-rlp" class="auto internal xref">Section 8.1</a>).<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">This document requests IANA to create a new registry entitled "Instance flags" under the "SCONE Rate-Limit Policy Objects" registry group (<a href="#sec-iana-rlp" class="auto internal xref">Section 8.1</a>).<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <p id="section-8.2-2">The initial values of this registry is provided in <a href="#iana-flow-flags" class="auto internal xref">Table 1</a>.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<span id="name-flow-flags"></span><div id="iana-flow-flags">
+<span id="name-instance-flags"></span><div id="iana-flow-flags">
 <table class="center" id="table-1">
           <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
-<a href="#name-flow-flags" class="selfRef">Flow flags</a>
+<a href="#name-instance-flags" class="selfRef">Instance Flags</a>
           </caption>
 <thead>
             <tr>
