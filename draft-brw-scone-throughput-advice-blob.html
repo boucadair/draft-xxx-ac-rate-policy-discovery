@@ -1589,27 +1589,32 @@ both network-to-host and host-to-network directions.<a href="#section-5.3-2.2.2.
               <dd class="break"></dd>
 <dt id="section-5.3-2.2.2.15"></dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.16">
-                <p id="section-5.3-2.2.2.16.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.3-2.2.2.16.1" class="pilcrow">¶</a></p>
+                <p id="section-5.3-2.2.2.16.1">For example, Reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB). One of the ways for application to make reliability markings visible is by following, e.g., the considerations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tsvwg-nqb" class="cite xref">I-D.ietf-tsvwg-nqb</a>]</span>.<a href="#section-5.3-2.2.2.16.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-2.2.2.17"></dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.18">
-                <p id="section-5.3-2.2.2.18.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.3-2.2.2.18.1" class="pilcrow">¶</a></p>
+                <p id="section-5.3-2.2.2.18.1">When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.<a href="#section-5.3-2.2.2.18.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-2.2.2.19"></dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.20">
-                <p id="section-5.3-2.2.2.20.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.3-2.2.2.20.1" class="pilcrow">¶</a></p>
+                <p id="section-5.3-2.2.2.20.1">When set to "01b", this flag indicates that this policy is for unreliable traffic.<a href="#section-5.3-2.2.2.20.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-2.2.2.21"></dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.22">
-                <p id="section-5.3-2.2.2.22.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.3-2.2.2.22.1" class="pilcrow">¶</a></p>
+                <p id="section-5.3-2.2.2.22.1">When set to "10b", this flag indicates that this policy is for reliable traffic.<a href="#section-5.3-2.2.2.22.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.3-2.2.2.23">U:</dt>
+<dt id="section-5.3-2.2.2.23"></dt>
               <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.24">
-                <p id="section-5.3-2.2.2.24.1">Unassigned flags. See <a href="#sec-iana-ff" class="auto internal xref">Section 8.2</a>.<a href="#section-5.3-2.2.2.24.1" class="pilcrow">¶</a></p>
+                <p id="section-5.3-2.2.2.24.1">No meaning is associated with setting the field to "11b". Such value <span class="bcp14">MUST</span> be silently ignored by the receiver.<a href="#section-5.3-2.2.2.24.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-5.3-2.2.2.25">U:</dt>
+              <dd style="margin-left: 1.5em" id="section-5.3-2.2.2.26">
+                <p id="section-5.3-2.2.2.26.1">Unassigned flags. See <a href="#sec-iana-ff" class="auto internal xref">Section 8.2</a>.<a href="#section-5.3-2.2.2.26.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1702,7 +1707,7 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 <a href="#name-a-json-example" class="selfRef">A JSON Example</a>
         </figcaption></figure>
 </div>
-<p id="section-6-3">The advice conveyed in <a href="#ex-2" class="auto internal xref">Figure 4</a> is similar to the advice in <a href="#ex" class="auto internal xref">Figure 3</a>. The only difference is that default values are trimmed in <a href="#ex-2" class="auto internal xref">Figure 4</a>.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-3">The advice conveyed in <a href="#ex-2" class="auto internal xref">Figure 4</a> is similar to the advice in <a href="#ex" class="auto internal xref">Figure 3</a>. The only difference is that default values are not explicitly signaled in <a href="#ex-2" class="auto internal xref">Figure 4</a>.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <span id="name-a-json-example-with-default"></span><div id="ex-2">
 <figure id="figure-4">
         <div class="lang-json sourcecode" id="section-6-4.1">
@@ -1718,7 +1723,7 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
-<a href="#name-a-json-example-with-default" class="selfRef">A JSON Example with Default Values Trimmed</a>
+<a href="#name-a-json-example-with-default" class="selfRef">A JSON Example with Default Values Not Explicitly Signaled</a>
         </figcaption></figure>
 </div>
 <p id="section-6-5"><a href="#ex-3" class="auto internal xref">Figure 5</a> shows the example of an advice that encloses two instances, each for one traffic direction.<a href="#section-6-5" class="pilcrow">¶</a></p>
@@ -1949,6 +1954,10 @@ includes one rate-limit instance that covers network-to-host traffic direction a
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-tsvwg-nqb">[I-D.ietf-tsvwg-nqb]</dt>
+        <dd>
+<span class="refAuthor">White, G.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">R. Geib</span>, <span class="refTitle">"A Non-Queue-Building Per-Hop Behavior (NQB PHB) for Differentiated Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tsvwg-nqb-27</span>, <time datetime="2024-11-08" class="refDate">8 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27">https://datatracker.ietf.org/doc/html/draft-ietf-tsvwg-nqb-27</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
