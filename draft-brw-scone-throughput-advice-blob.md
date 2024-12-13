@@ -256,7 +256,7 @@ Instance Flags (IF):
 
     R (Reliability):
     : Indicates the reliability type of traffic on which to apply the enclosed policy.
-    : For example, Reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB). One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
+    : For example, reliable could map to Queue-Building (QB) and unreliable could map to Non-Queue-Building (NQB). One of the ways for application to make reliability markings visible is by following, e.g., the considerations in {{Section 4 of ?I-D.ietf-tsvwg-nqb}}.
     : When set to "00b", this flag indicates that this policy is for both reliable and unreliable traffic.
     : When set to "01b", this flag indicates that this policy is for unreliable traffic.
     : When set to "10b", this flag indicates that this policy is for reliable traffic.
