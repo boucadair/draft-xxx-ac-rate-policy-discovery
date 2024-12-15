@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-12T01:18:43.114481+00:00",
+  "timestamp": "2024-12-15T01:24:31.513704+00:00",
   "repo": "boucadair/draft-xxx-ac-rate-policy-discovery",
   "labels": [
     {
@@ -4012,6 +4012,76 @@
       "mergedBy": "boucadair",
       "mergeCommit": {
         "oid": "5d6daa6ff8a5b9e3f7171c050e0a54bf16d09b3b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 85,
+      "id": "PR_kwDOLlGZlc6FG93h",
+      "title": "Removes optional fields",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/85",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-13T07:15:06Z",
+      "updatedAt": "2024-12-13T17:15:33Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "e3dccde82b8534d62240a32ef8d2e0302fc3ae5f",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "Removes-optional-fields",
+      "headRefOid": "2a552816ad848b07e80eb02f035a997cded7c531",
+      "closedAt": "2024-12-13T17:15:31Z",
+      "mergedAt": "2024-12-13T17:15:31Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "4e6d3799ee6c9147bb938f43c4495e98131af548"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLlGZlc6VLQvZ",
+          "commit": {
+            "abbreviatedOid": "2a55281"
+          },
+          "author": "danwing",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "looks good to remove optional stuff; we can add back in later if needed.",
+          "createdAt": "2024-12-13T17:07:55Z",
+          "updatedAt": "2024-12-13T17:07:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 86,
+      "id": "PR_kwDOLlGZlc6FK_Hp",
+      "title": "nqb is informative",
+      "url": "https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery/pull/86",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-13T17:26:44Z",
+      "updatedAt": "2024-12-13T17:27:01Z",
+      "baseRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "89aafd19b742a5df70e8297ec563cbc7a4a81e67",
+      "headRepository": "boucadair/draft-xxx-ac-rate-policy-discovery",
+      "headRefName": "boucadair-patch-9",
+      "headRefOid": "b5e9d9f2807b2024c17cc34dd13b907101751805",
+      "closedAt": "2024-12-13T17:26:59Z",
+      "mergedAt": "2024-12-13T17:26:59Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "bd9bcc787b6b1bcb512d3c13075096ed6219fee3"
       },
       "comments": [],
       "reviews": []
