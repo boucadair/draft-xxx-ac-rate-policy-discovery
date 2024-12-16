@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 16 June 2025                               Cloud Software Group
+Expires: 19 June 2025                               Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 16 June 2025                               Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                        13 December 2024
+                                                        16 December 2024
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2025.
+   This Internet-Draft will expire on 19 June 2025.
 
 Copyright Notice
 
@@ -79,9 +79,8 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Common NLRP Parameters
-     3.1.  Optional Parameter Flags (OPF)
-     3.2.  Flow flags (FF)
-     3.3.  Traffic Category (TC) & Throughput Parameters
+     3.1.  Instance Flags (IF)
+     3.2.  Traffic Category (TC) & Throughput Parameters
    4.  IPv6 RA NRLP Option
      4.1.  Option Format
      4.2.  IPv6 Host Behavior
@@ -218,35 +217,17 @@ Table of Contents
 
    The following common fields are present in all NRLP options:
 
-3.1.  Optional Parameter Flags (OPF)
+3.1.  Instance Flags (IF)
 
-   The format of this 4-bit flags is shown in Figure 1.  This field
-   indicates the presence of some optional inforamtion in the option.
+   The format of this 8-bit flags is shown in Figure 1.  This field is
+   used to express some generic properties of the advice.
 
-                                  0 1 2 3
-                                 +-+-+-+-+
-                                 |U|U|P|E|
-                                 +-+-+-+-+
+                              0 1 2 3 4 5 6 7
+                             +-+-+-+-+-+-+-+-+
+                             |U|U|U|R|R|D|D|S|
+                             +-+-+-+-+-+-+-+-+
 
-                  Figure 1: Optional Parameter Flags Field
-
-   See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
-   meaning of the P/E flags.
-
-   U are unassigned bits.  These bits MUST be set to zero by senders and
-   MUST be ignored by receivers.
-
-3.2.  Flow flags (FF)
-
-   The format of this 6-bit flags is shown in Figure 2.  This field is
-   used to express some generic properties of the flow.
-
-                                0 1 2 3 4 5
-                               +-+-+-+-+-+-+
-                               |U|R|R|D|D|S|
-                               +-+-+-+-+-+-+
-
-                         Figure 2: Flow flags Field
+                         Figure 1: Flow flags Field
 
    See Section 5 of [I-D.brw-scone-throughput-advice-blob] for the
    meaning of the R/D/S flags.
@@ -254,7 +235,7 @@ Table of Contents
    U are unassigned bits.  These bits MUST be set to zero by senders and
    MUST be ignored by receivers.
 
-3.3.  Traffic Category (TC) & Throughput Parameters
+3.2.  Traffic Category (TC) & Throughput Parameters
 
    The following parameters are used:
 
@@ -270,62 +251,27 @@ Table of Contents
 
       This is a mandatory parameter.
 
-   Excess Information Rate (EIR) (Mbps):  See Section 5 of [I-D.brw-scon
-      e-throughput-advice-blob].  This is an optional field.
-
-   Excess Burst Size (EBS) (bytes):  See Section 5 of [I-D.brw-scone-thr
-      oughput-advice-blob].  This is an optional field.
-
-   Peak Information Rate (PIR) (Mbps):  See Section 5 of [I-D.brw-scone-
-      throughput-advice-blob].  This is an optional field.
-
-   Peak Burst Size (PBS) (bytes):  See Section 5 of [I-D.brw-scone-throu
-      ghput-advice-blob].  This is an optional field.
-
 4.  IPv6 RA NRLP Option
 
 4.1.  Option Format
 
    The format of the IPv6 RA NRLP option, with only mandatory fields
-   included, is illustrated in Figure 3.
+   included, is illustrated in Figure 2.
 
      MSB                                                          LSB
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |  OPF  |     FF    |    TC     |
+     |     Type      |     Length    | Instance Flags|    TC         |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                Committed Information Rate (CIR)               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                  Committed Burst Size (CBS)                   |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 3: NRLP Option Format with Mandatory Fields
+                        Figure 2: NRLP Option Format
 
-   The format of the IPv6 RA NRLP option, with optional fields included,
-   is illustrated in Figure 3.
-
-      0                   1                   2                   3
-      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |     Type      |     Length    |  OPF  |     FF    |    TC     |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Committed Information Rate (CIR)               |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                  Committed Burst Size (CBS)                   |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |               Excess Information Rate (EIR) (Optional)        |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                  Excess Burst Size (EBS) (Optional)           |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |               Peak Information Rate (PIR) (Optional)          |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                  Peak Burst Size (PBS) (Optional)             |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-             Figure 4: NRLP Option Format with Optional Fields
-
-   The fields of the option shown in Figure 4 are as follows:
+   The fields of the option shown in Figure 2 are as follows:
 
    Type:  8-bit identifier of the NRLP option as assigned by IANA (TBD1)
       (see Section 8.1).
@@ -377,7 +323,7 @@ Table of Contents
 
 5.1.  Option Format
 
-   The format of the DHCP NRLP option is illustrated in Figure 5.
+   The format of the DHCP NRLP option is illustrated in Figure 3.
 
                  0                   1
                  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -391,9 +337,9 @@ Table of Contents
                 ~      NRLP Instance Data #n    ~    |
                 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+   ---
 
-                     Figure 5: NRLP DHCP Option Format
+                     Figure 3: NRLP DHCP Option Format
 
-   The fields of the option shown in Figure 5 are as follows:
+   The fields of the option shown in Figure 3 are as follows:
 
    Code:  OPTION_V4_NRLP (TBD2).  (see Section 8.2).
 
@@ -401,7 +347,7 @@ Table of Contents
 
    NRLP Instance Data:  Includes a network rate-limit policy.  The
       format of this field with only mandatory parameters is shown in
-      Figure 6.
+      Figure 4.
 
       When several NRLPs are to be included, the "NRLP Instance Data"
       field is repeated.
@@ -411,7 +357,7 @@ Table of Contents
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |   NRLP Instance Data Length   |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                     |  OPF  |     FF    |    TC     |
+                     |Instance Flags |      TC       |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                      |  Committed Information Rate   |
                      |              (CIR)            |
@@ -420,40 +366,9 @@ Table of Contents
                      |                               |
                      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-         Figure 6: NRLP Instance Data Format with Mandatory Fields
+         Figure 4: NRLP Instance Data Format with Mandatory Fields
 
-   The format of this field, with optional parameters included, is shown
-   in Figure 6.
-
-                    0                   1
-                    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                   |   NRLP Instance Data Length   |
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                   |  OPF  |     FF    |    TC     |
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                   |  Committed Information Rate   |
-                   |              (CIR)            |
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                   |  Committed Burst Size (CBS)   |
-                   |                               |
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
-                   |  Excess Information Rate      |  |
-                   |             (EIR)             |  O
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  P
-                   |    Excess Burst Size (CBS)    |  T
-                   |                               |  I
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  O
-                   |    Peak Information Rate      |  N
-                   |             (PIR)             |  A
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  L
-                   |      Peak Burst Size (PBS)    |  |
-                   |                               |  |
-                   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
-
-     Figure 7: NRLP Instance Data Format with Optional Fields Included
-
-   The fields shown in Figure 7 are as follows:
+   The fields shown in Figure 4 are as follows:
 
    NRLP Instance Data Length:  Length of all following data in octets.
       This field is set to '8' when only the nominal bitrate is provided
@@ -483,7 +398,7 @@ Table of Contents
    network will configured to set the H-flag so clients can request PvD
    Additional Information (Section 4.1 of [RFC8801]).
 
-   Figure 8 provides an example of the returned "application/pvd+json"
+   Figure 5 provides an example of the returned "application/pvd+json"
    to indicate a network-to-host NRLP for all subscriber traffic.  The
    NRLP list may include multiple instances if distinct policies are to
    be returned for distinct traffic categories.
@@ -501,7 +416,7 @@ Table of Contents
       ]
    }
 
-                      Figure 8: NRLP Example with PvD
+                      Figure 5: NRLP Example with PvD
 
 7.  Security Considerations
 
@@ -699,20 +614,6 @@ Table of Contents
    |             | Burst Size     |         |         |               |
    |             | (CBS)          |         |         |               |
    +-------------+----------------+---------+---------+---------------+
-   | eir         | Excess         | Integer | 30      | This-Document |
-   |             | Information    |         |         |               |
-   |             | Rate (EIR)     |         |         |               |
-   +-------------+----------------+---------+---------+---------------+
-   | ebs         | Excess Burst   | Integer | 5000    | This-Document |
-   |             | Size (EBS)     |         |         |               |
-   +-------------+----------------+---------+---------+---------------+
-   | pir         | Peak           | Integer | 70      | This-Document |
-   |             | Information    |         |         |               |
-   |             | Rate (PIR)     |         |         |               |
-   +-------------+----------------+---------+---------+---------------+
-   | pbs         | Peak Burst     | Integer | 20000   | This-Document |
-   |             | Size (PBS)     |         |         |               |
-   +-------------+----------------+---------+---------+---------------+
 
          Table 4: Initial PvD Network Rate-Limit Policies (NRLPs)
                              Registry Content
@@ -731,9 +632,9 @@ Table of Contents
               Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S., and
               L. M. Contreras, "Throughput Advice Object for SCONE",
               Work in Progress, Internet-Draft, draft-brw-scone-
-              throughput-advice-blob-01, 3 December 2024,
+              throughput-advice-blob-02, 13 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-brw-scone-
-              throughput-advice-blob-01>.
+              throughput-advice-blob-02>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -851,7 +752,7 @@ Table of Contents
 Appendix A.  Example of Authentication, Authorization, and Accounting
              (AAA)
 
-   Figure 9 provides an example of the exchanges that might occur
+   Figure 6 provides an example of the exchanges that might occur
    between a DHCP server and an Authentication, Authorization, and
    Accounting (AAA) server to retrieve the per-subscriber NRLPs.
 
@@ -882,7 +783,7 @@ Appendix A.  Example of Authentication, Authorization, and Accounting
 
                         DHCP                    RADIUS
 
-               Figure 9: An Example of RADIUS NRLP Exchanges
+               Figure 6: An Example of RADIUS NRLP Exchanges
 
 Acknowledgments
 
