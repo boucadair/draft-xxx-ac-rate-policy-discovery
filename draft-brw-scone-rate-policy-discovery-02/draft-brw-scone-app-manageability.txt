@@ -1,0 +1,607 @@
+
+
+
+
+scone                                                       M. Boucadair
+Internet-Draft                                                    Orange
+Intended status: Standards Track                                 D. Wing
+Expires: 19 June 2025                               Cloud Software Group
+                                                                T. Reddy
+                                                                   Nokia
+                                                          S. Rajagopalan
+                                                    Cloud Software Group
+                                                               G. Mishra
+                                                             Verizon Inc
+                                                                M. Amend
+                                                        Deutsche Telekom
+                                                            L. Contreras
+                                                              Telefonica
+                                                        16 December 2024
+
+
+                  SCONE Applicability & Manageability
+                draft-brw-scone-app-manageability-latest
+
+Abstract
+
+   TBC
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/boucadair/draft-xxx-ac-rate-policy-discovery.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 19 June 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Operational Considerations
+     2.1.  Throughput Advice Is Complementary Not Replacement Solution
+     2.2.  Provisionning Policies
+     2.3.  Redundant vs. Useful Signal
+     2.4.  Fairness
+     2.5.  Architectural Considerations Matter
+     2.6.  Service Considerations: Application Diversity & Realistic
+           Assessment
+     2.7.  Operational Guidance for Signal Enforcement
+     2.8.  Signal Estimation
+     2.9.  Signal "Interference"
+   3.  Deployment Incentives
+     3.1.  Networks
+     3.2.  Applications
+     3.3.  Host OS
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Appendix A.  Alternative/Complementary Mechanisms
+     A.1.  L4S
+     A.2.  Network Slicing
+     A.3.  3GPP UE Route Selection Policy
+     A.4.  Network APIs
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   [I-D.brw-scone-throughput-advice-blob] defines a set of parameters
+   that can be used by networks to share the rate-limit policies applied
+   on a network attachment: Throughput Advice.  These parameters are
+   independent of the channel that is used by hosts to discover such
+   policies.
+
+   Applications will have access to the Throughput Advices and will,
+   thus, adjust their behavior as a function of scope and traffic
+   category indicated in a policy (all traffic, etc.).
+
+   [I-D.brw-scone-throughput-advice-blob] does not assume nor preclude
+   that other mechanisms, e.g., Low Latency, Low Loss, and Scalable
+   Throughput (L4S) [RFC9330], are enabled in a bottleneck link.  The
+   reader may refer to Appendix A for a list of relevant mechanisms.
+   Whether these mechanism as alternative or complementary to explicit
+   host/network signals is to be further assessed.
+
+   This document discusses focuses on manageability and deployment
+   considerations of Throughput Advice.
+
+   Operational considerations are discussed in Section 2, while
+   deployment incentives are described in Section 3.
+
+2.  Operational Considerations
+
+2.1.  Throughput Advice Is Complementary Not Replacement Solution
+
+   Sharing Throughput Advice are not intended to replace usual actions
+   to soften bottlenck issues (e.g., adequate network dimensioning and
+   upgrades).  However, given that such actions may not be always
+   immediately possible or economically justified, Throughput Advices
+   can be considered as complementary mitigations to soften these issues
+   by introducing some collaboration between a host and its networks to
+   adjust their behaviors.
+
+2.2.  Provisionning Policies
+
+   Throughput Advice senders should be configured with instructions
+   about the type of network rate-limit policies to be shared with
+   requesting hosts.  These types can be provided using mechanisms such
+   as [I-D.ietf-opsawg-ntw-attachment-circuit].
+
+2.3.  Redundant vs. Useful Signal
+
+   In contexts where the bitrate policies are known during the
+   establishment of the underlying bearer (e.g., GBR PDU Sessions),
+   sending Throughput Advice over the AC may be redundant and should
+   thus be disabled.
+
+   In contexts where the (average) bitrate policies provided during the
+   establishment of a bearer cannot be refreshed to echo network-
+   specific conditions (e.g., overload) using bearer-specific
+   mechanisms, sending Throughput Advices over the AC would allow
+   control the load at the source.
+
+   When both bearer-specific policies and Throughput Advices are
+   communicated to a host, the Throughput Advices takes precedence.
+
+2.4.  Fairness
+
+   Rate-limit policies enforced at the network are assumed to be
+   consistent with the local jurisdictions.  For example:
+
+   *  [BEREC] states that ISPs are prohibited from blocking or slowing
+      down of Internet traffic, except for legal reasons, network
+      security, or congestion, provided that equivalent categories of
+      traffic are treated equally.
+
+   *  [FCC] states that net neutrality policies "prohibits internet
+      service providers from blocking, throttling, or engaging in paid
+      prioritization of lawful content".  The FCC allows some
+      exceptions, like for security and emergencies.
+
+   These regulatory frameworks align with the goals of this document.
+
+2.5.  Architectural Considerations Matter
+
+   Approaches based on middleboxes are generally not recommended due to
+   their inherent limitations, in terms of performance, scalability,
+   redundancy, etc.  Specifically, if the management and operation of
+   such middleboxes remain unclear, that motivate operational issues and
+   responsibilities.  Furthermore, it is important to note that any
+   middlebox could not necessarily cover an entire service end-to-end,
+   thus *producing only partial observations which could not be
+   sufficiently good at the time of generating appropriate signals*.
+
+2.6.  Service Considerations: Application Diversity & Realistic
+      Assessment
+
+   Signals could be generated for multiple services and/or applications.
+   For instance, services providing short video content might require
+   signals different to those based on long videos.  This implies the
+   need of defining a generic method suitable for any kind of service
+   and application, avoiding the multiplicity of solutions and the
+   dominance of some applications over others.
+
+   It should be also noted that more experimentation is needed in order
+   to fully understand the implications of the signals in the overall
+   performance of the network.  On one hand, the co-existence of
+   multiple flows, some of them using the signals for improving the
+   experience, some others not.  For this, more experimentation and
+   datasets are required, so then can be clear that no flows are
+   negatively impacted at all.
+
+   On the other hand, if the experience of the flows improves and
+   depending on the nature of the signals themselves, this might
+   motivate a more intense usage of the network, then requiring to
+   accommodate larger number of flows, and in consequence, reducing the
+   available resources per application.  This kind of paradox can be
+   *assessed with more experimental results under realistic conditions
+   (i.e., multiple users and multiple services in the network)*.
+
+2.7.  Operational Guidance for Signal Enforcement
+
+   Signals are conceived as indications from the network towards
+   applications.  It is not clear the way of enforcing the application
+   to follow the indication, especially in a context where different
+   applications from a user, or multiple users, simultaneously access
+   the network.  This can motivate a wastage of resources for generating
+   signals with the risk of not being effective.  Furthermore, it might
+   lead to a continuous loop of signal generation because the initial
+   signals being ignored.  It is then necessary to define mechanisms to
+   avoid permanent signal generation when ignored.
+
+   Finally, signals could not be required at every moment, but only in
+   situations that can benefit the service.  Such situations could be
+   due, for instance, to given levels of congestion, or based on
+   previous information shared by the application (e.g., SLO thresholds)
+   so that signals can be triggered according to service conditions.
+   *Elaborating more operational guidance on intended signal enforcment
+   policy is key*.
+
+2.8.  Signal Estimation
+
+   The validity of the estimation produced by a network might be
+   questioned by the application.  Trust is required in a way that
+   applications can safely follow guidance from a network.  Furthermore,
+   whatever estimation should be timely produced, avoiding the
+   generation of aged estimations that could not correspond to the
+   actual service circumstances.  Finally, some common guidance is
+   necessary to define a standard way of generating signals, for
+   instance, per-flow or per group of flows.
+
+   An open point is how to deal with adaptive applications, in the sense
+   that signals could not be of value because the self-adaptation nature
+   of these applications.
+
+2.9.  Signal "Interference"
+
+   The network is built on multiple layers.  In some cases, different
+   solutions targeting similar objectives (e.g., congestion control or
+   bottleneck mitigation) can be in place.  It is then necessary to
+   *assess the simultaneous coexistence of these solutions to avoid
+   contradictory effects or "interferences"*.
+
+3.  Deployment Incentives
+
+3.1.  Networks
+
+   There are a set of tradeoffs for networks to deploy Throughput Advice
+   discovery:
+
+   *  Cost vs. benefit
+
+   *  Impact on operations vs incentive to deploy
+
+   *  Enhanced experience vs. impacts on nominal mode
+
+   The procedure defined in the document provides a mechanism to assist
+   networks managing the load at the source and, thus, contribute to
+   better handle network overloads and optimize the use of resources
+   under non nominal conditions.  The mechanism also allows to enhance
+   the quality of experience at the LAN by providing a simple tool to
+   communicate local policies to hosts.  A minimal change is required to
+   that aim.
+
+   With the OS support, the following benefits might be considered by
+   networks:
+
+   Improved Network Performance:  The OS can schedule network requests
+      more efficiently, preventing network congestion, and improving
+      overall stability and network performance with Throughput Advices.
+
+   Cost Efficiency:  By managing network usage based on known rate
+      limits, the OS can help reduce network-related costs.  However,
+      this is difficult to assess.
+
+   Networks that throttle bandwidth for reasons that are not compliant
+   with local jurisdictions, not communicated to customers, etc. are
+   unlikely to share Throughput Advices.  If these signals are shared,
+   it is unlikely that they will mirror the actual network configuration
+   (e.g., application-specific policies).
+
+3.2.  Applications
+
+   Some applications support some forms of bandwidth measurements (e.g.,
+   [app-measurement]) which feed how the content is accessed to using
+   ABR.  Complementing or replacing these measurements with explicit
+   signals depends upon:
+
+   *  The extra cost that is required to support both mechanisms at the
+      application layer.
+
+   *  The complexity balance between performing the measurements vs.
+      consuming the signal.
+
+   *  Whether the measurements ("assessed property" per [RFC9473])
+      reflect actual network conditions or severely diverge.
+
+   *  The availability of the network signals at the first place: it is
+      unlikely that all networks will support sending the signals.
+      Deployment incentives at the network may vary.
+
+   *  The host support may be variable.
+
+   Applications that don't support (embedded) bandwidth measurement
+   schemes will be enriched with the Throughput Advices as this will be
+   exposed by an OS API.
+
+3.3.  Host OS
+
+   API to facilitate Application Development:  An OS can provide more
+      accurate available bandwidth to applications through the API (as
+      mentioned in Section 3.2), making implementation easier for
+      applications that don't requrie dedicated bandwidth measurement.
+
+   Prevent Abuse:  The OS can allocate network resources more fairly
+      among different processes, with Throughput Advices, ensuring that
+      no single process monopolizes the network.
+
+   Better Resource Management:  OS can also optimize resource
+      allocation, by deprioritizing background/inactive applications in
+      the event of high network utilization.
+
+   Enhanced Security:  Awareness of Throughput Advices can help the OS
+      detect and mitigate network-related security threats, such as
+      denial-of-service (DoS) attacks.
+
+   Improved User Experience:  By avoiding network congestion and
+      ensuring fair resource allocation, the OS can provide a smoother,
+      more responsive user experience.
+
+   Improved Application Development Efficiency:  OS providing rate
+      limits through an API (as mentioned in Section 3.2) can provide
+      the above listed benefits at per application level.
+
+4.  Security Considerations
+
+   TBC.
+
+5.  IANA Considerations
+
+   This document does not make any IANA request.
+
+6.  References
+
+6.1.  Normative References
+
+   [I-D.brw-scone-throughput-advice-blob]
+              Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S., and
+              L. M. Contreras, "Throughput Advice Object for SCONE",
+              Work in Progress, Internet-Draft, draft-brw-scone-
+              throughput-advice-blob-02, 13 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-brw-scone-
+              throughput-advice-blob-02>.
+
+6.2.  Informative References
+
+   [app-measurement]
+              Gurel, Z. and A. C. Begen, "Bandwidth measurement for
+              QUIC", 2024, <https://datatracker.ietf.org/doc/slides-119-
+              moq-bandwidth-measurement-for-quic/>.
+
+   [BEREC]    BEREC, "All you need to know about Net Neutrality rules in
+              the EU", <https://www.berec.europa.eu/en/all-you-need-to-
+              know-about-net-neutrality-rules-in-the-eu-0>.
+
+   [FCC]      FCC, "FCC Restores Net Neutrality",
+              <https://www.fcc.gov/document/fcc-restores-net-neutrality-
+              0>.
+
+   [I-D.ietf-opsawg-ntw-attachment-circuit]
+              Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
+              and B. Wu, "A Network YANG Data Model for Attachment
+              Circuits", Work in Progress, Internet-Draft, draft-ietf-
+              opsawg-ntw-attachment-circuit-14, 7 November 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
+              ntw-attachment-circuit-14>.
+
+   [I-D.ietf-teas-5g-ns-ip-mpls]
+              Szarkowicz, K. G., Roberts, R., Lucek, J., Boucadair, M.,
+              and L. M. Contreras, "A Realization of Network Slices for
+              5G Networks Using Current IP/MPLS Technologies", Work in
+              Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
+              13, 11 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
+              ns-ip-mpls-13>.
+
+   [IANA-BOOTP]
+              IANA, "BOOTP Vendor Extensions and DHCP Options",
+              <https://www.iana.org/assignments/bootp-dhcp-parameters/>.
+
+   [IANA-ND]  IANA, "IPv6 Neighbor Discovery Option Formats",
+              <https://www.iana.org/assignments/icmpv6-parameters/>.
+
+   [IANA-PVD] IANA, "Provisioning Domains (PvDs)",
+              <https://www.iana.org/assignments/pvds/>.
+
+   [RFC9330]  Briscoe, B., Ed., De Schepper, K., Bagnulo, M., and G.
+              White, "Low Latency, Low Loss, and Scalable Throughput
+              (L4S) Internet Service: Architecture", RFC 9330,
+              DOI 10.17487/RFC9330, January 2023,
+              <https://www.rfc-editor.org/rfc/rfc9330>.
+
+   [RFC9473]  Enghardt, R. and C. Krähenbühl, "A Vocabulary of Path
+              Properties", RFC 9473, DOI 10.17487/RFC9473, September
+              2023, <https://www.rfc-editor.org/rfc/rfc9473>.
+
+   [RFC9543]  Farrel, A., Ed., Drake, J., Ed., Rokui, R., Homma, S.,
+              Makhijani, K., Contreras, L., and J. Tantsura, "A
+              Framework for Network Slices in Networks Built from IETF
+              Technologies", RFC 9543, DOI 10.17487/RFC9543, March 2024,
+              <https://www.rfc-editor.org/rfc/rfc9543>.
+
+   [TR-470]   BBF, "5G Wireless Wireline Convergence Architecture -
+              Issue 2",
+              <https://www.broadband-forum.org/pdfs/tr-470-2-0-0.pdf>.
+
+   [TS-23.501]
+              3GPP, "TS 23.501: System architecture for the 5G System
+              (5GS)", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3144>.
+
+   [TS-23.503]
+              3GPP, "TS 23.503: Policy and charging control framework
+              for the 5G System (5GS)", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3334>.
+
+   [TS-24.008]
+              3GPP, "Technical Specification Group Core Network and
+              Terminals; Mobile radio interface Layer 3 specification;
+              Core network protocols; Stage 3 (Release 18)", 2024,
+              <https://www.3gpp.org/DynaReport/24008.htm>.
+
+   [TS-29.522]
+              3GPP, "TS 29.522: 5G System; Network Exposure Function
+              Northbound APIs", 2024,
+              <https://portal.3gpp.org/desktopmodules/Specifications/
+              SpecificationDetails.aspx?specificationId=3437>.
+
+Appendix A.  Alternative/Complementary Mechanisms
+
+   In the event of bottlenecks in a network, there are other mechanisms
+   that provide information or help to reserve resources.  These can be
+   used within the bottleneck network or, in some cases, across network
+   boundaries.  The following sections give examples of such mechanisms
+   and provide background information.
+
+A.1.  L4S
+
+   Low Latency, Low Loss, and Scalable Throughput (L4S) is an
+   architecture defined in [RFC9330] to avoid queuing at bottlenecks by
+   capacity-seeking congestion controllers of senders.  L4S support
+   addresses the investigated use case of this document, which considers
+   rate limiting, which typically involves queuing discipline at the
+   rate limiting bottleneck.  If all involved elements (UE, network, and
+   service) support L4S, the use of Explicit Congestion Notification
+   (ECN) provides the measure used to inform the network protocol and/or
+   service endpoints in use of impending congestion.  Congestion
+   detection and reaction may require a few RTTs to adjust to the
+   network forwarding conditions.
+
+   As of 3GPP Rel. 18 (5G Advanced, [TS-23.501]), L4S is also defined
+   for the 5G system (5GS) and can be used by UE and its services, and
+   for external parties of the 5GS by exposure of congestion
+   information.
+
+A.2.  Network Slicing
+
+   One measure for guaranteeing resources in networks is network
+   slicing.  This is achieved by configuring certain resources like
+   adequate QoS setup for communication streams, which are taken into
+   account in packet schedulers along the transport path. e.g., the RAN
+   air interface.
+
+   Network slicing is considered by 3GPP for 5G [TS-23.501] (an
+   equivalent can be achieved in 4G by configuring QFI values), by IETF
+   [RFC9543] for transport networks, and by BBF [TR-470] for wireline
+   access.  A realization model in transport networks is detailed in
+   [I-D.ietf-teas-5g-ns-ip-mpls].
+
+   L4S Appendix A.1 can be used for the realization of a network slice.
+   Network slices properties (e.g., throughput) can be retrieved from an
+   operator network or configured by third parties via a network API
+   Appendix A.4 (e.g., 3GPP NEF).
+
+A.3.  3GPP UE Route Selection Policy
+
+   UE Route Selection Policy (URSP) is a feature specified in 3GPP to
+   match and forward traffic based upon a selection descriptor and a
+   route descriptor as further detailed in [TS-23.503].
+
+   Specified traffic descriptors may be:
+
+   *  Application
+
+   *  IP
+
+   *  Domain
+
+   *  Non-IP
+
+   *  DNN
+
+   *  Connection Capabilities
+
+   *  Connectivity Group ID
+
+   Specified route selection descriptors: must contain PDU Session Type
+   Selection (e.g., IPv4v6 or IPv6) and may contain the following:
+
+   *  SSC Mode
+
+   *  Network Slice
+
+   *  DNN
+
+   *  Non-Seamless Offload indication
+
+   *  Access Type preference
+
+   URSP rules that contain both descriptors can be announced from the
+   provider network to a UE or preconfigured in the UE, possibly
+   subscription-based.  These rules can be used to identify services in
+   the UE and to provide routes with explicit characteristics.  URSP
+   rules might also be triggered by the usage of network APIs
+   Appendix A.4 and combined with network slicing Appendix A.2, for
+   example.
+
+A.4.  Network APIs
+
+   Network APIs are the interface between the operator network and
+   third-party providers.  With 4G, the first methods were introduced to
+   make network capabilities available, which has been greatly improved
+   with the introduction of 5G.  To this end, the new Network Exposure
+   Function (NEF) is responsible for 5G, which is specified in
+   [TS-29.522], which defines a huge list of network capabilites for
+   monitoring and configuration for external consumption.
+
+   For integration into external services, initiatives such as the
+   CAMARA Alliance and GSMA Open Gateway provide abstractions of these
+   exposed network capabilities into service APIs for easy integration
+   by developers.
+
+   The CAMARA API "Network Slice Booking", which is currently under
+   development, would be a way for a service provider to configure the
+   necessary resources in the operator network.  In the background, 5G
+   features such as network slicing Appendix A.2 , URSP Appendix A.3
+   and, if necessary, L4S Appendix A.1 could then ensure implementation
+   in the operator network.
+
+Acknowledgments
+
+   TBC.
+
+Authors' Addresses
+
+   Mohamed Boucadair
+   Orange
+   Email: mohamed.boucadair@orange.com
+
+
+   Dan Wing
+   Cloud Software Group Holdings, Inc.
+   United States of America
+   Email: danwing@gmail.com
+
+
+   Tirumaleswar Reddy
+   Nokia
+   India
+   Email: kondtir@gmail.com
+
+
+   Sridharan Rajagopalan
+   Cloud Software Group Holdings, Inc.
+   United States of America
+   Email: sridharan.girish@gmail.com
+
+
+   Gyan Mishra
+   Verizon Inc
+   United States of America
+   Email: gyan.s.mishra@verizon.com
+
+
+   Markus Amend
+   Deutsche Telekom
+   Germany
+   Email: markus.amend@telekom.de
+
+
+   Luis M. Contreras
+   Telefonica
+   Spain
+   Email: luismiguel.contrerasmurillo@telefonica.com
