@@ -153,31 +153,15 @@ This document uses the terms defined in {{!I-D.brw-scone-throughput-advice-blob}
 
 The following common fields are present in all NRLP options:
 
-## Optional Parameter Flags (OPF)
+##  Instance Flags (IF)
 
-The format of this 4-bit flags is shown in {{opt-format-opf}}. This field indicates the presence of some optional inforamtion in the option.
-
-~~~~
- 0 1 2 3
-+-+-+-+-+
-|U|U|P|E|
-+-+-+-+-+
-~~~~
-{: #opt-format-opf title="Optional Parameter Flags Field" artwork-align="center"}
-
-See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}} for the meaning of the P/E flags.
-
-U are unassigned bits. These bits MUST be set to zero by senders and MUST be ignored by receivers.
-
-##  Flow flags (FF)
-
-The format of this 6-bit flags is shown in {{opt-format-ff}}. This field is used to express some generic properties of the flow.
+The format of this 8-bit flags is shown in {{opt-format-ff}}. This field is used to express some generic properties of the advice.
 
 ~~~~
- 0 1 2 3 4 5
-+-+-+-+-+-+-+
-|U|R|R|D|D|S|
-+-+-+-+-+-+-+
+ 0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+
+|U|U|U|R|R|D|D|S|
++-+-+-+-+-+-+-+-+
 ~~~~
 {: #opt-format-ff title="Flow flags Field" artwork-align="center"}
 
@@ -200,18 +184,6 @@ Committed Burst Size (CBS) (bytes):
 : See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}.
 : This is a mandatory parameter.
 
-Excess Information Rate (EIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Excess Burst Size (EBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Information Rate (PIR) (Mbps):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
-Peak Burst Size (PBS) (bytes):
-: See {{Section 5 of !I-D.brw-scone-throughput-advice-blob}}. This is an optional field.
-
 # IPv6 RA NRLP Option {#sec-nd}
 
 ## Option Format {#sec-ndf}
@@ -223,39 +195,16 @@ MSB                                                          LSB
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |  OPF  |     FF    |    TC     |
+|     Type      |     Length    | Instance Flags|    TC         |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Committed Information Rate (CIR)               |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                  Committed Burst Size (CBS)                   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ~~~~
-{: #opt-m-format title="NRLP Option Format with Mandatory Fields" artwork-align="center"}
+{: #opt-m-format title="NRLP Option Format" artwork-align="center"}
 
-The format of the IPv6 RA NRLP option, with optional fields included, is illustrated in {{opt-m-format}}.
-
-~~~~
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     Type      |     Length    |  OPF  |     FF    |    TC     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                Committed Information Rate (CIR)               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Committed Burst Size (CBS)                   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               Excess Information Rate (EIR) (Optional)        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Excess Burst Size (EBS) (Optional)           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|               Peak Information Rate (PIR) (Optional)          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                  Peak Burst Size (PBS) (Optional)             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-~~~~
-{: #opt-format title="NRLP Option Format with Optional Fields" artwork-align="center"}
-
-The fields of the option shown in {{opt-format}} are as follows:
+The fields of the option shown in {{opt-m-format} are as follows:
 
 Type:
 : 8-bit identifier of the NRLP option as assigned by IANA (TBD1) (see {{sec-iana-ra}}).
@@ -332,7 +281,7 @@ NRLP Instance Data:
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |   NRLP Instance Data Length   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  OPF  |     FF    |    TC     |
+|Instance Flags |      TC       |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Committed Information Rate   |
 |              (CIR)            |
@@ -343,38 +292,7 @@ NRLP Instance Data:
 ~~~~
 {: #nrlp-m-format title="NRLP Instance Data Format with Mandatory Fields" artwork-align="center"}
 
-The format of this field, with optional parameters included, is shown in {{nrlp-m-format}}.
-
-~~~~
- 0                   1
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   NRLP Instance Data Length   |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  OPF  |     FF    |    TC     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Committed Information Rate   |
-|              (CIR)            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Committed Burst Size (CBS)   |
-|                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
-|  Excess Information Rate      |  |
-|             (EIR)             |  O
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  P
-|    Excess Burst Size (CBS)    |  T
-|                               |  I
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  O
-|    Peak Information Rate      |  N
-|             (PIR)             |  A
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  L
-|      Peak Burst Size (PBS)    |  |
-|                               |  |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ ---
-~~~~
-{: #nrlp-format title="NRLP Instance Data Format with Optional Fields Included" artwork-align="center"}
-
-The fields shown in {{nrlp-format}} are as follows:
+The fields shown in {{nrlp-m-format}} are as follows:
 
 NRLP Instance Data Length:
 : Length of all following data in octets. This field is set to '8' when only the nominal bitrate is provided for an NLRP instance.
@@ -535,10 +453,6 @@ The initial contents of this registry are provided in {{iana-pvd-initial}}.
 |tc|Specifies a traffic category to which this policy applies|Integer|0|This-Document|
 |cir|Committed Information Rate (CIR)|Integer|50|This-Document|
 |cbs|Committed Burst Size (CBS)|Integer|10000|This-Document|
-|eir|Excess Information Rate (EIR)|Integer|30|This-Document|
-|ebs|Excess  Burst Size (EBS)|Integer|5000|This-Document|
-|pir|Peak Information Rate (PIR)|Integer|70|This-Document|
-|pbs|Peak  Burst Size (PBS)|Integer|20000|This-Document|
 {: #iana-pvd-initial title="Initial PvD Network Rate-Limit Policies (NRLPs) Registry Content"}
 
 Assignments must not be added directly to the "PvD Network Rate-Limit Policies (NRLPs)" registry.
