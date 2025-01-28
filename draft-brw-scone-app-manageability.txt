@@ -5,7 +5,7 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Standards Track                                 D. Wing
-Expires: 19 June 2025                               Cloud Software Group
+Expires: 1 August 2025                              Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
@@ -16,7 +16,7 @@ Expires: 19 June 2025                               Cloud Software Group
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                        16 December 2024
+                                                         28 January 2025
 
 
                   SCONE Applicability & Manageability
@@ -48,11 +48,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 June 2025.
+   This Internet-Draft will expire on 1 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -382,18 +382,18 @@ Table of Contents
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-14, 7 November 2024,
+              opsawg-ntw-attachment-circuit-16, 23 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-14>.
+              ntw-attachment-circuit-16>.
 
    [I-D.ietf-teas-5g-ns-ip-mpls]
               Szarkowicz, K. G., Roberts, R., Lucek, J., Boucadair, M.,
               and L. M. Contreras, "A Realization of Network Slices for
               5G Networks Using Current IP/MPLS Technologies", Work in
               Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
-              13, 11 October 2024,
+              15, 22 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
-              ns-ip-mpls-13>.
+              ns-ip-mpls-15>.
 
    [IANA-BOOTP]
               IANA, "BOOTP Vendor Extensions and DHCP Options",

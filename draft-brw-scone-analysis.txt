@@ -5,14 +5,14 @@
 scone                                                       M. Boucadair
 Internet-Draft                                                    Orange
 Intended status: Informational                                   D. Wing
-Expires: 19 June 2025                               Cloud Software Group
+Expires: 1 August 2025                              Cloud Software Group
                                                                 T. Reddy
                                                                    Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                        16 December 2024
+                                                         28 January 2025
 
 
                         SCONE Solution Analysis
@@ -45,11 +45,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 June 2025.
+   This Internet-Draft will expire on 1 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -659,9 +659,9 @@ Table of Contents
               Boucadair, M., Wing, D., Reddy.K, T., Rajagopalan, S.,
               Mishra, G. S., Amend, M., and L. M. Contreras, "Discovery
               of Network Rate-Limit Policies (NRLPs)", Work in Progress,
-              Internet-Draft, draft-brw-scone-rate-policy-discovery-01,
-              5 December 2024, <https://datatracker.ietf.org/doc/html/
-              draft-brw-scone-rate-policy-discovery-01>.
+              Internet-Draft, draft-brw-scone-rate-policy-discovery-02,
+              16 December 2024, <https://datatracker.ietf.org/doc/html/
+              draft-brw-scone-rate-policy-discovery-02>.
 
    [I-D.ihlar-scone-masque-mediabitrate]
               Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
@@ -691,9 +691,9 @@ Table of Contents
               Boucadair, M., Roberts, R., de Dios, O. G., Barguil, S.,
               and B. Wu, "A Network YANG Data Model for Attachment
               Circuits", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ntw-attachment-circuit-14, 7 November 2024,
+              opsawg-ntw-attachment-circuit-16, 23 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ntw-attachment-circuit-14>.
+              ntw-attachment-circuit-16>.
 
    [I-D.narten-radir-problem-statement]
               Narten, T., "On the Scalability of Internet Routing", Work
