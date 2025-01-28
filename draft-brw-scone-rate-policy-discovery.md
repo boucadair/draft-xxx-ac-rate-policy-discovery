@@ -17,10 +17,6 @@ keyword:
 
 author:
  -
-    fullname: Mohamed Boucadair
-    organization: Orange
-    email: mohamed.boucadair@orange.com
- -
     fullname: Dan Wing
     organization: Cloud Software Group Holdings, Inc.
     abbrev: Cloud Software Group
@@ -48,7 +44,6 @@ author:
     org: Deutsche Telekom
     country: Germany
     email: markus.amend@telekom.de
-
  -
     ins: L. Contreras
     name: Luis M. Contreras
