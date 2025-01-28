@@ -2,12 +2,10 @@
 
 
 
-scone                                                       M. Boucadair
-Internet-Draft                                                    Orange
-Intended status: Informational                                   D. Wing
-Expires: 1 August 2025                              Cloud Software Group
-                                                                T. Reddy
-                                                                   Nokia
+scone                                                            D. Wing
+Internet-Draft                                      Cloud Software Group
+Intended status: Informational                                  T. Reddy
+Expires: 1 August 2025                                             Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
@@ -723,11 +721,6 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9445>.
 
 Authors' Addresses
-
-   Mohamed Boucadair
-   Orange
-   Email: mohamed.boucadair@orange.com
-
 
    Dan Wing
    Cloud Software Group Holdings, Inc.
