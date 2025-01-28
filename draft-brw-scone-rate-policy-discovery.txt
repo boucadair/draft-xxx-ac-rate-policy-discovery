@@ -2,12 +2,10 @@
 
 
 
-scone                                                       M. Boucadair
-Internet-Draft                                                    Orange
-Intended status: Standards Track                                 D. Wing
-Expires: 1 August 2025                              Cloud Software Group
-                                                                T. Reddy
-                                                                   Nokia
+scone                                                            D. Wing
+Internet-Draft                                      Cloud Software Group
+Intended status: Standards Track                                T. Reddy
+Expires: 1 August 2025                                             Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
@@ -790,11 +788,6 @@ Acknowledgments
    Thanks to Tommy Pauly for the comment on PvD.
 
 Authors' Addresses
-
-   Mohamed Boucadair
-   Orange
-   Email: mohamed.boucadair@orange.com
-
 
    Dan Wing
    Cloud Software Group Holdings, Inc.
