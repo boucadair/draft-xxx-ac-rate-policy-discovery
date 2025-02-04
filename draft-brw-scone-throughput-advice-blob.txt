@@ -5,12 +5,12 @@
 scone                                                            D. Wing
 Internet-Draft                                      Cloud Software Group
 Intended status: Standards Track                                T. Reddy
-Expires: 1 August 2025                                             Nokia
+Expires: 8 August 2025                                             Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                         28 January 2025
+                                                         4 February 2025
 
 
                    Throughput Advice Object for SCONE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
@@ -648,9 +648,9 @@ Table of Contents
               and L. M. Contreras, "A Realization of Network Slices for
               5G Networks Using Current IP/MPLS Technologies", Work in
               Progress, Internet-Draft, draft-ietf-teas-5g-ns-ip-mpls-
-              15, 22 January 2025,
+              16, 3 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-5g-
-              ns-ip-mpls-15>.
+              ns-ip-mpls-16>.
 
    [I-D.ietf-tsvwg-nqb]
               White, G., Fossati, T., and R. Geib, "A Non-Queue-Building

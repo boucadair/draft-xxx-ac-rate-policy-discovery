@@ -5,7 +5,7 @@
 scone                                                            D. Wing
 Internet-Draft                                      Cloud Software Group
 Intended status: Standards Track                                T. Reddy
-Expires: 1 August 2025                                             Nokia
+Expires: 8 August 2025                                             Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                                G. Mishra
@@ -14,7 +14,7 @@ Expires: 1 August 2025                                             Nokia
                                                         Deutsche Telekom
                                                             L. Contreras
                                                               Telefonica
-                                                         28 January 2025
+                                                         4 February 2025
 
 
             Discovery of Network Rate-Limit Policies (NRLPs)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
