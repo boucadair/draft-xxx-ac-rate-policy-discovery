@@ -75,16 +75,11 @@ Table of Contents
        3.3.2.  Discussion
        3.3.3.  Main Expected Gains
        3.3.4.  Costs
-     3.4.  SCONE (to be completed by the authors of SCONE)
+     3.4.  TRONE (to be completed by the authors of TRONE)
        3.4.1.  Key Idea
        3.4.2.  Discussion
        3.4.3.  Main Expected Gains
        3.4.4.  Costs
-     3.5.  TRAIN (to be completed by the authors of TRAIN)
-       3.5.1.  Key Idea
-       3.5.2.  Discussion
-       3.5.3.  Main Expected Gains
-       3.5.4.  Costs
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -108,15 +103,10 @@ Table of Contents
 
       See Section 3.3.
 
-   SCONE:  "A new QUIC version for network property communication"
-      [I-D.joras-scone-quic-protocol]
+   TRONE:  "Transparent Rate Optimization for Network Endpoints (TRONE)
+      Protocol" [I-D.thoji-scone-trone-protocol]
 
       See Section 3.4.
-
-   TRAIN:  "Transparent Rate Adaptation Indications for Networks (TRAIN)
-      Protocol" [I-D.thomson-scone-train-protocol]
-
-      See Section 3.5.
 
 2.  Criteria Classification
 
@@ -290,115 +280,115 @@ Table of Contents
 
 3.1.  Summary
 
-        +======================+========+========+=======+=======+
-        |             Criteria | MASQUE |  NRLP  | SCONE | TRAIN |
-        +======================+========+========+=======+=======+
-        |             Protocol |  TBC   |   N    |  TBC  |  TBC  |
-        |         ossification |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |  Zero-trust security |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |              Privacy |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        | Guard against random |  TBC   |   Y    |  TBC  |  TBC  |
-        |  advice injection by |        |        |       |       |
-        |  an on-path attacker |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |      Mobility (guard |  TBC   |   Y    |  TBC  |  TBC  |
-        |     against changing |        |        |       |       |
-        |             5-tuple) |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |       Require guards |  TBC   |   Y    |  TBC  |  TBC  |
-        |    against app abuse |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |         Fate sharing |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        | Atomic configuration |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |         Updatability |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |     Integration with |  TBC   |   Y    |  TBC  |  TBC  |
-        |   network management |        |        |       |       |
-        |                tools |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |   Applicable to QUIC |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |    Applicable to any |  TBC   |   Y    |  TBC  |  TBC  |
-        |          application |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |    Require an OS API |  TBC   | Y/N(p) |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |         Requires PvD |  TBC   | Y(p)/N |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |     Support cascaded |  TBC   |   Y    |  TBC  |  TBC  |
-        |         environments |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |         Path coupled |  TBC   |   Y    |  TBC  |  TBC  |
-        |            signaling |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |       Path decoupled |  TBC   |   Y    |  TBC  |  TBC  |
-        |            signaling |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |    Traffic direction |  TBC   |   Y    |  TBC  |  TBC  |
-        |     (h2n, n2h, both) |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |    Per-host policies |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |       Per-subscriber |  TBC   |   Y    |  TBC  |  TBC  |
-        |             policies |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |           Extendable |  TBC   |   Y    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |   Require data plane |  TBC   |   N    |  TBC  |  TBC  |
-        |       upgrade/change |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |    Require transport |  TBC   |   N    |  TBC  |  TBC  |
-        |   payload inspection |        |        |       |       |
-        |            (network) |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |    Require transport |  TBC   |   N    |  TBC  |  TBC  |
-        |   payload inspection |        |        |       |       |
-        |               (host) |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |         Require flow |  TBC   |   N    |  TBC  |  TBC  |
-        |       inspection and |        |        |       |       |
-        |   tracking (network) |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |     Require steering |  TBC   |   N    |  TBC  |  TBC  |
-        | policies on the host |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        | Depend on the server |  TBC   |   N    |  TBC  |  TBC  |
-        |       to consume the |        |        |       |       |
-        |               signal |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |           Impact the |  TBC   |   N    |  TBC  |  TBC  |
-        |     connection setup |        |        |       |       |
-        |                delay |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        | Require the identity |  TBC   |   N    |  TBC  |  TBC  |
-        | of the target server |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        | Require MTU tweaking |  TBC   |   N    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
-        |    Incur multi-layer |  TBC   |   N    |  TBC  |  TBC  |
-        |           encryption |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |         Incur nested |  TBC   |   N    |  TBC  |  TBC  |
-        |   congestion control |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |       Incur multiple |  TBC   |   N    |  TBC  |  TBC  |
-        |          round-trips |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |           Forwarding |  TBC   |   N    |  TBC  |  TBC  |
-        |    peformance impact |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        |   IP address sharing |  TBC   |   N    |  TBC  |  TBC  |
-        |               issues |        |        |       |       |
-        +----------------------+--------+--------+-------+-------+
-        | Penalizing the proxy |  TBC   |   N    |  TBC  |  TBC  |
-        +----------------------+--------+--------+-------+-------+
+   +==================================+========+========+=======+======+
+   |                         Criteria | MASQUE |  NRLP  | TRONE | Else |
+   +==================================+========+========+=======+======+
+   |                         Protocol |  TBC   |   N    |  TBC  | TBC  |
+   |                     ossification |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |              Zero-trust security |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                          Privacy |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |             Guard against random |  TBC   |   Y    |  TBC  | TBC  |
+   |              advice injection by |        |        |       |      |
+   |              an on-path attacker |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                  Mobility (guard |  TBC   |   Y    |  TBC  | TBC  |
+   |                 against changing |        |        |       |      |
+   |                         5-tuple) |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                   Require guards |  TBC   |   Y    |  TBC  | TBC  |
+   |                against app abuse |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Fate sharing |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |             Atomic configuration |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Updatability |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                 Integration with |  TBC   |   Y    |  TBC  | TBC  |
+   |               network management |        |        |       |      |
+   |                            tools |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |               Applicable to QUIC |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                Applicable to any |  TBC   |   Y    |  TBC  | TBC  |
+   |                      application |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                Require an OS API |  TBC   | Y/N(p) |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Requires PvD |  TBC   | Y(p)/N |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                 Support cascaded |  TBC   |   Y    |  TBC  | TBC  |
+   |                     environments |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Path coupled |  TBC   |   Y    |  TBC  | TBC  |
+   |                        signaling |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                   Path decoupled |  TBC   |   Y    |  TBC  | TBC  |
+   |                        signaling |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                Traffic direction |  TBC   |   Y    |  TBC  | TBC  |
+   |                 (h2n, n2h, both) |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                Per-host policies |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                   Per-subscriber |  TBC   |   Y    |  TBC  | TBC  |
+   |                         policies |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                       Extendable |  TBC   |   Y    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |               Require data plane |  TBC   |   N    |  TBC  | TBC  |
+   |                   upgrade/change |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                Require transport |  TBC   |   N    |  TBC  | TBC  |
+   |               payload inspection |        |        |       |      |
+   |                        (network) |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                Require transport |  TBC   |   N    |  TBC  | TBC  |
+   |               payload inspection |        |        |       |      |
+   |                           (host) |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Require flow |  TBC   |   N    |  TBC  | TBC  |
+   |                   inspection and |        |        |       |      |
+   |               tracking (network) |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                 Require steering |  TBC   |   N    |  TBC  | TBC  |
+   |             policies on the host |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |             Depend on the server |  TBC   |   N    |  TBC  | TBC  |
+   |                   to consume the |        |        |       |      |
+   |                           signal |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                       Impact the |  TBC   |   N    |  TBC  | TBC  |
+   |                 connection setup |        |        |       |      |
+   |                            delay |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |             Require the identity |  TBC   |   N    |  TBC  | TBC  |
+   |             of the target server |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |             Require MTU tweaking |  TBC   |   N    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
+   |                Incur multi-layer |  TBC   |   N    |  TBC  | TBC  |
+   |                       encryption |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                     Incur nested |  TBC   |   N    |  TBC  | TBC  |
+   |               congestion control |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                   Incur multiple |  TBC   |   N    |  TBC  | TBC  |
+   |                      round-trips |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |                       Forwarding |  TBC   |   N    |  TBC  | TBC  |
+   |                peformance impact |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |               IP address sharing |  TBC   |   N    |  TBC  | TBC  |
+   |                           issues |        |        |       |      |
+   +----------------------------------+--------+--------+-------+------+
+   |             Penalizing the proxy |  TBC   |   N    |  TBC  | TBC  |
+   +----------------------------------+--------+--------+-------+------+
 
-                        Table 2: Analysis Summary
+                         Table 2: Analysis Summary
 
       Notes: (p) indicates the assessment when PvD is used as NRLP
       mechanism.
@@ -621,7 +611,7 @@ Table of Contents
       applications (e.g., scutil on MacOS).  No additional API is needed
       if PvD is used.
 
-3.4.  SCONE (to be completed by the authors of SCONE)
+3.4.  TRONE (to be completed by the authors of TRONE)
 
 3.4.1.  Key Idea
 
@@ -630,16 +620,6 @@ Table of Contents
 3.4.3.  Main Expected Gains
 
 3.4.4.  Costs
-
-3.5.  TRAIN (to be completed by the authors of TRAIN)
-
-3.5.1.  Key Idea
-
-3.5.2.  Discussion
-
-3.5.3.  Main Expected Gains
-
-3.5.4.  Costs
 
 4.  Security Considerations
 
@@ -668,20 +648,13 @@ Table of Contents
               2025, <https://datatracker.ietf.org/doc/html/draft-ihlar-
               scone-masque-mediabitrate-02>.
 
-   [I-D.joras-scone-quic-protocol]
-              Joras, M. and L. M. Ihlar, "A new QUIC version for network
-              property communication", Work in Progress, Internet-Draft,
-              draft-joras-scone-quic-protocol-00, 21 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-joras-scone-
-              quic-protocol-00>.
-
-   [I-D.thomson-scone-train-protocol]
-              Thomson, M., Huitema, C., and K. Oku, "Transparent Rate
-              Adaptation Indications for Networks (TRAIN) Protocol",
-              Work in Progress, Internet-Draft, draft-thomson-scone-
-              train-protocol-00, 14 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-thomson-
-              scone-train-protocol-00>.
+   [I-D.thoji-scone-trone-protocol]
+              Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
+              Ihlar, "Transparent Rate Optimization for Network
+              Endpoints (TRONE) Protocol", Work in Progress, Internet-
+              Draft, draft-thoji-scone-trone-protocol-00, 3 March 2025,
+              <https://datatracker.ietf.org/doc/html/draft-thoji-scone-
+              trone-protocol-00>.
 
 6.2.  Informative References
 
