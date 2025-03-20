@@ -5,12 +5,12 @@
 scone                                                            D. Wing
 Internet-Draft                                      Cloud Software Group
 Intended status: Informational                                  T. Reddy
-Expires: 8 August 2025                                             Nokia
+Expires: 21 September 2025                                         Nokia
                                                           S. Rajagopalan
                                                     Cloud Software Group
                                                             L. Contreras
                                                               Telefonica
-                                                         4 February 2025
+                                                           20 March 2025
 
 
                         SCONE Solution Analysis
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2025.
+   This Internet-Draft will expire on 21 September 2025.
 
 Copyright Notice
 
@@ -664,9 +664,9 @@ Table of Contents
    [I-D.ihlar-scone-masque-mediabitrate]
               Ihlar, L. M. and M. Kühlewind, "MASQUE extension for
               signaling throughput advice", Work in Progress, Internet-
-              Draft, draft-ihlar-scone-masque-mediabitrate-01, 21
-              October 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ihlar-scone-masque-mediabitrate-01>.
+              Draft, draft-ihlar-scone-masque-mediabitrate-02, 3 March
+              2025, <https://datatracker.ietf.org/doc/html/draft-ihlar-
+              scone-masque-mediabitrate-02>.
 
    [I-D.joras-scone-quic-protocol]
               Joras, M. and L. M. Ihlar, "A new QUIC version for network
