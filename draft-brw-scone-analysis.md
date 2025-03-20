@@ -68,13 +68,10 @@ NRLP:
 : "Discovery of Network Rate-Limit Policies (NRLPs)" {{!I-D.brw-scone-rate-policy-discovery}}
 : See {{sec-nrlp}}.
 
-SCONE:
-: "A new QUIC version for network property communication" {{!I-D.joras-scone-quic-protocol}}
-: See {{sec-scone}}.
+TRONE:
+: "Transparent Rate Optimization for Network Endpoints (TRONE) Protocol" {{!I-D.thoji-scone-trone-protocol}}
+: See {{sec-trone}}.
 
-TRAIN:
-: "Transparent Rate Adaptation Indications for Networks (TRAIN) Protocol" {{!I-D.thomson-scone-train-protocol}}
-: See {{sec-train}}.
 
 # Criteria Classification {#sec-class}
 
@@ -158,7 +155,7 @@ A criterion may belong to one or more categories.
 
 ## Summary  {#sec-analysis}
 
-| Criteria                                      |MASQUE| NRLP |SCONE |TRAIN |
+| Criteria                                      |MASQUE| NRLP |TRONE |Else |
 |----------------------------------------------:|:----:|:----:|:----:|:----:|
 | Protocol ossification                         |TBC   |  N   |TBC   |  TBC |
 | Zero-trust security                           |TBC   |  Y   |TBC   |  TBC |
@@ -326,17 +323,7 @@ Moreover, NRLP does require any encapsulation or proxy function at the network. 
 * A minor change to the network is required for NRLP RA: upgrade configuration of PE nodes with new Neighbor Discovery option. Note that all IPv6 hosts and networks are already required to support Neighbor Discovery {{?RFC4861}}.
 * An API needs to be exposed on the host to share the advice with applications (e.g., scutil on MacOS). No additional API is needed if PvD is used.
 
-## SCONE  (to be completed by the authors of SCONE) {#sec-scone}
-
-### Key Idea
-
-### Discussion
-
-### Main Expected Gains
-
-### Costs
-
-## TRAIN  (to be completed by the authors of TRAIN) {#sec-train}
+## TRONE  (to be completed by the authors of TRONE) {#sec-trone}
 
 ### Key Idea
 
