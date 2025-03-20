@@ -29,7 +29,7 @@ Let's consider the example of this advice:
 {
     "throughput-advice": [
         {
-            "direction": 0,  <=== network to host direction
+            "direction": 0,  <=== network-to-host direction
             "scope": 0,  <======= per-subscriber policy
             "tc": 0, <=========== applies to any trafic  
             "cir": 50,
